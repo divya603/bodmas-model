@@ -1,0 +1,3 @@
+[submodule "learner-model-synthesis"]
+	path = learner-model-synthesis
+	url = https://github.com/divya603/learner-model-synthesis
