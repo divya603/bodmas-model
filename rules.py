@@ -5,15 +5,33 @@ OPERATORS = {'+', '-', '×', '÷'}
 
 # ── helpers ───────────────────────────────────────────────────────
 
-def _assign_ids(node, counter):
-    """Walk a Node tree and give IDs to any operator/bracket/unary without one."""
-    if node is None:
-        return
-    if (node.is_operator() or node.is_bracket() or node.is_unary()) and node.node_id is None:
-        node.node_id = f'op{counter[0]}'
-        counter[0] += 1
-    for child in node.children:
-        _assign_ids(child, counter)
+def _new_id(counter):
+    op_id = f'op{counter[0]}'
+    counter[0] += 1
+    return op_id
+
+
+def _make_bracket(atoms, op_label, counter):
+    """
+    Wrap two atoms into a bracket: (atoms[0] op_label atoms[1]).
+    Returns the bracket Node with its inner_dag set.
+    """
+    op_node = Node(op_label, children=list(atoms), node_id=_new_id(counter))
+    bracket = Node('()', node_id=_new_id(counter))
+    bracket.inner_dag = FlatDAG(list(atoms), [op_node], counter)
+    return bracket
+
+
+def _wrap_remainder(atoms, ops, counter):
+    """
+    If there is only one atom, return it directly.
+    If there are multiple, wrap them in a new bracket with the given ops.
+    """
+    if len(atoms) == 1:
+        return atoms[0]
+    bracket = Node('()', node_id=_new_id(counter))
+    bracket.inner_dag = FlatDAG(list(atoms), list(ops), counter)
+    return bracket
 
 
 def _stitch(new_ops, i, new_atom):
@@ -61,26 +79,24 @@ def can_distrib_right(dag, op_id):
     if op is None: return False
     right = dag.atoms[i+1]
     if not right.is_bracket(): return False
-    inner = right.child()
-    return inner is not None and inner.is_operator()
+    return right.inner_dag is not None and len(right.inner_dag.ops) >= 1
 
 
 def apply_distrib_right(dag, op_id):
-    """DistribRight[⊗,⊕]: X ⊗ (Y ⊕ Z)  →  (X ⊗ Y) ⊕ (X ⊗ Z)"""
-    i, op    = dag.find_op(op_id)
-    X        = dag.atoms[i]
-    bracket  = dag.atoms[i+1]
-    inner_op = bracket.child()
-    Y        = inner_op.left()
-    Z        = inner_op.right()
-    outer    = op.label
-    inner    = inner_op.label
+    """DistribRight[⊗,⊕]: X ⊗ (Y ⊕ …)  →  (X ⊗ Y) ⊕ (X ⊗ rest)"""
+    i, op      = dag.find_op(op_id)
+    X          = dag.atoms[i]
+    bracket    = dag.atoms[i+1]
+    inner      = bracket.inner_dag
+    inner_op   = inner.ops[0]
+    Y          = inner.atoms[0]
+    Z          = _wrap_remainder(inner.atoms[1:], inner.ops[1:], dag.counter)
+    outer      = op.label
+    inner_lbl  = inner_op.label
 
-    lb          = Node(outer, children=[X, Y])
-    rb          = Node(outer, children=[X, Z])
-    new_inner   = Node(inner, children=[lb, rb])
-    new_bracket = Node('()', children=[new_inner])
-    _assign_ids(new_bracket, dag.counter)
+    lb          = _make_bracket([X, Y], outer, dag.counter)
+    rb          = _make_bracket([X, Z], outer, dag.counter)
+    new_bracket = _make_bracket([lb, rb], inner_lbl, dag.counter)
 
     new_atoms = dag.atoms[:i] + [new_bracket] + dag.atoms[i+2:]
     new_ops   = dag.ops[:i]   + dag.ops[i+1:]
@@ -95,26 +111,24 @@ def can_distrib_left(dag, op_id):
     if op is None: return False
     left = dag.atoms[i]
     if not left.is_bracket(): return False
-    inner = left.child()
-    return inner is not None and inner.is_operator()
+    return left.inner_dag is not None and len(left.inner_dag.ops) >= 1
 
 
 def apply_distrib_left(dag, op_id):
-    """DistribLeft[⊗,⊕]: (Y ⊕ Z) ⊗ X  →  (Y ⊗ X) ⊕ (Z ⊗ X)"""
-    i, op    = dag.find_op(op_id)
-    bracket  = dag.atoms[i]
-    X        = dag.atoms[i+1]
-    inner_op = bracket.child()
-    Y        = inner_op.left()
-    Z        = inner_op.right()
-    outer    = op.label
-    inner    = inner_op.label
+    """DistribLeft[⊗,⊕]: (Y ⊕ …) ⊗ X  →  (Y ⊗ X) ⊕ (rest ⊗ X)"""
+    i, op      = dag.find_op(op_id)
+    bracket    = dag.atoms[i]
+    X          = dag.atoms[i+1]
+    inner      = bracket.inner_dag
+    inner_op   = inner.ops[0]
+    Y          = inner.atoms[0]
+    Z          = _wrap_remainder(inner.atoms[1:], inner.ops[1:], dag.counter)
+    outer      = op.label
+    inner_lbl  = inner_op.label
 
-    lb          = Node(outer, children=[Y, X])
-    rb          = Node(outer, children=[Z, X])
-    new_inner   = Node(inner, children=[lb, rb])
-    new_bracket = Node('()', children=[new_inner])
-    _assign_ids(new_bracket, dag.counter)
+    lb          = _make_bracket([Y, X], outer, dag.counter)
+    rb          = _make_bracket([Z, X], outer, dag.counter)
+    new_bracket = _make_bracket([lb, rb], inner_lbl, dag.counter)
 
     new_atoms = dag.atoms[:i] + [new_bracket] + dag.atoms[i+2:]
     new_ops   = dag.ops[:i]   + dag.ops[i+1:]
@@ -129,20 +143,19 @@ def can_partial_distrib(dag, op_id):
 
 
 def apply_partial_distrib(dag, op_id):
-    """PartialDistrib[⊗,⊕]: X ⊗ (Y ⊕ Z)  →  (X ⊗ Y) ⊕ Z  [MISCONCEPTION]"""
-    i, op    = dag.find_op(op_id)
-    X        = dag.atoms[i]
-    bracket  = dag.atoms[i+1]
-    inner_op = bracket.child()
-    Y        = inner_op.left()
-    Z        = inner_op.right()
-    outer    = op.label
-    inner    = inner_op.label
+    """PartialDistrib[⊗,⊕]: X ⊗ (Y ⊕ …)  →  (X ⊗ Y) ⊕ rest  [MISCONCEPTION]"""
+    i, op      = dag.find_op(op_id)
+    X          = dag.atoms[i]
+    bracket    = dag.atoms[i+1]
+    inner      = bracket.inner_dag
+    inner_op   = inner.ops[0]
+    Y          = inner.atoms[0]
+    Z          = _wrap_remainder(inner.atoms[1:], inner.ops[1:], dag.counter)
+    outer      = op.label
+    inner_lbl  = inner_op.label
 
-    lb          = Node(outer, children=[X, Y])
-    new_inner   = Node(inner, children=[lb, Z])
-    new_bracket = Node('()', children=[new_inner])
-    _assign_ids(new_bracket, dag.counter)
+    lb          = _make_bracket([X, Y], outer, dag.counter)
+    new_bracket = _make_bracket([lb, Z], inner_lbl, dag.counter)
 
     new_atoms = dag.atoms[:i] + [new_bracket] + dag.atoms[i+2:]
     new_ops   = dag.ops[:i]   + dag.ops[i+1:]
@@ -180,27 +193,24 @@ def apply_commute(dag, op_id):
 
 def can_assoc(dag, op_id):
     i, op = dag.find_op(op_id)
-    if op is None:
-        return False
+    if op is None: return False
     left = dag.atoms[i]
-    if not left.is_bracket():
-        return False
-    inner_op = left.child()
-    return inner_op is not None and inner_op.is_operator() and inner_op.label == op.label
+    if not left.is_bracket(): return False
+    inner = left.inner_dag
+    if inner is None or len(inner.ops) != 1: return False
+    return inner.ops[0].label == op.label
 
 
 def apply_assoc(dag, op_id):
     """Assoc[⊕]: (X ⊕ Y) ⊕ Z  →  X ⊕ (Y ⊕ Z)"""
-    i, op    = dag.find_op(op_id)
-    bracket  = dag.atoms[i]
-    inner_op = bracket.child()
-    X = inner_op.left()
-    Y = inner_op.right()
-    Z = dag.atoms[i+1]
+    i, op   = dag.find_op(op_id)
+    bracket = dag.atoms[i]
+    inner   = bracket.inner_dag
+    X       = inner.atoms[0]
+    Y       = inner.atoms[1]
+    Z       = dag.atoms[i+1]
 
-    new_inner   = Node(op.label, children=[Y, Z])
-    new_bracket = Node('()', children=[new_inner])
-    _assign_ids(new_bracket, dag.counter)
+    new_bracket = _make_bracket([Y, Z], op.label, dag.counter)
 
     new_atoms      = list(dag.atoms)
     new_atoms[i]   = X
@@ -218,29 +228,23 @@ def apply_assoc(dag, op_id):
 # ── ParenElim ─────────────────────────────────────────────────────
 
 def can_paren_elim(dag, bracket_id):
-    """Fires on a bracket atom whose inner child is a single number (no inner operator)."""
-    for atom in dag.atoms:
-        if atom.is_bracket() and atom.node_id == bracket_id:
-            inner = atom.child()
-            return inner is not None and inner.is_number()
-    return False
+    """Fires when a bracket's inner dag has no ops (single atom inside)."""
+    _, atom = dag.find_atom(bracket_id)
+    if atom is None or not atom.is_bracket(): return False
+    return atom.inner_dag is not None and not atom.inner_dag.ops
 
 
 def apply_paren_elim(dag, bracket_id):
     """ParenElim: (X) → X"""
-    idx = next(j for j, a in enumerate(dag.atoms)
-               if a.is_bracket() and a.node_id == bracket_id)
-    bracket = dag.atoms[idx]
-    X = bracket.child()
+    idx, bracket = dag.find_atom(bracket_id)
+    X = bracket.inner_dag.atoms[0]
 
     new_atoms      = list(dag.atoms)
     new_atoms[idx] = X
-
     if idx > 0:
         dag.ops[idx-1].children[1] = X
     if idx < len(dag.ops):
         dag.ops[idx].children[0]   = X
-
     return FlatDAG(new_atoms, dag.ops, dag.counter)
 
 
@@ -250,12 +254,12 @@ def apply_paren_elim(dag, bracket_id):
 #
 # Fires on a unary atom whose operator is applied twice in a row.
 # Two structural forms are recognised:
-#   direct : u⊕( u⊕(X) )               e.g.  --3
-#   bracket: u⊕( bracket( u⊕(X) ) )    e.g.  -(−3)
+#   direct : u⊕( u⊕(X) )                         e.g.  --3
+#   bracket: u⊕( bracket with single u⊕(X) )      e.g.  -(−3)
 
 def _double_inner(atom):
     """
-    If atom is u⊕ wrapping another u⊕ (directly or via a bracket),
+    If atom is u⊕ wrapping another u⊕ (directly or via a single-atom bracket),
     return (True, X, op_label).  Otherwise (False, None, None).
     """
     if not atom.is_unary():
@@ -264,19 +268,22 @@ def _double_inner(atom):
     child = atom.child()
     if child is None:
         return False, None, None
-    if child.is_unary() and child.label == op:          # direct: --X
+    # direct: u⊕(u⊕(X))
+    if child.is_unary() and child.label == op:
         return True, child.child(), op
-    if child.is_bracket():                              # bracket: -(−X)
-        inner = child.child()
-        if inner is not None and inner.is_unary() and inner.label == op:
-            return True, inner.child(), op
+    # bracket: u⊕( (u⊕(X)) )
+    if child.is_bracket() and child.inner_dag:
+        inner = child.inner_dag
+        if not inner.ops and len(inner.atoms) == 1:
+            inner_atom = inner.atoms[0]
+            if inner_atom.is_unary() and inner_atom.label == op:
+                return True, inner_atom.child(), op
     return False, None, None
 
 
 def can_drop_double(dag, atom_id):
     _, atom = dag.find_atom(atom_id)
-    if atom is None:
-        return False
+    if atom is None: return False
     ok, _, _ = _double_inner(atom)
     return ok
 
@@ -286,8 +293,7 @@ def apply_drop_double(dag, atom_id):
     idx, atom = dag.find_atom(atom_id)
     _, X, op  = _double_inner(atom)
 
-    new_node = Node(op, children=[X], node_id=f'op{dag.counter[0]}')
-    dag.counter[0] += 1
+    new_node = Node(op, children=[X], node_id=_new_id(dag.counter))
 
     new_atoms      = list(dag.atoms)
     new_atoms[idx] = new_node
@@ -332,50 +338,146 @@ def apply_op_confusion(dag, op_id, target_label):
     return FlatDAG(dag.atoms, dag.ops, dag.counter)
 
 
-# ── available actions ─────────────────────────────────────────────
+# ── Recursive scan ────────────────────────────────────────────────
 
-def available_actions(dag):
+def _scan_atom(atom, actions):
+    """Recurse into a bracket or unary atom to find available actions inside."""
+    if atom.is_bracket() and atom.inner_dag:
+        if not atom.inner_dag.ops:
+            actions.append(('ParenElim', atom.node_id))
+        _scan_flat_dag(atom.inner_dag, actions)
+
+    elif atom.is_unary() and atom.node_id:
+        ok, _, _ = _double_inner(atom)
+        if ok:
+            actions.append(('DropDouble',   atom.node_id))
+            actions.append(('CancelDouble', atom.node_id))
+        if atom.child():
+            _scan_atom(atom.child(), actions)
+
+
+def _scan_flat_dag(dag, actions):
     """
-    Return all (rule_name, op_id[, extra]) tuples where a rule can fire
-    at the top level of the flat DAG.
-    OpConfusion entries carry a third element: the target operator label.
-    ParenElim entries use the bracket's node_id rather than an op_id.
+    Collect every available action in a FlatDAG, recursing into
+    bracket and unary atoms so the whole expression tree is covered.
     """
-    actions = []
+    # ── ops ───────────────────────────────────────────────────────
     for i, op in enumerate(dag.ops):
-        left_atom  = dag.atoms[i]
-        right_atom = dag.atoms[i+1]
+        L = dag.atoms[i]
+        R = dag.atoms[i+1]
 
-        if left_atom.is_number() and right_atom.is_number():
+        if L.is_number() and R.is_number():
             actions.append(('Eval', op.node_id))
 
-        if right_atom.is_bracket():
-            inner = right_atom.child()
-            if inner is not None and inner.is_operator():
-                actions.append(('DistribRight',   op.node_id))
-                actions.append(('PartialDistrib', op.node_id))
+        if R.is_bracket() and R.inner_dag and len(R.inner_dag.ops) >= 1:
+            actions.append(('DistribRight',   op.node_id))
+            actions.append(('PartialDistrib', op.node_id))
 
-        if left_atom.is_bracket():
-            inner = left_atom.child()
-            if inner is not None and inner.is_operator():
-                actions.append(('DistribLeft', op.node_id))
-                if inner.label == op.label:
-                    actions.append(('Assoc', op.node_id))
+        if L.is_bracket() and L.inner_dag and len(L.inner_dag.ops) >= 1:
+            actions.append(('DistribLeft', op.node_id))
+            if len(L.inner_dag.ops) == 1 and L.inner_dag.ops[0].label == op.label:
+                actions.append(('Assoc', op.node_id))
 
         actions.append(('Commute', op.node_id))
 
         for target in sorted(OPERATORS - {op.label}):
             actions.append(('OpConfusion', op.node_id, target))
 
+    # ── atoms — recurse deeper ────────────────────────────────────
     for atom in dag.atoms:
-        if atom.is_bracket() and atom.node_id:
-            inner = atom.child()
-            if inner is not None and inner.is_number():
-                actions.append(('ParenElim', atom.node_id))
-        if atom.is_unary() and atom.node_id:
-            ok, _, _ = _double_inner(atom)
-            if ok:
-                actions.append(('DropDouble',   atom.node_id))
-                actions.append(('CancelDouble', atom.node_id))
+        _scan_atom(atom, actions)
 
+
+# ── apply dispatch ────────────────────────────────────────────────
+
+def _apply_in_dag(dag, node_id, fn):
+    """
+    Find node_id anywhere in the dag (top level or inside brackets),
+    call fn(level_dag, node_id) at the level where it lives, then
+    propagate the change back up. Returns the updated top-level FlatDAG,
+    or None if node_id is not found anywhere.
+    """
+    # found at this level (op or atom)?
+    i, _ = dag.find_op(node_id)
+    if i is not None:
+        return fn(dag, node_id)
+    j, _ = dag.find_atom(node_id)
+    if j is not None:
+        return fn(dag, node_id)
+
+    # recurse into bracket atoms
+    for k, atom in enumerate(dag.atoms):
+        inner_dag = None
+        if atom.is_bracket():
+            inner_dag = atom.inner_dag
+        elif atom.is_unary() and atom.child() and atom.child().is_bracket():
+            inner_dag = atom.child().inner_dag
+
+        if inner_dag is None:
+            continue
+
+        result_inner = _apply_in_dag(inner_dag, node_id, fn)
+        if result_inner is None:
+            continue
+
+        # rebuild the atom with the updated inner dag
+        if atom.is_bracket():
+            new_atom = Node('()', node_id=atom.node_id)
+            new_atom.inner_dag = result_inner
+        else:
+            new_bracket = Node('()', node_id=atom.child().node_id)
+            new_bracket.inner_dag = result_inner
+            new_atom = Node(atom.label, children=[new_bracket], node_id=atom.node_id)
+
+        new_atoms = list(dag.atoms)
+        new_atoms[k] = new_atom
+        if k > 0:
+            dag.ops[k-1].children[1] = new_atom
+        if k < len(dag.ops):
+            dag.ops[k].children[0] = new_atom
+        return FlatDAG(new_atoms, dag.ops, dag.counter)
+
+    return None
+
+
+def apply_action(dag, action):
+    """Apply a single action tuple (as returned by available_actions) to dag."""
+    rule    = action[0]
+    node_id = action[1]
+
+    DISPATCH = {
+        'Eval':           apply_eval,
+        'DistribRight':   apply_distrib_right,
+        'DistribLeft':    apply_distrib_left,
+        'PartialDistrib': apply_partial_distrib,
+        'Commute':        apply_commute,
+        'Assoc':          apply_assoc,
+        'ParenElim':      apply_paren_elim,
+        'DropDouble':     apply_drop_double,
+        'CancelDouble':   apply_cancel_double,
+    }
+
+    if rule == 'OpConfusion':
+        target = action[2]
+        fn = lambda d, nid: apply_op_confusion(d, nid, target)
+    elif rule in DISPATCH:
+        fn = DISPATCH[rule]
+    else:
+        raise ValueError(f"Unknown rule: {rule}")
+
+    result = _apply_in_dag(dag, node_id, fn)
+    if result is None:
+        raise ValueError(f"Node '{node_id}' not found in dag")
+    return result
+
+
+# ── available actions ─────────────────────────────────────────────
+
+def available_actions(dag):
+    """
+    Return all (rule_name, node_id[, extra]) tuples where a rule can fire
+    anywhere in the expression — recursively through all bracket levels.
+    """
+    actions = []
+    _scan_flat_dag(dag, actions)
     return actions

@@ -44,87 +44,64 @@ def tokenize(expression):
     return tokens
 
 
-# ── inside brackets: right-leaning tree ──────────────────────────
+# ── Core parser ───────────────────────────────────────────────────
 
-def _parse_inner_expr(tokens, pos, counter):
-    left, pos = _parse_inner_atom(tokens, pos, counter)
-    if pos < len(tokens) and tokens[pos] in OPERATORS:
-        op_label = tokens[pos]
-        op_id    = f'op{counter[0]}'
-        counter[0] += 1
-        pos += 1
-        right, pos = _parse_inner_expr(tokens, pos, counter)
-        return Node(op_label, children=[left, right], node_id=op_id), pos
-    return left, pos
-
-
-def _parse_inner_atom(tokens, pos, counter):
-    tok = tokens[pos]
-    if tok in ('u-', 'u+'):
-        op_id = f'op{counter[0]}'
-        counter[0] += 1
-        inner, pos = _parse_inner_atom(tokens, pos + 1, counter)
-        return Node(tok, children=[inner], node_id=op_id), pos
-    if tok == '(':
-        op_id = f'op{counter[0]}'
-        counter[0] += 1
-        pos += 1
-        inner, pos = _parse_inner_expr(tokens, pos, counter)
-        if pos >= len(tokens) or tokens[pos] != ')':
-            raise ValueError("Expected ')'")
-        pos += 1
-        return Node('()', children=[inner], node_id=op_id), pos
-    return Node(tok), pos + 1
-
-
-# ── top level: flat atom/operator sequence ────────────────────────
-
-def _parse_top_atom(tokens, pos, counter):
-    """Parse one atom at the top level: number, bracket, or unary-prefix node."""
-    tok = tokens[pos]
-    if tok in ('u-', 'u+'):
-        op_id = f'op{counter[0]}'
-        counter[0] += 1
-        inner, pos = _parse_top_atom(tokens, pos + 1, counter)
-        return Node(tok, children=[inner], node_id=op_id), pos
-    if tok == '(':
-        op_id = f'op{counter[0]}'
-        counter[0] += 1
-        pos += 1
-        inner, pos = _parse_inner_expr(tokens, pos, counter)
-        if pos >= len(tokens) or tokens[pos] != ')':
-            raise ValueError("Expected ')'")
-        pos += 1
-        return Node('()', children=[inner], node_id=op_id), pos
-    return Node(tok), pos + 1
-
-
-def build_dag(expression):
+def _parse_flat(tokens, pos, counter):
     """
-    Parse expression into a canonical FlatDAG.
+    Parse a flat atom/op sequence up to ')' or end of tokens.
+    Returns (FlatDAG, new_pos).
 
-    Atoms between adjacent operators are the SAME Python object in both
-    operator nodes — this is the shared-node (true DAG) representation.
+    This is the single parsing routine used at every level — top level
+    and inside brackets — so the flat-DAG structure is uniform throughout.
     """
-    tokens    = tokenize(expression)
-    counter   = [1]
     atoms     = []
     op_labels = []
 
-    pos = 0
-    while pos < len(tokens):
-        atom, pos = _parse_top_atom(tokens, pos, counter)
+    while pos < len(tokens) and tokens[pos] != ')':
+        atom, pos = _parse_atom(tokens, pos, counter)
         atoms.append(atom)
         if pos < len(tokens) and tokens[pos] in OPERATORS:
             op_labels.append(tokens[pos])
             pos += 1
 
-    # atoms[i] is literally the same object in ops[i-1].right and ops[i].left
+    # Build op nodes; adjacent atoms share the same Python object.
     op_nodes = []
     for i, label in enumerate(op_labels):
-        op_id   = f'op{counter[0]}'
+        op_id = f'op{counter[0]}'
         counter[0] += 1
-        op_node = Node(label, children=[atoms[i], atoms[i+1]], node_id=op_id)
-        op_nodes.append(op_node)
+        op_nodes.append(Node(label, children=[atoms[i], atoms[i+1]], node_id=op_id))
 
-    return FlatDAG(atoms, op_nodes, counter)
+    return FlatDAG(atoms, op_nodes, counter), pos
+
+
+def _parse_atom(tokens, pos, counter):
+    """Parse one atom: number, bracket (→ inner FlatDAG), or unary-prefix node."""
+    tok = tokens[pos]
+
+    if tok in ('u-', 'u+'):
+        op_id = f'op{counter[0]}'
+        counter[0] += 1
+        inner, pos = _parse_atom(tokens, pos + 1, counter)
+        return Node(tok, children=[inner], node_id=op_id), pos
+
+    if tok == '(':
+        op_id = f'op{counter[0]}'
+        counter[0] += 1
+        pos += 1
+        inner_dag, pos = _parse_flat(tokens, pos, counter)
+        if pos >= len(tokens) or tokens[pos] != ')':
+            raise ValueError("Expected ')'")
+        pos += 1
+        bracket = Node('()', node_id=op_id)
+        bracket.inner_dag = inner_dag
+        return bracket, pos
+
+    # plain number (or unrecognised token treated as atom)
+    return Node(tok), pos + 1
+
+
+def build_dag(expression):
+    tokens    = tokenize(expression)
+    counter   = [1]
+    dag, _    = _parse_flat(tokens, 0, counter)
+    return dag

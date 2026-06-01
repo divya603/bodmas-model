@@ -1,8 +1,9 @@
 class Node:
     def __init__(self, label, children=None, node_id=None):
-        self.label = label
-        self.children = children if children is not None else []
-        self.node_id = node_id
+        self.label     = label
+        self.children  = children if children is not None else []
+        self.node_id   = node_id
+        self.inner_dag = None   # FlatDAG; set for bracket nodes only
 
     def is_number(self):
         try:
@@ -27,27 +28,30 @@ class Node:
         return self.children[1] if len(self.children) > 1 else None
 
     def child(self):
+        """For unary nodes: returns the single wrapped child."""
         return self.children[0] if len(self.children) == 1 else None
 
 
 class FlatDAG:
     """
-    Canonical flat DAG representation of an arithmetic expression.
+    Flat DAG representation of an arithmetic expression at any level.
 
-    atoms : [a0, a1, ..., aN]      — numbers or bracket nodes, in order
-    ops   : [o0, o1, ..., o(N-1)]  — operator nodes, in order
+    atoms : [a0, a1, ..., aN]     — numbers, bracket nodes, or unary nodes
+    ops   : [o0, o1, ..., o(N-1)] — operator nodes
 
     Invariant:
-        ops[i].left()  == atoms[i]
-        ops[i].right() == atoms[i+1]
+        ops[i].left()  is atoms[i]      (same Python object)
+        ops[i].right() is atoms[i+1]    (same Python object)
 
-    Adjacent atoms are the SAME Python object in both neighbour ops,
-    which is how sharing is represented.
+    Bracket nodes carry their own inner FlatDAG in node.inner_dag,
+    so the same flat structure applies recursively at every level.
 
-    Example  5+(2-3)*4:
-        atoms = [Node(5),  Node(()),  Node(4)]
-        ops   = [Node(+),  Node(×)]
-        Node(()) is the identical object in ops[0].right and ops[1].left
+    Example  5+(2+3-5)*4:
+        Top-level  atoms = [5,  bracket,  4]
+                   ops   = [+,  ×]
+        bracket.inner_dag:
+                   atoms = [2,  3,  5]
+                   ops   = [+,  -]          ← 3 shared between both ops
     """
     def __init__(self, atoms, ops, counter):
         self.atoms   = atoms
@@ -72,9 +76,7 @@ class FlatDAG:
         return None, None
 
 
-# ──────────────────────────────────────────────────────────────────
-# Printing
-# ──────────────────────────────────────────────────────────────────
+# ── Printing ──────────────────────────────────────────────────────
 
 def _atom_label(atom):
     if atom.is_number():
@@ -82,47 +84,41 @@ def _atom_label(atom):
     elif atom.is_bracket():
         return f"{atom.node_id or '?'}(())"
     elif atom.is_unary():
-        sym = atom.label[1:]   # 'u-' → '-', 'u+' → '+'
+        sym = atom.label[1:]
         return f"{atom.node_id or '?'}({sym}{_atom_label(atom.child())})"
     return str(atom.label)
 
 
-def _print_inner(node, prefix="", is_last=True):
-    """Pretty-print the Node tree inside a bracket."""
-    if node is None:
-        return
-    connector = "└── " if is_last else "├── "
-    sym       = node.label[1:] if node.is_unary() else node.label
-    display   = f"{node.node_id}({sym})" if node.node_id else sym
-    print(prefix + connector + display)
-    child_prefix = prefix + ("    " if is_last else "│   ")
-    for i, child in enumerate(node.children):
-        _print_inner(child, child_prefix, i == len(node.children) - 1)
+def print_dag(dag, indent=0):
+    pad = "  " * indent
 
-
-def print_dag(dag):
-    """
-    Print the flat DAG.
-    Shows the top-level atom/op sequence, then the interior of each bracket.
-    """
     if dag.is_done():
-        atom = dag.atoms[0]
-        print(f"Result: {_atom_label(atom)}")
+        print(pad + f"Result: {_atom_label(dag.atoms[0])}")
+        _print_bracket_internals(dag.atoms, indent)
         return
 
-    # top-level sequence
     parts = []
     for i, atom in enumerate(dag.atoms):
         parts.append(_atom_label(atom))
         if i < len(dag.ops):
             op = dag.ops[i]
             parts.append(f"[{op.node_id}:{op.label}]")
-    print("Top level:  " + "  ".join(parts))
+    print(pad + "Sequence:  " + "  ".join(parts))
+    _print_bracket_internals(dag.atoms, indent)
 
-    # bracket internals
-    seen = set()
-    for atom in dag.atoms:
+
+def _print_bracket_internals(atoms, indent, seen=None):
+    if seen is None:
+        seen = set()
+    pad = "  " * indent
+    for atom in atoms:
         if atom.is_bracket() and id(atom) not in seen:
             seen.add(id(atom))
-            print(f"\n  {atom.node_id}(()) contains:")
-            _print_inner(atom.child(), "    ", True)
+            print(f"\n{pad}  {atom.node_id}(()) contains:")
+            print_dag(atom.inner_dag, indent + 2)
+        elif atom.is_unary() and atom.child() and atom.child().is_bracket():
+            bracket = atom.child()
+            if id(bracket) not in seen:
+                seen.add(id(bracket))
+                print(f"\n{pad}  {bracket.node_id}(()) contains:")
+                print_dag(bracket.inner_dag, indent + 2)
