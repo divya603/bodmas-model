@@ -4,6 +4,7 @@ sys.path.insert(0, os.path.dirname(__file__))
 import streamlit as st
 from parser import build_dag
 from pattern_matcher import match_patterns
+from misconceptions import MISCONCEPTIONS, applicable_misconceptions, apply_misconception, dag_to_str
 
 # ── operator colors ───────────────────────────────────────────────
 
@@ -98,3 +99,42 @@ table_html = f'''
 '''
 
 st.markdown(table_html, unsafe_allow_html=True)
+
+# ── misconceptions ────────────────────────────────────────────────
+
+st.divider()
+st.markdown("**Misconceptions**")
+
+# reset active misconception when expression changes
+if st.session_state.get('_last_expr') != expr:
+    st.session_state['_last_expr']   = expr
+    st.session_state['_active_misc'] = None
+
+applicable = applicable_misconceptions(matches)
+
+if not applicable:
+    st.caption("No misconception patterns found in this expression.")
+else:
+    cols = st.columns(len(applicable))
+    for col, m in zip(cols, applicable):
+        if col.button(m['name'], key=m['id'], use_container_width=True):
+            st.session_state['_active_misc'] = m['id']
+
+active = st.session_state.get('_active_misc')
+if active and active not in {m['id'] for m in applicable}:
+    active = None
+if active:
+    m       = next(x for x in MISCONCEPTIONS if x['id'] == active)
+    result  = apply_misconception(dag, active)
+    orig    = dag_to_str(dag)
+    if result is None:
+        st.info(f"No '{m['name']}' pattern in this expression.")
+    else:
+        after = dag_to_str(result)
+        st.markdown(
+            f'<p style="font-family:monospace;font-size:1rem;margin-top:0.8rem">'
+            f'<b>{m["name"]}:</b>&nbsp;&nbsp;'
+            f'{colorize(orig)}&nbsp;&nbsp;→&nbsp;&nbsp;{colorize(after)}'
+            f'</p>',
+            unsafe_allow_html=True,
+        )
