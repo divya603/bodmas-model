@@ -31,7 +31,8 @@ MISCONCEPTIONS = [
                   'a × b ÷ c', 'a ÷ b × c', 'a ÷ b ÷ c'}},
     # Table 3 misconception
     {'id': 'outside_bracket_first', 'name': 'Evaluate outside bracket first', 'wrong': None, 'strong': None,
-     'patterns': {'a + b × Y', 'a + b ÷ Y', 'a - b × Y', 'a - b ÷ Y'}},
+     'patterns': {'a + b × Y', 'a + b ÷ Y', 'a - b × Y', 'a - b ÷ Y',   # Table 3
+                  'Y × b + c', 'Y × b - c', 'Y ÷ b + c', 'Y ÷ b - c'}}, # Table 4
 ]
 
 _ADDITIVE       = {'+', '-'}
@@ -161,18 +162,24 @@ def _scan_same_priority_rtl(dag):
 
 def _scan_outside_bracket_first(dag):
     """
-    Find first 3-node window where op1 is additive, op2 is multiplicative,
-    and the right atom is a bracket Y. Fire op1 — the wrong move.
+    Table 3: a + b × Y  — op1 additive, op2 multiplicative, right atom is Y → fire op1
+    Table 4: Y × b + c  — op1 multiplicative, op2 additive, left atom is Y  → fire op2
     """
     n = len(dag.ops)
     for i in range(n - 1):
-        if not (_is_lit(dag.atoms[i]) and _is_lit(dag.atoms[i + 1])):
-            continue
-        if _is_lit(dag.atoms[i + 2]):          # right atom must be Y, not literal
-            continue
         op1, op2 = dag.ops[i].label, dag.ops[i + 1].label
-        if op1 in _ADDITIVE and op2 in _MULTIPLICATIVE:
-            return _fire(dag, i)               # fire the additive op outside the bracket
+
+        # Table 3: a + b × Y
+        if (_is_lit(dag.atoms[i]) and _is_lit(dag.atoms[i + 1]) and
+                not _is_lit(dag.atoms[i + 2]) and
+                op1 in _ADDITIVE and op2 in _MULTIPLICATIVE):
+            return _fire(dag, i)
+
+        # Table 4: Y × b + c
+        if (not _is_lit(dag.atoms[i]) and _is_lit(dag.atoms[i + 1]) and
+                _is_lit(dag.atoms[i + 2]) and
+                op1 in _MULTIPLICATIVE and op2 in _ADDITIVE):
+            return _fire(dag, i + 1)
 
     # recurse into brackets
     for k, atom in enumerate(dag.atoms):
