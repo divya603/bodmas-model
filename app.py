@@ -208,3 +208,20 @@ if len(history) > 1:
         st.session_state['_dag']     = build_dag(expr)
         st.session_state['_history'] = [dag_to_str(st.session_state['_dag'])]
         st.rerun()
+
+# ── all expert traces ─────────────────────────────────────────────
+
+st.divider()
+from traces import generate_traces as _gen_traces
+_initial_dag = build_dag(expr)
+_all_traces  = _gen_traces(_initial_dag)
+with st.expander(f"Expert traces — {len(_all_traces)} total"):
+    for i, t in enumerate(_all_traces):
+        parts = [colorize(s) for s in t]
+        st.markdown(
+            f'<p style="font-family:monospace;font-size:0.88rem;line-height:1.8">'
+            f'<b style="color:#888">[{i+1}]</b>&nbsp;&nbsp;'
+            + '&nbsp;&nbsp;<b>→</b>&nbsp;&nbsp;'.join(parts)
+            + '</p>',
+            unsafe_allow_html=True,
+        )
