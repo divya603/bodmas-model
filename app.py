@@ -6,6 +6,7 @@ from parser import build_dag
 from pattern_matcher import match_patterns
 from misconceptions import dag_to_str
 from valid_actions import compute_valid_actions, fire_operator, fire_inner_op, inner_valid_actions
+from generator import generate_expression
 
 # ── operator colours ──────────────────────────────────────────────
 
@@ -74,9 +75,23 @@ def render_truth_table(actions, n_ops):
 st.set_page_config(page_title="BODMAS Step-by-Step", layout="centered")
 st.title("BODMAS Step-by-Step")
 
+# ── expression input + generate ───────────────────────────────────
+
+gcol1, gcol2, gcol3 = st.columns([2, 2, 4])
+with gcol1:
+    n_ops_gen = st.number_input("Operators", min_value=2, max_value=8, value=4, step=1)
+with gcol2:
+    st.markdown("<div style='margin-top:1.75rem'>", unsafe_allow_html=True)
+    if st.button("Generate", use_container_width=True):
+        st.session_state['_expr_input'] = generate_expression(n_ops=int(n_ops_gen))
+        st.rerun()
+    st.markdown("</div>", unsafe_allow_html=True)
+
 expr_input = st.text_input(
-    "Expression", placeholder="e.g. 4 + 5 + 6 × 2 + 3",
+    "Expression",
+    placeholder="e.g. 4 + 5 + 6 × 2 + 3",
     label_visibility="collapsed",
+    key='_expr_input',
 )
 
 if not (expr_input and expr_input.strip()):
