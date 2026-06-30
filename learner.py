@@ -42,19 +42,20 @@ MISCONCEPTION_FLIPS = {
     # Excludes purely associative (a+b+c, a×b×c) — both ops stay valid there.
 
     'same_priority_rtl': {
+        # Only patterns where RTL gives a DIFFERENT (wrong) result:
+        #   a-b+c, a-b-c  (subtraction on the left — order matters)
+        #   a÷b×c, a÷b÷c  (division on the left — order matters)
+        # Excluded: a+b-c and a×b÷c — both orders give the same result
+        # so neither direction is wrong and there is nothing to flip.
         'to_true': {
-            (2, '+', '-', 'right'),
             (2, '-', '+', 'right'),
             (2, '-', '-', 'right'),
-            (2, '×', '÷', 'right'),
             (2, '÷', '×', 'right'),
             (2, '÷', '÷', 'right'),
         },
         'to_false': {
-            (2, '+', '-', 'left'),
             (2, '-', '+', 'left'),
             (2, '-', '-', 'left'),
-            (2, '×', '÷', 'left'),
             (2, '÷', '×', 'left'),
             (2, '÷', '÷', 'left'),
         },

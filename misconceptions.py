@@ -139,7 +139,11 @@ def _scan_same_priority_rtl(dag):
             continue
         if op1 == '+' and op2 == '+':   # a+b+c — associative, skip
             continue
-        if op1 == '×' and op2 == '×':  # a*b*c — associative, skip
+        if op1 == '×' and op2 == '×':  # a×b×c — associative, skip
+            continue
+        if op1 == '+' and op2 == '-':   # a+b-c — both orders identical, skip
+            continue
+        if op1 == '×' and op2 == '÷':  # a×b÷c — both orders identical, skip
             continue
         return _fire(dag, i + 1)        # fire right op (the RTL misconception)
 

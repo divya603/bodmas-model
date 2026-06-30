@@ -22,13 +22,17 @@ def _op2_correct(op1, op2):
 
     True when:
       - op2 is strictly stronger than op1  (e.g. a+b×c → fire ×)
-      - op1 == op2 and it's an associative operator  (a+b+c or a×b×c → either order ok)
+      - op1 == op2 and it's associative    (a+b+c or a×b×c → either order ok)
+      - op1='+' op2='-'  (a+b-c: both orders give same result)
+      - op1='×' op2='÷'  (a×b÷c: both orders give same result)
 
-    False for all mixed same-group cases (a+b-c, a-b+c, a×b÷c, a÷b×c, …)
-    because LTR gives the correct result and RTL may not.
+    False for -/÷ on the left (a-b+c, a-b-c, a÷b×c, a÷b÷c) because
+    LTR and RTL give different results and only LTR is correct.
     """
-    if op1 in _ADD and op2 in _MUL:        return True   # op2 strictly stronger
-    if op1 == op2 and op2 in {'+', '×'}:  return True   # purely associative
+    if op1 in _ADD and op2 in _MUL:       return True   # strictly stronger
+    if op1 == op2 and op2 in {'+', '×'}:  return True   # associative
+    if op1 == '+' and op2 == '-':          return True   # a+b-c: order doesn't matter
+    if op1 == '×' and op2 == '÷':         return True   # a×b÷c: order doesn't matter
     return False
 
 
