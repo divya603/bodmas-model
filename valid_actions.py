@@ -106,7 +106,11 @@ def compute_valid_actions(dag, matches):
 
 def _eval(a, op, b):
     va, vb = float(a.label), float(b.label)
-    r = {'+': va + vb, '-': va - vb, '×': va * vb, '÷': va / vb}[op.label]
+    o = op.label
+    if   o == '+': r = va + vb
+    elif o == '-': r = va - vb
+    elif o == '×': r = va * vb
+    elif o == '÷': r = va / vb
     return Node(str(int(r)) if r == int(r) else str(round(r, 6)))
 
 

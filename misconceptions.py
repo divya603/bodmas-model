@@ -61,9 +61,12 @@ def _is_lit(atom):
 
 def _compute(a, op, b):
     va, vb = float(a.label), float(b.label)
-    r = {'+': va + vb, '-': va - vb, '×': va * vb, '÷': va / vb}[op.label]
-    s = str(int(r)) if r == int(r) else str(round(r, 6))
-    return Node(s)
+    o = op.label
+    if   o == '+': r = va + vb
+    elif o == '-': r = va - vb
+    elif o == '×': r = va * vb
+    elif o == '÷': r = va / vb
+    return Node(str(int(r)) if r == int(r) else str(round(r, 6)))
 
 
 def _fire(dag, i):

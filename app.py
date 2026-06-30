@@ -9,6 +9,7 @@ from valid_actions import compute_valid_actions, fire_operator, fire_inner_op, i
 from generator import generate_expression
 from traces import generate_traces
 from learner import MISCONCEPTION_FLIPS, flipped_cells as get_flipped_cells
+from distance import compare as compare_traces
 
 # ── operator colours ──────────────────────────────────────────────
 
@@ -313,9 +314,21 @@ with tab_learner:
             )
             st.markdown(inner_html, unsafe_allow_html=True)
 
-    # ── traces ─────────────────────────────────────────────────────
+    # ── score vs expert ────────────────────────────────────────────
 
     st.divider()
     learner_traces = generate_traces(initial_dag, selected_ids)
+    score          = compare_traces(expert_traces, learner_traces)
+
+    s1, s2, s3 = st.columns(3)
+    s1.metric("Edge Jaccard", f"{score['edge_jaccard']:.2f}",
+              help="Similarity of transition sets (1 = identical to expert, 0 = completely different)")
+    s2.metric("Correct rate", f"{score['correct_rate']:.0%}",
+              help="Fraction of this learner's traces that reach the right answer")
+    s3.metric("Shared transitions", f"{score['shared_edges']}",
+              help=f"Expert-only: {score['expert_only']}  |  Learner-only: {score['learner_only']}")
+
+    # ── traces ─────────────────────────────────────────────────────
+
     st.markdown(f"**{len(learner_traces)} trace(s)** for this learner")
     render_traces(learner_traces)
