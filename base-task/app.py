@@ -5,7 +5,7 @@ import streamlit as st
 from parser import build_dag
 from pattern_matcher import match_patterns
 from misconceptions import dag_to_str
-from valid_actions import compute_valid_actions, fire_operator, fire_inner_op, inner_valid_actions
+from valid_actions import compute_valid_actions, fire_operator, fire_inner_op, inner_valid_actions, is_zero_divide
 from generator import generate_expression
 from traces import generate_traces
 from learner import MISCONCEPTION_FLIPS, flipped_cells as get_flipped_cells
@@ -200,7 +200,7 @@ with tab_expert:
     # valid actions
     st.divider()
     st.markdown("**Valid Actions**")
-    valid_ops = [a for a in actions if a['valid']]
+    valid_ops = [a for a in actions if a['valid'] and not is_zero_divide(dag, a['op_index'])]
     inner_ops = inner_valid_actions(dag)
 
     if n_ops == 0:

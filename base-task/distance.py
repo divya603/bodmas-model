@@ -66,6 +66,48 @@ def compare(expert_traces, learner_traces):
     )
 
 
+# ── diagnosticity ───────────────────────────────────────────────────
+#
+# A misconception can be *structurally* applicable (its flip-key pattern
+# appears somewhere in the expression) without ever changing what fires —
+# another, unflipped window on the same operator can still veto it, since
+# validity is an AND across all windows touching that operator. The only
+# real test is behavioral: does the learner ever take a step no expert
+# trace would ever take?
+
+def diagnostic_traces(dag, misconceptions, expert_traces=None):
+    """
+    Return the subset of this learner's traces that contain at least one
+    step (an edge) absent from every expert trace — i.e. traces that
+    actually reveal the misconception(s) rather than coincidentally
+    matching expert behavior throughout.
+    """
+    from traces import generate_traces
+
+    if expert_traces is None:
+        expert_traces = generate_traces(dag, [])
+    expert_edges   = tree_edges(expert_traces)
+    learner_traces = generate_traces(dag, list(misconceptions))
+
+    def _is_diagnostic(trace):
+        return any((trace[i], trace[i + 1]) not in expert_edges
+                   for i in range(len(trace) - 1))
+
+    return [t for t in learner_traces if _is_diagnostic(t)]
+
+
+def applicable_profiles(dag, profiles):
+    """
+    From a list of candidate misconception profiles (each a tuple/list of
+    up to 2 misconception IDs), return the subset that produce at least
+    one diagnostic trace for this dag.
+    """
+    from traces import generate_traces
+
+    expert_traces = generate_traces(dag, [])
+    return [p for p in profiles if diagnostic_traces(dag, p, expert_traces)]
+
+
 # ── quick test ────────────────────────────────────────────────────
 
 if __name__ == '__main__':

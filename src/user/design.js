@@ -28,11 +28,8 @@ import WithdrawView from '@/builtins/withdraw/WithdrawView.vue'
 import WindowSizerView from '@/builtins/windowSizer/WindowSizerView.vue'
 
 // 2. Import user View components
-import ExpView from '@/builtins/demoTasks/ExpView.vue'
-import FavoriteNumber from '@/builtins/demoTasks/FavoriteNumber.vue'
-import FavoriteColor from '@/builtins/demoTasks/FavoriteColor.vue'
-import InstructionsView from '@/user/components/stroop_exp/StroopInstructionsView.vue'
-import StroopExpView from '@/user/components/stroop_exp/StroopExpView.vue'
+import InstructionsView from '@/user/components/trace_judgment/InstructionsView.vue'
+import TraceJudgmentView from '@/user/components/trace_judgment/TraceJudgmentView.vue'
 import TaskFeedbackSurveyView from '@/user/components/TaskFeedbackSurveyView.vue'
 
 // #3. Import smile API and timeline
@@ -211,32 +208,7 @@ timeline.pushSeqView({
 timeline.pushSeqView({
   name: 'exp',
   path: '/experiment',
-  component: ExpView,
-})
-
-////// example of randomized branching routes
-// (you can also have conditional branching based on conditions -- see docs)
-
-// routes must be initially registered, to tell the timeline they exist
-timeline.registerView({
-  name: 'number',
-  component: FavoriteNumber,
-})
-
-timeline.registerView({
-  name: 'color',
-  component: FavoriteColor,
-})
-
-timeline.pushRandomizedNode({
-  name: 'RandomSplit',
-  options: [['number'], ['color']],
-})
-
-// stroop exp
-timeline.pushSeqView({
-  name: 'stroop',
-  component: StroopExpView,
+  component: TraceJudgmentView,
 })
 
 // feedback survey

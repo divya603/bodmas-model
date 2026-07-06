@@ -108,6 +108,13 @@ def compute_valid_actions(dag, matches):
 
 # ── firing ─────────────────────────────────────────────────────────
 
+def is_zero_divide(dag, op_index):
+    """True if firing this op would divide by a zero-valued right operand."""
+    op    = dag.ops[op_index]
+    right = dag.atoms[op_index + 1]
+    return op.label == '÷' and right.is_number() and float(right.label) == 0
+
+
 def _eval(a, op, b):
     va, vb = float(a.label), float(b.label)
     o = op.label
@@ -183,7 +190,7 @@ def inner_valid_actions(dag):
         inner        = atom.inner_dag
         inner_acts   = compute_valid_actions(inner, match_patterns(inner))
         for ia in inner_acts:
-            if not ia['valid']:
+            if not ia['valid'] or is_zero_divide(inner, ia['op_index']):
                 continue
             left  = inner.atoms[ia['op_index']]
             right = inner.atoms[ia['op_index'] + 1]

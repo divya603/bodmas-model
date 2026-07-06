@@ -4,17 +4,23 @@ export const QUIZ_QUESTIONS = [
     questions: [
       {
         id: 'q1',
-        question: 'What should you respond to in this task?',
+        question: 'What should your rating be based on?',
         multiSelect: false,
-        answers: ['The meaning of the word', 'The color of the font', 'The length of the word', 'The position of the word'],
-        correctAnswer: ['The color of the font'],
+        answers: [
+          'Whether the final answer is correct',
+          "How well the statement explains the student's step-by-step work",
+          'How many steps the student used',
+        ],
+        correctAnswer: ["How well the statement explains the student's step-by-step work"],
       },
       {
         id: 'q2',
-        question: 'You see the word GREEN displayed in blue. What key should you press?',
+        question:
+          "A student's work shows they multiplied before adding, exactly as they should have. The statement says " +
+          '"the student believes addition should come before multiplication." How much should you agree?',
         multiSelect: false,
-        answers: ['R', 'G', 'B'],
-        correctAnswer: ['B'],
+        answers: ['Strongly Agree', 'Strongly Disagree', 'Somewhat Agree'],
+        correctAnswer: ['Strongly Disagree'],
       },
     ],
   },

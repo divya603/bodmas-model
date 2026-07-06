@@ -15,7 +15,7 @@ ordering the learner could legally choose.
 
 from misconceptions import dag_to_str
 from pattern_matcher import match_patterns
-from valid_actions import _is_correct_in_window, fire_operator, fire_inner_op
+from valid_actions import _is_correct_in_window, fire_operator, fire_inner_op, is_zero_divide
 from learner import is_correct_for_learner
 
 
@@ -63,7 +63,7 @@ def inner_valid_actions_for_learner(dag, misconceptions):
         inner_acts   = compute_valid_actions_for_learner(
                            inner, match_patterns(inner), misconceptions)
         for ia in inner_acts:
-            if not ia['valid']:
+            if not ia['valid'] or is_zero_divide(inner, ia['op_index']):
                 continue
             left  = inner.atoms[ia['op_index']]
             right = inner.atoms[ia['op_index'] + 1]
@@ -91,7 +91,7 @@ def _next_dags(dag, misconceptions):
 
     nexts = []
     for a in actions:
-        if a['valid']:
+        if a['valid'] and not is_zero_divide(dag, a['op_index']):
             nexts.append(fire_operator(dag, a['op_index']))
 
     for ia in inner_valid_actions_for_learner(dag, misconceptions):

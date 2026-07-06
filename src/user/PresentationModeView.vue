@@ -216,12 +216,12 @@ function getAffiliationIndex(affiliation) {
 
         <Separator />
 
-        <!-- stoop example game -->
+        <!-- main task -->
         <div>
-          <h3 class="text-xl font-semibold text-foreground mb-3">Play Stoop</h3>
-          <p class="text-lg text-muted-foreground mb-4">Try out the stroop task.</p>
-          <Button size="sm" @click="api.goToView('stroop')">
-            Stroop
+          <h3 class="text-xl font-semibold text-foreground mb-3">Play the task</h3>
+          <p class="text-lg text-muted-foreground mb-4">Try out the misconception-judgment task.</p>
+          <Button size="sm" @click="api.goToView('exp')">
+            Task
             <ArrowRight class="w-4 h-4 ml-2 inline" />
           </Button>
         </div>
