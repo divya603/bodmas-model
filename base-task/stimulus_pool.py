@@ -51,16 +51,26 @@ def _make_expression(misconceptions):
     return generate_expression(n_ops=N_OPS, bracket_prob=bracket_prob)
 
 
+def _is_finished(trace):
+    """
+    True if a trace actually reduces all the way to a single number, rather
+    than getting stuck (e.g. the only remaining move is a divide-by-zero,
+    which is deliberately never fired — see is_zero_divide). A stuck trace
+    is a broken stimulus: it looks like the "work" just stops mid-expression.
+    """
+    return len(trace[-1].split()) == 1
+
+
 def _pick_trace(dag, misconceptions):
     """
     Shortest diagnostic trace (>=1 step no expert trace ever takes) whose
     final answer differs from the expert's — the clearest single piece of
     "work" to show a participant. Falls back to any diagnostic trace if
-    none reach a different final answer.
+    none reach a different final answer. Always excludes stuck traces.
     """
     expert_traces = generate_traces(dag, [])
     expert_answer = correct_answer(expert_traces)
-    candidates = diagnostic_traces(dag, misconceptions, expert_traces)
+    candidates = [t for t in diagnostic_traces(dag, misconceptions, expert_traces) if _is_finished(t)]
     if not candidates:
         return None
     wrong_answer = [t for t in candidates if t[-1] != expert_answer]
@@ -87,7 +97,7 @@ def _pick_trace_for_target(dag, pair, target):
         return any((trace[i], trace[i + 1]) not in reference
                    for i in range(len(trace) - 1))
 
-    candidates = [t for t in pair_traces if _implicates_target(t)]
+    candidates = [t for t in pair_traces if _implicates_target(t) and _is_finished(t)]
     if not candidates:
         return None
 
