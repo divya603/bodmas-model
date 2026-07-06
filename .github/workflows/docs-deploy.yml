@@ -1,0 +1,18 @@
+# This workflow is intentionally a no-op for forks.
+#
+# The main smile documentation lives at smile.gureckislab.org and is deployed
+# from the upstream codec-lab/smile repository. Forks do not need their own
+# docs site. This file is kept (rather than deleted) so that syncing updates
+# from upstream does not produce merge conflicts.
+
+name: docs-deploy
+
+on:
+  workflow_dispatch:
+
+jobs:
+  noop:
+    runs-on: ubuntu-latest
+    steps:
+      - name: No-op
+        run: echo "docs-deploy is a no-op for forks. Docs are deployed from the upstream codec-lab/smile repository."
