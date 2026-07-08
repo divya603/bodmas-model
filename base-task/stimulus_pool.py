@@ -34,7 +34,16 @@ PAIRS = list(combinations(IDS, 2))
 
 N_OPS         = 4
 MAX_ATTEMPTS  = 60
-STUDENT_NAMES = ['Noah', 'Maya', 'Liam', 'Ava', 'Ethan', 'Zoe']
+# 24 names == form length, so sample_form can give every item a distinct
+# name and no participant ever sees the same student twice. Names stored in
+# the pool are placeholders, overwritten at sampling time. Keep in sync with
+# STUDENT_NAMES in src/user/utils/sampleForm.js.
+STUDENT_NAMES = [
+    'Noah', 'Maya', 'Liam', 'Ava', 'Ethan', 'Zoe',
+    'Mia', 'Lucas', 'Emma', 'Owen', 'Sofia', 'Caleb',
+    'Ruby', 'Jonah', 'Isla', 'Felix', 'Nora', 'Dylan',
+    'Priya', 'Marcus', 'Elena', 'Theo', 'Jasmine', 'Omar',
+]
 NAME_OFFSET   = 2  # decorrelates name rotation from the misconception rotation
 
 STATEMENT_TEMPLATES = {
@@ -245,6 +254,9 @@ def sample_form(pool, seed=None, n_per_category=6):
     Different participants get a different shift/offset/pair-sample (all
     derived from `seed`), so coverage varies across participants while every
     individual form stays exactly balanced on its own.
+
+    Every item also gets a distinct student name (24 names, 24 items), so
+    no participant ever sees the same student twice.
     """
     if n_per_category != 6:
         raise ValueError("sample_form's exact-balance guarantees require "
@@ -278,6 +290,15 @@ def sample_form(pool, seed=None, n_per_category=6):
         form.append(rng.choice(idx['D'][(pair, foil)]))
 
     rng.shuffle(form)
+
+    # Assign each item a distinct student name (copies, so the shared pool
+    # dicts are never mutated), rewriting the belief statement to match.
+    names = STUDENT_NAMES[:]
+    rng.shuffle(names)
+    form = [dict(it,
+                 student_name=name,
+                 belief_statement=it['belief_statement'].replace(it['student_name'], name, 1))
+            for it, name in zip(form, names)]
     return form
 
 

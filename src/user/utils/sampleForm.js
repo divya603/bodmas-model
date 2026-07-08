@@ -17,6 +17,16 @@ for (let i = 0; i < IDS.length; i++) {
   }
 }
 
+// One name per form item (24), so no participant ever sees the same student
+// twice. Names baked into the pool JSON are placeholders; they are replaced
+// here at sampling time. Keep in sync with STUDENT_NAMES in stimulus_pool.py.
+const STUDENT_NAMES = [
+  'Noah', 'Maya', 'Liam', 'Ava', 'Ethan', 'Zoe',
+  'Mia', 'Lucas', 'Emma', 'Owen', 'Sofia', 'Caleb',
+  'Ruby', 'Jonah', 'Isla', 'Felix', 'Nora', 'Dylan',
+  'Priya', 'Marcus', 'Elena', 'Theo', 'Jasmine', 'Omar',
+]
+
 // Small seeded PRNG (mulberry32) so a given seed always reproduces the same form.
 function makeRng(seed) {
   let s = seed >>> 0
@@ -78,6 +88,8 @@ function indexPool(pool) {
  *   D — 6 distinct pairs, foil rotated across each pair's 4 non-members.
  * Different seeds vary the shift/offset/pair-sample, so coverage differs
  * across participants while every individual form stays exactly balanced.
+ * Every item also gets a distinct student name (24 names, 24 items), so no
+ * participant ever sees the same student twice.
  */
 export function sampleForm(pool, seed) {
   const rng = makeRng(seed)
@@ -110,7 +122,16 @@ export function sampleForm(pool, seed) {
     form.push(rng.choice(idx.D[`${pair.join(',')}|${foil}`]))
   })
 
-  return rng.shuffle(form)
+  rng.shuffle(form)
+
+  // Assign each item a distinct student name (copies, so the shared pool
+  // objects are never mutated), rewriting the belief statement to match.
+  const names = rng.shuffle(STUDENT_NAMES.slice())
+  return form.map((it, i) => ({
+    ...it,
+    student_name: names[i],
+    belief_statement: it.belief_statement.replace(it.student_name, names[i]),
+  }))
 }
 
 export function randomSeed() {
