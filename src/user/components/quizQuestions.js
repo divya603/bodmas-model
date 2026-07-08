@@ -13,15 +13,6 @@ export const QUIZ_QUESTIONS = [
         ],
         correctAnswer: ["How well the statement explains the student's step-by-step work"],
       },
-      {
-        id: 'q2',
-        question:
-          "A student's work shows they multiplied before adding, exactly as they should have. The statement says " +
-          '"the student believes addition should come before multiplication." How much should you agree?',
-        multiSelect: false,
-        answers: ['Strongly Agree', 'Strongly Disagree', 'Somewhat Agree'],
-        correctAnswer: ['Strongly Disagree'],
-      },
     ],
   },
 ]
