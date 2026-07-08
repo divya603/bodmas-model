@@ -20,6 +20,7 @@ lands on a whole number of cycles.
 
 import json
 import random
+import re
 from itertools import combinations
 
 from generator import generate_expression
@@ -61,6 +62,20 @@ def _is_finished(trace):
     return len(trace[-1].split()) == 1
 
 
+_LONG_DECIMAL = re.compile(r'\d\.\d{3,}')
+
+
+def _is_clean(trace):
+    """
+    True if every number in every step has at most 2 decimal places.
+    Divisions like 2 ÷ 7 produce values such as 0.285714 (rounded to 6
+    places in valid_actions.py), which look unnatural as hand-written
+    student work; rejecting the trace lets the retry loop draw a fresh
+    expression instead of showing rounded-and-inconsistent arithmetic.
+    """
+    return not any(_LONG_DECIMAL.search(step) for step in trace)
+
+
 def _pick_trace(dag, misconceptions):
     """
     Shortest diagnostic trace (>=1 step no expert trace ever takes) whose
@@ -70,7 +85,8 @@ def _pick_trace(dag, misconceptions):
     """
     expert_traces = generate_traces(dag, [])
     expert_answer = correct_answer(expert_traces)
-    candidates = [t for t in diagnostic_traces(dag, misconceptions, expert_traces) if _is_finished(t)]
+    candidates = [t for t in diagnostic_traces(dag, misconceptions, expert_traces)
+                  if _is_finished(t) and _is_clean(t)]
     if not candidates:
         return None
     wrong_answer = [t for t in candidates if t[-1] != expert_answer]
@@ -97,7 +113,8 @@ def _pick_trace_for_target(dag, pair, target):
         return any((trace[i], trace[i + 1]) not in reference
                    for i in range(len(trace) - 1))
 
-    candidates = [t for t in pair_traces if _implicates_target(t) and _is_finished(t)]
+    candidates = [t for t in pair_traces
+                  if _implicates_target(t) and _is_finished(t) and _is_clean(t)]
     if not candidates:
         return None
 
