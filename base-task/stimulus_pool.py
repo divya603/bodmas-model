@@ -47,8 +47,16 @@ STATEMENT_TEMPLATES = {
 }
 
 
-def _make_expression(misconceptions):
-    bracket_prob = 1.0 if 'outside_bracket_first' in misconceptions else 0.4
+def _make_expression(misconceptions, probed):
+    """
+    Brackets are mandatory not only when outside_bracket_first is present in
+    the trace, but also when the statement merely *names* it (a B/D foil):
+    without brackets the statement is trivially wrong, so the item measures
+    nothing.
+    """
+    needs_brackets = ('outside_bracket_first' in misconceptions
+                      or probed == 'outside_bracket_first')
+    bracket_prob = 1.0 if needs_brackets else 0.4
     return generate_expression(n_ops=N_OPS, bracket_prob=bracket_prob)
 
 
@@ -129,7 +137,7 @@ def _build_item(item_id, category, misconceptions, probed, statement_correct,
     trace_picker = trace_picker or (lambda dag: _pick_trace(dag, misconceptions))
     student_name = student_name or STUDENT_NAMES[0]
     for _ in range(MAX_ATTEMPTS):
-        expr  = _make_expression(misconceptions)
+        expr  = _make_expression(misconceptions, probed)
         dag   = build_dag(expr)
         trace = trace_picker(dag)
         if trace is not None:

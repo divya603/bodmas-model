@@ -2,18 +2,18 @@
   {
     "id": "A000",
     "category": "A",
-    "expression": "8 \u00d7 12 + 10 - 5 + 8",
+    "expression": "1 - 9 + (4 \u00d7 2 + 9)",
     "n_ops": 4,
     "misconceptions": [
       "add_before_mul"
     ],
     "num_misconceptions": 1,
     "trace": [
-      "8 \u00d7 12 + 10 - 5 + 8",
-      "8 \u00d7 12 + 5 + 8",
-      "8 \u00d7 12 + 13",
-      "8 \u00d7 25",
-      "200"
+      "1 - 9 + (4 \u00d7 2 + 9)",
+      "-8 + (4 \u00d7 2 + 9)",
+      "-8 + (4 \u00d7 11)",
+      "-8 + 44",
+      "36"
     ],
     "probed_misconception": "add_before_mul",
     "statement_correct": true,
@@ -24,18 +24,18 @@
   {
     "id": "A001",
     "category": "A",
-    "expression": "2 \u00d7 (12 \u00d7 2) + 3 \u00f7 5",
+    "expression": "11 + 7 \u00f7 6 + 6 - 12",
     "n_ops": 4,
     "misconceptions": [
       "add_before_div"
     ],
     "num_misconceptions": 1,
     "trace": [
-      "2 \u00d7 (12 \u00d7 2) + 3 \u00f7 5",
-      "2 \u00d7 24 + 3 \u00f7 5",
-      "48 + 3 \u00f7 5",
-      "51 \u00f7 5",
-      "10.2"
+      "11 + 7 \u00f7 6 + 6 - 12",
+      "11 + 7 \u00f7 12 - 12",
+      "18 \u00f7 12 - 12",
+      "1.5 - 12",
+      "-10.5"
     ],
     "probed_misconception": "add_before_div",
     "statement_correct": true,
@@ -46,18 +46,18 @@
   {
     "id": "A002",
     "category": "A",
-    "expression": "12 - 10 \u00d7 4 + 2 - 1",
+    "expression": "12 \u00d7 11 - 5 + 9 \u00d7 4",
     "n_ops": 4,
     "misconceptions": [
       "sub_before_mul"
     ],
     "num_misconceptions": 1,
     "trace": [
-      "12 - 10 \u00d7 4 + 2 - 1",
-      "12 - 10 \u00d7 4 + 1",
-      "2 \u00d7 4 + 1",
-      "8 + 1",
-      "9"
+      "12 \u00d7 11 - 5 + 9 \u00d7 4",
+      "12 \u00d7 11 - 5 + 36",
+      "12 \u00d7 6 + 36",
+      "72 + 36",
+      "108"
     ],
     "probed_misconception": "sub_before_mul",
     "statement_correct": true,
@@ -68,18 +68,18 @@
   {
     "id": "A003",
     "category": "A",
-    "expression": "3 + 5 - 10 \u00d7 3 \u00f7 2",
+    "expression": "4 + 3 - 3 \u00f7 7 \u00d7 8",
     "n_ops": 4,
     "misconceptions": [
       "sub_before_div"
     ],
     "num_misconceptions": 1,
     "trace": [
-      "3 + 5 - 10 \u00d7 3 \u00f7 2",
-      "3 + 5 - 30 \u00f7 2",
-      "3 + -25 \u00f7 2",
-      "3 + -12.5",
-      "-9.5"
+      "4 + 3 - 3 \u00f7 7 \u00d7 8",
+      "4 + 0 \u00f7 7 \u00d7 8",
+      "4 + 0 \u00d7 8",
+      "4 + 0",
+      "4"
     ],
     "probed_misconception": "sub_before_div",
     "statement_correct": true,
@@ -90,18 +90,18 @@
   {
     "id": "A004",
     "category": "A",
-    "expression": "10 - 3 \u00d7 9 + 10 - 9",
+    "expression": "5 - 6 \u00d7 7 - 12 \u00d7 2",
     "n_ops": 4,
     "misconceptions": [
       "same_priority_rtl"
     ],
     "num_misconceptions": 1,
     "trace": [
-      "10 - 3 \u00d7 9 + 10 - 9",
-      "10 - 27 + 10 - 9",
-      "10 - 27 + 1",
-      "10 - 28",
-      "-18"
+      "5 - 6 \u00d7 7 - 12 \u00d7 2",
+      "5 - 42 - 12 \u00d7 2",
+      "5 - 42 - 24",
+      "5 - 18",
+      "-13"
     ],
     "probed_misconception": "same_priority_rtl",
     "statement_correct": true,
@@ -112,18 +112,18 @@
   {
     "id": "A005",
     "category": "A",
-    "expression": "10 + 1 \u00d7 (6 \u00d7 5) \u00d7 3",
+    "expression": "11 - 12 \u00d7 7 \u00d7 (9 \u00f7 3)",
     "n_ops": 4,
     "misconceptions": [
       "outside_bracket_first"
     ],
     "num_misconceptions": 1,
     "trace": [
-      "10 + 1 \u00d7 (6 \u00d7 5) \u00d7 3",
-      "11 \u00d7 (6 \u00d7 5) \u00d7 3",
-      "11 \u00d7 30 \u00d7 3",
-      "11 \u00d7 90",
-      "990"
+      "11 - 12 \u00d7 7 \u00d7 (9 \u00f7 3)",
+      "11 - 84 \u00d7 (9 \u00f7 3)",
+      "-73 \u00d7 (9 \u00f7 3)",
+      "-73 \u00d7 3",
+      "-219"
     ],
     "probed_misconception": "outside_bracket_first",
     "statement_correct": true,
@@ -134,18 +134,18 @@
   {
     "id": "A006",
     "category": "A",
-    "expression": "(11 - 9 \u00d7 4) \u00d7 9 + 11",
+    "expression": "9 + 8 \u00f7 10 \u00d7 12 \u00f7 7",
     "n_ops": 4,
     "misconceptions": [
       "add_before_mul"
     ],
     "num_misconceptions": 1,
     "trace": [
-      "(11 - 9 \u00d7 4) \u00d7 9 + 11",
-      "(11 - 36) \u00d7 9 + 11",
-      "-25 \u00d7 9 + 11",
-      "-25 \u00d7 20",
-      "-500"
+      "9 + 8 \u00f7 10 \u00d7 12 \u00f7 7",
+      "9 + 0.8 \u00d7 12 \u00f7 7",
+      "9.8 \u00d7 12 \u00f7 7",
+      "117.6 \u00f7 7",
+      "16.8"
     ],
     "probed_misconception": "add_before_mul",
     "statement_correct": true,
@@ -156,18 +156,18 @@
   {
     "id": "A007",
     "category": "A",
-    "expression": "7 \u00d7 9 \u00f7 12 + 3 \u00d7 6",
+    "expression": "1 + 3 \u00f7 8 \u00f7 2 - 7",
     "n_ops": 4,
     "misconceptions": [
       "add_before_div"
     ],
     "num_misconceptions": 1,
     "trace": [
-      "7 \u00d7 9 \u00f7 12 + 3 \u00d7 6",
-      "63 \u00f7 12 + 3 \u00d7 6",
-      "63 \u00f7 12 + 18",
-      "63 \u00f7 30",
-      "2.1"
+      "1 + 3 \u00f7 8 \u00f7 2 - 7",
+      "4 \u00f7 8 \u00f7 2 - 7",
+      "0.5 \u00f7 2 - 7",
+      "0.25 - 7",
+      "-6.75"
     ],
     "probed_misconception": "add_before_div",
     "statement_correct": true,
@@ -178,18 +178,18 @@
   {
     "id": "A008",
     "category": "A",
-    "expression": "1 \u00f7 10 \u00d7 9 - 9 + 4",
+    "expression": "9 + 3 \u00d7 8 - 3 \u00f7 6",
     "n_ops": 4,
     "misconceptions": [
       "sub_before_mul"
     ],
     "num_misconceptions": 1,
     "trace": [
-      "1 \u00f7 10 \u00d7 9 - 9 + 4",
-      "0.1 \u00d7 9 - 9 + 4",
-      "0.1 \u00d7 0 + 4",
-      "0 + 4",
-      "4"
+      "9 + 3 \u00d7 8 - 3 \u00f7 6",
+      "9 + 3 \u00d7 8 - 0.5",
+      "9 + 3 \u00d7 7.5",
+      "9 + 22.5",
+      "31.5"
     ],
     "probed_misconception": "sub_before_mul",
     "statement_correct": true,
@@ -200,18 +200,18 @@
   {
     "id": "A009",
     "category": "A",
-    "expression": "2 \u00f7 10 + (12 - 9 \u00f7 10)",
+    "expression": "5 - 10 \u00f7 9 - (9 + 2)",
     "n_ops": 4,
     "misconceptions": [
       "sub_before_div"
     ],
     "num_misconceptions": 1,
     "trace": [
-      "2 \u00f7 10 + (12 - 9 \u00f7 10)",
-      "0.2 + (12 - 9 \u00f7 10)",
-      "0.2 + (3 \u00f7 10)",
-      "0.2 + 0.3",
-      "0.5"
+      "5 - 10 \u00f7 9 - (9 + 2)",
+      "-5 \u00f7 9 - (9 + 2)",
+      "-5 \u00f7 9 - 11",
+      "-5 \u00f7 -2",
+      "2.5"
     ],
     "probed_misconception": "sub_before_div",
     "statement_correct": true,
@@ -222,18 +222,18 @@
   {
     "id": "A010",
     "category": "A",
-    "expression": "12 \u00d7 7 - 8 \u00d7 10 + 7",
+    "expression": "8 \u00f7 2 \u00d7 6 \u00f7 6 + 4",
     "n_ops": 4,
     "misconceptions": [
       "same_priority_rtl"
     ],
     "num_misconceptions": 1,
     "trace": [
-      "12 \u00d7 7 - 8 \u00d7 10 + 7",
-      "12 \u00d7 7 - 80 + 7",
-      "12 \u00d7 7 - 87",
-      "84 - 87",
-      "-3"
+      "8 \u00f7 2 \u00d7 6 \u00f7 6 + 4",
+      "8 \u00f7 12 \u00f7 6 + 4",
+      "8 \u00f7 2 + 4",
+      "4 + 4",
+      "8"
     ],
     "probed_misconception": "same_priority_rtl",
     "statement_correct": true,
@@ -244,18 +244,18 @@
   {
     "id": "A011",
     "category": "A",
-    "expression": "(7 - 2) \u00d7 2 \u00d7 6 - 3",
+    "expression": "(6 \u00d7 5) \u00d7 10 + 8 \u00f7 10",
     "n_ops": 4,
     "misconceptions": [
       "outside_bracket_first"
     ],
     "num_misconceptions": 1,
     "trace": [
-      "(7 - 2) \u00d7 2 \u00d7 6 - 3",
-      "(7 - 2) \u00d7 12 - 3",
-      "(7 - 2) \u00d7 9",
-      "5 \u00d7 9",
-      "45"
+      "(6 \u00d7 5) \u00d7 10 + 8 \u00f7 10",
+      "(6 \u00d7 5) \u00d7 10 + 0.8",
+      "(6 \u00d7 5) \u00d7 10.8",
+      "30 \u00d7 10.8",
+      "324"
     ],
     "probed_misconception": "outside_bracket_first",
     "statement_correct": true,
@@ -266,18 +266,18 @@
   {
     "id": "A012",
     "category": "A",
-    "expression": "9 + 6 \u00d7 8 \u00d7 (9 \u00d7 9)",
+    "expression": "5 \u00d7 1 + 6 + 8 \u00f7 2",
     "n_ops": 4,
     "misconceptions": [
       "add_before_mul"
     ],
     "num_misconceptions": 1,
     "trace": [
-      "9 + 6 \u00d7 8 \u00d7 (9 \u00d7 9)",
-      "15 \u00d7 8 \u00d7 (9 \u00d7 9)",
-      "120 \u00d7 (9 \u00d7 9)",
-      "120 \u00d7 81",
-      "9720"
+      "5 \u00d7 1 + 6 + 8 \u00f7 2",
+      "5 \u00d7 1 + 6 + 4",
+      "5 \u00d7 1 + 10",
+      "5 \u00d7 11",
+      "55"
     ],
     "probed_misconception": "add_before_mul",
     "statement_correct": true,
@@ -288,18 +288,18 @@
   {
     "id": "A013",
     "category": "A",
-    "expression": "10 + 1 \u00d7 11 \u00f7 1 \u00d7 8",
+    "expression": "2 + 5 \u00f7 (2 \u00f7 1) - 9",
     "n_ops": 4,
     "misconceptions": [
       "add_before_div"
     ],
     "num_misconceptions": 1,
     "trace": [
-      "10 + 1 \u00d7 11 \u00f7 1 \u00d7 8",
-      "10 + 11 \u00f7 1 \u00d7 8",
-      "21 \u00f7 1 \u00d7 8",
-      "21 \u00d7 8",
-      "168"
+      "2 + 5 \u00f7 (2 \u00f7 1) - 9",
+      "2 + 5 \u00f7 2 - 9",
+      "7 \u00f7 2 - 9",
+      "3.5 - 9",
+      "-5.5"
     ],
     "probed_misconception": "add_before_div",
     "statement_correct": true,
@@ -310,18 +310,18 @@
   {
     "id": "A014",
     "category": "A",
-    "expression": "1 + 12 + (8 - 11 \u00d7 3)",
+    "expression": "10 - 11 \u00d7 10 \u00d7 6 + 4",
     "n_ops": 4,
     "misconceptions": [
       "sub_before_mul"
     ],
     "num_misconceptions": 1,
     "trace": [
-      "1 + 12 + (8 - 11 \u00d7 3)",
-      "1 + 12 + (-3 \u00d7 3)",
-      "1 + 12 + -9",
-      "1 + 3",
-      "4"
+      "10 - 11 \u00d7 10 \u00d7 6 + 4",
+      "-1 \u00d7 10 \u00d7 6 + 4",
+      "-1 \u00d7 60 + 4",
+      "-60 + 4",
+      "-56"
     ],
     "probed_misconception": "sub_before_mul",
     "statement_correct": true,
@@ -332,18 +332,18 @@
   {
     "id": "A015",
     "category": "A",
-    "expression": "7 + 11 \u00d7 5 - 5 \u00f7 1",
+    "expression": "4 \u00d7 10 \u00f7 1 - 7 - 4",
     "n_ops": 4,
     "misconceptions": [
       "sub_before_div"
     ],
     "num_misconceptions": 1,
     "trace": [
-      "7 + 11 \u00d7 5 - 5 \u00f7 1",
-      "7 + 55 - 5 \u00f7 1",
-      "62 - 5 \u00f7 1",
-      "57 \u00f7 1",
-      "57"
+      "4 \u00d7 10 \u00f7 1 - 7 - 4",
+      "4 \u00d7 10 \u00f7 -6 - 4",
+      "4 \u00d7 10 \u00f7 -10",
+      "4 \u00d7 -1",
+      "-4"
     ],
     "probed_misconception": "sub_before_div",
     "statement_correct": true,
@@ -354,18 +354,18 @@
   {
     "id": "A016",
     "category": "A",
-    "expression": "10 - 6 + 5 \u00d7 (12 - 12)",
+    "expression": "12 \u00d7 4 - 9 \u00f7 2 - 10",
     "n_ops": 4,
     "misconceptions": [
       "same_priority_rtl"
     ],
     "num_misconceptions": 1,
     "trace": [
-      "10 - 6 + 5 \u00d7 (12 - 12)",
-      "10 - 6 + 5 \u00d7 0",
-      "10 - 6 + 0",
-      "10 - 6",
-      "4"
+      "12 \u00d7 4 - 9 \u00f7 2 - 10",
+      "12 \u00d7 4 - 4.5 - 10",
+      "12 \u00d7 4 - -5.5",
+      "48 - -5.5",
+      "53.5"
     ],
     "probed_misconception": "same_priority_rtl",
     "statement_correct": true,
@@ -376,18 +376,18 @@
   {
     "id": "A017",
     "category": "A",
-    "expression": "3 \u00d7 6 - 5 \u00d7 (12 \u00d7 5)",
+    "expression": "(8 \u00d7 10 + 5) \u00d7 10 - 12",
     "n_ops": 4,
     "misconceptions": [
       "outside_bracket_first"
     ],
     "num_misconceptions": 1,
     "trace": [
-      "3 \u00d7 6 - 5 \u00d7 (12 \u00d7 5)",
-      "18 - 5 \u00d7 (12 \u00d7 5)",
-      "13 \u00d7 (12 \u00d7 5)",
-      "13 \u00d7 60",
-      "780"
+      "(8 \u00d7 10 + 5) \u00d7 10 - 12",
+      "(8 \u00d7 10 + 5) \u00d7 -2",
+      "(80 + 5) \u00d7 -2",
+      "85 \u00d7 -2",
+      "-170"
     ],
     "probed_misconception": "outside_bracket_first",
     "statement_correct": true,
@@ -398,18 +398,18 @@
   {
     "id": "A018",
     "category": "A",
-    "expression": "5 \u00d7 7 \u00d7 3 + 10 \u00d7 9",
+    "expression": "3 \u00d7 1 \u00f7 10 + (10 \u00f7 1)",
     "n_ops": 4,
     "misconceptions": [
       "add_before_mul"
     ],
     "num_misconceptions": 1,
     "trace": [
-      "5 \u00d7 7 \u00d7 3 + 10 \u00d7 9",
-      "35 \u00d7 3 + 10 \u00d7 9",
-      "35 \u00d7 13 \u00d7 9",
-      "35 \u00d7 117",
-      "4095"
+      "3 \u00d7 1 \u00f7 10 + (10 \u00f7 1)",
+      "3 \u00d7 0.1 + (10 \u00f7 1)",
+      "3 \u00d7 0.1 + 10",
+      "3 \u00d7 10.1",
+      "30.3"
     ],
     "probed_misconception": "add_before_mul",
     "statement_correct": true,
@@ -420,18 +420,18 @@
   {
     "id": "A019",
     "category": "A",
-    "expression": "12 - 3 \u00d7 (3 + 2 \u00f7 10)",
+    "expression": "6 + 5 \u00f7 4 + 7 - 9",
     "n_ops": 4,
     "misconceptions": [
       "add_before_div"
     ],
     "num_misconceptions": 1,
     "trace": [
-      "12 - 3 \u00d7 (3 + 2 \u00f7 10)",
-      "12 - 3 \u00d7 (5 \u00f7 10)",
-      "12 - 3 \u00d7 0.5",
-      "12 - 1.5",
-      "10.5"
+      "6 + 5 \u00f7 4 + 7 - 9",
+      "11 \u00f7 4 + 7 - 9",
+      "11 \u00f7 11 - 9",
+      "1 - 9",
+      "-8"
     ],
     "probed_misconception": "add_before_div",
     "statement_correct": true,
@@ -442,18 +442,18 @@
   {
     "id": "A020",
     "category": "A",
-    "expression": "9 - 8 \u00d7 10 - 11 + 8",
+    "expression": "8 - 2 \u00d7 9 \u00f7 2 - 5",
     "n_ops": 4,
     "misconceptions": [
       "sub_before_mul"
     ],
     "num_misconceptions": 1,
     "trace": [
-      "9 - 8 \u00d7 10 - 11 + 8",
-      "1 \u00d7 10 - 11 + 8",
-      "1 \u00d7 -1 + 8",
-      "-1 + 8",
-      "7"
+      "8 - 2 \u00d7 9 \u00f7 2 - 5",
+      "6 \u00d7 9 \u00f7 2 - 5",
+      "54 \u00f7 2 - 5",
+      "27 - 5",
+      "22"
     ],
     "probed_misconception": "sub_before_mul",
     "statement_correct": true,
@@ -464,18 +464,18 @@
   {
     "id": "A021",
     "category": "A",
-    "expression": "8 \u00f7 7 - 8 - (1 + 6)",
+    "expression": "10 \u00f7 10 \u00d7 9 \u00f7 5 - 4",
     "n_ops": 4,
     "misconceptions": [
       "sub_before_div"
     ],
     "num_misconceptions": 1,
     "trace": [
-      "8 \u00f7 7 - 8 - (1 + 6)",
-      "8 \u00f7 -1 - (1 + 6)",
-      "-8 - (1 + 6)",
-      "-8 - 7",
-      "-15"
+      "10 \u00f7 10 \u00d7 9 \u00f7 5 - 4",
+      "1 \u00d7 9 \u00f7 5 - 4",
+      "1 \u00d7 9 \u00f7 1",
+      "1 \u00d7 9",
+      "9"
     ],
     "probed_misconception": "sub_before_div",
     "statement_correct": true,
@@ -486,18 +486,18 @@
   {
     "id": "A022",
     "category": "A",
-    "expression": "12 \u00f7 10 - 10 \u00d7 5 - 11",
+    "expression": "6 + 12 \u00d7 12 - 10 + 3",
     "n_ops": 4,
     "misconceptions": [
       "same_priority_rtl"
     ],
     "num_misconceptions": 1,
     "trace": [
-      "12 \u00f7 10 - 10 \u00d7 5 - 11",
-      "1.2 - 10 \u00d7 5 - 11",
-      "1.2 - 50 - 11",
-      "1.2 - 39",
-      "-37.8"
+      "6 + 12 \u00d7 12 - 10 + 3",
+      "6 + 12 \u00d7 12 - 13",
+      "6 + 144 - 13",
+      "150 - 13",
+      "137"
     ],
     "probed_misconception": "same_priority_rtl",
     "statement_correct": true,
@@ -508,18 +508,18 @@
   {
     "id": "A023",
     "category": "A",
-    "expression": "1 + 11 - 9 \u00d7 (8 - 1)",
+    "expression": "4 \u00d7 9 + 2 \u00d7 (4 + 3)",
     "n_ops": 4,
     "misconceptions": [
       "outside_bracket_first"
     ],
     "num_misconceptions": 1,
     "trace": [
-      "1 + 11 - 9 \u00d7 (8 - 1)",
-      "1 + 2 \u00d7 (8 - 1)",
-      "1 + 2 \u00d7 7",
-      "1 + 14",
-      "15"
+      "4 \u00d7 9 + 2 \u00d7 (4 + 3)",
+      "36 + 2 \u00d7 (4 + 3)",
+      "38 \u00d7 (4 + 3)",
+      "38 \u00d7 7",
+      "266"
     ],
     "probed_misconception": "outside_bracket_first",
     "statement_correct": true,
@@ -530,18 +530,18 @@
   {
     "id": "A024",
     "category": "A",
-    "expression": "9 \u00d7 3 + 10 + 6 + 5",
+    "expression": "4 \u00d7 2 + 12 + 8 - 7",
     "n_ops": 4,
     "misconceptions": [
       "add_before_mul"
     ],
     "num_misconceptions": 1,
     "trace": [
-      "9 \u00d7 3 + 10 + 6 + 5",
-      "9 \u00d7 13 + 6 + 5",
-      "9 \u00d7 13 + 11",
-      "9 \u00d7 24",
-      "216"
+      "4 \u00d7 2 + 12 + 8 - 7",
+      "4 \u00d7 14 + 8 - 7",
+      "4 \u00d7 14 + 1",
+      "4 \u00d7 15",
+      "60"
     ],
     "probed_misconception": "add_before_mul",
     "statement_correct": true,
@@ -552,18 +552,18 @@
   {
     "id": "A025",
     "category": "A",
-    "expression": "(4 \u00d7 9) \u00d7 10 \u00f7 6 + 6",
+    "expression": "12 \u00d7 10 \u00f7 (2 \u00d7 4) + 7",
     "n_ops": 4,
     "misconceptions": [
       "add_before_div"
     ],
     "num_misconceptions": 1,
     "trace": [
-      "(4 \u00d7 9) \u00d7 10 \u00f7 6 + 6",
-      "(4 \u00d7 9) \u00d7 10 \u00f7 12",
-      "36 \u00d7 10 \u00f7 12",
-      "360 \u00f7 12",
-      "30"
+      "12 \u00d7 10 \u00f7 (2 \u00d7 4) + 7",
+      "12 \u00d7 10 \u00f7 8 + 7",
+      "12 \u00d7 10 \u00f7 15",
+      "120 \u00f7 15",
+      "8"
     ],
     "probed_misconception": "add_before_div",
     "statement_correct": true,
@@ -574,18 +574,18 @@
   {
     "id": "A026",
     "category": "A",
-    "expression": "(6 \u00d7 4 \u00f7 2) - 10 \u00d7 8",
+    "expression": "(9 - 10) \u00d7 11 - 1 \u00d7 7",
     "n_ops": 4,
     "misconceptions": [
       "sub_before_mul"
     ],
     "num_misconceptions": 1,
     "trace": [
-      "(6 \u00d7 4 \u00f7 2) - 10 \u00d7 8",
-      "(24 \u00f7 2) - 10 \u00d7 8",
-      "12 - 10 \u00d7 8",
-      "2 \u00d7 8",
-      "16"
+      "(9 - 10) \u00d7 11 - 1 \u00d7 7",
+      "-1 \u00d7 11 - 1 \u00d7 7",
+      "-1 \u00d7 10 \u00d7 7",
+      "-1 \u00d7 70",
+      "-70"
     ],
     "probed_misconception": "sub_before_mul",
     "statement_correct": true,
@@ -596,18 +596,18 @@
   {
     "id": "A027",
     "category": "A",
-    "expression": "(2 \u00d7 12 \u00f7 1) \u00f7 9 - 8",
+    "expression": "3 \u00d7 11 - 9 \u00f7 5 + 5",
     "n_ops": 4,
     "misconceptions": [
       "sub_before_div"
     ],
     "num_misconceptions": 1,
     "trace": [
-      "(2 \u00d7 12 \u00f7 1) \u00f7 9 - 8",
-      "(2 \u00d7 12) \u00f7 9 - 8",
-      "24 \u00f7 9 - 8",
-      "24 \u00f7 1",
-      "24"
+      "3 \u00d7 11 - 9 \u00f7 5 + 5",
+      "33 - 9 \u00f7 5 + 5",
+      "24 \u00f7 5 + 5",
+      "4.8 + 5",
+      "9.8"
     ],
     "probed_misconception": "sub_before_div",
     "statement_correct": true,
@@ -618,18 +618,18 @@
   {
     "id": "A028",
     "category": "A",
-    "expression": "6 \u00f7 4 - 5 \u00d7 5 - 9",
+    "expression": "6 - 5 \u00d7 1 \u00d7 5 + 10",
     "n_ops": 4,
     "misconceptions": [
       "same_priority_rtl"
     ],
     "num_misconceptions": 1,
     "trace": [
-      "6 \u00f7 4 - 5 \u00d7 5 - 9",
-      "1.5 - 5 \u00d7 5 - 9",
-      "1.5 - 25 - 9",
-      "1.5 - 16",
-      "-14.5"
+      "6 - 5 \u00d7 1 \u00d7 5 + 10",
+      "6 - 5 \u00d7 5 + 10",
+      "6 - 25 + 10",
+      "6 - 35",
+      "-29"
     ],
     "probed_misconception": "same_priority_rtl",
     "statement_correct": true,
@@ -640,18 +640,18 @@
   {
     "id": "A029",
     "category": "A",
-    "expression": "(3 \u00d7 8) \u00d7 9 \u00d7 7 + 7",
+    "expression": "(10 + 11) \u00f7 8 + 4 + 1",
     "n_ops": 4,
     "misconceptions": [
       "outside_bracket_first"
     ],
     "num_misconceptions": 1,
     "trace": [
-      "(3 \u00d7 8) \u00d7 9 \u00d7 7 + 7",
-      "(3 \u00d7 8) \u00d7 63 + 7",
-      "(3 \u00d7 8) \u00d7 70",
-      "24 \u00d7 70",
-      "1680"
+      "(10 + 11) \u00f7 8 + 4 + 1",
+      "(10 + 11) \u00f7 12 + 1",
+      "21 \u00f7 12 + 1",
+      "1.75 + 1",
+      "2.75"
     ],
     "probed_misconception": "outside_bracket_first",
     "statement_correct": true,
@@ -662,18 +662,18 @@
   {
     "id": "A030",
     "category": "A",
-    "expression": "(4 \u00d7 6 - 8) + 2 \u00d7 1",
+    "expression": "4 \u00d7 (1 + 4) \u00f7 2 + 9",
     "n_ops": 4,
     "misconceptions": [
       "add_before_mul"
     ],
     "num_misconceptions": 1,
     "trace": [
-      "(4 \u00d7 6 - 8) + 2 \u00d7 1",
-      "(24 - 8) + 2 \u00d7 1",
-      "16 + 2 \u00d7 1",
-      "18 \u00d7 1",
-      "18"
+      "4 \u00d7 (1 + 4) \u00f7 2 + 9",
+      "4 \u00d7 5 \u00f7 2 + 9",
+      "4 \u00d7 2.5 + 9",
+      "4 \u00d7 11.5",
+      "46"
     ],
     "probed_misconception": "add_before_mul",
     "statement_correct": true,
@@ -684,18 +684,18 @@
   {
     "id": "A031",
     "category": "A",
-    "expression": "(9 - 10) + 1 \u00f7 7 \u00d7 5",
+    "expression": "12 - 6 \u00f7 4 \u00f7 3 + 3",
     "n_ops": 4,
     "misconceptions": [
       "add_before_div"
     ],
     "num_misconceptions": 1,
     "trace": [
-      "(9 - 10) + 1 \u00f7 7 \u00d7 5",
-      "-1 + 1 \u00f7 7 \u00d7 5",
-      "0 \u00f7 7 \u00d7 5",
-      "0 \u00d7 5",
-      "0"
+      "12 - 6 \u00f7 4 \u00f7 3 + 3",
+      "12 - 1.5 \u00f7 3 + 3",
+      "12 - 1.5 \u00f7 6",
+      "12 - 0.25",
+      "11.75"
     ],
     "probed_misconception": "add_before_div",
     "statement_correct": true,
@@ -706,18 +706,18 @@
   {
     "id": "A032",
     "category": "A",
-    "expression": "7 \u00d7 3 - (7 \u00d7 10) + 2",
+    "expression": "8 - 6 \u00d7 (12 \u00f7 5 - 1)",
     "n_ops": 4,
     "misconceptions": [
       "sub_before_mul"
     ],
     "num_misconceptions": 1,
     "trace": [
-      "7 \u00d7 3 - (7 \u00d7 10) + 2",
-      "7 \u00d7 3 - 70 + 2",
-      "7 \u00d7 -67 + 2",
-      "-469 + 2",
-      "-467"
+      "8 - 6 \u00d7 (12 \u00f7 5 - 1)",
+      "8 - 6 \u00d7 (2.4 - 1)",
+      "8 - 6 \u00d7 1.4",
+      "2 \u00d7 1.4",
+      "2.8"
     ],
     "probed_misconception": "sub_before_mul",
     "statement_correct": true,
@@ -728,18 +728,18 @@
   {
     "id": "A033",
     "category": "A",
-    "expression": "7 + 1 \u00f7 1 - 5 - 6",
+    "expression": "10 + 11 - (4 - 10 \u00f7 2)",
     "n_ops": 4,
     "misconceptions": [
       "sub_before_div"
     ],
     "num_misconceptions": 1,
     "trace": [
-      "7 + 1 \u00f7 1 - 5 - 6",
-      "7 + 1 \u00f7 -4 - 6",
-      "7 + 1 \u00f7 -10",
-      "7 + -0.1",
-      "6.9"
+      "10 + 11 - (4 - 10 \u00f7 2)",
+      "10 + 11 - (-6 \u00f7 2)",
+      "10 + 11 - -3",
+      "10 + 14",
+      "24"
     ],
     "probed_misconception": "sub_before_div",
     "statement_correct": true,
@@ -750,18 +750,18 @@
   {
     "id": "A034",
     "category": "A",
-    "expression": "7 \u00f7 10 - 4 + 12 \u00d7 7",
+    "expression": "7 \u00d7 10 - 1 - 11 - 6",
     "n_ops": 4,
     "misconceptions": [
       "same_priority_rtl"
     ],
     "num_misconceptions": 1,
     "trace": [
-      "7 \u00f7 10 - 4 + 12 \u00d7 7",
-      "0.7 - 4 + 12 \u00d7 7",
-      "0.7 - 4 + 84",
-      "0.7 - 88",
-      "-87.3"
+      "7 \u00d7 10 - 1 - 11 - 6",
+      "7 \u00d7 10 - 1 - 5",
+      "7 \u00d7 10 - -4",
+      "70 - -4",
+      "74"
     ],
     "probed_misconception": "same_priority_rtl",
     "statement_correct": true,
@@ -772,18 +772,18 @@
   {
     "id": "A035",
     "category": "A",
-    "expression": "11 - 2 \u00d7 (12 \u00d7 7 \u00d7 8)",
+    "expression": "(4 + 3) \u00f7 4 - 9 + 11",
     "n_ops": 4,
     "misconceptions": [
       "outside_bracket_first"
     ],
     "num_misconceptions": 1,
     "trace": [
-      "11 - 2 \u00d7 (12 \u00d7 7 \u00d7 8)",
-      "11 - 2 \u00d7 (12 \u00d7 56)",
-      "9 \u00d7 (12 \u00d7 56)",
-      "9 \u00d7 672",
-      "6048"
+      "(4 + 3) \u00f7 4 - 9 + 11",
+      "(4 + 3) \u00f7 -5 + 11",
+      "7 \u00f7 -5 + 11",
+      "-1.4 + 11",
+      "9.6"
     ],
     "probed_misconception": "outside_bracket_first",
     "statement_correct": true,
@@ -794,18 +794,18 @@
   {
     "id": "A036",
     "category": "A",
-    "expression": "2 + 7 + 6 \u00d7 1 \u00f7 10",
+    "expression": "11 \u00d7 3 \u00d7 5 + 8 - 4",
     "n_ops": 4,
     "misconceptions": [
       "add_before_mul"
     ],
     "num_misconceptions": 1,
     "trace": [
-      "2 + 7 + 6 \u00d7 1 \u00f7 10",
-      "2 + 13 \u00d7 1 \u00f7 10",
-      "15 \u00d7 1 \u00f7 10",
-      "15 \u00d7 0.1",
-      "1.5"
+      "11 \u00d7 3 \u00d7 5 + 8 - 4",
+      "11 \u00d7 3 \u00d7 13 - 4",
+      "11 \u00d7 39 - 4",
+      "429 - 4",
+      "425"
     ],
     "probed_misconception": "add_before_mul",
     "statement_correct": true,
@@ -816,18 +816,18 @@
   {
     "id": "A037",
     "category": "A",
-    "expression": "11 \u00d7 (1 + 1) \u00f7 9 + 2",
+    "expression": "5 \u00d7 3 + 4 \u00d7 1 \u00f7 4",
     "n_ops": 4,
     "misconceptions": [
       "add_before_div"
     ],
     "num_misconceptions": 1,
     "trace": [
-      "11 \u00d7 (1 + 1) \u00f7 9 + 2",
-      "11 \u00d7 2 \u00f7 9 + 2",
-      "11 \u00d7 2 \u00f7 11",
-      "22 \u00f7 11",
-      "2"
+      "5 \u00d7 3 + 4 \u00d7 1 \u00f7 4",
+      "15 + 4 \u00d7 1 \u00f7 4",
+      "15 + 4 \u00f7 4",
+      "19 \u00f7 4",
+      "4.75"
     ],
     "probed_misconception": "add_before_div",
     "statement_correct": true,
@@ -838,18 +838,18 @@
   {
     "id": "A038",
     "category": "A",
-    "expression": "9 - 2 - 9 \u00d7 (7 - 3)",
+    "expression": "9 \u00d7 2 - 4 - (9 - 4)",
     "n_ops": 4,
     "misconceptions": [
       "sub_before_mul"
     ],
     "num_misconceptions": 1,
     "trace": [
-      "9 - 2 - 9 \u00d7 (7 - 3)",
-      "7 - 9 \u00d7 (7 - 3)",
-      "7 - 9 \u00d7 4",
-      "-2 \u00d7 4",
-      "-8"
+      "9 \u00d7 2 - 4 - (9 - 4)",
+      "9 \u00d7 -2 - (9 - 4)",
+      "-18 - (9 - 4)",
+      "-18 - 5",
+      "-23"
     ],
     "probed_misconception": "sub_before_mul",
     "statement_correct": true,
@@ -860,18 +860,18 @@
   {
     "id": "A039",
     "category": "A",
-    "expression": "6 \u00f7 6 - 11 + 9 + 8",
+    "expression": "12 \u00f7 9 - (11 - 2 + 8)",
     "n_ops": 4,
     "misconceptions": [
       "sub_before_div"
     ],
     "num_misconceptions": 1,
     "trace": [
-      "6 \u00f7 6 - 11 + 9 + 8",
-      "6 \u00f7 -5 + 9 + 8",
-      "-1.2 + 9 + 8",
-      "-1.2 + 17",
-      "15.8"
+      "12 \u00f7 9 - (11 - 2 + 8)",
+      "12 \u00f7 9 - (9 + 8)",
+      "12 \u00f7 9 - 17",
+      "12 \u00f7 -8",
+      "-1.5"
     ],
     "probed_misconception": "sub_before_div",
     "statement_correct": true,
@@ -882,18 +882,18 @@
   {
     "id": "A040",
     "category": "A",
-    "expression": "6 - (12 + 4) \u00d7 7 - 11",
+    "expression": "8 - 10 + 1 + 6 \u00d7 1",
     "n_ops": 4,
     "misconceptions": [
       "same_priority_rtl"
     ],
     "num_misconceptions": 1,
     "trace": [
-      "6 - (12 + 4) \u00d7 7 - 11",
-      "6 - 16 \u00d7 7 - 11",
-      "6 - 112 - 11",
-      "6 - 101",
-      "-95"
+      "8 - 10 + 1 + 6 \u00d7 1",
+      "8 - 10 + 1 + 6",
+      "8 - 10 + 7",
+      "8 - 17",
+      "-9"
     ],
     "probed_misconception": "same_priority_rtl",
     "statement_correct": true,
@@ -904,18 +904,18 @@
   {
     "id": "A041",
     "category": "A",
-    "expression": "1 + 6 \u00d7 (9 \u00f7 9) \u00d7 4",
+    "expression": "8 \u00d7 (5 \u00d7 7) \u00f7 7 + 9",
     "n_ops": 4,
     "misconceptions": [
       "outside_bracket_first"
     ],
     "num_misconceptions": 1,
     "trace": [
-      "1 + 6 \u00d7 (9 \u00f7 9) \u00d7 4",
-      "7 \u00d7 (9 \u00f7 9) \u00d7 4",
-      "7 \u00d7 1 \u00d7 4",
-      "7 \u00d7 4",
-      "28"
+      "8 \u00d7 (5 \u00d7 7) \u00f7 7 + 9",
+      "8 \u00d7 (5 \u00d7 7) \u00f7 16",
+      "8 \u00d7 35 \u00f7 16",
+      "280 \u00f7 16",
+      "17.5"
     ],
     "probed_misconception": "outside_bracket_first",
     "statement_correct": true,
@@ -926,18 +926,18 @@
   {
     "id": "A042",
     "category": "A",
-    "expression": "4 + (3 + 11 \u00d7 5) + 9",
+    "expression": "(6 \u00d7 2 + 8) + 5 - 8",
     "n_ops": 4,
     "misconceptions": [
       "add_before_mul"
     ],
     "num_misconceptions": 1,
     "trace": [
-      "4 + (3 + 11 \u00d7 5) + 9",
-      "4 + (14 \u00d7 5) + 9",
-      "4 + 70 + 9",
-      "4 + 79",
-      "83"
+      "(6 \u00d7 2 + 8) + 5 - 8",
+      "(6 \u00d7 10) + 5 - 8",
+      "(6 \u00d7 10) + -3",
+      "60 + -3",
+      "57"
     ],
     "probed_misconception": "add_before_mul",
     "statement_correct": true,
@@ -948,18 +948,18 @@
   {
     "id": "A043",
     "category": "A",
-    "expression": "(3 \u00d7 9 + 7) + 4 \u00f7 1",
+    "expression": "7 \u00f7 (8 - 2 - 5) + 6",
     "n_ops": 4,
     "misconceptions": [
       "add_before_div"
     ],
     "num_misconceptions": 1,
     "trace": [
-      "(3 \u00d7 9 + 7) + 4 \u00f7 1",
-      "(27 + 7) + 4 \u00f7 1",
-      "34 + 4 \u00f7 1",
-      "38 \u00f7 1",
-      "38"
+      "7 \u00f7 (8 - 2 - 5) + 6",
+      "7 \u00f7 (6 - 5) + 6",
+      "7 \u00f7 1 + 6",
+      "7 \u00f7 7",
+      "1"
     ],
     "probed_misconception": "add_before_div",
     "statement_correct": true,
@@ -970,18 +970,18 @@
   {
     "id": "A044",
     "category": "A",
-    "expression": "12 \u00f7 2 \u00d7 9 \u00f7 12 - 6",
+    "expression": "3 \u00f7 3 + 2 - 11 \u00d7 5",
     "n_ops": 4,
     "misconceptions": [
       "sub_before_mul"
     ],
     "num_misconceptions": 1,
     "trace": [
-      "12 \u00f7 2 \u00d7 9 \u00f7 12 - 6",
-      "12 \u00f7 2 \u00d7 0.75 - 6",
-      "12 \u00f7 2 \u00d7 -5.25",
-      "6 \u00d7 -5.25",
-      "-31.5"
+      "3 \u00f7 3 + 2 - 11 \u00d7 5",
+      "1 + 2 - 11 \u00d7 5",
+      "1 + -9 \u00d7 5",
+      "1 + -45",
+      "-44"
     ],
     "probed_misconception": "sub_before_mul",
     "statement_correct": true,
@@ -992,18 +992,18 @@
   {
     "id": "A045",
     "category": "A",
-    "expression": "4 - 12 \u00f7 8 \u00d7 2 - 5",
+    "expression": "2 \u00f7 7 - 12 \u00f7 10 - 11",
     "n_ops": 4,
     "misconceptions": [
       "sub_before_div"
     ],
     "num_misconceptions": 1,
     "trace": [
-      "4 - 12 \u00f7 8 \u00d7 2 - 5",
-      "-8 \u00f7 8 \u00d7 2 - 5",
-      "-1 \u00d7 2 - 5",
-      "-2 - 5",
-      "-7"
+      "2 \u00f7 7 - 12 \u00f7 10 - 11",
+      "2 \u00f7 -5 \u00f7 10 - 11",
+      "-0.4 \u00f7 10 - 11",
+      "-0.4 \u00f7 -1",
+      "0.4"
     ],
     "probed_misconception": "sub_before_div",
     "statement_correct": true,
@@ -1014,18 +1014,18 @@
   {
     "id": "A046",
     "category": "A",
-    "expression": "12 \u00f7 2 - 9 \u00d7 6 - 7",
+    "expression": "12 - 8 \u00d7 10 \u00f7 1 \u00d7 1",
     "n_ops": 4,
     "misconceptions": [
       "same_priority_rtl"
     ],
     "num_misconceptions": 1,
     "trace": [
-      "12 \u00f7 2 - 9 \u00d7 6 - 7",
-      "12 \u00f7 2 - 54 - 7",
-      "12 \u00f7 2 - 47",
-      "6 - 47",
-      "-41"
+      "12 - 8 \u00d7 10 \u00f7 1 \u00d7 1",
+      "12 - 8 \u00d7 10 \u00f7 1",
+      "12 - 8 \u00d7 10",
+      "12 - 80",
+      "-68"
     ],
     "probed_misconception": "same_priority_rtl",
     "statement_correct": true,
@@ -1036,18 +1036,18 @@
   {
     "id": "A047",
     "category": "A",
-    "expression": "9 - 9 \u00f7 (8 \u00f7 10 - 4)",
+    "expression": "6 + 1 \u00f7 5 \u00d7 (2 - 4)",
     "n_ops": 4,
     "misconceptions": [
       "outside_bracket_first"
     ],
     "num_misconceptions": 1,
     "trace": [
-      "9 - 9 \u00f7 (8 \u00f7 10 - 4)",
-      "0 \u00f7 (8 \u00f7 10 - 4)",
-      "0 \u00f7 (0.8 - 4)",
-      "0 \u00f7 -3.2",
-      "0"
+      "6 + 1 \u00f7 5 \u00d7 (2 - 4)",
+      "6 + 0.2 \u00d7 (2 - 4)",
+      "6.2 \u00d7 (2 - 4)",
+      "6.2 \u00d7 -2",
+      "-12.4"
     ],
     "probed_misconception": "outside_bracket_first",
     "statement_correct": true,
@@ -1058,18 +1058,18 @@
   {
     "id": "A048",
     "category": "A",
-    "expression": "3 + 6 + 5 \u00d7 5 \u00f7 10",
+    "expression": "5 + 12 \u00f7 5 \u00d7 1 \u00f7 10",
     "n_ops": 4,
     "misconceptions": [
       "add_before_mul"
     ],
     "num_misconceptions": 1,
     "trace": [
-      "3 + 6 + 5 \u00d7 5 \u00f7 10",
-      "3 + 11 \u00d7 5 \u00f7 10",
-      "14 \u00d7 5 \u00f7 10",
-      "14 \u00d7 0.5",
-      "7"
+      "5 + 12 \u00f7 5 \u00d7 1 \u00f7 10",
+      "5 + 12 \u00f7 5 \u00d7 0.1",
+      "5 + 2.4 \u00d7 0.1",
+      "7.4 \u00d7 0.1",
+      "0.74"
     ],
     "probed_misconception": "add_before_mul",
     "statement_correct": true,
@@ -1080,18 +1080,18 @@
   {
     "id": "A049",
     "category": "A",
-    "expression": "12 \u00f7 5 + (2 \u00d7 4 - 9)",
+    "expression": "12 + 2 \u00f7 1 \u00f7 7 \u00f7 10",
     "n_ops": 4,
     "misconceptions": [
       "add_before_div"
     ],
     "num_misconceptions": 1,
     "trace": [
-      "12 \u00f7 5 + (2 \u00d7 4 - 9)",
-      "12 \u00f7 5 + (8 - 9)",
-      "12 \u00f7 5 + -1",
-      "12 \u00f7 4",
-      "3"
+      "12 + 2 \u00f7 1 \u00f7 7 \u00f7 10",
+      "14 \u00f7 1 \u00f7 7 \u00f7 10",
+      "14 \u00f7 7 \u00f7 10",
+      "2 \u00f7 10",
+      "0.2"
     ],
     "probed_misconception": "add_before_div",
     "statement_correct": true,
@@ -1102,18 +1102,18 @@
   {
     "id": "A050",
     "category": "A",
-    "expression": "7 \u00d7 8 - 7 + 9 \u00d7 2",
+    "expression": "9 + 4 \u00d7 5 - 4 - 10",
     "n_ops": 4,
     "misconceptions": [
       "sub_before_mul"
     ],
     "num_misconceptions": 1,
     "trace": [
-      "7 \u00d7 8 - 7 + 9 \u00d7 2",
-      "7 \u00d7 1 + 9 \u00d7 2",
-      "7 + 9 \u00d7 2",
-      "7 + 18",
-      "25"
+      "9 + 4 \u00d7 5 - 4 - 10",
+      "9 + 4 \u00d7 1 - 10",
+      "9 + 4 \u00d7 -9",
+      "9 + -36",
+      "-27"
     ],
     "probed_misconception": "sub_before_mul",
     "statement_correct": true,
@@ -1124,17 +1124,17 @@
   {
     "id": "A051",
     "category": "A",
-    "expression": "7 - 8 + 9 - 3 \u00f7 12",
+    "expression": "9 \u00f7 12 + 5 \u00f7 7 - 11",
     "n_ops": 4,
     "misconceptions": [
       "sub_before_div"
     ],
     "num_misconceptions": 1,
     "trace": [
-      "7 - 8 + 9 - 3 \u00f7 12",
-      "-1 + 9 - 3 \u00f7 12",
-      "-1 + 6 \u00f7 12",
-      "-1 + 0.5",
+      "9 \u00f7 12 + 5 \u00f7 7 - 11",
+      "0.75 + 5 \u00f7 7 - 11",
+      "0.75 + 5 \u00f7 -4",
+      "0.75 + -1.25",
       "-0.5"
     ],
     "probed_misconception": "sub_before_div",
@@ -1146,18 +1146,18 @@
   {
     "id": "A052",
     "category": "A",
-    "expression": "12 \u00d7 11 \u00f7 12 - 3 + 12",
+    "expression": "9 \u00f7 1 - (2 - 5 - 10)",
     "n_ops": 4,
     "misconceptions": [
       "same_priority_rtl"
     ],
     "num_misconceptions": 1,
     "trace": [
-      "12 \u00d7 11 \u00f7 12 - 3 + 12",
-      "12 \u00d7 11 \u00f7 12 - 15",
-      "132 \u00f7 12 - 15",
-      "11 - 15",
-      "-4"
+      "9 \u00f7 1 - (2 - 5 - 10)",
+      "9 - (2 - 5 - 10)",
+      "9 - (2 - -5)",
+      "9 - 7",
+      "2"
     ],
     "probed_misconception": "same_priority_rtl",
     "statement_correct": true,
@@ -1168,18 +1168,18 @@
   {
     "id": "A053",
     "category": "A",
-    "expression": "10 - 1 \u00d7 (2 \u00f7 10) \u00d7 11",
+    "expression": "5 - 6 + 7 \u00d7 (4 - 3)",
     "n_ops": 4,
     "misconceptions": [
       "outside_bracket_first"
     ],
     "num_misconceptions": 1,
     "trace": [
-      "10 - 1 \u00d7 (2 \u00f7 10) \u00d7 11",
-      "9 \u00d7 (2 \u00f7 10) \u00d7 11",
-      "9 \u00d7 0.2 \u00d7 11",
-      "1.8 \u00d7 11",
-      "19.8"
+      "5 - 6 + 7 \u00d7 (4 - 3)",
+      "-1 + 7 \u00d7 (4 - 3)",
+      "6 \u00d7 (4 - 3)",
+      "6 \u00d7 1",
+      "6"
     ],
     "probed_misconception": "outside_bracket_first",
     "statement_correct": true,
@@ -1190,18 +1190,18 @@
   {
     "id": "A054",
     "category": "A",
-    "expression": "6 \u00f7 10 + 9 \u00d7 12 \u00f7 12",
+    "expression": "11 + 2 \u00d7 2 \u00d7 7 \u00d7 9",
     "n_ops": 4,
     "misconceptions": [
       "add_before_mul"
     ],
     "num_misconceptions": 1,
     "trace": [
-      "6 \u00f7 10 + 9 \u00d7 12 \u00f7 12",
-      "0.6 + 9 \u00d7 12 \u00f7 12",
-      "0.6 + 9 \u00d7 1",
-      "9.6 \u00d7 1",
-      "9.6"
+      "11 + 2 \u00d7 2 \u00d7 7 \u00d7 9",
+      "11 + 2 \u00d7 14 \u00d7 9",
+      "11 + 2 \u00d7 126",
+      "13 \u00d7 126",
+      "1638"
     ],
     "probed_misconception": "add_before_mul",
     "statement_correct": true,
@@ -1212,18 +1212,18 @@
   {
     "id": "A055",
     "category": "A",
-    "expression": "10 \u00f7 5 + (8 - 10) - 5",
+    "expression": "2 - 2 \u00f7 (4 - 11) + 8",
     "n_ops": 4,
     "misconceptions": [
       "add_before_div"
     ],
     "num_misconceptions": 1,
     "trace": [
-      "10 \u00f7 5 + (8 - 10) - 5",
-      "10 \u00f7 5 + -2 - 5",
-      "10 \u00f7 5 + -7",
-      "10 \u00f7 -2",
-      "-5"
+      "2 - 2 \u00f7 (4 - 11) + 8",
+      "2 - 2 \u00f7 -7 + 8",
+      "2 - 2 \u00f7 1",
+      "2 - 2",
+      "0"
     ],
     "probed_misconception": "add_before_div",
     "statement_correct": true,
@@ -1234,18 +1234,18 @@
   {
     "id": "A056",
     "category": "A",
-    "expression": "2 - 10 \u00d7 (12 \u00d7 1 \u00f7 8)",
+    "expression": "1 \u00d7 3 \u00d7 6 - 6 \u00d7 4",
     "n_ops": 4,
     "misconceptions": [
       "sub_before_mul"
     ],
     "num_misconceptions": 1,
     "trace": [
-      "2 - 10 \u00d7 (12 \u00d7 1 \u00f7 8)",
-      "2 - 10 \u00d7 (12 \u00f7 8)",
-      "2 - 10 \u00d7 1.5",
-      "-8 \u00d7 1.5",
-      "-12"
+      "1 \u00d7 3 \u00d7 6 - 6 \u00d7 4",
+      "1 \u00d7 3 \u00d7 0 \u00d7 4",
+      "1 \u00d7 0 \u00d7 4",
+      "0 \u00d7 4",
+      "0"
     ],
     "probed_misconception": "sub_before_mul",
     "statement_correct": true,
@@ -1256,18 +1256,18 @@
   {
     "id": "A057",
     "category": "A",
-    "expression": "(8 \u00f7 2) - 8 \u00f7 2 + 2",
+    "expression": "11 \u00d7 3 - 12 \u00f7 3 - 2",
     "n_ops": 4,
     "misconceptions": [
       "sub_before_div"
     ],
     "num_misconceptions": 1,
     "trace": [
-      "(8 \u00f7 2) - 8 \u00f7 2 + 2",
-      "4 - 8 \u00f7 2 + 2",
-      "-4 \u00f7 2 + 2",
-      "-2 + 2",
-      "0"
+      "11 \u00d7 3 - 12 \u00f7 3 - 2",
+      "11 \u00d7 3 - 12 \u00f7 1",
+      "33 - 12 \u00f7 1",
+      "21 \u00f7 1",
+      "21"
     ],
     "probed_misconception": "sub_before_div",
     "statement_correct": true,
@@ -1278,18 +1278,18 @@
   {
     "id": "A058",
     "category": "A",
-    "expression": "(10 - 10) \u00f7 10 \u00d7 8 + 8",
+    "expression": "5 \u00f7 2 - 5 + 10 - 10",
     "n_ops": 4,
     "misconceptions": [
       "same_priority_rtl"
     ],
     "num_misconceptions": 1,
     "trace": [
-      "(10 - 10) \u00f7 10 \u00d7 8 + 8",
-      "0 \u00f7 10 \u00d7 8 + 8",
-      "0 \u00f7 80 + 8",
-      "0 + 8",
-      "8"
+      "5 \u00f7 2 - 5 + 10 - 10",
+      "2.5 - 5 + 10 - 10",
+      "2.5 - 15 - 10",
+      "2.5 - 5",
+      "-2.5"
     ],
     "probed_misconception": "same_priority_rtl",
     "statement_correct": true,
@@ -1300,18 +1300,18 @@
   {
     "id": "A059",
     "category": "A",
-    "expression": "7 \u00d7 5 + 10 \u00d7 (11 \u00d7 5)",
+    "expression": "12 - 2 \u00d7 (8 - 5 + 5)",
     "n_ops": 4,
     "misconceptions": [
       "outside_bracket_first"
     ],
     "num_misconceptions": 1,
     "trace": [
-      "7 \u00d7 5 + 10 \u00d7 (11 \u00d7 5)",
-      "35 + 10 \u00d7 (11 \u00d7 5)",
-      "45 \u00d7 (11 \u00d7 5)",
-      "45 \u00d7 55",
-      "2475"
+      "12 - 2 \u00d7 (8 - 5 + 5)",
+      "10 \u00d7 (8 - 5 + 5)",
+      "10 \u00d7 (3 + 5)",
+      "10 \u00d7 8",
+      "80"
     ],
     "probed_misconception": "outside_bracket_first",
     "statement_correct": true,
@@ -1322,18 +1322,18 @@
   {
     "id": "B000",
     "category": "B",
-    "expression": "9 + 7 \u00d7 6 \u00d7 1 \u00d7 8",
+    "expression": "4 + (2 + 7 \u00d7 8) \u00d7 5",
     "n_ops": 4,
     "misconceptions": [
       "add_before_mul"
     ],
     "num_misconceptions": 1,
     "trace": [
-      "9 + 7 \u00d7 6 \u00d7 1 \u00d7 8",
-      "16 \u00d7 6 \u00d7 1 \u00d7 8",
-      "16 \u00d7 6 \u00d7 8",
-      "16 \u00d7 48",
-      "768"
+      "4 + (2 + 7 \u00d7 8) \u00d7 5",
+      "4 + (9 \u00d7 8) \u00d7 5",
+      "4 + 72 \u00d7 5",
+      "76 \u00d7 5",
+      "380"
     ],
     "probed_misconception": "add_before_div",
     "statement_correct": false,
@@ -1344,18 +1344,18 @@
   {
     "id": "B001",
     "category": "B",
-    "expression": "4 \u00d7 8 + 6 \u00d7 6 \u00f7 4",
+    "expression": "3 + 2 - 5 \u00f7 9 + 11",
     "n_ops": 4,
     "misconceptions": [
       "add_before_div"
     ],
     "num_misconceptions": 1,
     "trace": [
-      "4 \u00d7 8 + 6 \u00d7 6 \u00f7 4",
-      "32 + 6 \u00d7 6 \u00f7 4",
-      "32 + 36 \u00f7 4",
-      "68 \u00f7 4",
-      "17"
+      "3 + 2 - 5 \u00f7 9 + 11",
+      "3 + 2 - 5 \u00f7 20",
+      "3 + 2 - 0.25",
+      "3 + 1.75",
+      "4.75"
     ],
     "probed_misconception": "add_before_mul",
     "statement_correct": false,
@@ -1366,18 +1366,18 @@
   {
     "id": "B002",
     "category": "B",
-    "expression": "(4 + 3) \u00d7 1 \u00d7 12 - 11",
+    "expression": "2 - 10 \u00f7 8 \u00d7 8 - 7",
     "n_ops": 4,
     "misconceptions": [
       "sub_before_mul"
     ],
     "num_misconceptions": 1,
     "trace": [
-      "(4 + 3) \u00d7 1 \u00d7 12 - 11",
-      "(4 + 3) \u00d7 1 \u00d7 1",
-      "(4 + 3) \u00d7 1",
-      "7 \u00d7 1",
-      "7"
+      "2 - 10 \u00f7 8 \u00d7 8 - 7",
+      "2 - 1.25 \u00d7 8 - 7",
+      "0.75 \u00d7 8 - 7",
+      "0.75 \u00d7 1",
+      "0.75"
     ],
     "probed_misconception": "add_before_mul",
     "statement_correct": false,
@@ -1388,18 +1388,18 @@
   {
     "id": "B003",
     "category": "B",
-    "expression": "11 - 1 \u00f7 1 \u00f7 1 \u00f7 8",
+    "expression": "5 - 12 \u00f7 5 \u00f7 3 - 5",
     "n_ops": 4,
     "misconceptions": [
       "sub_before_div"
     ],
     "num_misconceptions": 1,
     "trace": [
-      "11 - 1 \u00f7 1 \u00f7 1 \u00f7 8",
-      "10 \u00f7 1 \u00f7 1 \u00f7 8",
-      "10 \u00f7 1 \u00f7 8",
-      "10 \u00f7 8",
-      "1.25"
+      "5 - 12 \u00f7 5 \u00f7 3 - 5",
+      "-7 \u00f7 5 \u00f7 3 - 5",
+      "-1.4 \u00f7 3 - 5",
+      "-1.4 \u00f7 -2",
+      "0.7"
     ],
     "probed_misconception": "add_before_mul",
     "statement_correct": false,
@@ -1410,18 +1410,18 @@
   {
     "id": "B004",
     "category": "B",
-    "expression": "11 \u00f7 1 \u00d7 5 \u00f7 10 \u00f7 5",
+    "expression": "(8 \u00f7 5 \u00d7 4) \u00d7 12 \u00d7 9",
     "n_ops": 4,
     "misconceptions": [
       "same_priority_rtl"
     ],
     "num_misconceptions": 1,
     "trace": [
-      "11 \u00f7 1 \u00d7 5 \u00f7 10 \u00f7 5",
-      "11 \u00f7 1 \u00d7 5 \u00f7 2",
-      "11 \u00f7 1 \u00d7 2.5",
-      "11 \u00f7 2.5",
-      "4.4"
+      "(8 \u00f7 5 \u00d7 4) \u00d7 12 \u00d7 9",
+      "(8 \u00f7 20) \u00d7 12 \u00d7 9",
+      "(8 \u00f7 20) \u00d7 108",
+      "0.4 \u00d7 108",
+      "43.2"
     ],
     "probed_misconception": "add_before_mul",
     "statement_correct": false,
@@ -1432,18 +1432,18 @@
   {
     "id": "B005",
     "category": "B",
-    "expression": "(11 + 7) \u00d7 2 + 3 - 12",
+    "expression": "3 + (3 + 5) \u00d7 9 - 1",
     "n_ops": 4,
     "misconceptions": [
       "outside_bracket_first"
     ],
     "num_misconceptions": 1,
     "trace": [
-      "(11 + 7) \u00d7 2 + 3 - 12",
-      "(11 + 7) \u00d7 2 + -9",
-      "(11 + 7) \u00d7 -7",
-      "18 \u00d7 -7",
-      "-126"
+      "3 + (3 + 5) \u00d7 9 - 1",
+      "3 + (3 + 5) \u00d7 8",
+      "3 + 8 \u00d7 8",
+      "3 + 64",
+      "67"
     ],
     "probed_misconception": "add_before_mul",
     "statement_correct": false,
@@ -1454,18 +1454,18 @@
   {
     "id": "B006",
     "category": "B",
-    "expression": "9 + 4 + 11 \u00d7 (11 \u00d7 2)",
+    "expression": "3 \u00f7 1 + 10 \u00d7 10 + 5",
     "n_ops": 4,
     "misconceptions": [
       "add_before_mul"
     ],
     "num_misconceptions": 1,
     "trace": [
-      "9 + 4 + 11 \u00d7 (11 \u00d7 2)",
-      "13 + 11 \u00d7 (11 \u00d7 2)",
-      "13 + 11 \u00d7 22",
-      "24 \u00d7 22",
-      "528"
+      "3 \u00f7 1 + 10 \u00d7 10 + 5",
+      "3 + 10 \u00d7 10 + 5",
+      "13 \u00d7 10 + 5",
+      "13 \u00d7 15",
+      "195"
     ],
     "probed_misconception": "sub_before_mul",
     "statement_correct": false,
@@ -1476,18 +1476,18 @@
   {
     "id": "B007",
     "category": "B",
-    "expression": "7 - (1 \u00f7 2 + 8) - 2",
+    "expression": "7 + 8 + 9 \u00f7 3 \u00d7 8",
     "n_ops": 4,
     "misconceptions": [
       "add_before_div"
     ],
     "num_misconceptions": 1,
     "trace": [
-      "7 - (1 \u00f7 2 + 8) - 2",
-      "7 - (1 \u00f7 10) - 2",
-      "7 - 0.1 - 2",
-      "6.9 - 2",
-      "4.9"
+      "7 + 8 + 9 \u00f7 3 \u00d7 8",
+      "15 + 9 \u00f7 3 \u00d7 8",
+      "24 \u00f7 3 \u00d7 8",
+      "8 \u00d7 8",
+      "64"
     ],
     "probed_misconception": "sub_before_mul",
     "statement_correct": false,
@@ -1498,18 +1498,18 @@
   {
     "id": "B008",
     "category": "B",
-    "expression": "6 \u00d7 11 - 4 - 4 - 12",
+    "expression": "1 \u00f7 5 \u00d7 6 - 5 + 3",
     "n_ops": 4,
     "misconceptions": [
       "sub_before_mul"
     ],
     "num_misconceptions": 1,
     "trace": [
-      "6 \u00d7 11 - 4 - 4 - 12",
-      "6 \u00d7 7 - 4 - 12",
-      "6 \u00d7 3 - 12",
-      "6 \u00d7 -9",
-      "-54"
+      "1 \u00f7 5 \u00d7 6 - 5 + 3",
+      "0.2 \u00d7 6 - 5 + 3",
+      "0.2 \u00d7 1 + 3",
+      "0.2 + 3",
+      "3.2"
     ],
     "probed_misconception": "add_before_div",
     "statement_correct": false,
@@ -1520,18 +1520,18 @@
   {
     "id": "B009",
     "category": "B",
-    "expression": "3 + 7 \u00d7 3 \u00f7 6 - 11",
+    "expression": "2 \u00d7 10 - 6 \u00f7 7 - 2",
     "n_ops": 4,
     "misconceptions": [
       "sub_before_div"
     ],
     "num_misconceptions": 1,
     "trace": [
-      "3 + 7 \u00d7 3 \u00f7 6 - 11",
-      "3 + 21 \u00f7 6 - 11",
-      "3 + 21 \u00f7 -5",
-      "3 + -4.2",
-      "-1.2"
+      "2 \u00d7 10 - 6 \u00f7 7 - 2",
+      "2 \u00d7 10 - 6 \u00f7 5",
+      "20 - 6 \u00f7 5",
+      "14 \u00f7 5",
+      "2.8"
     ],
     "probed_misconception": "add_before_div",
     "statement_correct": false,
@@ -1542,18 +1542,18 @@
   {
     "id": "B010",
     "category": "B",
-    "expression": "12 \u00d7 10 \u00f7 4 \u00d7 1 \u00d7 5",
+    "expression": "1 - 4 \u00d7 11 - 8 + 1",
     "n_ops": 4,
     "misconceptions": [
       "same_priority_rtl"
     ],
     "num_misconceptions": 1,
     "trace": [
-      "12 \u00d7 10 \u00f7 4 \u00d7 1 \u00d7 5",
-      "12 \u00d7 10 \u00f7 4 \u00d7 5",
-      "12 \u00d7 10 \u00f7 20",
-      "12 \u00d7 0.5",
-      "6"
+      "1 - 4 \u00d7 11 - 8 + 1",
+      "1 - 4 \u00d7 11 - 9",
+      "1 - 44 - 9",
+      "1 - 35",
+      "-34"
     ],
     "probed_misconception": "add_before_div",
     "statement_correct": false,
@@ -1564,18 +1564,18 @@
   {
     "id": "B011",
     "category": "B",
-    "expression": "2 - 2 + 9 \u00d7 (9 - 11)",
+    "expression": "8 + 6 \u00d7 (11 \u00d7 12 \u00f7 6)",
     "n_ops": 4,
     "misconceptions": [
       "outside_bracket_first"
     ],
     "num_misconceptions": 1,
     "trace": [
-      "2 - 2 + 9 \u00d7 (9 - 11)",
-      "0 + 9 \u00d7 (9 - 11)",
-      "9 \u00d7 (9 - 11)",
-      "9 \u00d7 -2",
-      "-18"
+      "8 + 6 \u00d7 (11 \u00d7 12 \u00f7 6)",
+      "14 \u00d7 (11 \u00d7 12 \u00f7 6)",
+      "14 \u00d7 (11 \u00d7 2)",
+      "14 \u00d7 22",
+      "308"
     ],
     "probed_misconception": "add_before_div",
     "statement_correct": false,
@@ -1586,18 +1586,18 @@
   {
     "id": "B012",
     "category": "B",
-    "expression": "11 \u00d7 7 + (1 \u00d7 6) \u00f7 12",
+    "expression": "4 \u00d7 9 \u00d7 5 + (3 \u00f7 1)",
     "n_ops": 4,
     "misconceptions": [
       "add_before_mul"
     ],
     "num_misconceptions": 1,
     "trace": [
-      "11 \u00d7 7 + (1 \u00d7 6) \u00f7 12",
-      "11 \u00d7 7 + 6 \u00f7 12",
-      "11 \u00d7 7 + 0.5",
-      "11 \u00d7 7.5",
-      "82.5"
+      "4 \u00d7 9 \u00d7 5 + (3 \u00f7 1)",
+      "36 \u00d7 5 + (3 \u00f7 1)",
+      "36 \u00d7 5 + 3",
+      "36 \u00d7 8",
+      "288"
     ],
     "probed_misconception": "sub_before_div",
     "statement_correct": false,
@@ -1608,18 +1608,18 @@
   {
     "id": "B013",
     "category": "B",
-    "expression": "3 - 7 + 5 + 5 \u00f7 4",
+    "expression": "12 - (4 \u00f7 1 + 4) + 12",
     "n_ops": 4,
     "misconceptions": [
       "add_before_div"
     ],
     "num_misconceptions": 1,
     "trace": [
-      "3 - 7 + 5 + 5 \u00f7 4",
-      "-4 + 5 + 5 \u00f7 4",
-      "-4 + 10 \u00f7 4",
-      "6 \u00f7 4",
-      "1.5"
+      "12 - (4 \u00f7 1 + 4) + 12",
+      "12 - (4 \u00f7 5) + 12",
+      "12 - 0.8 + 12",
+      "11.2 + 12",
+      "23.2"
     ],
     "probed_misconception": "sub_before_div",
     "statement_correct": false,
@@ -1630,18 +1630,18 @@
   {
     "id": "B014",
     "category": "B",
-    "expression": "12 + 11 - 5 - 11 \u00d7 6",
+    "expression": "4 \u00f7 10 \u00d7 8 - 4 \u00d7 1",
     "n_ops": 4,
     "misconceptions": [
       "sub_before_mul"
     ],
     "num_misconceptions": 1,
     "trace": [
-      "12 + 11 - 5 - 11 \u00d7 6",
-      "12 + 6 - 11 \u00d7 6",
-      "12 + -5 \u00d7 6",
-      "12 + -30",
-      "-18"
+      "4 \u00f7 10 \u00d7 8 - 4 \u00d7 1",
+      "0.4 \u00d7 8 - 4 \u00d7 1",
+      "0.4 \u00d7 4 \u00d7 1",
+      "0.4 \u00d7 4",
+      "1.6"
     ],
     "probed_misconception": "sub_before_div",
     "statement_correct": false,
@@ -1652,18 +1652,18 @@
   {
     "id": "B015",
     "category": "B",
-    "expression": "11 \u00d7 3 - 4 \u00f7 7 - 2",
+    "expression": "10 - 2 - 6 \u00f7 5 + 1",
     "n_ops": 4,
     "misconceptions": [
       "sub_before_div"
     ],
     "num_misconceptions": 1,
     "trace": [
-      "11 \u00d7 3 - 4 \u00f7 7 - 2",
-      "11 \u00d7 3 - 4 \u00f7 5",
-      "33 - 4 \u00f7 5",
-      "29 \u00f7 5",
-      "5.8"
+      "10 - 2 - 6 \u00f7 5 + 1",
+      "8 - 6 \u00f7 5 + 1",
+      "2 \u00f7 5 + 1",
+      "0.4 + 1",
+      "1.4"
     ],
     "probed_misconception": "sub_before_mul",
     "statement_correct": false,
@@ -1674,18 +1674,18 @@
   {
     "id": "B016",
     "category": "B",
-    "expression": "1 + 4 - 7 \u00d7 12 + 7",
+    "expression": "12 + 1 - 6 \u00d7 9 - 5",
     "n_ops": 4,
     "misconceptions": [
       "same_priority_rtl"
     ],
     "num_misconceptions": 1,
     "trace": [
-      "1 + 4 - 7 \u00d7 12 + 7",
-      "1 + 4 - 84 + 7",
-      "1 + 4 - 91",
-      "1 + -87",
-      "-86"
+      "12 + 1 - 6 \u00d7 9 - 5",
+      "12 + 1 - 54 - 5",
+      "12 + 1 - 49",
+      "12 + -48",
+      "-36"
     ],
     "probed_misconception": "sub_before_mul",
     "statement_correct": false,
@@ -1696,18 +1696,18 @@
   {
     "id": "B017",
     "category": "B",
-    "expression": "2 - 8 \u00d7 (12 \u00f7 8 - 10)",
+    "expression": "10 - 7 \u00d7 (2 - 8 \u00d7 12)",
     "n_ops": 4,
     "misconceptions": [
       "outside_bracket_first"
     ],
     "num_misconceptions": 1,
     "trace": [
-      "2 - 8 \u00d7 (12 \u00f7 8 - 10)",
-      "-6 \u00d7 (12 \u00f7 8 - 10)",
-      "-6 \u00d7 (1.5 - 10)",
-      "-6 \u00d7 -8.5",
-      "51"
+      "10 - 7 \u00d7 (2 - 8 \u00d7 12)",
+      "10 - 7 \u00d7 (2 - 96)",
+      "3 \u00d7 (2 - 96)",
+      "3 \u00d7 -94",
+      "-282"
     ],
     "probed_misconception": "sub_before_mul",
     "statement_correct": false,
@@ -1718,18 +1718,18 @@
   {
     "id": "B018",
     "category": "B",
-    "expression": "3 - 1 \u00f7 10 \u00d7 8 + 10",
+    "expression": "8 \u00d7 9 \u00d7 6 \u00d7 8 + 5",
     "n_ops": 4,
     "misconceptions": [
       "add_before_mul"
     ],
     "num_misconceptions": 1,
     "trace": [
-      "3 - 1 \u00f7 10 \u00d7 8 + 10",
-      "3 - 0.1 \u00d7 8 + 10",
-      "3 - 0.1 \u00d7 18",
-      "3 - 1.8",
-      "1.2"
+      "8 \u00d7 9 \u00d7 6 \u00d7 8 + 5",
+      "72 \u00d7 6 \u00d7 8 + 5",
+      "432 \u00d7 8 + 5",
+      "432 \u00d7 13",
+      "5616"
     ],
     "probed_misconception": "same_priority_rtl",
     "statement_correct": false,
@@ -1740,18 +1740,18 @@
   {
     "id": "B019",
     "category": "B",
-    "expression": "9 \u00f7 4 + 6 - 5 + 3",
+    "expression": "3 \u00f7 10 + 4 - 2 - 7",
     "n_ops": 4,
     "misconceptions": [
       "add_before_div"
     ],
     "num_misconceptions": 1,
     "trace": [
-      "9 \u00f7 4 + 6 - 5 + 3",
-      "9 \u00f7 10 - 5 + 3",
-      "0.9 - 5 + 3",
-      "-4.1 + 3",
-      "-1.1"
+      "3 \u00f7 10 + 4 - 2 - 7",
+      "3 \u00f7 10 + 2 - 7",
+      "3 \u00f7 10 + -5",
+      "3 \u00f7 5",
+      "0.6"
     ],
     "probed_misconception": "same_priority_rtl",
     "statement_correct": false,
@@ -1762,18 +1762,18 @@
   {
     "id": "B020",
     "category": "B",
-    "expression": "2 \u00d7 10 - 6 + 7 - 9",
+    "expression": "10 \u00d7 (10 \u00d7 5) \u00d7 3 - 5",
     "n_ops": 4,
     "misconceptions": [
       "sub_before_mul"
     ],
     "num_misconceptions": 1,
     "trace": [
-      "2 \u00d7 10 - 6 + 7 - 9",
-      "2 \u00d7 10 - 6 + -2",
-      "2 \u00d7 4 + -2",
-      "8 + -2",
-      "6"
+      "10 \u00d7 (10 \u00d7 5) \u00d7 3 - 5",
+      "10 \u00d7 50 \u00d7 3 - 5",
+      "10 \u00d7 50 \u00d7 -2",
+      "10 \u00d7 -100",
+      "-1000"
     ],
     "probed_misconception": "same_priority_rtl",
     "statement_correct": false,
@@ -1784,18 +1784,18 @@
   {
     "id": "B021",
     "category": "B",
-    "expression": "8 \u00d7 5 - 2 \u00d7 1 \u00f7 4",
+    "expression": "5 - 11 \u00f7 5 + 8 - 2",
     "n_ops": 4,
     "misconceptions": [
       "sub_before_div"
     ],
     "num_misconceptions": 1,
     "trace": [
-      "8 \u00d7 5 - 2 \u00d7 1 \u00f7 4",
-      "40 - 2 \u00d7 1 \u00f7 4",
-      "40 - 2 \u00f7 4",
-      "38 \u00f7 4",
-      "9.5"
+      "5 - 11 \u00f7 5 + 8 - 2",
+      "-6 \u00f7 5 + 8 - 2",
+      "-1.2 + 8 - 2",
+      "-1.2 + 6",
+      "4.8"
     ],
     "probed_misconception": "same_priority_rtl",
     "statement_correct": false,
@@ -1806,18 +1806,18 @@
   {
     "id": "B022",
     "category": "B",
-    "expression": "3 + 11 \u00f7 6 \u00f7 6 \u00f7 1",
+    "expression": "8 - 12 + 1 \u00f7 10 \u00d7 1",
     "n_ops": 4,
     "misconceptions": [
       "same_priority_rtl"
     ],
     "num_misconceptions": 1,
     "trace": [
-      "3 + 11 \u00f7 6 \u00f7 6 \u00f7 1",
-      "3 + 11 \u00f7 6 \u00f7 6",
-      "3 + 11 \u00f7 1",
-      "3 + 11",
-      "14"
+      "8 - 12 + 1 \u00f7 10 \u00d7 1",
+      "8 - 12 + 1 \u00f7 10",
+      "8 - 12 + 0.1",
+      "8 - 12.1",
+      "-4.1"
     ],
     "probed_misconception": "sub_before_div",
     "statement_correct": false,
@@ -1828,18 +1828,18 @@
   {
     "id": "B023",
     "category": "B",
-    "expression": "12 \u00d7 10 - 4 \u00d7 (12 + 9)",
+    "expression": "(8 \u00d7 12) \u00f7 10 - 2 + 12",
     "n_ops": 4,
     "misconceptions": [
       "outside_bracket_first"
     ],
     "num_misconceptions": 1,
     "trace": [
-      "12 \u00d7 10 - 4 \u00d7 (12 + 9)",
-      "120 - 4 \u00d7 (12 + 9)",
-      "116 \u00d7 (12 + 9)",
-      "116 \u00d7 21",
-      "2436"
+      "(8 \u00d7 12) \u00f7 10 - 2 + 12",
+      "(8 \u00d7 12) \u00f7 8 + 12",
+      "(8 \u00d7 12) \u00f7 20",
+      "96 \u00f7 20",
+      "4.8"
     ],
     "probed_misconception": "sub_before_div",
     "statement_correct": false,
@@ -1850,18 +1850,18 @@
   {
     "id": "B024",
     "category": "B",
-    "expression": "3 - 1 - 3 \u00d7 4 + 6",
+    "expression": "4 + 3 \u00d7 4 \u00f7 (2 \u00d7 2)",
     "n_ops": 4,
     "misconceptions": [
       "add_before_mul"
     ],
     "num_misconceptions": 1,
     "trace": [
-      "3 - 1 - 3 \u00d7 4 + 6",
-      "2 - 3 \u00d7 4 + 6",
-      "2 - 3 \u00d7 10",
-      "2 - 30",
-      "-28"
+      "4 + 3 \u00d7 4 \u00f7 (2 \u00d7 2)",
+      "4 + 3 \u00d7 4 \u00f7 4",
+      "4 + 3 \u00d7 1",
+      "7 \u00d7 1",
+      "7"
     ],
     "probed_misconception": "outside_bracket_first",
     "statement_correct": false,
@@ -1872,18 +1872,18 @@
   {
     "id": "B025",
     "category": "B",
-    "expression": "9 - 5 - 4 \u00f7 4 + 6",
+    "expression": "(3 \u00f7 5 \u00d7 12) + 12 \u00f7 4",
     "n_ops": 4,
     "misconceptions": [
       "add_before_div"
     ],
     "num_misconceptions": 1,
     "trace": [
-      "9 - 5 - 4 \u00f7 4 + 6",
-      "4 - 4 \u00f7 4 + 6",
-      "4 - 4 \u00f7 10",
-      "4 - 0.4",
-      "3.6"
+      "(3 \u00f7 5 \u00d7 12) + 12 \u00f7 4",
+      "(0.6 \u00d7 12) + 12 \u00f7 4",
+      "7.2 + 12 \u00f7 4",
+      "19.2 \u00f7 4",
+      "4.8"
     ],
     "probed_misconception": "outside_bracket_first",
     "statement_correct": false,
@@ -1894,18 +1894,18 @@
   {
     "id": "B026",
     "category": "B",
-    "expression": "1 \u00d7 8 + (7 - 9 \u00d7 8)",
+    "expression": "11 - 6 \u00f7 10 \u00d7 (11 \u00f7 5)",
     "n_ops": 4,
     "misconceptions": [
       "sub_before_mul"
     ],
     "num_misconceptions": 1,
     "trace": [
-      "1 \u00d7 8 + (7 - 9 \u00d7 8)",
-      "1 \u00d7 8 + (-2 \u00d7 8)",
-      "1 \u00d7 8 + -16",
-      "8 + -16",
-      "-8"
+      "11 - 6 \u00f7 10 \u00d7 (11 \u00f7 5)",
+      "11 - 0.6 \u00d7 (11 \u00f7 5)",
+      "11 - 0.6 \u00d7 2.2",
+      "10.4 \u00d7 2.2",
+      "22.88"
     ],
     "probed_misconception": "outside_bracket_first",
     "statement_correct": false,
@@ -1916,18 +1916,18 @@
   {
     "id": "B027",
     "category": "B",
-    "expression": "12 \u00f7 8 - 7 - 5 + 8",
+    "expression": "(6 \u00f7 11 - 1) - 12 \u00d7 12",
     "n_ops": 4,
     "misconceptions": [
       "sub_before_div"
     ],
     "num_misconceptions": 1,
     "trace": [
-      "12 \u00f7 8 - 7 - 5 + 8",
-      "12 \u00f7 1 - 5 + 8",
-      "12 \u00f7 -4 + 8",
-      "-3 + 8",
-      "5"
+      "(6 \u00f7 11 - 1) - 12 \u00d7 12",
+      "(6 \u00f7 10) - 12 \u00d7 12",
+      "(6 \u00f7 10) - 144",
+      "0.6 - 144",
+      "-143.4"
     ],
     "probed_misconception": "outside_bracket_first",
     "statement_correct": false,
@@ -1938,18 +1938,18 @@
   {
     "id": "B028",
     "category": "B",
-    "expression": "(6 \u00d7 3) \u00f7 5 \u00d7 12 - 1",
+    "expression": "12 - (10 \u00d7 7) \u00f7 7 - 1",
     "n_ops": 4,
     "misconceptions": [
       "same_priority_rtl"
     ],
     "num_misconceptions": 1,
     "trace": [
-      "(6 \u00d7 3) \u00f7 5 \u00d7 12 - 1",
-      "18 \u00f7 5 \u00d7 12 - 1",
-      "18 \u00f7 60 - 1",
-      "0.3 - 1",
-      "-0.7"
+      "12 - (10 \u00d7 7) \u00f7 7 - 1",
+      "12 - 70 \u00f7 7 - 1",
+      "12 - 10 - 1",
+      "12 - 9",
+      "3"
     ],
     "probed_misconception": "outside_bracket_first",
     "statement_correct": false,
@@ -1960,18 +1960,18 @@
   {
     "id": "B029",
     "category": "B",
-    "expression": "(1 - 8) \u00f7 7 - 2 + 7",
+    "expression": "(2 \u00d7 12 \u00f7 1) \u00d7 7 - 5",
     "n_ops": 4,
     "misconceptions": [
       "outside_bracket_first"
     ],
     "num_misconceptions": 1,
     "trace": [
-      "(1 - 8) \u00f7 7 - 2 + 7",
-      "(1 - 8) \u00f7 5 + 7",
-      "-7 \u00f7 5 + 7",
-      "-1.4 + 7",
-      "5.6"
+      "(2 \u00d7 12 \u00f7 1) \u00d7 7 - 5",
+      "(2 \u00d7 12 \u00f7 1) \u00d7 2",
+      "(2 \u00d7 12) \u00d7 2",
+      "24 \u00d7 2",
+      "48"
     ],
     "probed_misconception": "same_priority_rtl",
     "statement_correct": false,
@@ -1982,18 +1982,18 @@
   {
     "id": "B030",
     "category": "B",
-    "expression": "3 + 3 + (1 - 5) \u00d7 5",
+    "expression": "10 + 6 \u00d7 12 \u00f7 12 - 3",
     "n_ops": 4,
     "misconceptions": [
       "add_before_mul"
     ],
     "num_misconceptions": 1,
     "trace": [
-      "3 + 3 + (1 - 5) \u00d7 5",
-      "3 + 3 + -4 \u00d7 5",
-      "3 + -1 \u00d7 5",
-      "2 \u00d7 5",
-      "10"
+      "10 + 6 \u00d7 12 \u00f7 12 - 3",
+      "10 + 6 \u00d7 1 - 3",
+      "16 \u00d7 1 - 3",
+      "16 - 3",
+      "13"
     ],
     "probed_misconception": "add_before_div",
     "statement_correct": false,
@@ -2004,18 +2004,18 @@
   {
     "id": "B031",
     "category": "B",
-    "expression": "7 \u00d7 11 + 10 \u00f7 (6 - 10)",
+    "expression": "11 + 1 \u00f7 1 \u00f7 10 \u00d7 1",
     "n_ops": 4,
     "misconceptions": [
       "add_before_div"
     ],
     "num_misconceptions": 1,
     "trace": [
-      "7 \u00d7 11 + 10 \u00f7 (6 - 10)",
-      "7 \u00d7 11 + 10 \u00f7 -4",
-      "77 + 10 \u00f7 -4",
-      "87 \u00f7 -4",
-      "-21.75"
+      "11 + 1 \u00f7 1 \u00f7 10 \u00d7 1",
+      "12 \u00f7 1 \u00f7 10 \u00d7 1",
+      "12 \u00f7 10 \u00d7 1",
+      "1.2 \u00d7 1",
+      "1.2"
     ],
     "probed_misconception": "add_before_mul",
     "statement_correct": false,
@@ -2026,18 +2026,18 @@
   {
     "id": "B032",
     "category": "B",
-    "expression": "11 - 8 \u00d7 8 \u00f7 4 \u00d7 8",
+    "expression": "7 \u00d7 1 - 2 \u00f7 2 - 6",
     "n_ops": 4,
     "misconceptions": [
       "sub_before_mul"
     ],
     "num_misconceptions": 1,
     "trace": [
-      "11 - 8 \u00d7 8 \u00f7 4 \u00d7 8",
-      "11 - 8 \u00d7 2 \u00d7 8",
-      "11 - 8 \u00d7 16",
-      "3 \u00d7 16",
-      "48"
+      "7 \u00d7 1 - 2 \u00f7 2 - 6",
+      "7 \u00d7 1 - 1 - 6",
+      "7 \u00d7 0 - 6",
+      "7 \u00d7 -6",
+      "-42"
     ],
     "probed_misconception": "add_before_mul",
     "statement_correct": false,
@@ -2048,18 +2048,18 @@
   {
     "id": "B033",
     "category": "B",
-    "expression": "1 \u00d7 7 - 1 \u00f7 5 \u00d7 4",
+    "expression": "11 \u00d7 5 - 11 - 2 \u00f7 7",
     "n_ops": 4,
     "misconceptions": [
       "sub_before_div"
     ],
     "num_misconceptions": 1,
     "trace": [
-      "1 \u00d7 7 - 1 \u00f7 5 \u00d7 4",
-      "7 - 1 \u00f7 5 \u00d7 4",
-      "6 \u00f7 5 \u00d7 4",
-      "1.2 \u00d7 4",
-      "4.8"
+      "11 \u00d7 5 - 11 - 2 \u00f7 7",
+      "55 - 11 - 2 \u00f7 7",
+      "44 - 2 \u00f7 7",
+      "42 \u00f7 7",
+      "6"
     ],
     "probed_misconception": "add_before_mul",
     "statement_correct": false,
@@ -2070,18 +2070,18 @@
   {
     "id": "B034",
     "category": "B",
-    "expression": "5 - 4 + 10 + 1 \u00d7 12",
+    "expression": "6 \u00d7 12 - 7 - 10 \u00d7 4",
     "n_ops": 4,
     "misconceptions": [
       "same_priority_rtl"
     ],
     "num_misconceptions": 1,
     "trace": [
-      "5 - 4 + 10 + 1 \u00d7 12",
-      "5 - 14 + 1 \u00d7 12",
-      "5 - 14 + 12",
-      "5 - 26",
-      "-21"
+      "6 \u00d7 12 - 7 - 10 \u00d7 4",
+      "6 \u00d7 12 - 7 - 40",
+      "6 \u00d7 12 - -33",
+      "72 - -33",
+      "105"
     ],
     "probed_misconception": "add_before_mul",
     "statement_correct": false,
@@ -2092,18 +2092,18 @@
   {
     "id": "B035",
     "category": "B",
-    "expression": "10 - 9 \u00d7 (9 - 5 - 7)",
+    "expression": "10 + 9 \u00f7 4 \u00d7 (5 + 9)",
     "n_ops": 4,
     "misconceptions": [
       "outside_bracket_first"
     ],
     "num_misconceptions": 1,
     "trace": [
-      "10 - 9 \u00d7 (9 - 5 - 7)",
-      "1 \u00d7 (9 - 5 - 7)",
-      "1 \u00d7 (4 - 7)",
-      "1 \u00d7 -3",
-      "-3"
+      "10 + 9 \u00f7 4 \u00d7 (5 + 9)",
+      "10 + 2.25 \u00d7 (5 + 9)",
+      "12.25 \u00d7 (5 + 9)",
+      "12.25 \u00d7 14",
+      "171.5"
     ],
     "probed_misconception": "add_before_mul",
     "statement_correct": false,
@@ -2114,18 +2114,18 @@
   {
     "id": "B036",
     "category": "B",
-    "expression": "3 \u00d7 7 - 4 \u00d7 12 + 2",
+    "expression": "9 \u00d7 10 \u00f7 5 + 3 \u00d7 6",
     "n_ops": 4,
     "misconceptions": [
       "add_before_mul"
     ],
     "num_misconceptions": 1,
     "trace": [
-      "3 \u00d7 7 - 4 \u00d7 12 + 2",
-      "21 - 4 \u00d7 12 + 2",
-      "21 - 4 \u00d7 14",
-      "21 - 56",
-      "-35"
+      "9 \u00d7 10 \u00f7 5 + 3 \u00d7 6",
+      "9 \u00d7 2 + 3 \u00d7 6",
+      "9 \u00d7 5 \u00d7 6",
+      "45 \u00d7 6",
+      "270"
     ],
     "probed_misconception": "sub_before_mul",
     "statement_correct": false,
@@ -2136,18 +2136,18 @@
   {
     "id": "B037",
     "category": "B",
-    "expression": "(1 - 5 \u00f7 2) + 5 \u00f7 10",
+    "expression": "7 + 6 + 11 \u00f7 1 \u00f7 2",
     "n_ops": 4,
     "misconceptions": [
       "add_before_div"
     ],
     "num_misconceptions": 1,
     "trace": [
-      "(1 - 5 \u00f7 2) + 5 \u00f7 10",
-      "(1 - 2.5) + 5 \u00f7 10",
-      "-1.5 + 5 \u00f7 10",
-      "3.5 \u00f7 10",
-      "0.35"
+      "7 + 6 + 11 \u00f7 1 \u00f7 2",
+      "13 + 11 \u00f7 1 \u00f7 2",
+      "24 \u00f7 1 \u00f7 2",
+      "24 \u00f7 2",
+      "12"
     ],
     "probed_misconception": "sub_before_mul",
     "statement_correct": false,
@@ -2158,18 +2158,18 @@
   {
     "id": "B038",
     "category": "B",
-    "expression": "8 - 6 \u00d7 8 + 1 \u00f7 2",
+    "expression": "12 + (3 + 1) - 7 \u00d7 8",
     "n_ops": 4,
     "misconceptions": [
       "sub_before_mul"
     ],
     "num_misconceptions": 1,
     "trace": [
-      "8 - 6 \u00d7 8 + 1 \u00f7 2",
-      "2 \u00d7 8 + 1 \u00f7 2",
-      "16 + 1 \u00f7 2",
-      "16 + 0.5",
-      "16.5"
+      "12 + (3 + 1) - 7 \u00d7 8",
+      "12 + 4 - 7 \u00d7 8",
+      "12 + -3 \u00d7 8",
+      "12 + -24",
+      "-12"
     ],
     "probed_misconception": "add_before_div",
     "statement_correct": false,
@@ -2180,18 +2180,18 @@
   {
     "id": "B039",
     "category": "B",
-    "expression": "5 \u00d7 3 - 9 \u00f7 10 + 8",
+    "expression": "12 \u00f7 9 - 11 \u00f7 4 - 1",
     "n_ops": 4,
     "misconceptions": [
       "sub_before_div"
     ],
     "num_misconceptions": 1,
     "trace": [
-      "5 \u00d7 3 - 9 \u00f7 10 + 8",
-      "15 - 9 \u00f7 10 + 8",
-      "6 \u00f7 10 + 8",
-      "0.6 + 8",
-      "8.6"
+      "12 \u00f7 9 - 11 \u00f7 4 - 1",
+      "12 \u00f7 -2 \u00f7 4 - 1",
+      "-6 \u00f7 4 - 1",
+      "-6 \u00f7 3",
+      "-2"
     ],
     "probed_misconception": "add_before_div",
     "statement_correct": false,
@@ -2202,18 +2202,18 @@
   {
     "id": "B040",
     "category": "B",
-    "expression": "10 \u00d7 9 - (1 \u00f7 4) + 11",
+    "expression": "12 - 11 \u00d7 11 + 10 + 6",
     "n_ops": 4,
     "misconceptions": [
       "same_priority_rtl"
     ],
     "num_misconceptions": 1,
     "trace": [
-      "10 \u00d7 9 - (1 \u00f7 4) + 11",
-      "10 \u00d7 9 - 0.25 + 11",
-      "10 \u00d7 9 - 11.25",
-      "90 - 11.25",
-      "78.75"
+      "12 - 11 \u00d7 11 + 10 + 6",
+      "12 - 11 \u00d7 11 + 16",
+      "12 - 121 + 16",
+      "12 - 137",
+      "-125"
     ],
     "probed_misconception": "add_before_div",
     "statement_correct": false,
@@ -2224,18 +2224,18 @@
   {
     "id": "B041",
     "category": "B",
-    "expression": "11 - 1 \u00d7 (6 - 8 \u00d7 2)",
+    "expression": "(5 + 4 \u00f7 5) \u00f7 3 - 4",
     "n_ops": 4,
     "misconceptions": [
       "outside_bracket_first"
     ],
     "num_misconceptions": 1,
     "trace": [
-      "11 - 1 \u00d7 (6 - 8 \u00d7 2)",
-      "10 \u00d7 (6 - 8 \u00d7 2)",
-      "10 \u00d7 (6 - 16)",
-      "10 \u00d7 -10",
-      "-100"
+      "(5 + 4 \u00f7 5) \u00f7 3 - 4",
+      "(5 + 0.8) \u00f7 3 - 4",
+      "(5 + 0.8) \u00f7 -1",
+      "5.8 \u00f7 -1",
+      "-5.8"
     ],
     "probed_misconception": "add_before_div",
     "statement_correct": false,
@@ -2246,18 +2246,18 @@
   {
     "id": "B042",
     "category": "B",
-    "expression": "11 + (10 \u00d7 7 \u00d7 4) \u00d7 6",
+    "expression": "1 \u00d7 1 \u00f7 2 \u00d7 5 + 2",
     "n_ops": 4,
     "misconceptions": [
       "add_before_mul"
     ],
     "num_misconceptions": 1,
     "trace": [
-      "11 + (10 \u00d7 7 \u00d7 4) \u00d7 6",
-      "11 + (10 \u00d7 28) \u00d7 6",
-      "11 + 280 \u00d7 6",
-      "291 \u00d7 6",
-      "1746"
+      "1 \u00d7 1 \u00f7 2 \u00d7 5 + 2",
+      "1 \u00d7 0.5 \u00d7 5 + 2",
+      "0.5 \u00d7 5 + 2",
+      "0.5 \u00d7 7",
+      "3.5"
     ],
     "probed_misconception": "sub_before_div",
     "statement_correct": false,
@@ -2268,18 +2268,18 @@
   {
     "id": "B043",
     "category": "B",
-    "expression": "10 + 3 \u00f7 5 \u00f7 1 - 7",
+    "expression": "(9 \u00f7 1) + 4 \u00f7 5 \u00f7 2",
     "n_ops": 4,
     "misconceptions": [
       "add_before_div"
     ],
     "num_misconceptions": 1,
     "trace": [
-      "10 + 3 \u00f7 5 \u00f7 1 - 7",
-      "13 \u00f7 5 \u00f7 1 - 7",
-      "2.6 \u00f7 1 - 7",
-      "2.6 - 7",
-      "-4.4"
+      "(9 \u00f7 1) + 4 \u00f7 5 \u00f7 2",
+      "(9 \u00f7 1) + 0.8 \u00f7 2",
+      "9 + 0.8 \u00f7 2",
+      "9.8 \u00f7 2",
+      "4.9"
     ],
     "probed_misconception": "sub_before_div",
     "statement_correct": false,
@@ -2290,18 +2290,18 @@
   {
     "id": "B044",
     "category": "B",
-    "expression": "4 \u00d7 3 - 2 \u00d7 8 + 7",
+    "expression": "7 - 8 \u00d7 6 \u00d7 6 - 3",
     "n_ops": 4,
     "misconceptions": [
       "sub_before_mul"
     ],
     "num_misconceptions": 1,
     "trace": [
-      "4 \u00d7 3 - 2 \u00d7 8 + 7",
-      "4 \u00d7 1 \u00d7 8 + 7",
-      "4 \u00d7 8 + 7",
-      "32 + 7",
-      "39"
+      "7 - 8 \u00d7 6 \u00d7 6 - 3",
+      "-1 \u00d7 6 \u00d7 6 - 3",
+      "-1 \u00d7 6 \u00d7 3",
+      "-1 \u00d7 18",
+      "-18"
     ],
     "probed_misconception": "sub_before_div",
     "statement_correct": false,
@@ -2312,18 +2312,18 @@
   {
     "id": "B045",
     "category": "B",
-    "expression": "12 - 11 \u00f7 1 + 7 \u00d7 6",
+    "expression": "7 - 4 + 4 - 7 \u00f7 1",
     "n_ops": 4,
     "misconceptions": [
       "sub_before_div"
     ],
     "num_misconceptions": 1,
     "trace": [
-      "12 - 11 \u00f7 1 + 7 \u00d7 6",
-      "1 \u00f7 1 + 7 \u00d7 6",
-      "1 + 7 \u00d7 6",
-      "1 + 42",
-      "43"
+      "7 - 4 + 4 - 7 \u00f7 1",
+      "3 + 4 - 7 \u00f7 1",
+      "3 + -3 \u00f7 1",
+      "3 + -3",
+      "0"
     ],
     "probed_misconception": "sub_before_mul",
     "statement_correct": false,
@@ -2334,18 +2334,18 @@
   {
     "id": "B046",
     "category": "B",
-    "expression": "11 \u00d7 1 + 2 - 3 - 8",
+    "expression": "12 \u00d7 3 - 12 \u00f7 1 \u00d7 12",
     "n_ops": 4,
     "misconceptions": [
       "same_priority_rtl"
     ],
     "num_misconceptions": 1,
     "trace": [
-      "11 \u00d7 1 + 2 - 3 - 8",
-      "11 + 2 - 3 - 8",
-      "11 + 2 - -5",
-      "11 + 7",
-      "18"
+      "12 \u00d7 3 - 12 \u00f7 1 \u00d7 12",
+      "12 \u00d7 3 - 12 \u00f7 12",
+      "12 \u00d7 3 - 1",
+      "36 - 1",
+      "35"
     ],
     "probed_misconception": "sub_before_mul",
     "statement_correct": false,
@@ -2356,18 +2356,18 @@
   {
     "id": "B047",
     "category": "B",
-    "expression": "(1 \u00f7 10) \u00d7 7 + 1 - 4",
+    "expression": "10 + 7 \u00d7 (2 \u00d7 6) + 4",
     "n_ops": 4,
     "misconceptions": [
       "outside_bracket_first"
     ],
     "num_misconceptions": 1,
     "trace": [
-      "(1 \u00f7 10) \u00d7 7 + 1 - 4",
-      "(1 \u00f7 10) \u00d7 7 + -3",
-      "(1 \u00f7 10) \u00d7 4",
-      "0.1 \u00d7 4",
-      "0.4"
+      "10 + 7 \u00d7 (2 \u00d7 6) + 4",
+      "17 \u00d7 (2 \u00d7 6) + 4",
+      "17 \u00d7 12 + 4",
+      "204 + 4",
+      "208"
     ],
     "probed_misconception": "sub_before_mul",
     "statement_correct": false,
@@ -2378,18 +2378,18 @@
   {
     "id": "B048",
     "category": "B",
-    "expression": "4 + 8 \u00d7 1 + (8 - 3)",
+    "expression": "5 \u00d7 9 - 10 \u00d7 11 + 9",
     "n_ops": 4,
     "misconceptions": [
       "add_before_mul"
     ],
     "num_misconceptions": 1,
     "trace": [
-      "4 + 8 \u00d7 1 + (8 - 3)",
-      "12 \u00d7 1 + (8 - 3)",
-      "12 \u00d7 1 + 5",
-      "12 \u00d7 6",
-      "72"
+      "5 \u00d7 9 - 10 \u00d7 11 + 9",
+      "45 - 10 \u00d7 11 + 9",
+      "45 - 10 \u00d7 20",
+      "45 - 200",
+      "-155"
     ],
     "probed_misconception": "same_priority_rtl",
     "statement_correct": false,
@@ -2400,18 +2400,18 @@
   {
     "id": "B049",
     "category": "B",
-    "expression": "5 - 11 + 4 \u00d7 9 \u00f7 3",
+    "expression": "11 - 12 \u00f7 9 + 6 \u00f7 1",
     "n_ops": 4,
     "misconceptions": [
       "add_before_div"
     ],
     "num_misconceptions": 1,
     "trace": [
-      "5 - 11 + 4 \u00d7 9 \u00f7 3",
-      "-6 + 4 \u00d7 9 \u00f7 3",
-      "-6 + 36 \u00f7 3",
-      "30 \u00f7 3",
-      "10"
+      "11 - 12 \u00f7 9 + 6 \u00f7 1",
+      "11 - 12 \u00f7 15 \u00f7 1",
+      "11 - 0.8 \u00f7 1",
+      "11 - 0.8",
+      "10.2"
     ],
     "probed_misconception": "same_priority_rtl",
     "statement_correct": false,
@@ -2422,18 +2422,18 @@
   {
     "id": "B050",
     "category": "B",
-    "expression": "1 - 8 \u00d7 9 \u00d7 4 - 1",
+    "expression": "5 + 9 - 6 \u00f7 3 \u00d7 5",
     "n_ops": 4,
     "misconceptions": [
       "sub_before_mul"
     ],
     "num_misconceptions": 1,
     "trace": [
-      "1 - 8 \u00d7 9 \u00d7 4 - 1",
-      "-7 \u00d7 9 \u00d7 4 - 1",
-      "-63 \u00d7 4 - 1",
-      "-63 \u00d7 3",
-      "-189"
+      "5 + 9 - 6 \u00f7 3 \u00d7 5",
+      "14 - 6 \u00f7 3 \u00d7 5",
+      "14 - 2 \u00d7 5",
+      "12 \u00d7 5",
+      "60"
     ],
     "probed_misconception": "same_priority_rtl",
     "statement_correct": false,
@@ -2444,18 +2444,18 @@
   {
     "id": "B051",
     "category": "B",
-    "expression": "9 \u00f7 5 - 9 - 4 - 1",
+    "expression": "1 \u00f7 2 - 6 + 10 - 1",
     "n_ops": 4,
     "misconceptions": [
       "sub_before_div"
     ],
     "num_misconceptions": 1,
     "trace": [
-      "9 \u00f7 5 - 9 - 4 - 1",
-      "9 \u00f7 -4 - 4 - 1",
-      "9 \u00f7 -8 - 1",
-      "9 \u00f7 -9",
-      "-1"
+      "1 \u00f7 2 - 6 + 10 - 1",
+      "1 \u00f7 -4 + 10 - 1",
+      "-0.25 + 10 - 1",
+      "-0.25 + 9",
+      "8.75"
     ],
     "probed_misconception": "same_priority_rtl",
     "statement_correct": false,
@@ -2466,18 +2466,18 @@
   {
     "id": "B052",
     "category": "B",
-    "expression": "10 + 6 - 8 - 1 \u00d7 5",
+    "expression": "1 \u00d7 6 - 7 + 4 \u00d7 6",
     "n_ops": 4,
     "misconceptions": [
       "same_priority_rtl"
     ],
     "num_misconceptions": 1,
     "trace": [
-      "10 + 6 - 8 - 1 \u00d7 5",
-      "10 + 6 - 8 - 5",
-      "10 + 6 - 3",
-      "10 + 3",
-      "13"
+      "1 \u00d7 6 - 7 + 4 \u00d7 6",
+      "1 \u00d7 6 - 7 + 24",
+      "1 \u00d7 6 - 31",
+      "6 - 31",
+      "-25"
     ],
     "probed_misconception": "sub_before_div",
     "statement_correct": false,
@@ -2488,18 +2488,18 @@
   {
     "id": "B053",
     "category": "B",
-    "expression": "2 \u00f7 (8 - 3) \u00f7 3 + 2",
+    "expression": "10 \u00d7 3 - 12 \u00f7 (6 + 12)",
     "n_ops": 4,
     "misconceptions": [
       "outside_bracket_first"
     ],
     "num_misconceptions": 1,
     "trace": [
-      "2 \u00f7 (8 - 3) \u00f7 3 + 2",
-      "2 \u00f7 (8 - 3) \u00f7 5",
-      "2 \u00f7 5 \u00f7 5",
-      "0.4 \u00f7 5",
-      "0.08"
+      "10 \u00d7 3 - 12 \u00f7 (6 + 12)",
+      "30 - 12 \u00f7 (6 + 12)",
+      "18 \u00f7 (6 + 12)",
+      "18 \u00f7 18",
+      "1"
     ],
     "probed_misconception": "sub_before_div",
     "statement_correct": false,
@@ -2510,18 +2510,18 @@
   {
     "id": "B054",
     "category": "B",
-    "expression": "11 \u00d7 8 + 8 \u00f7 4 - 7",
+    "expression": "2 + 4 \u00d7 9 \u00d7 (7 \u00d7 1)",
     "n_ops": 4,
     "misconceptions": [
       "add_before_mul"
     ],
     "num_misconceptions": 1,
     "trace": [
-      "11 \u00d7 8 + 8 \u00f7 4 - 7",
-      "11 \u00d7 8 + 2 - 7",
-      "11 \u00d7 10 - 7",
-      "110 - 7",
-      "103"
+      "2 + 4 \u00d7 9 \u00d7 (7 \u00d7 1)",
+      "2 + 4 \u00d7 9 \u00d7 7",
+      "2 + 4 \u00d7 63",
+      "6 \u00d7 63",
+      "378"
     ],
     "probed_misconception": "outside_bracket_first",
     "statement_correct": false,
@@ -2532,18 +2532,18 @@
   {
     "id": "B055",
     "category": "B",
-    "expression": "10 + 11 \u00f7 3 - 9 \u00f7 4",
+    "expression": "9 + 8 \u00f7 (2 - 7) - 1",
     "n_ops": 4,
     "misconceptions": [
       "add_before_div"
     ],
     "num_misconceptions": 1,
     "trace": [
-      "10 + 11 \u00f7 3 - 9 \u00f7 4",
-      "10 + 11 \u00f7 3 - 2.25",
-      "21 \u00f7 3 - 2.25",
-      "7 - 2.25",
-      "4.75"
+      "9 + 8 \u00f7 (2 - 7) - 1",
+      "9 + 8 \u00f7 -5 - 1",
+      "17 \u00f7 -5 - 1",
+      "-3.4 - 1",
+      "-4.4"
     ],
     "probed_misconception": "outside_bracket_first",
     "statement_correct": false,
@@ -2554,18 +2554,18 @@
   {
     "id": "B056",
     "category": "B",
-    "expression": "7 - 10 \u00d7 1 \u00d7 10 \u00f7 3",
+    "expression": "9 - 8 \u00d7 3 \u00f7 (3 \u00f7 4)",
     "n_ops": 4,
     "misconceptions": [
       "sub_before_mul"
     ],
     "num_misconceptions": 1,
     "trace": [
-      "7 - 10 \u00d7 1 \u00d7 10 \u00f7 3",
-      "-3 \u00d7 1 \u00d7 10 \u00f7 3",
-      "-3 \u00d7 10 \u00f7 3",
-      "-30 \u00f7 3",
-      "-10"
+      "9 - 8 \u00d7 3 \u00f7 (3 \u00f7 4)",
+      "1 \u00d7 3 \u00f7 (3 \u00f7 4)",
+      "1 \u00d7 3 \u00f7 0.75",
+      "1 \u00d7 4",
+      "4"
     ],
     "probed_misconception": "outside_bracket_first",
     "statement_correct": false,
@@ -2576,18 +2576,18 @@
   {
     "id": "B057",
     "category": "B",
-    "expression": "8 + 8 - 9 \u00f7 1 \u00f7 7",
+    "expression": "11 + 12 - 4 \u00f7 (10 - 6)",
     "n_ops": 4,
     "misconceptions": [
       "sub_before_div"
     ],
     "num_misconceptions": 1,
     "trace": [
-      "8 + 8 - 9 \u00f7 1 \u00f7 7",
-      "16 - 9 \u00f7 1 \u00f7 7",
-      "7 \u00f7 1 \u00f7 7",
-      "7 \u00f7 7",
-      "1"
+      "11 + 12 - 4 \u00f7 (10 - 6)",
+      "11 + 12 - 4 \u00f7 4",
+      "11 + 8 \u00f7 4",
+      "11 + 2",
+      "13"
     ],
     "probed_misconception": "outside_bracket_first",
     "statement_correct": false,
@@ -2598,18 +2598,18 @@
   {
     "id": "B058",
     "category": "B",
-    "expression": "6 + 5 - 9 - 9 \u00f7 10",
+    "expression": "(10 \u00f7 4) - 12 \u00f7 12 + 3",
     "n_ops": 4,
     "misconceptions": [
       "same_priority_rtl"
     ],
     "num_misconceptions": 1,
     "trace": [
-      "6 + 5 - 9 - 9 \u00f7 10",
-      "11 - 9 - 9 \u00f7 10",
-      "11 - 9 - 0.9",
-      "11 - 8.1",
-      "2.9"
+      "(10 \u00f7 4) - 12 \u00f7 12 + 3",
+      "(10 \u00f7 4) - 1 + 3",
+      "2.5 - 1 + 3",
+      "2.5 - 4",
+      "-1.5"
     ],
     "probed_misconception": "outside_bracket_first",
     "statement_correct": false,
@@ -2620,18 +2620,18 @@
   {
     "id": "B059",
     "category": "B",
-    "expression": "11 - 6 \u00f7 1 \u00f7 (11 - 6)",
+    "expression": "4 + 8 - 5 \u00f7 (9 + 11)",
     "n_ops": 4,
     "misconceptions": [
       "outside_bracket_first"
     ],
     "num_misconceptions": 1,
     "trace": [
-      "11 - 6 \u00f7 1 \u00f7 (11 - 6)",
-      "11 - 6 \u00f7 (11 - 6)",
-      "5 \u00f7 (11 - 6)",
-      "5 \u00f7 5",
-      "1"
+      "4 + 8 - 5 \u00f7 (9 + 11)",
+      "12 - 5 \u00f7 (9 + 11)",
+      "7 \u00f7 (9 + 11)",
+      "7 \u00f7 20",
+      "0.35"
     ],
     "probed_misconception": "same_priority_rtl",
     "statement_correct": false,
@@ -2642,7 +2642,7 @@
   {
     "id": "C000",
     "category": "C",
-    "expression": "5 \u00d7 5 + 7 \u00f7 (11 - 8)",
+    "expression": "6 \u00d7 3 + 3 + 8 \u00d7 9",
     "n_ops": 4,
     "misconceptions": [
       "add_before_mul",
@@ -2650,11 +2650,11 @@
     ],
     "num_misconceptions": 2,
     "trace": [
-      "5 \u00d7 5 + 7 \u00f7 (11 - 8)",
-      "5 \u00d7 5 + 7 \u00f7 3",
-      "5 \u00d7 12 \u00f7 3",
-      "5 \u00d7 4",
-      "20"
+      "6 \u00d7 3 + 3 + 8 \u00d7 9",
+      "6 \u00d7 3 + 11 \u00d7 9",
+      "6 \u00d7 14 \u00d7 9",
+      "6 \u00d7 126",
+      "756"
     ],
     "probed_misconception": "add_before_mul",
     "statement_correct": true,
@@ -2665,7 +2665,7 @@
   {
     "id": "C001",
     "category": "C",
-    "expression": "2 \u00d7 (12 \u00d7 2 + 5) \u00d7 1",
+    "expression": "3 + 10 - 2 \u00d7 7 + 9",
     "n_ops": 4,
     "misconceptions": [
       "add_before_mul",
@@ -2673,11 +2673,11 @@
     ],
     "num_misconceptions": 2,
     "trace": [
-      "2 \u00d7 (12 \u00d7 2 + 5) \u00d7 1",
-      "2 \u00d7 (12 \u00d7 7) \u00d7 1",
-      "2 \u00d7 84 \u00d7 1",
-      "168 \u00d7 1",
-      "168"
+      "3 + 10 - 2 \u00d7 7 + 9",
+      "13 - 2 \u00d7 7 + 9",
+      "11 \u00d7 7 + 9",
+      "11 \u00d7 16",
+      "176"
     ],
     "probed_misconception": "add_before_mul",
     "statement_correct": true,
@@ -2688,7 +2688,7 @@
   {
     "id": "C002",
     "category": "C",
-    "expression": "3 + 3 \u00d7 5 - 1 - 1",
+    "expression": "(12 \u00d7 12 + 10) - 8 \u00d7 7",
     "n_ops": 4,
     "misconceptions": [
       "add_before_mul",
@@ -2696,11 +2696,11 @@
     ],
     "num_misconceptions": 2,
     "trace": [
-      "3 + 3 \u00d7 5 - 1 - 1",
-      "6 \u00d7 5 - 1 - 1",
-      "30 - 1 - 1",
-      "29 - 1",
-      "28"
+      "(12 \u00d7 12 + 10) - 8 \u00d7 7",
+      "(12 \u00d7 12 + 10) - 56",
+      "(12 \u00d7 22) - 56",
+      "264 - 56",
+      "208"
     ],
     "probed_misconception": "add_before_mul",
     "statement_correct": true,
@@ -2711,7 +2711,7 @@
   {
     "id": "C003",
     "category": "C",
-    "expression": "7 + (12 - 10 \u00d7 9) \u00d7 7",
+    "expression": "8 + 7 \u00d7 2 \u00d7 12 + 8",
     "n_ops": 4,
     "misconceptions": [
       "add_before_mul",
@@ -2719,11 +2719,11 @@
     ],
     "num_misconceptions": 2,
     "trace": [
-      "7 + (12 - 10 \u00d7 9) \u00d7 7",
-      "7 + (12 - 90) \u00d7 7",
-      "7 + -78 \u00d7 7",
-      "-71 \u00d7 7",
-      "-497"
+      "8 + 7 \u00d7 2 \u00d7 12 + 8",
+      "15 \u00d7 2 \u00d7 12 + 8",
+      "15 \u00d7 2 \u00d7 20",
+      "15 \u00d7 40",
+      "600"
     ],
     "probed_misconception": "add_before_mul",
     "statement_correct": true,
@@ -2734,7 +2734,7 @@
   {
     "id": "C004",
     "category": "C",
-    "expression": "3 \u00d7 (2 \u00f7 5) + 12 - 5",
+    "expression": "9 + 1 \u00d7 (4 + 10 \u00d7 7)",
     "n_ops": 4,
     "misconceptions": [
       "add_before_mul",
@@ -2742,11 +2742,11 @@
     ],
     "num_misconceptions": 2,
     "trace": [
-      "3 \u00d7 (2 \u00f7 5) + 12 - 5",
-      "3 \u00d7 (2 \u00f7 5) + 7",
-      "3 \u00d7 0.4 + 7",
-      "3 \u00d7 7.4",
-      "22.2"
+      "9 + 1 \u00d7 (4 + 10 \u00d7 7)",
+      "10 \u00d7 (4 + 10 \u00d7 7)",
+      "10 \u00d7 (14 \u00d7 7)",
+      "10 \u00d7 98",
+      "980"
     ],
     "probed_misconception": "add_before_mul",
     "statement_correct": true,
@@ -2757,7 +2757,7 @@
   {
     "id": "C005",
     "category": "C",
-    "expression": "(11 - 5 + 1) + 3 \u00f7 10",
+    "expression": "(8 - 11 - 1) \u00f7 5 + 5",
     "n_ops": 4,
     "misconceptions": [
       "add_before_div",
@@ -2765,11 +2765,11 @@
     ],
     "num_misconceptions": 2,
     "trace": [
-      "(11 - 5 + 1) + 3 \u00f7 10",
-      "(6 + 1) + 3 \u00f7 10",
-      "7 + 3 \u00f7 10",
-      "10 \u00f7 10",
-      "1"
+      "(8 - 11 - 1) \u00f7 5 + 5",
+      "(-3 - 1) \u00f7 5 + 5",
+      "-4 \u00f7 5 + 5",
+      "-4 \u00f7 10",
+      "-0.4"
     ],
     "probed_misconception": "add_before_div",
     "statement_correct": true,
@@ -2780,7 +2780,7 @@
   {
     "id": "C006",
     "category": "C",
-    "expression": "6 \u00d7 (4 \u00f7 1 + 4) - 1",
+    "expression": "6 \u00f7 8 + (5 - 7) \u00f7 1",
     "n_ops": 4,
     "misconceptions": [
       "add_before_div",
@@ -2788,11 +2788,11 @@
     ],
     "num_misconceptions": 2,
     "trace": [
-      "6 \u00d7 (4 \u00f7 1 + 4) - 1",
-      "6 \u00d7 (4 \u00f7 5) - 1",
-      "6 \u00d7 0.8 - 1",
-      "4.8 - 1",
-      "3.8"
+      "6 \u00f7 8 + (5 - 7) \u00f7 1",
+      "6 \u00f7 8 + -2 \u00f7 1",
+      "6 \u00f7 6 \u00f7 1",
+      "1 \u00f7 1",
+      "1"
     ],
     "probed_misconception": "add_before_div",
     "statement_correct": true,
@@ -2803,7 +2803,7 @@
   {
     "id": "C007",
     "category": "C",
-    "expression": "12 + 11 \u00d7 6 \u00d7 9 \u00f7 10",
+    "expression": "(1 \u00d7 8) + 9 \u00f7 1 \u00f7 2",
     "n_ops": 4,
     "misconceptions": [
       "add_before_div",
@@ -2811,11 +2811,11 @@
     ],
     "num_misconceptions": 2,
     "trace": [
-      "12 + 11 \u00d7 6 \u00d7 9 \u00f7 10",
-      "12 + 11 \u00d7 54 \u00f7 10",
-      "12 + 594 \u00f7 10",
-      "606 \u00f7 10",
-      "60.6"
+      "(1 \u00d7 8) + 9 \u00f7 1 \u00f7 2",
+      "(1 \u00d7 8) + 9 \u00f7 0.5",
+      "8 + 9 \u00f7 0.5",
+      "17 \u00f7 0.5",
+      "34"
     ],
     "probed_misconception": "add_before_div",
     "statement_correct": true,
@@ -2826,7 +2826,7 @@
   {
     "id": "C008",
     "category": "C",
-    "expression": "3 - 2 + 9 \u00f7 (9 - 8)",
+    "expression": "10 \u00f7 (5 - 11) + 12 \u00f7 3",
     "n_ops": 4,
     "misconceptions": [
       "add_before_div",
@@ -2834,11 +2834,11 @@
     ],
     "num_misconceptions": 2,
     "trace": [
-      "3 - 2 + 9 \u00f7 (9 - 8)",
-      "1 + 9 \u00f7 (9 - 8)",
-      "1 + 9 \u00f7 1",
-      "10 \u00f7 1",
-      "10"
+      "10 \u00f7 (5 - 11) + 12 \u00f7 3",
+      "10 \u00f7 (5 - 11) + 4",
+      "10 \u00f7 -6 + 4",
+      "10 \u00f7 -2",
+      "-5"
     ],
     "probed_misconception": "add_before_div",
     "statement_correct": true,
@@ -2849,7 +2849,7 @@
   {
     "id": "C009",
     "category": "C",
-    "expression": "4 \u00d7 4 \u00d7 11 \u00d7 7 - 1",
+    "expression": "3 - 6 \u00d7 12 - 5 \u00d7 1",
     "n_ops": 4,
     "misconceptions": [
       "sub_before_mul",
@@ -2857,11 +2857,11 @@
     ],
     "num_misconceptions": 2,
     "trace": [
-      "4 \u00d7 4 \u00d7 11 \u00d7 7 - 1",
-      "16 \u00d7 11 \u00d7 7 - 1",
-      "16 \u00d7 11 \u00d7 6",
-      "16 \u00d7 66",
-      "1056"
+      "3 - 6 \u00d7 12 - 5 \u00d7 1",
+      "-3 \u00d7 12 - 5 \u00d7 1",
+      "-3 \u00d7 7 \u00d7 1",
+      "-21 \u00d7 1",
+      "-21"
     ],
     "probed_misconception": "sub_before_mul",
     "statement_correct": true,
@@ -2872,7 +2872,7 @@
   {
     "id": "C010",
     "category": "C",
-    "expression": "8 + 11 \u00d7 7 - 6 \u00d7 10",
+    "expression": "10 - 11 \u00d7 1 \u00f7 12 \u00f7 3",
     "n_ops": 4,
     "misconceptions": [
       "sub_before_mul",
@@ -2880,11 +2880,11 @@
     ],
     "num_misconceptions": 2,
     "trace": [
-      "8 + 11 \u00d7 7 - 6 \u00d7 10",
-      "8 + 11 \u00d7 1 \u00d7 10",
-      "8 + 11 \u00d7 10",
-      "8 + 110",
-      "118"
+      "10 - 11 \u00d7 1 \u00f7 12 \u00f7 3",
+      "-1 \u00d7 1 \u00f7 12 \u00f7 3",
+      "-1 \u00d7 1 \u00f7 4",
+      "-1 \u00d7 0.25",
+      "-0.25"
     ],
     "probed_misconception": "sub_before_mul",
     "statement_correct": true,
@@ -2895,7 +2895,7 @@
   {
     "id": "C011",
     "category": "C",
-    "expression": "2 - 4 \u00d7 (11 + 10 \u00f7 10)",
+    "expression": "6 \u00d7 9 - (5 \u00f7 10) + 2",
     "n_ops": 4,
     "misconceptions": [
       "sub_before_mul",
@@ -2903,11 +2903,11 @@
     ],
     "num_misconceptions": 2,
     "trace": [
-      "2 - 4 \u00d7 (11 + 10 \u00f7 10)",
-      "2 - 4 \u00d7 (11 + 1)",
-      "2 - 4 \u00d7 12",
-      "-2 \u00d7 12",
-      "-24"
+      "6 \u00d7 9 - (5 \u00f7 10) + 2",
+      "6 \u00d7 9 - 0.5 + 2",
+      "6 \u00d7 8.5 + 2",
+      "51 + 2",
+      "53"
     ],
     "probed_misconception": "sub_before_mul",
     "statement_correct": true,
@@ -2918,7 +2918,7 @@
   {
     "id": "C012",
     "category": "C",
-    "expression": "7 \u00d7 4 \u00f7 5 - 5 + 4",
+    "expression": "12 - 6 \u00f7 5 + 7 - 4",
     "n_ops": 4,
     "misconceptions": [
       "sub_before_div",
@@ -2926,11 +2926,11 @@
     ],
     "num_misconceptions": 2,
     "trace": [
-      "7 \u00d7 4 \u00f7 5 - 5 + 4",
-      "28 \u00f7 5 - 5 + 4",
-      "28 \u00f7 5 - 9",
-      "28 \u00f7 -4",
-      "-7"
+      "12 - 6 \u00f7 5 + 7 - 4",
+      "12 - 6 \u00f7 5 + 3",
+      "6 \u00f7 5 + 3",
+      "1.2 + 3",
+      "4.2"
     ],
     "probed_misconception": "sub_before_div",
     "statement_correct": true,
@@ -2941,7 +2941,7 @@
   {
     "id": "C013",
     "category": "C",
-    "expression": "(6 - 2 \u00f7 5) - 2 \u00f7 3",
+    "expression": "12 \u00f7 (3 \u00f7 5) - 12 \u00f7 4",
     "n_ops": 4,
     "misconceptions": [
       "sub_before_div",
@@ -2949,11 +2949,11 @@
     ],
     "num_misconceptions": 2,
     "trace": [
-      "(6 - 2 \u00f7 5) - 2 \u00f7 3",
-      "(4 \u00f7 5) - 2 \u00f7 3",
-      "0.8 - 2 \u00f7 3",
-      "-1.2 \u00f7 3",
-      "-0.4"
+      "12 \u00f7 (3 \u00f7 5) - 12 \u00f7 4",
+      "12 \u00f7 (3 \u00f7 5) - 3",
+      "12 \u00f7 0.6 - 3",
+      "12 \u00f7 -2.4",
+      "-5"
     ],
     "probed_misconception": "sub_before_div",
     "statement_correct": true,
@@ -2964,7 +2964,7 @@
   {
     "id": "C014",
     "category": "C",
-    "expression": "2 - 7 - 3 - (4 \u00d7 4)",
+    "expression": "(9 \u00d7 3) \u00f7 11 - 9 + 7",
     "n_ops": 4,
     "misconceptions": [
       "same_priority_rtl",
@@ -2972,11 +2972,11 @@
     ],
     "num_misconceptions": 2,
     "trace": [
-      "2 - 7 - 3 - (4 \u00d7 4)",
-      "2 - 4 - (4 \u00d7 4)",
-      "-2 - (4 \u00d7 4)",
-      "-2 - 16",
-      "-18"
+      "(9 \u00d7 3) \u00f7 11 - 9 + 7",
+      "(9 \u00d7 3) \u00f7 11 - 16",
+      "(9 \u00d7 3) \u00f7 -5",
+      "27 \u00f7 -5",
+      "-5.4"
     ],
     "probed_misconception": "same_priority_rtl",
     "statement_correct": true,
@@ -2987,7 +2987,7 @@
   {
     "id": "C015",
     "category": "C",
-    "expression": "10 - 3 \u00d7 8 \u00f7 5 + 10",
+    "expression": "11 \u00f7 10 \u00d7 12 + 3 \u00f7 6",
     "n_ops": 4,
     "misconceptions": [
       "add_before_mul",
@@ -2995,11 +2995,11 @@
     ],
     "num_misconceptions": 2,
     "trace": [
-      "10 - 3 \u00d7 8 \u00f7 5 + 10",
-      "10 - 24 \u00f7 5 + 10",
-      "10 - 24 \u00f7 15",
-      "10 - 1.6",
-      "8.4"
+      "11 \u00f7 10 \u00d7 12 + 3 \u00f7 6",
+      "1.1 \u00d7 12 + 3 \u00f7 6",
+      "1.1 \u00d7 15 \u00f7 6",
+      "1.1 \u00d7 2.5",
+      "2.75"
     ],
     "probed_misconception": "add_before_div",
     "statement_correct": true,
@@ -3010,7 +3010,7 @@
   {
     "id": "C016",
     "category": "C",
-    "expression": "7 - 5 \u00d7 5 \u00f7 2 \u00f7 5",
+    "expression": "11 \u00d7 12 \u00f7 2 - (10 + 7)",
     "n_ops": 4,
     "misconceptions": [
       "add_before_mul",
@@ -3018,11 +3018,11 @@
     ],
     "num_misconceptions": 2,
     "trace": [
-      "7 - 5 \u00d7 5 \u00f7 2 \u00f7 5",
-      "2 \u00d7 5 \u00f7 2 \u00f7 5",
-      "10 \u00f7 2 \u00f7 5",
-      "5 \u00f7 5",
-      "1"
+      "11 \u00d7 12 \u00f7 2 - (10 + 7)",
+      "11 \u00d7 12 \u00f7 2 - 17",
+      "11 \u00d7 6 - 17",
+      "11 \u00d7 -11",
+      "-121"
     ],
     "probed_misconception": "sub_before_mul",
     "statement_correct": true,
@@ -3033,7 +3033,7 @@
   {
     "id": "C017",
     "category": "C",
-    "expression": "9 \u00d7 8 \u00f7 7 - 4 - 4",
+    "expression": "1 - 1 \u00f7 11 - 5 \u00f7 10",
     "n_ops": 4,
     "misconceptions": [
       "add_before_mul",
@@ -3041,11 +3041,11 @@
     ],
     "num_misconceptions": 2,
     "trace": [
-      "9 \u00d7 8 \u00f7 7 - 4 - 4",
-      "72 \u00f7 7 - 4 - 4",
-      "72 \u00f7 3 - 4",
-      "72 \u00f7 -1",
-      "-72"
+      "1 - 1 \u00f7 11 - 5 \u00f7 10",
+      "0 \u00f7 11 - 5 \u00f7 10",
+      "0 \u00f7 6 \u00f7 10",
+      "0 \u00f7 10",
+      "0"
     ],
     "probed_misconception": "sub_before_div",
     "statement_correct": true,
@@ -3056,7 +3056,7 @@
   {
     "id": "C018",
     "category": "C",
-    "expression": "1 \u00d7 7 + 2 - 5 - 1",
+    "expression": "5 - 10 - 3 \u00d7 11 \u00d7 12",
     "n_ops": 4,
     "misconceptions": [
       "add_before_mul",
@@ -3064,11 +3064,11 @@
     ],
     "num_misconceptions": 2,
     "trace": [
-      "1 \u00d7 7 + 2 - 5 - 1",
-      "1 \u00d7 7 + 2 - 4",
-      "1 \u00d7 7 + -2",
-      "1 \u00d7 5",
-      "5"
+      "5 - 10 - 3 \u00d7 11 \u00d7 12",
+      "5 - 10 - 3 \u00d7 132",
+      "5 - 10 - 396",
+      "5 - -386",
+      "391"
     ],
     "probed_misconception": "same_priority_rtl",
     "statement_correct": true,
@@ -3079,7 +3079,7 @@
   {
     "id": "C019",
     "category": "C",
-    "expression": "10 \u00d7 (9 - 1) \u00d7 10 + 12",
+    "expression": "(6 \u00f7 5 \u00d7 6) \u00f7 6 + 12",
     "n_ops": 4,
     "misconceptions": [
       "add_before_mul",
@@ -3087,11 +3087,11 @@
     ],
     "num_misconceptions": 2,
     "trace": [
-      "10 \u00d7 (9 - 1) \u00d7 10 + 12",
-      "10 \u00d7 (9 - 1) \u00d7 22",
-      "10 \u00d7 8 \u00d7 22",
-      "10 \u00d7 176",
-      "1760"
+      "(6 \u00f7 5 \u00d7 6) \u00f7 6 + 12",
+      "(1.2 \u00d7 6) \u00f7 6 + 12",
+      "(1.2 \u00d7 6) \u00f7 18",
+      "7.2 \u00f7 18",
+      "0.4"
     ],
     "probed_misconception": "outside_bracket_first",
     "statement_correct": true,
@@ -3102,7 +3102,7 @@
   {
     "id": "C020",
     "category": "C",
-    "expression": "8 - 3 \u00d7 2 \u00d7 4 - 1",
+    "expression": "10 \u00d7 12 \u00d7 7 - 12 + 11",
     "n_ops": 4,
     "misconceptions": [
       "add_before_div",
@@ -3110,11 +3110,11 @@
     ],
     "num_misconceptions": 2,
     "trace": [
-      "8 - 3 \u00d7 2 \u00d7 4 - 1",
-      "5 \u00d7 2 \u00d7 4 - 1",
-      "10 \u00d7 4 - 1",
-      "10 \u00d7 3",
-      "30"
+      "10 \u00d7 12 \u00d7 7 - 12 + 11",
+      "10 \u00d7 12 \u00d7 -5 + 11",
+      "10 \u00d7 -60 + 11",
+      "-600 + 11",
+      "-589"
     ],
     "probed_misconception": "sub_before_mul",
     "statement_correct": true,
@@ -3125,7 +3125,7 @@
   {
     "id": "C021",
     "category": "C",
-    "expression": "3 - 2 \u00d7 6 \u00f7 1 - 3",
+    "expression": "7 \u00f7 11 - 9 - 7 - 9",
     "n_ops": 4,
     "misconceptions": [
       "add_before_div",
@@ -3133,11 +3133,11 @@
     ],
     "num_misconceptions": 2,
     "trace": [
-      "3 - 2 \u00d7 6 \u00f7 1 - 3",
-      "3 - 12 \u00f7 1 - 3",
-      "-9 \u00f7 1 - 3",
-      "-9 \u00f7 -2",
-      "4.5"
+      "7 \u00f7 11 - 9 - 7 - 9",
+      "7 \u00f7 2 - 7 - 9",
+      "7 \u00f7 -5 - 9",
+      "7 \u00f7 -14",
+      "-0.5"
     ],
     "probed_misconception": "sub_before_div",
     "statement_correct": true,
@@ -3148,7 +3148,7 @@
   {
     "id": "C022",
     "category": "C",
-    "expression": "3 \u00d7 7 - 4 - 4 - 2",
+    "expression": "5 - 4 - 12 + 4 \u00d7 6",
     "n_ops": 4,
     "misconceptions": [
       "add_before_div",
@@ -3156,11 +3156,11 @@
     ],
     "num_misconceptions": 2,
     "trace": [
-      "3 \u00d7 7 - 4 - 4 - 2",
-      "21 - 4 - 4 - 2",
-      "21 - 4 - 2",
-      "21 - 2",
-      "19"
+      "5 - 4 - 12 + 4 \u00d7 6",
+      "5 - 4 - 12 + 24",
+      "5 - 4 - 36",
+      "5 - -32",
+      "37"
     ],
     "probed_misconception": "same_priority_rtl",
     "statement_correct": true,
@@ -3171,7 +3171,7 @@
   {
     "id": "C023",
     "category": "C",
-    "expression": "(1 - 9 + 6) \u00f7 4 + 4",
+    "expression": "6 + 2 \u00d7 (6 \u00d7 3) \u00f7 2",
     "n_ops": 4,
     "misconceptions": [
       "add_before_div",
@@ -3179,11 +3179,11 @@
     ],
     "num_misconceptions": 2,
     "trace": [
-      "(1 - 9 + 6) \u00f7 4 + 4",
-      "(-8 + 6) \u00f7 4 + 4",
-      "(-8 + 6) \u00f7 8",
-      "-2 \u00f7 8",
-      "-0.25"
+      "6 + 2 \u00d7 (6 \u00d7 3) \u00f7 2",
+      "8 \u00d7 (6 \u00d7 3) \u00f7 2",
+      "8 \u00d7 18 \u00f7 2",
+      "144 \u00f7 2",
+      "72"
     ],
     "probed_misconception": "outside_bracket_first",
     "statement_correct": true,
@@ -3194,7 +3194,7 @@
   {
     "id": "C024",
     "category": "C",
-    "expression": "12 \u00d7 11 \u00d7 3 - 9 \u00f7 11",
+    "expression": "(9 \u00f7 7 - 5) \u00f7 9 - 7",
     "n_ops": 4,
     "misconceptions": [
       "sub_before_mul",
@@ -3202,11 +3202,11 @@
     ],
     "num_misconceptions": 2,
     "trace": [
-      "12 \u00d7 11 \u00d7 3 - 9 \u00f7 11",
-      "12 \u00d7 11 \u00d7 -6 \u00f7 11",
-      "12 \u00d7 -66 \u00f7 11",
-      "-792 \u00f7 11",
-      "-72"
+      "(9 \u00f7 7 - 5) \u00f7 9 - 7",
+      "(9 \u00f7 2) \u00f7 9 - 7",
+      "4.5 \u00f7 9 - 7",
+      "4.5 \u00f7 2",
+      "2.25"
     ],
     "probed_misconception": "sub_before_div",
     "statement_correct": true,
@@ -3217,7 +3217,7 @@
   {
     "id": "C025",
     "category": "C",
-    "expression": "6 - 11 - 3 \u00f7 2 + 12",
+    "expression": "4 + 4 \u00f7 8 - 7 + 6",
     "n_ops": 4,
     "misconceptions": [
       "sub_before_mul",
@@ -3225,11 +3225,11 @@
     ],
     "num_misconceptions": 2,
     "trace": [
-      "6 - 11 - 3 \u00f7 2 + 12",
-      "6 - 11 - 1.5 + 12",
-      "6 - 11 - 13.5",
-      "6 - -2.5",
-      "8.5"
+      "4 + 4 \u00f7 8 - 7 + 6",
+      "4 + 0.5 - 7 + 6",
+      "4 + 0.5 - 13",
+      "4 + -12.5",
+      "-8.5"
     ],
     "probed_misconception": "same_priority_rtl",
     "statement_correct": true,
@@ -3240,7 +3240,7 @@
   {
     "id": "C026",
     "category": "C",
-    "expression": "8 + 5 - 6 \u00f7 (8 \u00f7 8)",
+    "expression": "(1 - 8) \u00d7 4 - 5 - 9",
     "n_ops": 4,
     "misconceptions": [
       "sub_before_mul",
@@ -3248,11 +3248,11 @@
     ],
     "num_misconceptions": 2,
     "trace": [
-      "8 + 5 - 6 \u00f7 (8 \u00f7 8)",
-      "13 - 6 \u00f7 (8 \u00f7 8)",
-      "7 \u00f7 (8 \u00f7 8)",
-      "7 \u00f7 1",
-      "7"
+      "(1 - 8) \u00d7 4 - 5 - 9",
+      "(1 - 8) \u00d7 -1 - 9",
+      "(1 - 8) \u00d7 -10",
+      "-7 \u00d7 -10",
+      "70"
     ],
     "probed_misconception": "outside_bracket_first",
     "statement_correct": true,
@@ -3263,7 +3263,7 @@
   {
     "id": "C027",
     "category": "C",
-    "expression": "5 - 4 - (3 \u00d7 1) \u00d7 7",
+    "expression": "7 \u00d7 2 - 8 - 5 + 8",
     "n_ops": 4,
     "misconceptions": [
       "sub_before_div",
@@ -3271,11 +3271,11 @@
     ],
     "num_misconceptions": 2,
     "trace": [
-      "5 - 4 - (3 \u00d7 1) \u00d7 7",
-      "5 - 4 - 3 \u00d7 7",
-      "5 - 4 - 21",
-      "5 - -17",
-      "22"
+      "7 \u00d7 2 - 8 - 5 + 8",
+      "14 - 8 - 5 + 8",
+      "14 - 8 - 13",
+      "14 - -5",
+      "19"
     ],
     "probed_misconception": "same_priority_rtl",
     "statement_correct": true,
@@ -3286,7 +3286,7 @@
   {
     "id": "C028",
     "category": "C",
-    "expression": "10 + 3 \u00d7 (6 + 1) + 6",
+    "expression": "1 - 12 - 2 \u00f7 (11 - 9)",
     "n_ops": 4,
     "misconceptions": [
       "sub_before_div",
@@ -3294,11 +3294,11 @@
     ],
     "num_misconceptions": 2,
     "trace": [
-      "10 + 3 \u00d7 (6 + 1) + 6",
-      "13 \u00d7 (6 + 1) + 6",
-      "13 \u00d7 7 + 6",
-      "91 + 6",
-      "97"
+      "1 - 12 - 2 \u00f7 (11 - 9)",
+      "-11 - 2 \u00f7 (11 - 9)",
+      "-13 \u00f7 (11 - 9)",
+      "-13 \u00f7 2",
+      "-6.5"
     ],
     "probed_misconception": "outside_bracket_first",
     "statement_correct": true,
@@ -3309,7 +3309,7 @@
   {
     "id": "C029",
     "category": "C",
-    "expression": "(4 \u00d7 9 \u00f7 4) \u00d7 6 - 7",
+    "expression": "(11 + 8 \u00f7 4) \u00f7 5 - 9",
     "n_ops": 4,
     "misconceptions": [
       "same_priority_rtl",
@@ -3317,11 +3317,11 @@
     ],
     "num_misconceptions": 2,
     "trace": [
-      "(4 \u00d7 9 \u00f7 4) \u00d7 6 - 7",
-      "(36 \u00f7 4) \u00d7 6 - 7",
-      "(36 \u00f7 4) \u00d7 -1",
-      "9 \u00d7 -1",
-      "-9"
+      "(11 + 8 \u00f7 4) \u00f7 5 - 9",
+      "(11 + 2) \u00f7 5 - 9",
+      "(11 + 2) \u00f7 -4",
+      "13 \u00f7 -4",
+      "-3.25"
     ],
     "probed_misconception": "outside_bracket_first",
     "statement_correct": true,
@@ -3332,7 +3332,7 @@
   {
     "id": "C030",
     "category": "C",
-    "expression": "7 \u00d7 5 + 12 \u00d7 1 \u00f7 10",
+    "expression": "4 \u00d7 4 \u00d7 5 + 2 + 3",
     "n_ops": 4,
     "misconceptions": [
       "add_before_mul",
@@ -3340,11 +3340,11 @@
     ],
     "num_misconceptions": 2,
     "trace": [
-      "7 \u00d7 5 + 12 \u00d7 1 \u00f7 10",
-      "7 \u00d7 17 \u00d7 1 \u00f7 10",
-      "119 \u00d7 1 \u00f7 10",
-      "119 \u00d7 0.1",
-      "11.9"
+      "4 \u00d7 4 \u00d7 5 + 2 + 3",
+      "16 \u00d7 5 + 2 + 3",
+      "16 \u00d7 5 + 5",
+      "16 \u00d7 10",
+      "160"
     ],
     "probed_misconception": "add_before_mul",
     "statement_correct": true,
@@ -3355,7 +3355,7 @@
   {
     "id": "C031",
     "category": "C",
-    "expression": "(4 + 4 - 5) + 9 \u00d7 6",
+    "expression": "6 + 7 \u00f7 1 + 1 \u00d7 8",
     "n_ops": 4,
     "misconceptions": [
       "add_before_mul",
@@ -3363,11 +3363,11 @@
     ],
     "num_misconceptions": 2,
     "trace": [
-      "(4 + 4 - 5) + 9 \u00d7 6",
-      "(4 + -1) + 9 \u00d7 6",
-      "3 + 9 \u00d7 6",
-      "12 \u00d7 6",
-      "72"
+      "6 + 7 \u00f7 1 + 1 \u00d7 8",
+      "6 + 7 + 1 \u00d7 8",
+      "13 + 1 \u00d7 8",
+      "14 \u00d7 8",
+      "112"
     ],
     "probed_misconception": "add_before_mul",
     "statement_correct": true,
@@ -3378,7 +3378,7 @@
   {
     "id": "C032",
     "category": "C",
-    "expression": "9 \u00f7 10 + 5 \u00d7 11 + 10",
+    "expression": "2 + 7 \u00d7 2 - 6 + 3",
     "n_ops": 4,
     "misconceptions": [
       "add_before_mul",
@@ -3386,11 +3386,11 @@
     ],
     "num_misconceptions": 2,
     "trace": [
-      "9 \u00f7 10 + 5 \u00d7 11 + 10",
-      "0.9 + 5 \u00d7 11 + 10",
-      "0.9 + 5 \u00d7 21",
-      "5.9 \u00d7 21",
-      "123.9"
+      "2 + 7 \u00d7 2 - 6 + 3",
+      "9 \u00d7 2 - 6 + 3",
+      "18 - 6 + 3",
+      "12 + 3",
+      "15"
     ],
     "probed_misconception": "add_before_mul",
     "statement_correct": true,
@@ -3401,7 +3401,7 @@
   {
     "id": "C033",
     "category": "C",
-    "expression": "1 - 7 \u00d7 6 + 2 + 10",
+    "expression": "(6 \u00d7 7) \u00f7 5 + 10 \u00d7 3",
     "n_ops": 4,
     "misconceptions": [
       "add_before_mul",
@@ -3409,11 +3409,11 @@
     ],
     "num_misconceptions": 2,
     "trace": [
-      "1 - 7 \u00d7 6 + 2 + 10",
-      "1 - 7 \u00d7 6 + 12",
-      "1 - 7 \u00d7 18",
-      "1 - 126",
-      "-125"
+      "(6 \u00d7 7) \u00f7 5 + 10 \u00d7 3",
+      "42 \u00f7 5 + 10 \u00d7 3",
+      "8.4 + 10 \u00d7 3",
+      "18.4 \u00d7 3",
+      "55.2"
     ],
     "probed_misconception": "add_before_mul",
     "statement_correct": true,
@@ -3424,7 +3424,7 @@
   {
     "id": "C034",
     "category": "C",
-    "expression": "12 \u00f7 (10 \u00d7 6 + 4) + 8",
+    "expression": "(3 \u00d7 7 - 10) + 12 \u00d7 2",
     "n_ops": 4,
     "misconceptions": [
       "add_before_mul",
@@ -3432,11 +3432,11 @@
     ],
     "num_misconceptions": 2,
     "trace": [
-      "12 \u00f7 (10 \u00d7 6 + 4) + 8",
-      "12 \u00f7 (10 \u00d7 10) + 8",
-      "12 \u00f7 100 + 8",
-      "0.12 + 8",
-      "8.12"
+      "(3 \u00d7 7 - 10) + 12 \u00d7 2",
+      "(21 - 10) + 12 \u00d7 2",
+      "11 + 12 \u00d7 2",
+      "23 \u00d7 2",
+      "46"
     ],
     "probed_misconception": "add_before_mul",
     "statement_correct": true,
@@ -3447,7 +3447,7 @@
   {
     "id": "C035",
     "category": "C",
-    "expression": "6 + 6 + (9 + 5 \u00f7 7)",
+    "expression": "11 \u00d7 8 \u00f7 3 + 1 \u00d7 8",
     "n_ops": 4,
     "misconceptions": [
       "add_before_div",
@@ -3455,11 +3455,11 @@
     ],
     "num_misconceptions": 2,
     "trace": [
-      "6 + 6 + (9 + 5 \u00f7 7)",
-      "12 + (9 + 5 \u00f7 7)",
-      "12 + (14 \u00f7 7)",
-      "12 + 2",
-      "14"
+      "11 \u00d7 8 \u00f7 3 + 1 \u00d7 8",
+      "11 \u00d7 8 \u00f7 3 + 8",
+      "11 \u00d7 8 \u00f7 11",
+      "88 \u00f7 11",
+      "8"
     ],
     "probed_misconception": "add_before_div",
     "statement_correct": true,
@@ -3470,7 +3470,7 @@
   {
     "id": "C036",
     "category": "C",
-    "expression": "6 \u00d7 10 + 12 \u00f7 9 + 7",
+    "expression": "3 + 2 \u00f7 5 \u00d7 10 + 12",
     "n_ops": 4,
     "misconceptions": [
       "add_before_div",
@@ -3478,11 +3478,11 @@
     ],
     "num_misconceptions": 2,
     "trace": [
-      "6 \u00d7 10 + 12 \u00f7 9 + 7",
-      "6 \u00d7 10 + 12 \u00f7 16",
-      "60 + 12 \u00f7 16",
-      "72 \u00f7 16",
-      "4.5"
+      "3 + 2 \u00f7 5 \u00d7 10 + 12",
+      "5 \u00f7 5 \u00d7 10 + 12",
+      "1 \u00d7 10 + 12",
+      "10 + 12",
+      "22"
     ],
     "probed_misconception": "add_before_div",
     "statement_correct": true,
@@ -3493,7 +3493,7 @@
   {
     "id": "C037",
     "category": "C",
-    "expression": "2 + 3 \u00d7 8 \u00f7 5 \u00d7 5",
+    "expression": "9 \u00d7 3 \u00f7 1 + 2 \u00d7 2",
     "n_ops": 4,
     "misconceptions": [
       "add_before_div",
@@ -3501,11 +3501,11 @@
     ],
     "num_misconceptions": 2,
     "trace": [
-      "2 + 3 \u00d7 8 \u00f7 5 \u00d7 5",
-      "2 + 24 \u00f7 5 \u00d7 5",
-      "2 + 24 \u00f7 25",
-      "26 \u00f7 25",
-      "1.04"
+      "9 \u00d7 3 \u00f7 1 + 2 \u00d7 2",
+      "27 \u00f7 1 + 2 \u00d7 2",
+      "27 \u00f7 1 + 4",
+      "27 \u00f7 5",
+      "5.4"
     ],
     "probed_misconception": "add_before_div",
     "statement_correct": true,
@@ -3516,7 +3516,7 @@
   {
     "id": "C038",
     "category": "C",
-    "expression": "2 \u00f7 (1 - 10 + 4) + 1",
+    "expression": "8 - 2 \u00f7 (6 - 10) + 9",
     "n_ops": 4,
     "misconceptions": [
       "add_before_div",
@@ -3524,11 +3524,11 @@
     ],
     "num_misconceptions": 2,
     "trace": [
-      "2 \u00f7 (1 - 10 + 4) + 1",
-      "2 \u00f7 (-9 + 4) + 1",
-      "2 \u00f7 -5 + 1",
-      "2 \u00f7 -4",
-      "-0.5"
+      "8 - 2 \u00f7 (6 - 10) + 9",
+      "6 \u00f7 (6 - 10) + 9",
+      "6 \u00f7 -4 + 9",
+      "6 \u00f7 5",
+      "1.2"
     ],
     "probed_misconception": "add_before_div",
     "statement_correct": true,
@@ -3539,7 +3539,7 @@
   {
     "id": "C039",
     "category": "C",
-    "expression": "8 + 10 - 8 \u00d7 1 \u00f7 10",
+    "expression": "9 - 8 \u00d7 5 + (8 - 2)",
     "n_ops": 4,
     "misconceptions": [
       "sub_before_mul",
@@ -3547,11 +3547,11 @@
     ],
     "num_misconceptions": 2,
     "trace": [
-      "8 + 10 - 8 \u00d7 1 \u00f7 10",
-      "18 - 8 \u00d7 1 \u00f7 10",
-      "10 \u00d7 1 \u00f7 10",
-      "10 \u00d7 0.1",
-      "1"
+      "9 - 8 \u00d7 5 + (8 - 2)",
+      "1 \u00d7 5 + (8 - 2)",
+      "1 \u00d7 5 + 6",
+      "5 + 6",
+      "11"
     ],
     "probed_misconception": "sub_before_mul",
     "statement_correct": true,
@@ -3562,7 +3562,7 @@
   {
     "id": "C040",
     "category": "C",
-    "expression": "7 \u00d7 10 - (7 \u00f7 5) \u00d7 1",
+    "expression": "4 + 12 \u00d7 6 - 2 \u00d7 6",
     "n_ops": 4,
     "misconceptions": [
       "sub_before_mul",
@@ -3570,11 +3570,11 @@
     ],
     "num_misconceptions": 2,
     "trace": [
-      "7 \u00d7 10 - (7 \u00f7 5) \u00d7 1",
-      "7 \u00d7 10 - 1.4 \u00d7 1",
-      "7 \u00d7 8.6 \u00d7 1",
-      "60.2 \u00d7 1",
-      "60.2"
+      "4 + 12 \u00d7 6 - 2 \u00d7 6",
+      "4 + 12 \u00d7 4 \u00d7 6",
+      "4 + 12 \u00d7 24",
+      "4 + 288",
+      "292"
     ],
     "probed_misconception": "sub_before_mul",
     "statement_correct": true,
@@ -3585,7 +3585,7 @@
   {
     "id": "C041",
     "category": "C",
-    "expression": "10 \u00d7 1 - (3 - 9) - 6",
+    "expression": "9 - 9 \u00d7 (1 - 6 \u00f7 2)",
     "n_ops": 4,
     "misconceptions": [
       "sub_before_mul",
@@ -3593,11 +3593,11 @@
     ],
     "num_misconceptions": 2,
     "trace": [
-      "10 \u00d7 1 - (3 - 9) - 6",
-      "10 \u00d7 1 - -6 - 6",
-      "10 \u00d7 7 - 6",
-      "10 \u00d7 1",
-      "10"
+      "9 - 9 \u00d7 (1 - 6 \u00f7 2)",
+      "9 - 9 \u00d7 (1 - 3)",
+      "9 - 9 \u00d7 -2",
+      "0 \u00d7 -2",
+      "0"
     ],
     "probed_misconception": "sub_before_mul",
     "statement_correct": true,
@@ -3608,7 +3608,7 @@
   {
     "id": "C042",
     "category": "C",
-    "expression": "9 + 3 + 3 \u00f7 2 - 7",
+    "expression": "(1 + 8) \u00f7 10 \u00d7 1 - 1",
     "n_ops": 4,
     "misconceptions": [
       "sub_before_div",
@@ -3616,11 +3616,11 @@
     ],
     "num_misconceptions": 2,
     "trace": [
-      "9 + 3 + 3 \u00f7 2 - 7",
-      "12 + 3 \u00f7 2 - 7",
-      "12 + 3 \u00f7 -5",
-      "12 + -0.6",
-      "11.4"
+      "(1 + 8) \u00f7 10 \u00d7 1 - 1",
+      "9 \u00f7 10 \u00d7 1 - 1",
+      "9 \u00f7 10 - 1",
+      "9 \u00f7 9",
+      "1"
     ],
     "probed_misconception": "sub_before_div",
     "statement_correct": true,
@@ -3631,7 +3631,7 @@
   {
     "id": "C043",
     "category": "C",
-    "expression": "(12 \u00d7 5 \u00d7 6) - 3 \u00f7 4",
+    "expression": "1 \u00d7 (5 - 9) \u00f7 5 - 10",
     "n_ops": 4,
     "misconceptions": [
       "sub_before_div",
@@ -3639,11 +3639,11 @@
     ],
     "num_misconceptions": 2,
     "trace": [
-      "(12 \u00d7 5 \u00d7 6) - 3 \u00f7 4",
-      "(12 \u00d7 30) - 3 \u00f7 4",
-      "360 - 3 \u00f7 4",
-      "357 \u00f7 4",
-      "89.25"
+      "1 \u00d7 (5 - 9) \u00f7 5 - 10",
+      "1 \u00d7 -4 \u00f7 5 - 10",
+      "-4 \u00f7 5 - 10",
+      "-4 \u00f7 -5",
+      "0.8"
     ],
     "probed_misconception": "sub_before_div",
     "statement_correct": true,
@@ -3654,7 +3654,7 @@
   {
     "id": "C044",
     "category": "C",
-    "expression": "6 + 12 \u00f7 10 \u00f7 (1 \u00f7 4)",
+    "expression": "(9 - 9) \u00f7 9 - 6 - 11",
     "n_ops": 4,
     "misconceptions": [
       "same_priority_rtl",
@@ -3662,11 +3662,11 @@
     ],
     "num_misconceptions": 2,
     "trace": [
-      "6 + 12 \u00f7 10 \u00f7 (1 \u00f7 4)",
-      "6 + 12 \u00f7 10 \u00f7 0.25",
-      "6 + 12 \u00f7 40",
-      "6 + 0.3",
-      "6.3"
+      "(9 - 9) \u00f7 9 - 6 - 11",
+      "(9 - 9) \u00f7 9 - -5",
+      "(9 - 9) \u00f7 14",
+      "0 \u00f7 14",
+      "0"
     ],
     "probed_misconception": "same_priority_rtl",
     "statement_correct": true,
@@ -3677,7 +3677,7 @@
   {
     "id": "C045",
     "category": "C",
-    "expression": "3 \u00d7 6 \u00f7 (7 + 3 \u00f7 1)",
+    "expression": "3 + 7 \u00f7 8 \u00d7 11 \u00d7 2",
     "n_ops": 4,
     "misconceptions": [
       "add_before_mul",
@@ -3685,11 +3685,11 @@
     ],
     "num_misconceptions": 2,
     "trace": [
-      "3 \u00d7 6 \u00f7 (7 + 3 \u00f7 1)",
-      "18 \u00f7 (7 + 3 \u00f7 1)",
-      "18 \u00f7 (10 \u00f7 1)",
-      "18 \u00f7 10",
-      "1.8"
+      "3 + 7 \u00f7 8 \u00d7 11 \u00d7 2",
+      "10 \u00f7 8 \u00d7 11 \u00d7 2",
+      "1.25 \u00d7 11 \u00d7 2",
+      "1.25 \u00d7 22",
+      "27.5"
     ],
     "probed_misconception": "add_before_div",
     "statement_correct": true,
@@ -3700,7 +3700,7 @@
   {
     "id": "C046",
     "category": "C",
-    "expression": "7 \u00f7 7 - 10 \u00d7 7 - 6",
+    "expression": "9 - 4 \u00d7 7 \u00d7 5 - 9",
     "n_ops": 4,
     "misconceptions": [
       "add_before_mul",
@@ -3708,11 +3708,11 @@
     ],
     "num_misconceptions": 2,
     "trace": [
-      "7 \u00f7 7 - 10 \u00d7 7 - 6",
-      "1 - 10 \u00d7 7 - 6",
-      "-9 \u00d7 7 - 6",
-      "-9 \u00d7 1",
-      "-9"
+      "9 - 4 \u00d7 7 \u00d7 5 - 9",
+      "5 \u00d7 7 \u00d7 5 - 9",
+      "35 \u00d7 5 - 9",
+      "35 \u00d7 -4",
+      "-140"
     ],
     "probed_misconception": "sub_before_mul",
     "statement_correct": true,
@@ -3723,7 +3723,7 @@
   {
     "id": "C047",
     "category": "C",
-    "expression": "7 - 4 - 12 \u00d7 9 \u00f7 10",
+    "expression": "3 \u00f7 11 - 1 - 12 + 9",
     "n_ops": 4,
     "misconceptions": [
       "add_before_mul",
@@ -3731,11 +3731,11 @@
     ],
     "num_misconceptions": 2,
     "trace": [
-      "7 - 4 - 12 \u00d7 9 \u00f7 10",
-      "3 - 12 \u00d7 9 \u00f7 10",
-      "3 - 108 \u00f7 10",
-      "-105 \u00f7 10",
-      "-10.5"
+      "3 \u00f7 11 - 1 - 12 + 9",
+      "3 \u00f7 10 - 12 + 9",
+      "3 \u00f7 -2 + 9",
+      "-1.5 + 9",
+      "7.5"
     ],
     "probed_misconception": "sub_before_div",
     "statement_correct": true,
@@ -3746,7 +3746,7 @@
   {
     "id": "C048",
     "category": "C",
-    "expression": "3 \u00d7 (7 - 1 - 5) + 2",
+    "expression": "3 - 7 + 2 \u00d7 4 + 2",
     "n_ops": 4,
     "misconceptions": [
       "add_before_mul",
@@ -3754,11 +3754,11 @@
     ],
     "num_misconceptions": 2,
     "trace": [
-      "3 \u00d7 (7 - 1 - 5) + 2",
-      "3 \u00d7 (7 - -4) + 2",
-      "3 \u00d7 11 + 2",
-      "3 \u00d7 13",
-      "39"
+      "3 - 7 + 2 \u00d7 4 + 2",
+      "3 - 7 + 2 \u00d7 6",
+      "3 - 9 \u00d7 6",
+      "3 - 54",
+      "-51"
     ],
     "probed_misconception": "same_priority_rtl",
     "statement_correct": true,
@@ -3769,7 +3769,7 @@
   {
     "id": "C049",
     "category": "C",
-    "expression": "11 \u00d7 7 - 7 \u00d7 (11 + 9)",
+    "expression": "5 + 11 + 11 \u00f7 (5 \u00f7 5)",
     "n_ops": 4,
     "misconceptions": [
       "add_before_mul",
@@ -3777,11 +3777,11 @@
     ],
     "num_misconceptions": 2,
     "trace": [
-      "11 \u00d7 7 - 7 \u00d7 (11 + 9)",
-      "77 - 7 \u00d7 (11 + 9)",
-      "70 \u00d7 (11 + 9)",
-      "70 \u00d7 20",
-      "1400"
+      "5 + 11 + 11 \u00f7 (5 \u00f7 5)",
+      "16 + 11 \u00f7 (5 \u00f7 5)",
+      "27 \u00f7 (5 \u00f7 5)",
+      "27 \u00f7 1",
+      "27"
     ],
     "probed_misconception": "outside_bracket_first",
     "statement_correct": true,
@@ -3792,7 +3792,7 @@
   {
     "id": "C050",
     "category": "C",
-    "expression": "11 \u00d7 (9 - 1 \u00d7 3) \u00d7 1",
+    "expression": "(11 + 11 - 2) \u00d7 2 - 11",
     "n_ops": 4,
     "misconceptions": [
       "add_before_div",
@@ -3800,11 +3800,11 @@
     ],
     "num_misconceptions": 2,
     "trace": [
-      "11 \u00d7 (9 - 1 \u00d7 3) \u00d7 1",
-      "11 \u00d7 (8 \u00d7 3) \u00d7 1",
-      "11 \u00d7 24 \u00d7 1",
-      "11 \u00d7 24",
-      "264"
+      "(11 + 11 - 2) \u00d7 2 - 11",
+      "(11 + 9) \u00d7 2 - 11",
+      "20 \u00d7 2 - 11",
+      "20 \u00d7 -9",
+      "-180"
     ],
     "probed_misconception": "sub_before_mul",
     "statement_correct": true,
@@ -3815,7 +3815,7 @@
   {
     "id": "C051",
     "category": "C",
-    "expression": "10 + 8 \u00f7 5 + 7 - 4",
+    "expression": "5 \u00d7 1 - 1 \u00d7 9 \u00f7 8",
     "n_ops": 4,
     "misconceptions": [
       "add_before_div",
@@ -3823,11 +3823,11 @@
     ],
     "num_misconceptions": 2,
     "trace": [
-      "10 + 8 \u00f7 5 + 7 - 4",
-      "10 + 8 \u00f7 12 - 4",
-      "10 + 8 \u00f7 8",
-      "18 \u00f7 8",
-      "2.25"
+      "5 \u00d7 1 - 1 \u00d7 9 \u00f7 8",
+      "5 - 1 \u00d7 9 \u00f7 8",
+      "5 - 9 \u00f7 8",
+      "-4 \u00f7 8",
+      "-0.5"
     ],
     "probed_misconception": "sub_before_div",
     "statement_correct": true,
@@ -3838,7 +3838,7 @@
   {
     "id": "C052",
     "category": "C",
-    "expression": "2 \u00d7 8 - 6 \u00d7 9 - 9",
+    "expression": "6 - 7 + 11 \u00d7 1 - 2",
     "n_ops": 4,
     "misconceptions": [
       "add_before_div",
@@ -3846,11 +3846,11 @@
     ],
     "num_misconceptions": 2,
     "trace": [
-      "2 \u00d7 8 - 6 \u00d7 9 - 9",
-      "16 - 6 \u00d7 9 - 9",
-      "16 - 54 - 9",
-      "16 - 45",
-      "-29"
+      "6 - 7 + 11 \u00d7 1 - 2",
+      "6 - 7 + 11 - 2",
+      "6 - 18 - 2",
+      "6 - 16",
+      "-10"
     ],
     "probed_misconception": "same_priority_rtl",
     "statement_correct": true,
@@ -3861,7 +3861,7 @@
   {
     "id": "C053",
     "category": "C",
-    "expression": "6 + (10 - 9) \u00f7 11 + 3",
+    "expression": "(9 \u00d7 7) \u00f7 7 - 7 - 3",
     "n_ops": 4,
     "misconceptions": [
       "add_before_div",
@@ -3869,11 +3869,11 @@
     ],
     "num_misconceptions": 2,
     "trace": [
-      "6 + (10 - 9) \u00f7 11 + 3",
-      "6 + (10 - 9) \u00f7 14",
-      "6 + 1 \u00f7 14",
-      "7 \u00f7 14",
-      "0.5"
+      "(9 \u00d7 7) \u00f7 7 - 7 - 3",
+      "(9 \u00d7 7) \u00f7 0 - 3",
+      "(9 \u00d7 7) \u00f7 -3",
+      "63 \u00f7 -3",
+      "-21"
     ],
     "probed_misconception": "outside_bracket_first",
     "statement_correct": true,
@@ -3884,7 +3884,7 @@
   {
     "id": "C054",
     "category": "C",
-    "expression": "7 - (2 - 11) \u00f7 5 \u00d7 2",
+    "expression": "8 \u00f7 10 \u00f7 9 - 10 \u00d7 12",
     "n_ops": 4,
     "misconceptions": [
       "sub_before_mul",
@@ -3892,11 +3892,11 @@
     ],
     "num_misconceptions": 2,
     "trace": [
-      "7 - (2 - 11) \u00f7 5 \u00d7 2",
-      "7 - -9 \u00f7 5 \u00d7 2",
-      "16 \u00f7 5 \u00d7 2",
-      "3.2 \u00d7 2",
-      "6.4"
+      "8 \u00f7 10 \u00f7 9 - 10 \u00d7 12",
+      "0.8 \u00f7 9 - 10 \u00d7 12",
+      "0.8 \u00f7 -1 \u00d7 12",
+      "-0.8 \u00d7 12",
+      "-9.6"
     ],
     "probed_misconception": "sub_before_div",
     "statement_correct": true,
@@ -3907,7 +3907,7 @@
   {
     "id": "C055",
     "category": "C",
-    "expression": "3 \u00d7 (11 \u00d7 5) - 9 + 7",
+    "expression": "1 \u00f7 10 \u00f7 2 \u00d7 5 + 10",
     "n_ops": 4,
     "misconceptions": [
       "sub_before_mul",
@@ -3915,11 +3915,11 @@
     ],
     "num_misconceptions": 2,
     "trace": [
-      "3 \u00d7 (11 \u00d7 5) - 9 + 7",
-      "3 \u00d7 55 - 9 + 7",
-      "3 \u00d7 55 - 16",
-      "3 \u00d7 39",
-      "117"
+      "1 \u00f7 10 \u00f7 2 \u00d7 5 + 10",
+      "1 \u00f7 10 \u00f7 10 + 10",
+      "1 \u00f7 1 + 10",
+      "1 + 10",
+      "11"
     ],
     "probed_misconception": "same_priority_rtl",
     "statement_correct": true,
@@ -3930,7 +3930,7 @@
   {
     "id": "C056",
     "category": "C",
-    "expression": "(8 + 10) \u00d7 9 \u00f7 6 - 8",
+    "expression": "1 - 7 \u00d7 (5 + 1 - 3)",
     "n_ops": 4,
     "misconceptions": [
       "sub_before_mul",
@@ -3938,11 +3938,11 @@
     ],
     "num_misconceptions": 2,
     "trace": [
-      "(8 + 10) \u00d7 9 \u00f7 6 - 8",
-      "(8 + 10) \u00d7 1.5 - 8",
-      "(8 + 10) \u00d7 -6.5",
-      "18 \u00d7 -6.5",
-      "-117"
+      "1 - 7 \u00d7 (5 + 1 - 3)",
+      "-6 \u00d7 (5 + 1 - 3)",
+      "-6 \u00d7 (5 + -2)",
+      "-6 \u00d7 3",
+      "-18"
     ],
     "probed_misconception": "outside_bracket_first",
     "statement_correct": true,
@@ -3953,7 +3953,7 @@
   {
     "id": "C057",
     "category": "C",
-    "expression": "6 + 3 + 3 \u00f7 5 \u00f7 10",
+    "expression": "1 \u00d7 2 - 6 \u00d7 5 - 8",
     "n_ops": 4,
     "misconceptions": [
       "sub_before_div",
@@ -3961,11 +3961,11 @@
     ],
     "num_misconceptions": 2,
     "trace": [
-      "6 + 3 + 3 \u00f7 5 \u00f7 10",
-      "6 + 3 + 3 \u00f7 0.5",
-      "6 + 3 + 6",
-      "6 + 9",
-      "15"
+      "1 \u00d7 2 - 6 \u00d7 5 - 8",
+      "1 \u00d7 2 - 30 - 8",
+      "1 \u00d7 2 - 22",
+      "2 - 22",
+      "-20"
     ],
     "probed_misconception": "same_priority_rtl",
     "statement_correct": true,
@@ -3976,7 +3976,7 @@
   {
     "id": "C058",
     "category": "C",
-    "expression": "(2 + 12 \u00d7 3) \u00f7 7 - 6",
+    "expression": "3 + 7 \u00d7 (7 - 9 \u00f7 8)",
     "n_ops": 4,
     "misconceptions": [
       "sub_before_div",
@@ -3984,11 +3984,11 @@
     ],
     "num_misconceptions": 2,
     "trace": [
-      "(2 + 12 \u00d7 3) \u00f7 7 - 6",
-      "(2 + 12 \u00d7 3) \u00f7 1",
-      "(2 + 36) \u00f7 1",
-      "38 \u00f7 1",
-      "38"
+      "3 + 7 \u00d7 (7 - 9 \u00f7 8)",
+      "10 \u00d7 (7 - 9 \u00f7 8)",
+      "10 \u00d7 (-2 \u00f7 8)",
+      "10 \u00d7 -0.25",
+      "-2.5"
     ],
     "probed_misconception": "outside_bracket_first",
     "statement_correct": true,
@@ -3999,7 +3999,7 @@
   {
     "id": "C059",
     "category": "C",
-    "expression": "(8 \u00d7 9 \u00d7 9) \u00f7 4 - 8",
+    "expression": "9 + 1 \u00d7 5 \u00d7 (7 \u00d7 7)",
     "n_ops": 4,
     "misconceptions": [
       "same_priority_rtl",
@@ -4007,11 +4007,11 @@
     ],
     "num_misconceptions": 2,
     "trace": [
-      "(8 \u00d7 9 \u00d7 9) \u00f7 4 - 8",
-      "(72 \u00d7 9) \u00f7 4 - 8",
-      "(72 \u00d7 9) \u00f7 -4",
-      "648 \u00f7 -4",
-      "-162"
+      "9 + 1 \u00d7 5 \u00d7 (7 \u00d7 7)",
+      "9 + 5 \u00d7 (7 \u00d7 7)",
+      "14 \u00d7 (7 \u00d7 7)",
+      "14 \u00d7 49",
+      "686"
     ],
     "probed_misconception": "outside_bracket_first",
     "statement_correct": true,
@@ -4022,7 +4022,7 @@
   {
     "id": "D000",
     "category": "D",
-    "expression": "1 \u00f7 5 \u00d7 12 \u00d7 1 + 3",
+    "expression": "12 - 10 \u00d7 12 + 3 + 4",
     "n_ops": 4,
     "misconceptions": [
       "add_before_mul",
@@ -4030,11 +4030,11 @@
     ],
     "num_misconceptions": 2,
     "trace": [
-      "1 \u00f7 5 \u00d7 12 \u00d7 1 + 3",
-      "0.2 \u00d7 12 \u00d7 1 + 3",
-      "0.2 \u00d7 12 \u00d7 4",
-      "0.2 \u00d7 48",
-      "9.6"
+      "12 - 10 \u00d7 12 + 3 + 4",
+      "12 - 10 \u00d7 12 + 7",
+      "12 - 10 \u00d7 19",
+      "12 - 190",
+      "-178"
     ],
     "probed_misconception": "sub_before_mul",
     "statement_correct": false,
@@ -4045,7 +4045,7 @@
   {
     "id": "D001",
     "category": "D",
-    "expression": "(12 \u00d7 2) + 11 + 2 \u00d7 11",
+    "expression": "6 \u00d7 1 \u00d7 (7 \u00d7 10) - 2",
     "n_ops": 4,
     "misconceptions": [
       "add_before_mul",
@@ -4053,11 +4053,11 @@
     ],
     "num_misconceptions": 2,
     "trace": [
-      "(12 \u00d7 2) + 11 + 2 \u00d7 11",
-      "(12 \u00d7 2) + 13 \u00d7 11",
-      "(12 \u00d7 2) + 143",
-      "24 + 143",
-      "167"
+      "6 \u00d7 1 \u00d7 (7 \u00d7 10) - 2",
+      "6 \u00d7 (7 \u00d7 10) - 2",
+      "6 \u00d7 70 - 2",
+      "6 \u00d7 68",
+      "408"
     ],
     "probed_misconception": "add_before_div",
     "statement_correct": false,
@@ -4068,7 +4068,7 @@
   {
     "id": "D002",
     "category": "D",
-    "expression": "8 - 10 \u00d7 8 + 11 \u00d7 1",
+    "expression": "9 \u00f7 3 \u00f7 12 + 2 \u00d7 8",
     "n_ops": 4,
     "misconceptions": [
       "add_before_mul",
@@ -4076,11 +4076,11 @@
     ],
     "num_misconceptions": 2,
     "trace": [
-      "8 - 10 \u00d7 8 + 11 \u00d7 1",
-      "8 - 10 \u00d7 19 \u00d7 1",
-      "8 - 10 \u00d7 19",
-      "8 - 190",
-      "-182"
+      "9 \u00f7 3 \u00f7 12 + 2 \u00d7 8",
+      "3 \u00f7 12 + 2 \u00d7 8",
+      "0.25 + 2 \u00d7 8",
+      "2.25 \u00d7 8",
+      "18"
     ],
     "probed_misconception": "add_before_div",
     "statement_correct": false,
@@ -4091,7 +4091,7 @@
   {
     "id": "D003",
     "category": "D",
-    "expression": "11 \u00d7 12 - 2 - 3 - 4",
+    "expression": "1 - 10 - 1 \u00d7 11 + 4",
     "n_ops": 4,
     "misconceptions": [
       "add_before_mul",
@@ -4099,11 +4099,11 @@
     ],
     "num_misconceptions": 2,
     "trace": [
-      "11 \u00d7 12 - 2 - 3 - 4",
-      "11 \u00d7 12 - 2 - -1",
-      "11 \u00d7 12 - 3",
-      "132 - 3",
-      "129"
+      "1 - 10 - 1 \u00d7 11 + 4",
+      "1 - 10 - 1 \u00d7 15",
+      "1 - 10 - 15",
+      "1 - -5",
+      "6"
     ],
     "probed_misconception": "add_before_div",
     "statement_correct": false,
@@ -4114,7 +4114,7 @@
   {
     "id": "D004",
     "category": "D",
-    "expression": "10 + 1 \u00f7 (5 - 10 + 9)",
+    "expression": "9 - 8 \u00d7 (8 + 10) \u00d7 4",
     "n_ops": 4,
     "misconceptions": [
       "add_before_mul",
@@ -4122,11 +4122,11 @@
     ],
     "num_misconceptions": 2,
     "trace": [
-      "10 + 1 \u00f7 (5 - 10 + 9)",
-      "10 + 1 \u00f7 (-5 + 9)",
-      "11 \u00f7 (-5 + 9)",
-      "11 \u00f7 4",
-      "2.75"
+      "9 - 8 \u00d7 (8 + 10) \u00d7 4",
+      "1 \u00d7 (8 + 10) \u00d7 4",
+      "1 \u00d7 18 \u00d7 4",
+      "1 \u00d7 72",
+      "72"
     ],
     "probed_misconception": "add_before_div",
     "statement_correct": false,
@@ -4137,7 +4137,7 @@
   {
     "id": "D005",
     "category": "D",
-    "expression": "10 - 3 \u00f7 2 + 6 + 12",
+    "expression": "10 + 11 \u00f7 2 \u00d7 (12 + 9)",
     "n_ops": 4,
     "misconceptions": [
       "add_before_div",
@@ -4145,11 +4145,11 @@
     ],
     "num_misconceptions": 2,
     "trace": [
-      "10 - 3 \u00f7 2 + 6 + 12",
-      "10 - 3 \u00f7 2 + 18",
-      "10 - 3 \u00f7 20",
-      "10 - 0.15",
-      "9.85"
+      "10 + 11 \u00f7 2 \u00d7 (12 + 9)",
+      "10 + 11 \u00f7 2 \u00d7 21",
+      "21 \u00f7 2 \u00d7 21",
+      "10.5 \u00d7 21",
+      "220.5"
     ],
     "probed_misconception": "add_before_mul",
     "statement_correct": false,
@@ -4160,7 +4160,7 @@
   {
     "id": "D006",
     "category": "D",
-    "expression": "12 \u00f7 2 \u00f7 (11 - 3) + 7",
+    "expression": "11 \u00f7 2 \u00d7 12 - 2 \u00f7 4",
     "n_ops": 4,
     "misconceptions": [
       "add_before_div",
@@ -4168,11 +4168,11 @@
     ],
     "num_misconceptions": 2,
     "trace": [
-      "12 \u00f7 2 \u00f7 (11 - 3) + 7",
-      "12 \u00f7 2 \u00f7 8 + 7",
-      "12 \u00f7 2 \u00f7 15",
-      "6 \u00f7 15",
-      "0.4"
+      "11 \u00f7 2 \u00d7 12 - 2 \u00f7 4",
+      "5.5 \u00d7 12 - 2 \u00f7 4",
+      "66 - 2 \u00f7 4",
+      "64 \u00f7 4",
+      "16"
     ],
     "probed_misconception": "add_before_mul",
     "statement_correct": false,
@@ -4183,7 +4183,7 @@
   {
     "id": "D007",
     "category": "D",
-    "expression": "11 \u00d7 2 \u00f7 8 - 3 - 5",
+    "expression": "6 - 6 + 9 \u00f7 7 + 5",
     "n_ops": 4,
     "misconceptions": [
       "add_before_div",
@@ -4191,10 +4191,10 @@
     ],
     "num_misconceptions": 2,
     "trace": [
-      "11 \u00d7 2 \u00f7 8 - 3 - 5",
-      "11 \u00d7 0.25 - 3 - 5",
-      "11 \u00d7 0.25 - -2",
-      "2.75 - -2",
+      "6 - 6 + 9 \u00f7 7 + 5",
+      "6 - 15 \u00f7 7 + 5",
+      "6 - 15 \u00f7 12",
+      "6 - 1.25",
       "4.75"
     ],
     "probed_misconception": "add_before_mul",
@@ -4206,7 +4206,7 @@
   {
     "id": "D008",
     "category": "D",
-    "expression": "1 + (4 + 8 + 3) \u00f7 1",
+    "expression": "(6 - 6) \u00f7 8 - 11 + 4",
     "n_ops": 4,
     "misconceptions": [
       "add_before_div",
@@ -4214,11 +4214,11 @@
     ],
     "num_misconceptions": 2,
     "trace": [
-      "1 + (4 + 8 + 3) \u00f7 1",
-      "1 + (12 + 3) \u00f7 1",
-      "1 + 15 \u00f7 1",
-      "16 \u00f7 1",
-      "16"
+      "(6 - 6) \u00f7 8 - 11 + 4",
+      "(6 - 6) \u00f7 -3 + 4",
+      "(6 - 6) \u00f7 1",
+      "0 \u00f7 1",
+      "0"
     ],
     "probed_misconception": "add_before_mul",
     "statement_correct": false,
@@ -4229,7 +4229,7 @@
   {
     "id": "D009",
     "category": "D",
-    "expression": "3 \u00f7 (3 \u00d7 9 - 8) + 3",
+    "expression": "3 + (6 \u00f7 3 - 4) \u00d7 6",
     "n_ops": 4,
     "misconceptions": [
       "sub_before_mul",
@@ -4237,11 +4237,11 @@
     ],
     "num_misconceptions": 2,
     "trace": [
-      "3 \u00f7 (3 \u00d7 9 - 8) + 3",
-      "3 \u00f7 (3 \u00d7 1) + 3",
-      "3 \u00f7 3 + 3",
-      "1 + 3",
-      "4"
+      "3 + (6 \u00f7 3 - 4) \u00d7 6",
+      "3 + (6 \u00f7 -1) \u00d7 6",
+      "3 + -6 \u00d7 6",
+      "3 + -36",
+      "-33"
     ],
     "probed_misconception": "add_before_mul",
     "statement_correct": false,
@@ -4252,7 +4252,7 @@
   {
     "id": "D010",
     "category": "D",
-    "expression": "11 - 9 \u00d7 12 \u00d7 3 \u00d7 9",
+    "expression": "2 - 12 \u00f7 3 + 1 - 7",
     "n_ops": 4,
     "misconceptions": [
       "sub_before_mul",
@@ -4260,11 +4260,11 @@
     ],
     "num_misconceptions": 2,
     "trace": [
-      "11 - 9 \u00d7 12 \u00d7 3 \u00d7 9",
-      "11 - 9 \u00d7 12 \u00d7 27",
-      "11 - 9 \u00d7 324",
-      "2 \u00d7 324",
-      "648"
+      "2 - 12 \u00f7 3 + 1 - 7",
+      "2 - 12 \u00f7 3 + -6",
+      "2 - 4 + -6",
+      "2 - -2",
+      "4"
     ],
     "probed_misconception": "add_before_mul",
     "statement_correct": false,
@@ -4275,7 +4275,7 @@
   {
     "id": "D011",
     "category": "D",
-    "expression": "(1 + 10 \u00f7 5) \u00d7 6 + 10",
+    "expression": "8 \u00d7 (7 \u00d7 5 \u00d7 2) - 10",
     "n_ops": 4,
     "misconceptions": [
       "sub_before_mul",
@@ -4283,11 +4283,11 @@
     ],
     "num_misconceptions": 2,
     "trace": [
-      "(1 + 10 \u00f7 5) \u00d7 6 + 10",
-      "(1 + 10 \u00f7 5) \u00d7 16",
-      "(1 + 2) \u00d7 16",
-      "3 \u00d7 16",
-      "48"
+      "8 \u00d7 (7 \u00d7 5 \u00d7 2) - 10",
+      "8 \u00d7 (35 \u00d7 2) - 10",
+      "8 \u00d7 70 - 10",
+      "8 \u00d7 60",
+      "480"
     ],
     "probed_misconception": "add_before_mul",
     "statement_correct": false,
@@ -4298,7 +4298,7 @@
   {
     "id": "D012",
     "category": "D",
-    "expression": "7 \u00d7 3 \u00f7 6 \u00d7 5 + 8",
+    "expression": "10 - 1 \u00d7 1 \u00d7 6 - 9",
     "n_ops": 4,
     "misconceptions": [
       "sub_before_div",
@@ -4306,11 +4306,11 @@
     ],
     "num_misconceptions": 2,
     "trace": [
-      "7 \u00d7 3 \u00f7 6 \u00d7 5 + 8",
-      "21 \u00f7 6 \u00d7 5 + 8",
-      "21 \u00f7 30 + 8",
-      "0.7 + 8",
-      "8.7"
+      "10 - 1 \u00d7 1 \u00d7 6 - 9",
+      "10 - 1 \u00d7 6 - 9",
+      "10 - 6 - 9",
+      "10 - -3",
+      "13"
     ],
     "probed_misconception": "add_before_mul",
     "statement_correct": false,
@@ -4321,7 +4321,7 @@
   {
     "id": "D013",
     "category": "D",
-    "expression": "(9 + 9 \u00f7 3) \u00d7 4 + 7",
+    "expression": "(8 \u00d7 5) \u00d7 10 \u00f7 8 + 7",
     "n_ops": 4,
     "misconceptions": [
       "sub_before_div",
@@ -4329,11 +4329,11 @@
     ],
     "num_misconceptions": 2,
     "trace": [
-      "(9 + 9 \u00f7 3) \u00d7 4 + 7",
-      "(9 + 3) \u00d7 4 + 7",
-      "(9 + 3) \u00d7 11",
-      "12 \u00d7 11",
-      "132"
+      "(8 \u00d7 5) \u00d7 10 \u00f7 8 + 7",
+      "(8 \u00d7 5) \u00d7 1.25 + 7",
+      "(8 \u00d7 5) \u00d7 8.25",
+      "40 \u00d7 8.25",
+      "330"
     ],
     "probed_misconception": "add_before_mul",
     "statement_correct": false,
@@ -4344,7 +4344,7 @@
   {
     "id": "D014",
     "category": "D",
-    "expression": "6 \u00d7 7 \u00f7 (7 - 8 - 11)",
+    "expression": "8 - 8 + (5 \u00d7 12 - 8)",
     "n_ops": 4,
     "misconceptions": [
       "same_priority_rtl",
@@ -4352,11 +4352,11 @@
     ],
     "num_misconceptions": 2,
     "trace": [
-      "6 \u00d7 7 \u00f7 (7 - 8 - 11)",
-      "42 \u00f7 (7 - 8 - 11)",
-      "42 \u00f7 (7 - -3)",
-      "42 \u00f7 10",
-      "4.2"
+      "8 - 8 + (5 \u00d7 12 - 8)",
+      "8 - 8 + (60 - 8)",
+      "8 - 8 + 52",
+      "8 - 60",
+      "-52"
     ],
     "probed_misconception": "add_before_mul",
     "statement_correct": false,
@@ -4367,7 +4367,7 @@
   {
     "id": "D015",
     "category": "D",
-    "expression": "3 \u00d7 6 \u00d7 6 + 2 \u00f7 9",
+    "expression": "3 - 7 + (6 + 6 \u00f7 4)",
     "n_ops": 4,
     "misconceptions": [
       "add_before_mul",
@@ -4375,11 +4375,11 @@
     ],
     "num_misconceptions": 2,
     "trace": [
-      "3 \u00d7 6 \u00d7 6 + 2 \u00f7 9",
-      "18 \u00d7 6 + 2 \u00f7 9",
-      "18 \u00d7 8 \u00f7 9",
-      "144 \u00f7 9",
-      "16"
+      "3 - 7 + (6 + 6 \u00f7 4)",
+      "-4 + (6 + 6 \u00f7 4)",
+      "-4 + (12 \u00f7 4)",
+      "-4 + 3",
+      "-1"
     ],
     "probed_misconception": "sub_before_div",
     "statement_correct": false,
@@ -4390,7 +4390,7 @@
   {
     "id": "D016",
     "category": "D",
-    "expression": "6 + 3 - 6 - 11 \u00d7 2",
+    "expression": "(6 \u00d7 2 + 2) \u00d7 6 - 12",
     "n_ops": 4,
     "misconceptions": [
       "add_before_mul",
@@ -4398,11 +4398,11 @@
     ],
     "num_misconceptions": 2,
     "trace": [
-      "6 + 3 - 6 - 11 \u00d7 2",
-      "6 + -3 - 11 \u00d7 2",
-      "3 - 11 \u00d7 2",
-      "-8 \u00d7 2",
-      "-16"
+      "(6 \u00d7 2 + 2) \u00d7 6 - 12",
+      "(6 \u00d7 4) \u00d7 6 - 12",
+      "24 \u00d7 6 - 12",
+      "24 \u00d7 -6",
+      "-144"
     ],
     "probed_misconception": "sub_before_div",
     "statement_correct": false,
@@ -4413,7 +4413,7 @@
   {
     "id": "D017",
     "category": "D",
-    "expression": "3 \u00d7 3 \u00f7 9 - 5 + 12",
+    "expression": "4 + 10 \u00d7 8 - 11 \u00d7 11",
     "n_ops": 4,
     "misconceptions": [
       "add_before_mul",
@@ -4421,11 +4421,11 @@
     ],
     "num_misconceptions": 2,
     "trace": [
-      "3 \u00d7 3 \u00f7 9 - 5 + 12",
-      "3 \u00d7 3 \u00f7 4 + 12",
-      "3 \u00d7 0.75 + 12",
-      "3 \u00d7 12.75",
-      "38.25"
+      "4 + 10 \u00d7 8 - 11 \u00d7 11",
+      "14 \u00d7 8 - 11 \u00d7 11",
+      "112 - 11 \u00d7 11",
+      "112 - 121",
+      "-9"
     ],
     "probed_misconception": "sub_before_mul",
     "statement_correct": false,
@@ -4436,7 +4436,7 @@
   {
     "id": "D018",
     "category": "D",
-    "expression": "7 - 2 \u00d7 1 + 12 - 11",
+    "expression": "6 + 7 \u00d7 5 + (1 - 2)",
     "n_ops": 4,
     "misconceptions": [
       "add_before_mul",
@@ -4444,11 +4444,11 @@
     ],
     "num_misconceptions": 2,
     "trace": [
-      "7 - 2 \u00d7 1 + 12 - 11",
-      "7 - 2 \u00d7 1 + 1",
-      "7 - 2 \u00d7 2",
-      "7 - 4",
-      "3"
+      "6 + 7 \u00d7 5 + (1 - 2)",
+      "13 \u00d7 5 + (1 - 2)",
+      "13 \u00d7 5 + -1",
+      "13 \u00d7 4",
+      "52"
     ],
     "probed_misconception": "sub_before_mul",
     "statement_correct": false,
@@ -4459,7 +4459,7 @@
   {
     "id": "D019",
     "category": "D",
-    "expression": "4 \u00d7 12 + 2 \u00d7 (7 \u00d7 8)",
+    "expression": "(7 + 2 \u00d7 5) - 2 \u00d7 10",
     "n_ops": 4,
     "misconceptions": [
       "add_before_mul",
@@ -4467,11 +4467,11 @@
     ],
     "num_misconceptions": 2,
     "trace": [
-      "4 \u00d7 12 + 2 \u00d7 (7 \u00d7 8)",
-      "4 \u00d7 12 + 2 \u00d7 56",
-      "4 \u00d7 14 \u00d7 56",
-      "4 \u00d7 784",
-      "3136"
+      "(7 + 2 \u00d7 5) - 2 \u00d7 10",
+      "(7 + 2 \u00d7 5) - 20",
+      "(9 \u00d7 5) - 20",
+      "45 - 20",
+      "25"
     ],
     "probed_misconception": "sub_before_mul",
     "statement_correct": false,
@@ -4482,7 +4482,7 @@
   {
     "id": "D020",
     "category": "D",
-    "expression": "9 \u00f7 2 + 3 + 1 \u00d7 5",
+    "expression": "12 - (2 + 3 \u00f7 2) \u00d7 11",
     "n_ops": 4,
     "misconceptions": [
       "add_before_div",
@@ -4490,11 +4490,11 @@
     ],
     "num_misconceptions": 2,
     "trace": [
-      "9 \u00f7 2 + 3 + 1 \u00d7 5",
-      "9 \u00f7 2 + 3 + 5",
-      "9 \u00f7 2 + 8",
-      "9 \u00f7 10",
-      "0.9"
+      "12 - (2 + 3 \u00f7 2) \u00d7 11",
+      "12 - (5 \u00f7 2) \u00d7 11",
+      "12 - 2.5 \u00d7 11",
+      "9.5 \u00d7 11",
+      "104.5"
     ],
     "probed_misconception": "sub_before_div",
     "statement_correct": false,
@@ -4505,7 +4505,7 @@
   {
     "id": "D021",
     "category": "D",
-    "expression": "6 \u00d7 6 \u00f7 3 + 1 - 7",
+    "expression": "11 \u00f7 1 + 7 - 12 \u00d7 1",
     "n_ops": 4,
     "misconceptions": [
       "add_before_div",
@@ -4513,11 +4513,11 @@
     ],
     "num_misconceptions": 2,
     "trace": [
-      "6 \u00d7 6 \u00f7 3 + 1 - 7",
-      "36 \u00f7 3 + 1 - 7",
-      "36 \u00f7 3 + -6",
-      "36 \u00f7 -3",
-      "-12"
+      "11 \u00f7 1 + 7 - 12 \u00d7 1",
+      "11 \u00f7 1 + 7 - 12",
+      "11 \u00f7 1 + -5",
+      "11 \u00f7 -4",
+      "-2.75"
     ],
     "probed_misconception": "sub_before_mul",
     "statement_correct": false,
@@ -4528,7 +4528,7 @@
   {
     "id": "D022",
     "category": "D",
-    "expression": "7 - (7 \u00d7 4 + 9) + 8",
+    "expression": "7 \u00f7 8 + 12 - 2 \u00f7 10",
     "n_ops": 4,
     "misconceptions": [
       "add_before_div",
@@ -4536,11 +4536,11 @@
     ],
     "num_misconceptions": 2,
     "trace": [
-      "7 - (7 \u00d7 4 + 9) + 8",
-      "7 - (28 + 9) + 8",
-      "7 - 37 + 8",
-      "7 - 45",
-      "-38"
+      "7 \u00f7 8 + 12 - 2 \u00f7 10",
+      "7 \u00f7 20 - 2 \u00f7 10",
+      "0.35 - 2 \u00f7 10",
+      "0.35 - 0.2",
+      "0.15"
     ],
     "probed_misconception": "sub_before_mul",
     "statement_correct": false,
@@ -4551,7 +4551,7 @@
   {
     "id": "D023",
     "category": "D",
-    "expression": "5 + (8 + 7 \u00f7 3) + 3",
+    "expression": "6 + (4 + 8 \u00f7 12) - 10",
     "n_ops": 4,
     "misconceptions": [
       "add_before_div",
@@ -4559,11 +4559,11 @@
     ],
     "num_misconceptions": 2,
     "trace": [
-      "5 + (8 + 7 \u00f7 3) + 3",
-      "5 + (15 \u00f7 3) + 3",
-      "5 + 5 + 3",
-      "10 + 3",
-      "13"
+      "6 + (4 + 8 \u00f7 12) - 10",
+      "6 + (12 \u00f7 12) - 10",
+      "6 + 1 - 10",
+      "6 + -9",
+      "-3"
     ],
     "probed_misconception": "sub_before_mul",
     "statement_correct": false,
@@ -4574,7 +4574,7 @@
   {
     "id": "D024",
     "category": "D",
-    "expression": "(3 - 6 \u00d7 9) + 9 - 5",
+    "expression": "11 - 9 \u00d7 4 + 2 \u00d7 7",
     "n_ops": 4,
     "misconceptions": [
       "sub_before_mul",
@@ -4582,11 +4582,11 @@
     ],
     "num_misconceptions": 2,
     "trace": [
-      "(3 - 6 \u00d7 9) + 9 - 5",
-      "(-3 \u00d7 9) + 9 - 5",
-      "(-3 \u00d7 9) + 4",
-      "-27 + 4",
-      "-23"
+      "11 - 9 \u00d7 4 + 2 \u00d7 7",
+      "11 - 9 \u00d7 4 + 14",
+      "2 \u00d7 4 + 14",
+      "8 + 14",
+      "22"
     ],
     "probed_misconception": "add_before_div",
     "statement_correct": false,
@@ -4597,7 +4597,7 @@
   {
     "id": "D025",
     "category": "D",
-    "expression": "4 \u00d7 1 - 11 \u00f7 1 + 11",
+    "expression": "12 - 12 - 11 + 5 \u00d7 4",
     "n_ops": 4,
     "misconceptions": [
       "sub_before_mul",
@@ -4605,11 +4605,11 @@
     ],
     "num_misconceptions": 2,
     "trace": [
-      "4 \u00d7 1 - 11 \u00f7 1 + 11",
-      "4 \u00d7 1 - 11 + 11",
-      "4 \u00d7 1 - 22",
-      "4 \u00d7 -21",
-      "-84"
+      "12 - 12 - 11 + 5 \u00d7 4",
+      "12 - 12 - 11 + 20",
+      "12 - 12 - 31",
+      "12 - -19",
+      "31"
     ],
     "probed_misconception": "add_before_div",
     "statement_correct": false,
@@ -4620,7 +4620,7 @@
   {
     "id": "D026",
     "category": "D",
-    "expression": "7 \u00d7 6 - (3 \u00f7 3) \u00d7 8",
+    "expression": "7 \u00d7 (5 + 11 \u00d7 6) - 9",
     "n_ops": 4,
     "misconceptions": [
       "sub_before_mul",
@@ -4628,11 +4628,11 @@
     ],
     "num_misconceptions": 2,
     "trace": [
-      "7 \u00d7 6 - (3 \u00f7 3) \u00d7 8",
-      "42 - (3 \u00f7 3) \u00d7 8",
-      "42 - 1 \u00d7 8",
-      "41 \u00d7 8",
-      "328"
+      "7 \u00d7 (5 + 11 \u00d7 6) - 9",
+      "7 \u00d7 (5 + 66) - 9",
+      "7 \u00d7 71 - 9",
+      "7 \u00d7 62",
+      "434"
     ],
     "probed_misconception": "add_before_div",
     "statement_correct": false,
@@ -4643,7 +4643,7 @@
   {
     "id": "D027",
     "category": "D",
-    "expression": "5 \u00d7 (10 - 10 + 5) - 11",
+    "expression": "9 - 6 \u00f7 12 + 1 + 7",
     "n_ops": 4,
     "misconceptions": [
       "sub_before_div",
@@ -4651,11 +4651,11 @@
     ],
     "num_misconceptions": 2,
     "trace": [
-      "5 \u00d7 (10 - 10 + 5) - 11",
-      "5 \u00d7 (10 - 15) - 11",
-      "5 \u00d7 -5 - 11",
-      "-25 - 11",
-      "-36"
+      "9 - 6 \u00f7 12 + 1 + 7",
+      "3 \u00f7 12 + 1 + 7",
+      "0.25 + 1 + 7",
+      "0.25 + 8",
+      "8.25"
     ],
     "probed_misconception": "add_before_div",
     "statement_correct": false,
@@ -4666,7 +4666,7 @@
   {
     "id": "D028",
     "category": "D",
-    "expression": "(5 \u00d7 8 \u00f7 4) \u00f7 2 + 3",
+    "expression": "11 + 1 \u00d7 (6 - 8 + 6)",
     "n_ops": 4,
     "misconceptions": [
       "sub_before_div",
@@ -4674,11 +4674,11 @@
     ],
     "num_misconceptions": 2,
     "trace": [
-      "(5 \u00d7 8 \u00f7 4) \u00f7 2 + 3",
-      "(40 \u00f7 4) \u00f7 2 + 3",
-      "(40 \u00f7 4) \u00f7 5",
-      "10 \u00f7 5",
-      "2"
+      "11 + 1 \u00d7 (6 - 8 + 6)",
+      "11 + 1 \u00d7 (-2 + 6)",
+      "12 \u00d7 (-2 + 6)",
+      "12 \u00d7 4",
+      "48"
     ],
     "probed_misconception": "add_before_div",
     "statement_correct": false,
@@ -4689,7 +4689,7 @@
   {
     "id": "D029",
     "category": "D",
-    "expression": "(11 \u00f7 11) \u00d7 2 - 11 - 11",
+    "expression": "(2 - 7 - 3) \u00d7 10 - 4",
     "n_ops": 4,
     "misconceptions": [
       "same_priority_rtl",
@@ -4697,11 +4697,11 @@
     ],
     "num_misconceptions": 2,
     "trace": [
-      "(11 \u00f7 11) \u00d7 2 - 11 - 11",
-      "(11 \u00f7 11) \u00d7 2 - 0",
-      "(11 \u00f7 11) \u00d7 2",
-      "1 \u00d7 2",
-      "2"
+      "(2 - 7 - 3) \u00d7 10 - 4",
+      "(2 - 4) \u00d7 10 - 4",
+      "(2 - 4) \u00d7 6",
+      "-2 \u00d7 6",
+      "-12"
     ],
     "probed_misconception": "add_before_div",
     "statement_correct": false,
@@ -4712,7 +4712,7 @@
   {
     "id": "D030",
     "category": "D",
-    "expression": "7 + 4 \u00f7 5 \u00d7 (12 + 4)",
+    "expression": "4 - 3 + 3 \u00d7 4 - 5",
     "n_ops": 4,
     "misconceptions": [
       "add_before_mul",
@@ -4720,11 +4720,11 @@
     ],
     "num_misconceptions": 2,
     "trace": [
-      "7 + 4 \u00f7 5 \u00d7 (12 + 4)",
-      "11 \u00f7 5 \u00d7 (12 + 4)",
-      "11 \u00f7 5 \u00d7 16",
-      "2.2 \u00d7 16",
-      "35.2"
+      "4 - 3 + 3 \u00d7 4 - 5",
+      "1 + 3 \u00d7 4 - 5",
+      "4 \u00d7 4 - 5",
+      "16 - 5",
+      "11"
     ],
     "probed_misconception": "same_priority_rtl",
     "statement_correct": false,
@@ -4735,7 +4735,7 @@
   {
     "id": "D031",
     "category": "D",
-    "expression": "(1 \u00d7 5 \u00f7 1) - 3 \u00d7 3",
+    "expression": "(5 \u00d7 4) \u00d7 7 \u00d7 2 + 4",
     "n_ops": 4,
     "misconceptions": [
       "add_before_mul",
@@ -4743,11 +4743,11 @@
     ],
     "num_misconceptions": 2,
     "trace": [
-      "(1 \u00d7 5 \u00f7 1) - 3 \u00d7 3",
-      "(1 \u00d7 5) - 3 \u00d7 3",
-      "5 - 3 \u00d7 3",
-      "2 \u00d7 3",
-      "6"
+      "(5 \u00d7 4) \u00d7 7 \u00d7 2 + 4",
+      "(5 \u00d7 4) \u00d7 7 \u00d7 6",
+      "(5 \u00d7 4) \u00d7 42",
+      "20 \u00d7 42",
+      "840"
     ],
     "probed_misconception": "same_priority_rtl",
     "statement_correct": false,
@@ -4758,7 +4758,7 @@
   {
     "id": "D032",
     "category": "D",
-    "expression": "5 + 12 \u00d7 6 \u00f7 10 + 10",
+    "expression": "8 \u00d7 9 - 5 \u00f7 11 - 10",
     "n_ops": 4,
     "misconceptions": [
       "add_before_mul",
@@ -4766,11 +4766,11 @@
     ],
     "num_misconceptions": 2,
     "trace": [
-      "5 + 12 \u00d7 6 \u00f7 10 + 10",
-      "17 \u00d7 6 \u00f7 10 + 10",
-      "102 \u00f7 10 + 10",
-      "10.2 + 10",
-      "20.2"
+      "8 \u00d7 9 - 5 \u00f7 11 - 10",
+      "72 - 5 \u00f7 11 - 10",
+      "67 \u00f7 11 - 10",
+      "67 \u00f7 1",
+      "67"
     ],
     "probed_misconception": "same_priority_rtl",
     "statement_correct": false,
@@ -4781,7 +4781,7 @@
   {
     "id": "D033",
     "category": "D",
-    "expression": "11 \u00d7 12 \u00f7 4 + 6 \u00f7 1",
+    "expression": "1 + 6 \u00d7 1 \u00d7 (12 \u00d7 3)",
     "n_ops": 4,
     "misconceptions": [
       "add_before_mul",
@@ -4789,11 +4789,11 @@
     ],
     "num_misconceptions": 2,
     "trace": [
-      "11 \u00d7 12 \u00f7 4 + 6 \u00f7 1",
-      "11 \u00d7 12 \u00f7 4 + 6",
-      "11 \u00d7 3 + 6",
-      "11 \u00d7 9",
-      "99"
+      "1 + 6 \u00d7 1 \u00d7 (12 \u00d7 3)",
+      "1 + 6 \u00d7 1 \u00d7 36",
+      "1 + 6 \u00d7 36",
+      "7 \u00d7 36",
+      "252"
     ],
     "probed_misconception": "sub_before_div",
     "statement_correct": false,
@@ -4804,7 +4804,7 @@
   {
     "id": "D034",
     "category": "D",
-    "expression": "(10 \u00d7 11) - 12 + 9 \u00d7 6",
+    "expression": "4 \u00f7 8 - 6 \u00d7 (10 + 3)",
     "n_ops": 4,
     "misconceptions": [
       "add_before_mul",
@@ -4812,11 +4812,11 @@
     ],
     "num_misconceptions": 2,
     "trace": [
-      "(10 \u00d7 11) - 12 + 9 \u00d7 6",
-      "110 - 12 + 9 \u00d7 6",
-      "98 + 9 \u00d7 6",
-      "107 \u00d7 6",
-      "642"
+      "4 \u00f7 8 - 6 \u00d7 (10 + 3)",
+      "0.5 - 6 \u00d7 (10 + 3)",
+      "-5.5 \u00d7 (10 + 3)",
+      "-5.5 \u00d7 13",
+      "-71.5"
     ],
     "probed_misconception": "sub_before_div",
     "statement_correct": false,
@@ -4827,7 +4827,7 @@
   {
     "id": "D035",
     "category": "D",
-    "expression": "(6 \u00d7 2 - 11) - 9 \u00f7 5",
+    "expression": "9 - 9 \u00f7 9 - 1 \u00d7 6",
     "n_ops": 4,
     "misconceptions": [
       "add_before_div",
@@ -4835,11 +4835,11 @@
     ],
     "num_misconceptions": 2,
     "trace": [
-      "(6 \u00d7 2 - 11) - 9 \u00f7 5",
-      "(6 \u00d7 -9) - 9 \u00f7 5",
-      "(6 \u00d7 -9) - 1.8",
-      "-54 - 1.8",
-      "-55.8"
+      "9 - 9 \u00f7 9 - 1 \u00d7 6",
+      "9 - 1 - 1 \u00d7 6",
+      "8 - 1 \u00d7 6",
+      "7 \u00d7 6",
+      "42"
     ],
     "probed_misconception": "same_priority_rtl",
     "statement_correct": false,
@@ -4850,7 +4850,7 @@
   {
     "id": "D036",
     "category": "D",
-    "expression": "10 + 8 \u00d7 8 \u00f7 11 - 12",
+    "expression": "3 \u00f7 8 + 11 \u00d7 1 - 4",
     "n_ops": 4,
     "misconceptions": [
       "add_before_div",
@@ -4858,11 +4858,11 @@
     ],
     "num_misconceptions": 2,
     "trace": [
-      "10 + 8 \u00d7 8 \u00f7 11 - 12",
-      "10 + 64 \u00f7 11 - 12",
-      "10 + 64 \u00f7 -1",
-      "74 \u00f7 -1",
-      "-74"
+      "3 \u00f7 8 + 11 \u00d7 1 - 4",
+      "3 \u00f7 8 + 11 - 4",
+      "3 \u00f7 19 - 4",
+      "3 \u00f7 15",
+      "0.2"
     ],
     "probed_misconception": "same_priority_rtl",
     "statement_correct": false,
@@ -4873,7 +4873,7 @@
   {
     "id": "D037",
     "category": "D",
-    "expression": "12 \u00d7 8 - 8 \u00f7 4 - 4",
+    "expression": "6 + 9 + 10 \u00f7 5 - 11",
     "n_ops": 4,
     "misconceptions": [
       "add_before_div",
@@ -4881,11 +4881,11 @@
     ],
     "num_misconceptions": 2,
     "trace": [
-      "12 \u00d7 8 - 8 \u00f7 4 - 4",
-      "12 \u00d7 8 - 2 - 4",
-      "12 \u00d7 8 - -2",
-      "96 - -2",
-      "98"
+      "6 + 9 + 10 \u00f7 5 - 11",
+      "15 + 10 \u00f7 5 - 11",
+      "25 \u00f7 5 - 11",
+      "5 - 11",
+      "-6"
     ],
     "probed_misconception": "sub_before_div",
     "statement_correct": false,
@@ -4896,7 +4896,7 @@
   {
     "id": "D038",
     "category": "D",
-    "expression": "10 + 5 \u00d7 2 \u00d7 (4 + 1)",
+    "expression": "(2 + 4) \u00d7 8 + 6 + 2",
     "n_ops": 4,
     "misconceptions": [
       "add_before_div",
@@ -4904,11 +4904,11 @@
     ],
     "num_misconceptions": 2,
     "trace": [
-      "10 + 5 \u00d7 2 \u00d7 (4 + 1)",
-      "10 + 10 \u00d7 (4 + 1)",
-      "20 \u00d7 (4 + 1)",
-      "20 \u00d7 5",
-      "100"
+      "(2 + 4) \u00d7 8 + 6 + 2",
+      "(2 + 4) \u00d7 14 + 2",
+      "(2 + 4) \u00d7 16",
+      "6 \u00d7 16",
+      "96"
     ],
     "probed_misconception": "sub_before_div",
     "statement_correct": false,
@@ -4919,7 +4919,7 @@
   {
     "id": "D039",
     "category": "D",
-    "expression": "8 - 2 \u00f7 8 - 7 \u00d7 12",
+    "expression": "7 + 9 - 11 - 4 \u00f7 4",
     "n_ops": 4,
     "misconceptions": [
       "sub_before_mul",
@@ -4927,11 +4927,11 @@
     ],
     "num_misconceptions": 2,
     "trace": [
-      "8 - 2 \u00f7 8 - 7 \u00d7 12",
-      "6 \u00f7 8 - 7 \u00d7 12",
-      "6 \u00f7 1 \u00d7 12",
-      "6 \u00d7 12",
-      "72"
+      "7 + 9 - 11 - 4 \u00f7 4",
+      "16 - 11 - 4 \u00f7 4",
+      "5 - 4 \u00f7 4",
+      "1 \u00f7 4",
+      "0.25"
     ],
     "probed_misconception": "same_priority_rtl",
     "statement_correct": false,
@@ -4942,7 +4942,7 @@
   {
     "id": "D040",
     "category": "D",
-    "expression": "10 \u00f7 2 - 7 \u00d7 11 + 5",
+    "expression": "7 \u00d7 12 - 3 \u00f7 2 + 4",
     "n_ops": 4,
     "misconceptions": [
       "sub_before_mul",
@@ -4950,11 +4950,11 @@
     ],
     "num_misconceptions": 2,
     "trace": [
-      "10 \u00f7 2 - 7 \u00d7 11 + 5",
-      "5 - 7 \u00d7 11 + 5",
-      "-2 \u00d7 11 + 5",
-      "-22 + 5",
-      "-17"
+      "7 \u00d7 12 - 3 \u00f7 2 + 4",
+      "7 \u00d7 12 - 1.5 + 4",
+      "7 \u00d7 12 - 5.5",
+      "7 \u00d7 6.5",
+      "45.5"
     ],
     "probed_misconception": "sub_before_div",
     "statement_correct": false,
@@ -4965,7 +4965,7 @@
   {
     "id": "D041",
     "category": "D",
-    "expression": "10 + 8 \u00d7 (7 \u00f7 1) \u00d7 12",
+    "expression": "5 \u00f7 (1 - 5) - 5 \u00d7 5",
     "n_ops": 4,
     "misconceptions": [
       "sub_before_mul",
@@ -4973,11 +4973,11 @@
     ],
     "num_misconceptions": 2,
     "trace": [
-      "10 + 8 \u00d7 (7 \u00f7 1) \u00d7 12",
-      "18 \u00d7 (7 \u00f7 1) \u00d7 12",
-      "18 \u00d7 7 \u00d7 12",
-      "126 \u00d7 12",
-      "1512"
+      "5 \u00f7 (1 - 5) - 5 \u00d7 5",
+      "5 \u00f7 -4 - 5 \u00d7 5",
+      "-1.25 - 5 \u00d7 5",
+      "-6.25 \u00d7 5",
+      "-31.25"
     ],
     "probed_misconception": "sub_before_div",
     "statement_correct": false,
@@ -4988,7 +4988,7 @@
   {
     "id": "D042",
     "category": "D",
-    "expression": "7 \u00d7 1 \u00d7 9 \u00f7 1 - 6",
+    "expression": "6 \u00d7 4 - 9 + 5 - 9",
     "n_ops": 4,
     "misconceptions": [
       "sub_before_div",
@@ -4996,11 +4996,11 @@
     ],
     "num_misconceptions": 2,
     "trace": [
-      "7 \u00d7 1 \u00d7 9 \u00f7 1 - 6",
-      "7 \u00d7 1 \u00d7 9 \u00f7 -5",
-      "7 \u00d7 1 \u00d7 -1.8",
-      "7 \u00d7 -1.8",
-      "-12.6"
+      "6 \u00d7 4 - 9 + 5 - 9",
+      "24 - 9 + 5 - 9",
+      "24 - 14 - 9",
+      "24 - 5",
+      "19"
     ],
     "probed_misconception": "sub_before_mul",
     "statement_correct": false,
@@ -5011,7 +5011,7 @@
   {
     "id": "D043",
     "category": "D",
-    "expression": "(2 \u00d7 5 \u00d7 4) \u00d7 12 - 5",
+    "expression": "10 + 9 - (2 \u00f7 2) \u00f7 10",
     "n_ops": 4,
     "misconceptions": [
       "sub_before_div",
@@ -5019,11 +5019,11 @@
     ],
     "num_misconceptions": 2,
     "trace": [
-      "(2 \u00d7 5 \u00d7 4) \u00d7 12 - 5",
-      "(10 \u00d7 4) \u00d7 12 - 5",
-      "(10 \u00d7 4) \u00d7 7",
-      "40 \u00d7 7",
-      "280"
+      "10 + 9 - (2 \u00f7 2) \u00f7 10",
+      "10 + 9 - 1 \u00f7 10",
+      "10 + 8 \u00f7 10",
+      "10 + 0.8",
+      "10.8"
     ],
     "probed_misconception": "sub_before_mul",
     "statement_correct": false,
@@ -5034,7 +5034,7 @@
   {
     "id": "D044",
     "category": "D",
-    "expression": "(1 \u00d7 9 \u00f7 9) - 6 - 10",
+    "expression": "12 - 9 - (12 - 4) \u00f7 8",
     "n_ops": 4,
     "misconceptions": [
       "same_priority_rtl",
@@ -5042,11 +5042,11 @@
     ],
     "num_misconceptions": 2,
     "trace": [
-      "(1 \u00d7 9 \u00f7 9) - 6 - 10",
-      "(1 \u00d7 1) - 6 - 10",
-      "1 - 6 - 10",
-      "1 - -4",
-      "5"
+      "12 - 9 - (12 - 4) \u00f7 8",
+      "12 - 9 - 8 \u00f7 8",
+      "12 - 9 - 1",
+      "12 - 8",
+      "4"
     ],
     "probed_misconception": "sub_before_mul",
     "statement_correct": false,
@@ -5057,7 +5057,7 @@
   {
     "id": "D045",
     "category": "D",
-    "expression": "3 + 6 \u00f7 2 - 8 + 7",
+    "expression": "4 + 9 \u00d7 2 - (12 \u00d7 9)",
     "n_ops": 4,
     "misconceptions": [
       "add_before_mul",
@@ -5065,11 +5065,11 @@
     ],
     "num_misconceptions": 2,
     "trace": [
-      "3 + 6 \u00f7 2 - 8 + 7",
-      "9 \u00f7 2 - 8 + 7",
-      "4.5 - 8 + 7",
-      "-3.5 + 7",
-      "3.5"
+      "4 + 9 \u00d7 2 - (12 \u00d7 9)",
+      "13 \u00d7 2 - (12 \u00d7 9)",
+      "13 \u00d7 2 - 108",
+      "26 - 108",
+      "-82"
     ],
     "probed_misconception": "outside_bracket_first",
     "statement_correct": false,
@@ -5080,7 +5080,7 @@
   {
     "id": "D046",
     "category": "D",
-    "expression": "11 \u00d7 (10 + 12 + 5) - 11",
+    "expression": "(12 \u00f7 2 \u00f7 2) - 2 \u00d7 12",
     "n_ops": 4,
     "misconceptions": [
       "add_before_mul",
@@ -5088,11 +5088,11 @@
     ],
     "num_misconceptions": 2,
     "trace": [
-      "11 \u00d7 (10 + 12 + 5) - 11",
-      "11 \u00d7 (10 + 17) - 11",
-      "11 \u00d7 27 - 11",
-      "11 \u00d7 16",
-      "176"
+      "(12 \u00f7 2 \u00f7 2) - 2 \u00d7 12",
+      "(6 \u00f7 2) - 2 \u00d7 12",
+      "3 - 2 \u00d7 12",
+      "1 \u00d7 12",
+      "12"
     ],
     "probed_misconception": "outside_bracket_first",
     "statement_correct": false,
@@ -5103,7 +5103,7 @@
   {
     "id": "D047",
     "category": "D",
-    "expression": "6 \u00d7 9 - 12 + 8 \u00d7 1",
+    "expression": "3 + (5 + 11) \u00d7 10 \u00d7 3",
     "n_ops": 4,
     "misconceptions": [
       "add_before_mul",
@@ -5111,11 +5111,11 @@
     ],
     "num_misconceptions": 2,
     "trace": [
-      "6 \u00d7 9 - 12 + 8 \u00d7 1",
-      "54 - 12 + 8 \u00d7 1",
-      "42 + 8 \u00d7 1",
-      "50 \u00d7 1",
-      "50"
+      "3 + (5 + 11) \u00d7 10 \u00d7 3",
+      "3 + (5 + 11) \u00d7 30",
+      "3 + 16 \u00d7 30",
+      "19 \u00d7 30",
+      "570"
     ],
     "probed_misconception": "outside_bracket_first",
     "statement_correct": false,
@@ -5126,7 +5126,7 @@
   {
     "id": "D048",
     "category": "D",
-    "expression": "7 - 10 - (4 \u00d7 11 - 11)",
+    "expression": "5 - (6 - 12 \u00f7 5) + 6",
     "n_ops": 4,
     "misconceptions": [
       "add_before_mul",
@@ -5134,11 +5134,11 @@
     ],
     "num_misconceptions": 2,
     "trace": [
-      "7 - 10 - (4 \u00d7 11 - 11)",
-      "7 - 10 - (44 - 11)",
-      "7 - 10 - 33",
-      "7 - -23",
-      "30"
+      "5 - (6 - 12 \u00f7 5) + 6",
+      "5 - (6 - 2.4) + 6",
+      "5 - 3.6 + 6",
+      "5 - 9.6",
+      "-4.6"
     ],
     "probed_misconception": "outside_bracket_first",
     "statement_correct": false,
@@ -5149,7 +5149,7 @@
   {
     "id": "D049",
     "category": "D",
-    "expression": "(1 + 4) + 1 \u00d7 4 \u00f7 1",
+    "expression": "9 \u00f7 12 + 6 \u00d7 (12 - 10)",
     "n_ops": 4,
     "misconceptions": [
       "add_before_mul",
@@ -5157,11 +5157,11 @@
     ],
     "num_misconceptions": 2,
     "trace": [
-      "(1 + 4) + 1 \u00d7 4 \u00f7 1",
-      "(1 + 4) + 1 \u00d7 4",
-      "5 + 1 \u00d7 4",
-      "6 \u00d7 4",
-      "24"
+      "9 \u00f7 12 + 6 \u00d7 (12 - 10)",
+      "0.75 + 6 \u00d7 (12 - 10)",
+      "0.75 + 6 \u00d7 2",
+      "6.75 \u00d7 2",
+      "13.5"
     ],
     "probed_misconception": "same_priority_rtl",
     "statement_correct": false,
@@ -5172,7 +5172,7 @@
   {
     "id": "D050",
     "category": "D",
-    "expression": "3 \u00d7 (3 \u00f7 2 \u00d7 11) - 8",
+    "expression": "5 \u00d7 (2 \u00d7 11 \u00d7 7) - 9",
     "n_ops": 4,
     "misconceptions": [
       "add_before_div",
@@ -5180,11 +5180,11 @@
     ],
     "num_misconceptions": 2,
     "trace": [
-      "3 \u00d7 (3 \u00f7 2 \u00d7 11) - 8",
-      "3 \u00d7 (1.5 \u00d7 11) - 8",
-      "3 \u00d7 16.5 - 8",
-      "3 \u00d7 8.5",
-      "25.5"
+      "5 \u00d7 (2 \u00d7 11 \u00d7 7) - 9",
+      "5 \u00d7 (2 \u00d7 77) - 9",
+      "5 \u00d7 154 - 9",
+      "5 \u00d7 145",
+      "725"
     ],
     "probed_misconception": "outside_bracket_first",
     "statement_correct": false,
@@ -5195,7 +5195,7 @@
   {
     "id": "D051",
     "category": "D",
-    "expression": "10 - 11 \u00d7 11 \u00f7 4 + 1",
+    "expression": "11 \u00d7 7 \u00f7 (8 - 8) + 2",
     "n_ops": 4,
     "misconceptions": [
       "add_before_div",
@@ -5203,11 +5203,11 @@
     ],
     "num_misconceptions": 2,
     "trace": [
-      "10 - 11 \u00d7 11 \u00f7 4 + 1",
-      "10 - 11 \u00d7 11 \u00f7 5",
-      "10 - 11 \u00d7 2.2",
-      "10 - 24.2",
-      "-14.2"
+      "11 \u00d7 7 \u00f7 (8 - 8) + 2",
+      "11 \u00d7 7 \u00f7 0 + 2",
+      "11 \u00d7 7 \u00f7 2",
+      "11 \u00d7 3.5",
+      "38.5"
     ],
     "probed_misconception": "outside_bracket_first",
     "statement_correct": false,
@@ -5218,7 +5218,7 @@
   {
     "id": "D052",
     "category": "D",
-    "expression": "10 \u00d7 4 + 3 - 1 - 6",
+    "expression": "3 \u00d7 10 \u00f7 4 + (12 - 6)",
     "n_ops": 4,
     "misconceptions": [
       "add_before_div",
@@ -5226,11 +5226,11 @@
     ],
     "num_misconceptions": 2,
     "trace": [
-      "10 \u00d7 4 + 3 - 1 - 6",
-      "10 \u00d7 4 + 3 - -5",
-      "10 \u00d7 4 + 8",
-      "40 + 8",
-      "48"
+      "3 \u00d7 10 \u00f7 4 + (12 - 6)",
+      "3 \u00d7 10 \u00f7 4 + 6",
+      "3 \u00d7 10 \u00f7 10",
+      "3 \u00d7 1",
+      "3"
     ],
     "probed_misconception": "outside_bracket_first",
     "statement_correct": false,
@@ -5241,7 +5241,7 @@
   {
     "id": "D053",
     "category": "D",
-    "expression": "7 \u00f7 1 + (5 - 6) \u00f7 1",
+    "expression": "4 - 7 \u00d7 8 \u00f7 (10 - 8)",
     "n_ops": 4,
     "misconceptions": [
       "add_before_div",
@@ -5249,11 +5249,11 @@
     ],
     "num_misconceptions": 2,
     "trace": [
-      "7 \u00f7 1 + (5 - 6) \u00f7 1",
-      "7 + (5 - 6) \u00f7 1",
-      "7 + -1 \u00f7 1",
-      "6 \u00f7 1",
-      "6"
+      "4 - 7 \u00d7 8 \u00f7 (10 - 8)",
+      "4 - 56 \u00f7 (10 - 8)",
+      "-52 \u00f7 (10 - 8)",
+      "-52 \u00f7 2",
+      "-26"
     ],
     "probed_misconception": "same_priority_rtl",
     "statement_correct": false,
@@ -5264,7 +5264,7 @@
   {
     "id": "D054",
     "category": "D",
-    "expression": "1 - 5 \u00d7 11 \u00d7 10 + 6",
+    "expression": "3 + (6 \u00d7 8 - 10) + 11",
     "n_ops": 4,
     "misconceptions": [
       "sub_before_mul",
@@ -5272,11 +5272,11 @@
     ],
     "num_misconceptions": 2,
     "trace": [
-      "1 - 5 \u00d7 11 \u00d7 10 + 6",
-      "-4 \u00d7 11 \u00d7 10 + 6",
-      "-4 \u00d7 110 + 6",
-      "-440 + 6",
-      "-434"
+      "3 + (6 \u00d7 8 - 10) + 11",
+      "3 + (6 \u00d7 -2) + 11",
+      "3 + -12 + 11",
+      "-9 + 11",
+      "2"
     ],
     "probed_misconception": "outside_bracket_first",
     "statement_correct": false,
@@ -5287,7 +5287,7 @@
   {
     "id": "D055",
     "category": "D",
-    "expression": "11 \u00f7 (4 - 3 \u00d7 8) \u00f7 2",
+    "expression": "5 - 9 \u00d7 (1 \u00f7 1 \u00d7 1)",
     "n_ops": 4,
     "misconceptions": [
       "sub_before_mul",
@@ -5295,11 +5295,11 @@
     ],
     "num_misconceptions": 2,
     "trace": [
-      "11 \u00f7 (4 - 3 \u00d7 8) \u00f7 2",
-      "11 \u00f7 (1 \u00d7 8) \u00f7 2",
-      "11 \u00f7 8 \u00f7 2",
-      "11 \u00f7 4",
-      "2.75"
+      "5 - 9 \u00d7 (1 \u00f7 1 \u00d7 1)",
+      "5 - 9 \u00d7 (1 \u00f7 1)",
+      "5 - 9 \u00d7 1",
+      "-4 \u00d7 1",
+      "-4"
     ],
     "probed_misconception": "outside_bracket_first",
     "statement_correct": false,
@@ -5310,7 +5310,7 @@
   {
     "id": "D056",
     "category": "D",
-    "expression": "(8 \u00f7 2 \u00d7 12) \u00d7 2 - 12",
+    "expression": "11 + 10 \u00d7 (6 + 8 - 7)",
     "n_ops": 4,
     "misconceptions": [
       "sub_before_mul",
@@ -5318,11 +5318,11 @@
     ],
     "num_misconceptions": 2,
     "trace": [
-      "(8 \u00f7 2 \u00d7 12) \u00d7 2 - 12",
-      "(4 \u00d7 12) \u00d7 2 - 12",
-      "(4 \u00d7 12) \u00d7 -10",
-      "48 \u00d7 -10",
-      "-480"
+      "11 + 10 \u00d7 (6 + 8 - 7)",
+      "11 + 10 \u00d7 (14 - 7)",
+      "21 \u00d7 (14 - 7)",
+      "21 \u00d7 7",
+      "147"
     ],
     "probed_misconception": "same_priority_rtl",
     "statement_correct": false,
@@ -5333,7 +5333,7 @@
   {
     "id": "D057",
     "category": "D",
-    "expression": "10 + 9 \u00d7 (8 - 1 - 3)",
+    "expression": "11 - 1 \u00d7 (11 + 11) - 3",
     "n_ops": 4,
     "misconceptions": [
       "sub_before_div",
@@ -5341,11 +5341,11 @@
     ],
     "num_misconceptions": 2,
     "trace": [
-      "10 + 9 \u00d7 (8 - 1 - 3)",
-      "10 + 9 \u00d7 (8 - -2)",
-      "10 + 9 \u00d7 10",
-      "10 + 90",
-      "100"
+      "11 - 1 \u00d7 (11 + 11) - 3",
+      "11 - 1 \u00d7 22 - 3",
+      "11 - 22 - 3",
+      "11 - 19",
+      "-8"
     ],
     "probed_misconception": "outside_bracket_first",
     "statement_correct": false,
@@ -5356,7 +5356,7 @@
   {
     "id": "D058",
     "category": "D",
-    "expression": "3 + 8 \u00f7 (9 - 1 \u00f7 8)",
+    "expression": "11 \u00f7 6 - 12 - (3 - 8)",
     "n_ops": 4,
     "misconceptions": [
       "sub_before_div",
@@ -5364,11 +5364,11 @@
     ],
     "num_misconceptions": 2,
     "trace": [
-      "3 + 8 \u00f7 (9 - 1 \u00f7 8)",
-      "11 \u00f7 (9 - 1 \u00f7 8)",
-      "11 \u00f7 (8 \u00f7 8)",
-      "11 \u00f7 1",
-      "11"
+      "11 \u00f7 6 - 12 - (3 - 8)",
+      "11 \u00f7 -6 - (3 - 8)",
+      "11 \u00f7 -6 - -5",
+      "11 \u00f7 -1",
+      "-11"
     ],
     "probed_misconception": "same_priority_rtl",
     "statement_correct": false,
@@ -5379,7 +5379,7 @@
   {
     "id": "D059",
     "category": "D",
-    "expression": "11 \u00d7 10 \u00f7 10 \u00f7 (4 - 2)",
+    "expression": "7 + 2 \u00d7 (5 \u00f7 4) + 1",
     "n_ops": 4,
     "misconceptions": [
       "same_priority_rtl",
@@ -5387,11 +5387,11 @@
     ],
     "num_misconceptions": 2,
     "trace": [
-      "11 \u00d7 10 \u00f7 10 \u00f7 (4 - 2)",
-      "11 \u00d7 10 \u00f7 10 \u00f7 2",
-      "11 \u00d7 10 \u00f7 5",
-      "11 \u00d7 2",
-      "22"
+      "7 + 2 \u00d7 (5 \u00f7 4) + 1",
+      "9 \u00d7 (5 \u00f7 4) + 1",
+      "9 \u00d7 1.25 + 1",
+      "11.25 + 1",
+      "12.25"
     ],
     "probed_misconception": "sub_before_div",
     "statement_correct": false,
