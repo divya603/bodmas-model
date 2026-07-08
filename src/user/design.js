@@ -18,7 +18,6 @@ import { processQuery, initService } from '@/core/utils/utils'
 import AdvertisementView from '@/builtins/advertisement/AdvertisementView.vue'
 import MTurkRecruitView from '@/builtins/mturk/MTurkRecruitView.vue'
 import InformedConsentView from '@/builtins/informedConsent/InformedConsentView.vue'
-import CaptchaView from '@/builtins/captcha/CaptchaView.vue'
 import DemographicSurveyView from '@/builtins/demographicSurvey/DemographicSurveyMinimalView.vue'
 import InstructionsQuizView from '@/builtins/instructionsQuiz/InstructionsQuiz.vue'
 import DebriefView from '@/builtins/debrief/DebriefView.vue'
@@ -66,9 +65,6 @@ api.setRuntimeConfig('consentPdfUrl', `${import.meta.env.BASE_URL}consent-form.p
 // Debrief PDF
 api.setRuntimeConfig('debriefPdfUrl', `${import.meta.env.BASE_URL}debrief.pdf`)
 
-// reCAPTCHA v2 site key
-api.setRuntimeConfig('recaptchaSiteKey', '6LchQbwaAAAAAA71YvpgGvbHmkH0Y3mASmrELdhn')
-
 // #5. Add between-subjects condition assignment
 // This is where you can define conditions to which each participant should be assigned
 
@@ -108,7 +104,7 @@ timeline.pushSeqView({
   component: AdvertisementView,
   meta: {
     prev: undefined,
-    next: 'captcha',
+    next: 'consent',
     allowAlways: true,
     requiresConsent: false,
   }, // override what is next
@@ -124,7 +120,7 @@ timeline.pushSeqView({
   component: AdvertisementView,
   meta: {
     prev: undefined,
-    next: 'captcha',
+    next: 'consent',
     allowAlways: true,
     requiresConsent: false,
   },
@@ -149,18 +145,6 @@ timeline.registerView({
   meta: { allowAlways: true, requiresConsent: false },
   beforeEnter: (to) => {
     processQuery(to.query, 'mturk')
-  },
-})
-
-// captcha (before consent)
-timeline.pushSeqView({
-  name: 'captcha',
-  component: CaptchaView,
-  props: {
-    siteKey: api.getConfig('recaptchaSiteKey'),
-  },
-  meta: {
-    requiresConsent: false,
   },
 })
 
