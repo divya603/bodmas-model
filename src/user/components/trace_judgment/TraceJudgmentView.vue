@@ -5,8 +5,13 @@ import { Button } from '@/uikit/components/ui/button'
 import { ConstrainedTaskWindow } from '@/uikit/layouts'
 import pool from '@/user/data/stimulus_pool.json'
 import { sampleForm, randomSeed } from '@/user/utils/sampleForm'
+import { useMouseTracking } from '@/user/utils/useMouseTracking'
 
 const api = useViewAPI()
+
+// records a sampled mouse path per trial for offline bot detection (bots tend
+// to not move the cursor or move in perfectly straight lines)
+const mouse = useMouseTracking()
 
 const LIKERT = [
   { value: 1, label: 'Strongly Disagree' },
@@ -27,11 +32,43 @@ const form = sampleForm(pool, api.persist.formSeed)
 const trials = api.steps.append(form.map((item) => ({ ...item })))
 trials.append([{ id: 'summary' }])
 
+// ── bonus scoring ───────────────────────────────────────────────────
+// Collapse the 6-point Likert to a binary agree/disagree judgment (>= 4 =
+// agree) and score each trial against the item's ground-truth direction
+// (statement_correct). The performance bonus is rescaled so chance (50%)
+// earns $0 and perfect earns MAX_BONUS. We score only the direction, never
+// confidence magnitude, so the bonus can't push participants toward the
+// extremes of the scale and distort the Likert data we care about.
+const MAX_BONUS = 2.0
+const CHANCE = 0.5
+
+if (!api.persist.isDefined('nScored')) api.persist.nScored = 0
+if (!api.persist.isDefined('nCorrect')) api.persist.nCorrect = 0
+
+function scoreResponse(value) {
+  const respondedAgree = value >= 4
+  const correctAgree = api.stepData.statement_correct === true
+  const isCorrect = respondedAgree === correctAgree
+  api.stepData.responded_agree = respondedAgree
+  api.stepData.correct_agree = correctAgree
+  api.stepData.is_correct = isCorrect
+  api.persist.nScored = api.persist.nScored + 1
+  if (isCorrect) api.persist.nCorrect = api.persist.nCorrect + 1
+}
+
+function computeBonus() {
+  const n = api.persist.nScored || 0
+  const accuracy = n ? api.persist.nCorrect / n : 0
+  const bonus = Math.round(Math.max(0, (accuracy - CHANCE) / (1 - CHANCE)) * MAX_BONUS * 100) / 100
+  return { n, accuracy, bonus }
+}
+
 const selected = ref(null)
 
 if (!api.isTimerStarted()) {
   api.startTimer()
 }
+mouse.start() // begin tracking for the first trial
 
 function selectResponse(value) {
   selected.value = value
@@ -40,17 +77,22 @@ function selectResponse(value) {
 function submit() {
   if (selected.value === null) return
   api.stepData.response = selected.value
+  scoreResponse(selected.value)
   api.stepData.rt = api.elapsedTime()
+  api.stepData.mouse = mouse.getPoints()
   api.recordStep()
   selected.value = null
   api.startTimer()
+  mouse.reset() // fresh path for the next trial
   api.goNextStep()
 }
 
 function autofill() {
   while (api.stepIndex < api.nSteps) {
     if (api.path[0] !== 'summary') {
-      api.stepData.response = api.faker.rchoice([1, 2, 3, 4, 5, 6])
+      const value = api.faker.rchoice([1, 2, 3, 4, 5, 6])
+      api.stepData.response = value
+      scoreResponse(value)
       api.stepData.rt = api.faker.rnorm(4000, 800)
     }
     api.recordStep()
@@ -60,6 +102,16 @@ function autofill() {
 api.setAutofill(autofill)
 
 function finish() {
+  const { n, accuracy, bonus } = computeBonus()
+  api.recordPageData({
+    phase: 'traceJudgmentBonus',
+    nScored: n,
+    nCorrect: api.persist.nCorrect,
+    accuracy,
+    bonus,
+    maxBonus: MAX_BONUS,
+  })
+  api.saveData(true)
   api.goNextView()
 }
 </script>

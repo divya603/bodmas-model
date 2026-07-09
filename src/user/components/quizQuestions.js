@@ -8,10 +8,11 @@ export const QUIZ_QUESTIONS = [
         multiSelect: false,
         answers: [
           'Whether the final answer is correct',
-          "How well the statement explains the student's step-by-step work",
+          "How well it explains the student's work",
           'How many steps the student used',
+          'How neat the student’s handwriting is',
         ],
-        correctAnswer: ["How well the statement explains the student's step-by-step work"],
+        correctAnswer: ["How well it explains the student's work"],
       },
     ],
   },
