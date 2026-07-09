@@ -1,5 +1,5 @@
 <script setup>
-import { ref } from 'vue'
+import { ref, watch, onBeforeUnmount } from 'vue'
 import useViewAPI from '@/core/composables/useViewAPI'
 import { Button } from '@/uikit/components/ui/button'
 import { ConstrainedTaskWindow } from '@/uikit/layouts'
@@ -65,12 +65,63 @@ function computeBonus() {
 
 const selected = ref(null)
 
+// ── read-before-answer lock ─────────────────────────────────────────
+// Disable the response options for the first UNLOCK_DELAY_MS of each trial so
+// participants actually read the expression, trace, and belief statement
+// before rating. Re-arms on every new trial.
+const UNLOCK_DELAY_MS = 3000
+const locked = ref(false)
+const remaining = ref(0)
+let lockTimer = null
+let lockInterval = null
+
+function clearLockTimers() {
+  if (lockTimer) {
+    clearTimeout(lockTimer)
+    lockTimer = null
+  }
+  if (lockInterval) {
+    clearInterval(lockInterval)
+    lockInterval = null
+  }
+}
+
+function startLock() {
+  clearLockTimers()
+  locked.value = true
+  remaining.value = Math.ceil(UNLOCK_DELAY_MS / 1000)
+  lockInterval = setInterval(() => {
+    remaining.value = Math.max(0, remaining.value - 1)
+    if (remaining.value <= 0) {
+      clearInterval(lockInterval)
+      lockInterval = null
+    }
+  }, 1000)
+  lockTimer = setTimeout(() => {
+    locked.value = false
+    remaining.value = 0
+  }, UNLOCK_DELAY_MS)
+}
+
+// re-arm the lock whenever a new trial is shown (not on the summary step)
+watch(
+  () => api.stepIndex,
+  () => {
+    if (api.path[0] !== 'summary') startLock()
+    else clearLockTimers()
+  },
+  { immediate: true }
+)
+
+onBeforeUnmount(clearLockTimers)
+
 if (!api.isTimerStarted()) {
   api.startTimer()
 }
 mouse.start() // begin tracking for the first trial
 
 function selectResponse(value) {
+  if (locked.value) return
   selected.value = value
 }
 
@@ -124,6 +175,9 @@ function finish() {
     :height="api.config.windowsizerRequest.height"
   >
     <div v-if="api.path[0] !== 'summary'" class="text-left w-full h-full overflow-y-auto px-2">
+      <div class="flex justify-end mb-1">
+        <span class="text-xs text-muted-foreground">{{ api.stepIndex + 1 }} of {{ form.length }}</span>
+      </div>
       <p class="text-muted-foreground mb-1">Expression given to {{ api.stepData.student_name }}:</p>
       <p class="text-2xl font-bold mb-5 font-mono">{{ api.stepData.expression }}</p>
 
@@ -138,15 +192,24 @@ function finish() {
         <p class="italic text-yellow-800">{{ api.stepData.belief_statement }}</p>
       </div>
 
-      <p class="font-semibold mb-3">How much do you agree that this is what the student believes?</p>
+      <p class="font-semibold mb-3">
+        How much do you agree that this is what the student believes?
+        <span v-if="locked" class="ml-1 text-sm font-normal text-muted-foreground">
+          (please read the work above — {{ remaining }}s)
+        </span>
+      </p>
       <div class="grid grid-cols-6 gap-2 mb-6">
         <button
           v-for="opt in LIKERT"
           :key="opt.value"
           type="button"
+          :disabled="locked"
           @click="selectResponse(opt.value)"
           class="flex flex-col items-center p-2 rounded border transition-colors text-center"
-          :class="selected === opt.value ? 'border-primary bg-primary/10' : 'border-gray-300 hover:bg-gray-50'"
+          :class="[
+            selected === opt.value ? 'border-primary bg-primary/10' : 'border-gray-300 hover:bg-gray-50',
+            locked ? 'opacity-40 cursor-not-allowed' : '',
+          ]"
         >
           <span
             class="w-4 h-4 rounded-full border-2 mb-2"
@@ -157,7 +220,7 @@ function finish() {
       </div>
 
       <div class="flex justify-end">
-        <Button :disabled="selected === null" @click="submit()">Submit</Button>
+        <Button :disabled="selected === null || locked" @click="submit()">Submit</Button>
       </div>
     </div>
 
