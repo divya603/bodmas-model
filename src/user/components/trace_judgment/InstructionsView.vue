@@ -47,7 +47,7 @@ function finish() {
 
       <div class="flex justify-end">
         <Button variant="default" @click="finish()">
-          Start practice quiz
+          Next
           <i-fa6-solid-arrow-right />
         </Button>
       </div>
