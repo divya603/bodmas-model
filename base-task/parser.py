@@ -79,9 +79,21 @@ def _parse_atom(tokens, pos, counter):
     tok = tokens[pos]
 
     if tok in ('u-', 'u+'):
+        inner, pos = _parse_atom(tokens, pos + 1, counter)
+        if inner.is_number():
+            # fold the sign directly into a signed-number atom (e.g. "-14")
+            # instead of a unary wrapper node, so it matches how _eval
+            # represents negative results — is_number() must be True for a
+            # bare negative literal, or downstream code (pattern_matcher's
+            # literal checks, inference's action enumeration) treats it as
+            # an unresolved sub-expression and refuses to touch it
+            value = float(inner.label)
+            if tok == 'u-':
+                value = -value
+            label = str(int(value)) if value == int(value) else str(value)
+            return Node(label), pos
         op_id = f'op{counter[0]}'
         counter[0] += 1
-        inner, pos = _parse_atom(tokens, pos + 1, counter)
         return Node(tok, children=[inner], node_id=op_id), pos
 
     if tok == '(':

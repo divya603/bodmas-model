@@ -1,7 +1,8 @@
-import os, sys
+import os, sys, json
 sys.path.insert(0, os.path.dirname(__file__))
 
 import streamlit as st
+import pandas as pd
 from parser import build_dag
 from pattern_matcher import match_patterns
 from misconceptions import dag_to_str
@@ -10,6 +11,10 @@ from generator import generate_expression
 from traces import generate_traces
 from learner import MISCONCEPTION_FLIPS, flipped_cells as get_flipped_cells
 from distance import compare as compare_traces
+from inference import (
+    posterior_over_profiles, marginal_rule_probability,
+    most_likely_profile, format_profile, DEFAULT_EPSILON,
+)
 
 # ── operator colours ──────────────────────────────────────────────
 
@@ -151,7 +156,9 @@ initial_dag  = build_dag(expr)
 
 # ── tabs ──────────────────────────────────────────────────────────
 
-tab_expert, tab_learner = st.tabs(["Expert Learner", "Misconception Learner"])
+tab_expert, tab_learner, tab_infer, tab_difficulty = st.tabs(
+    ["Expert Learner", "Misconception Learner", "Infer Learner Type", "Misconception Difficulty"]
+)
 
 # ══════════════════════════════════════════════════════════════════
 # TAB 1 — Expert Learner
@@ -332,3 +339,129 @@ with tab_learner:
 
     st.markdown(f"**{len(learner_traces)} trace(s)** for this learner")
     render_traces(learner_traces)
+
+
+# ══════════════════════════════════════════════════════════════════
+# TAB 3 — Infer Learner Type
+# ══════════════════════════════════════════════════════════════════
+
+with tab_infer:
+    st.markdown(
+        "Pick the **true** learner type to simulate a trace for, then see whether "
+        "the Bayesian model recovers it from that trace alone."
+    )
+
+    canonical_order = list(MISCONCEPTION_FLIPS.keys())
+
+    true_labels = st.multiselect(
+        "True misconceptions (what actually generated the trace)",
+        options=list(MISCONCEPTION_LABELS.values()),
+        max_selections=2,
+        key="_infer_true_misconceptions",
+    )
+    true_ids = tuple(sorted(
+        (LABEL_TO_ID[lbl] for lbl in true_labels),
+        key=canonical_order.index,
+    ))
+
+    infer_traces = generate_traces(initial_dag, list(true_ids))
+
+    if not infer_traces:
+        st.warning("No traces available for this learner on this expression.")
+    else:
+        trace_strs = [' → '.join(t) for t in infer_traces]
+        chosen_idx = st.selectbox(
+            f"Pick a trace ({len(infer_traces)} available for this learner)",
+            options=list(range(len(infer_traces))),
+            format_func=lambda i: trace_strs[i],
+            key="_infer_trace_choice",
+        )
+        trace = infer_traces[chosen_idx]
+
+        st.markdown("**Trace shown to the model:**")
+        render_traces([trace])
+
+        epsilon = st.slider(
+            "epsilon (probability of a slip / random move)",
+            0.0, 0.5, DEFAULT_EPSILON, 0.01,
+            key="_infer_epsilon",
+        )
+
+        try:
+            post = posterior_over_profiles(trace, epsilon=epsilon)
+        except ValueError as e:
+            st.error(str(e))
+            st.stop()
+
+        map_profile, map_p = most_likely_profile(post)
+        true_p = post.get(true_ids, 0.0)
+
+        def _metric(col, label, value):
+            col.markdown(f'<p style="font-size:0.8rem;color:#888;margin-bottom:0.1rem">{label}</p>'
+                         f'<p style="font-size:1rem;font-weight:600;line-height:1.3">{value}</p>',
+                         unsafe_allow_html=True)
+
+        c1, c2, c3 = st.columns(3)
+        _metric(c1, "True profile", format_profile(true_ids))
+        _metric(c2, "MAP (inferred) profile", format_profile(map_profile))
+        _metric(c3, "Match?", ("yes" if map_profile == true_ids else "no")
+                              + f' <span style="color:#888;font-size:0.8rem">(P={true_p:.3f})</span>')
+
+        st.divider()
+        st.markdown("**Posterior over all 22 learner types**")
+        ranked = sorted(post.items(), key=lambda kv: -kv[1])
+        st.bar_chart({format_profile(L): p for L, p in ranked})
+
+        st.divider()
+        st.markdown("**Marginal probability per misconception** (regardless of what else the learner might also have)")
+        marg = {
+            MISCONCEPTION_LABELS[mid]: marginal_rule_probability(post, mid)
+            for mid in canonical_order
+        }
+        st.bar_chart(marg)
+
+
+# ══════════════════════════════════════════════════════════════════
+# TAB 4 — Misconception Difficulty (precomputed baseline)
+# ══════════════════════════════════════════════════════════════════
+
+with tab_difficulty:
+    st.markdown(
+        "Bayesian ideal-observer baseline: for every item in the 240-item stimulus "
+        "pool, the model's marginal probability on whichever misconception(s) "
+        "actually generated that trace (ground truth, not the belief statement), "
+        "split by whether it occurred **alone** or **paired** with another. "
+        "Higher = the model can pin this misconception down more confidently from "
+        "a typical trace. Meant as a baseline to compare against human accuracy "
+        "per misconception, not a live computation — precomputed once via "
+        "`misconception_difficulty.py`."
+    )
+
+    diff_path = os.path.join(os.path.dirname(__file__), 'misconception_difficulty.json')
+    if not os.path.exists(diff_path):
+        st.warning("Run `python3 misconception_difficulty.py` first to generate misconception_difficulty.json.")
+    else:
+        with open(diff_path) as f:
+            raw = json.load(f)
+
+        rows = []
+        for mid in canonical_order:
+            a, p = raw[mid]['alone'], raw[mid]['paired']
+            o = a + p
+            rows.append(dict(
+                misconception=MISCONCEPTION_LABELS[mid],
+                n_alone=len(a),   avg_alone=sum(a) / len(a),
+                n_paired=len(p),  avg_paired=sum(p) / len(p),
+                n_overall=len(o), avg_overall=sum(o) / len(o),
+            ))
+
+        df = pd.DataFrame(rows).sort_values('avg_overall').set_index('misconception')
+
+        st.markdown("**Ranked hardest → easiest for the model**")
+        st.dataframe(
+            df[['avg_overall', 'avg_alone', 'avg_paired']].style.format('{:.3f}'),
+            width='stretch',
+        )
+
+        st.markdown("**Alone vs. paired** (avg marginal on the true rule)")
+        st.bar_chart(df[['avg_alone', 'avg_paired']])
