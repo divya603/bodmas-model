@@ -11,30 +11,86 @@
 import Clipboard from 'clipboard'
 
 // Vue imports
-import { onMounted } from 'vue'
+import { onMounted, ref } from 'vue'
 
 // Internal imports
 import useAPI from '@/core/composables/useAPI'
 import appconfig from '@/core/config'
 import { Button } from '@/uikit/components/ui/button'
 import { Input } from '@/uikit/components/ui/input'
+import { Progress } from '@/uikit/components/ui/progress'
 import { TitleTwoCol } from '@/uikit/layouts'
 
+/**
+ * Upload progress state
+ */
+const isUploading = ref(true)
+const uploadProgress = ref(0)
+
+/**
+ * Initialize API
+ */
 const api = useAPI()
 
+/**
+ * Generate completion code and set it in the API
+ */
 const completionCode = api.computeCompletionCode()
 api.setCompletionCode(completionCode)
 
+/**
+ * Initialize clipboard functionality and run upload animation
+ * Sets up clipboard.js to handle copy-to-clipboard actions
+ * Animates the progress bar over 15 seconds before showing thanks content
+ */
 onMounted(() => {
+  // Set up clipboard functionality
   const clipboard = new Clipboard('[data-clipboard-target]')
   clipboard.on('success', (e) => {
     api.log.debug(`code copied to clipboard ${e.trigger.id}`)
   })
+
+  // Delay saveData by 4 seconds to avoid minWriteInterval rate limit
+  setTimeout(() => {
+    api.saveData(true) // force a data save
+  }, 4000)
+
+  // Animate progress bar from 0 to 100 over 20 seconds
+  const duration = 20000 // 20 seconds
+  const startTime = Date.now()
+
+  const updateProgress = () => {
+    const elapsed = Date.now() - startTime
+    const progress = Math.min(elapsed / duration, 1)
+    // Ease-out curve: 1 - (1 - t)^2
+    const eased = 1 - Math.pow(1 - progress, 2)
+    uploadProgress.value = Math.round(eased * 100)
+
+    if (progress < 1) {
+      requestAnimationFrame(updateProgress)
+    } else {
+      // Hide upload screen and show thanks content
+      isUploading.value = false
+    }
+  }
+
+  requestAnimationFrame(updateProgress)
 })
 </script>
 
 <template>
-  <div class="w-full mx-auto py-10">
+  <!-- Upload progress screen -->
+  <div v-if="isUploading" class="w-full h-screen flex flex-col items-center mt-30">
+    <div class="w-4/5 max-w-md text-center">
+      <h1 class="text-3xl font-bold mb-4">Uploading Your Data</h1>
+      <p class="text-lg text-muted-foreground mb-8">Do not close your browser window yet!</p>
+      <Progress :model-value="uploadProgress" class="h-3 mb-4" />
+      <p class="text-sm text-muted-foreground">{{ uploadProgress }}%</p>
+    </div>
+  </div>
+
+  <!-- Main container with responsive padding and centering -->
+  <div v-else class="w-full mx-auto py-10">
     <div class="w-4/5 mx-auto text-left">
       <!-- Prolific recruitment service completion -->
       <div v-if="api.getRecruitmentService() == 'prolific'">
@@ -43,10 +99,11 @@ onMounted(() => {
             <h1 class="text-3xl font-bold mb-4">
               <i-fa6-solid-square-check class="inline mr-2" />&nbsp;Thanks, let's begin the payment process!
             </h1>
-            <p class="text-lg mb-8">
-              Please click the button below to begin the process of payment. This will notify Prolific you successfully
-              completed the task. Your work will be approved within several hours and any performance related bonuses
-              will be assigned at that time. We really appreciate your time.
+            <p class="text-lg mb-4">
+              Please click the button below to begin the process of payment. This will notify Prolific you have successfully completed the task. We really appreciate your time.
+            </p>
+            <p class="text-sm text-muted-foreground mb-8 border border-border rounded-md p-3 bg-muted/40">
+              Please allow <strong class="text-foreground">1–5 business days</strong> for your bonus to be distributed through Prolific. You do not need to do anything further.
             </p>
           </template>
           <template #left>
@@ -62,7 +119,7 @@ onMounted(() => {
               <Button
                 variant="default"
                 as="a"
-                :href="`https://app.prolific.co/submissions/complete?cc=${completionCode}`"
+                href="https://app.prolific.com/submissions/complete?cc=C1NPBTG6"
               >
                 Submit my work to Prolific
                 <i-fa6-solid-arrow-right />
@@ -309,28 +366,39 @@ onMounted(() => {
         </TitleTwoCol>
       </div>
 
-      <!-- Web recruitment service completion -->
+      <!-- Web recruitment service completion (matches Prolific so participants
+           who arrive via a plain web link still get a valid completion path) -->
       <div v-if="api.getRecruitmentService() == 'web'">
         <TitleTwoCol leftFirst leftWidth="w-1/3" :responsiveUI="api.config.responsiveUI">
           <template #title>
             <h1 class="text-3xl font-bold mb-4">
-              <i-fa6-solid-square-check class="inline mr-2" />&nbsp;Thanks for your contribution to science!
+              <i-fa6-solid-square-check class="inline mr-2" />&nbsp;Thanks, let's begin the payment process!
             </h1>
-            <p class="text-lg mb-8">
-              Your data have been successfully recorded and you can close this window or navigate to another page.
+            <p class="text-lg mb-4">
+              Please click the button below to begin the process of payment. This will notify Prolific you have successfully completed the task. We really appreciate your time.
+            </p>
+            <p class="text-sm text-muted-foreground mb-8 border border-border rounded-md p-3 bg-muted/40">
+              Please allow <strong class="text-foreground">1–5 business days</strong> for your bonus to be distributed through Prolific. You do not need to do anything further.
             </p>
           </template>
           <template #left>
             <div class="text-left text-muted-foreground">
-              <h3 class="text-lg font-bold mb-2">Study Complete</h3>
+              <h3 class="text-lg font-bold mb-2">Payment Process</h3>
               <p class="text-sm text-muted-foreground">
-                Thank you for participating in our research study. Your contribution helps advance scientific knowledge.
+                Click the button to complete your submission and receive payment through Prolific.
               </p>
             </div>
           </template>
           <template #right>
             <div class="border border-border text-left bg-muted p-6 rounded-lg">
-              <p class="text-foreground">You may now safely close this browser window.</p>
+              <Button
+                variant="default"
+                as="a"
+                href="https://app.prolific.com/submissions/complete?cc=C1NPBTG6"
+              >
+                Submit my work to Prolific
+                <i-fa6-solid-arrow-right />
+              </Button>
             </div>
           </template>
         </TitleTwoCol>
