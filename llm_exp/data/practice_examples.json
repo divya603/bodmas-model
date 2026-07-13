@@ -1,0 +1,47 @@
+[
+  {
+    "expression": "1 \u00d7 4 + 12 - 4 + 7",
+    "trace": [
+      "1 \u00d7 4 + 12 - 4 + 7",
+      "1 \u00d7 16 - 4 + 7",
+      "16 - 4 + 7",
+      "12 + 7",
+      "19"
+    ],
+    "student_name": "Ava",
+    "probed_misconception": "add_before_mul",
+    "belief_statement": "Ava believes addition should be done before multiplication.",
+    "rating": 6,
+    "rationale": "The student computes 4 + 12 before the multiplication 1 \u00d7 4, so the work shows addition being done before multiplication \u2014 the statement explains it well."
+  },
+  {
+    "expression": "1 \u00d7 2 \u00d7 2 - 6 + 3",
+    "trace": [
+      "1 \u00d7 2 \u00d7 2 - 6 + 3",
+      "1 \u00d7 2 \u00d7 -4 + 3",
+      "1 \u00d7 -8 + 3",
+      "-8 + 3",
+      "-5"
+    ],
+    "student_name": "Leo",
+    "probed_misconception": "add_before_mul",
+    "belief_statement": "Leo believes addition should be done before multiplication.",
+    "rating": 1,
+    "rationale": "The student computes 2 - 6 before the multiplication, so the work shows subtraction \u2014 not addition \u2014 before multiplication; the statement is about addition, so it does not explain the work."
+  },
+  {
+    "expression": "10 - 8 + 12 \u00f7 4 - 7",
+    "trace": [
+      "10 - 8 + 12 \u00f7 4 - 7",
+      "10 - 8 + 12 \u00f7 -3",
+      "10 - 8 + -4",
+      "10 - 4",
+      "6"
+    ],
+    "student_name": "Mia",
+    "probed_misconception": "sub_before_div",
+    "belief_statement": "Mia believes subtraction should be done before division.",
+    "rating": 4,
+    "rationale": "A rating of 6 would mean the statement fully explains the work. It does not \u2014 the work also shows a second kind of error the statement doesn't mention \u2014 so it should not be the maximum. A moderate agreement is appropriate: the student does subtract before dividing (which the statement describes), but the explanation is incomplete."
+  }
+]
