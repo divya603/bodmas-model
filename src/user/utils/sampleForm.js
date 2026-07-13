@@ -71,6 +71,8 @@ function indexPool(pool) {
       key = it.misconceptions[0]
     } else if (it.category === 'B') {
       key = `${it.misconceptions[0]}|${it.probed_misconception}`
+    } else if (it.category === 'C') {
+      key = `${it.probed_misconception}|${it.which_target}` // (target, early/late error)
     } else {
       key = `${it.misconceptions.join(',')}|${it.probed_misconception}`
     }
@@ -84,7 +86,9 @@ function indexPool(pool) {
  *   A — each of the 6 misconceptions appears exactly once.
  *   B — each of the 6 misconceptions appears exactly once as present, AND
  *       (via a fixed nonzero cyclic shift) exactly once as foil.
- *   C — 6 distinct pairs, split exactly 3/3 between which_target 'first'/'second'.
+ *   C — each of the 6 misconceptions probed once as target; exactly 3 shown as
+ *       the early error ('first') and 3 as the late error ('second'), rotating
+ *       per participant; underlying pairs kept distinct.
  *   D — 6 distinct pairs, foil rotated across each pair's 4 non-members.
  * Different seeds vary the shift/offset/pair-sample, so coverage differs
  * across participants while every individual form stays exactly balanced.
@@ -108,11 +112,29 @@ export function sampleForm(pool, seed) {
     form.push(rng.choice(idx.B[`${mid}|${foil}`]))
   })
 
-  // C — 6 distinct pairs, alternating target by position -> exact 3/3 split
-  rng.sample(PAIRS, 6).forEach((pair, j) => {
-    const target = j % 2 === 0 ? pair[0] : pair[1]
-    form.push(rng.choice(idx.C[`${pair.join(',')}|${target}`]))
-  })
+  // C — each of the 6 misconceptions probed once as target; 3 shown as the
+  // early error ('first'), 3 as the late error ('second'); which 3 are 'first'
+  // rotates per participant via `cShift`. Retry until the 6 underlying pairs
+  // are distinct (partners can otherwise collide); fall back to allowing a
+  // repeat rather than failing.
+  const cShift = rng.randrange(IDS.length)
+  const positions = IDS.map((_, i) => ((i + cShift) % IDS.length < 3 ? 'first' : 'second'))
+  const pickC = (requireDistinct) => {
+    const chosen = []
+    const used = new Set()
+    for (let i = 0; i < IDS.length; i++) {
+      const cands = idx.C[`${IDS[i]}|${positions[i]}`] || []
+      const fresh = cands.filter((it) => !used.has([...it.misconceptions].sort().join(',')))
+      if (requireDistinct && fresh.length === 0) return null
+      const it = rng.choice(fresh.length ? fresh : cands)
+      used.add([...it.misconceptions].sort().join(','))
+      chosen.push(it)
+    }
+    return chosen
+  }
+  let cItems = null
+  for (let a = 0; a < 25 && cItems === null; a++) cItems = pickC(true)
+  form.push(...(cItems || pickC(false)))
 
   // D — 6 distinct pairs, foil rotated across each pair's 4 non-members
   const offset = rng.randrange(4)

@@ -141,6 +141,100 @@ def _pick_trace_for_target(dag, pair, target):
     return min(pool, key=lambda t: (len(t), t))
 
 
+def _error_order(dag, trace, target, other):
+    """
+    Chronological position of `target`'s error relative to its pair partner
+    `other` in the trace: 'first' if the target's deviation appears before the
+    partner's, 'second' if after, 'ambiguous' if a single step is explainable
+    by both, None if no attributable deviation is found. This is what
+    which_target means in the rebuilt category C — early vs late error, the
+    only "1st/2nd" a participant can actually perceive (canonical pair order is
+    invisible to them and confounded with misconception identity).
+    """
+    expert = tree_edges(generate_traces(dag, []))
+    tdev   = tree_edges(generate_traces(dag, [target])) - expert
+    odev   = tree_edges(generate_traces(dag, [other]))  - expert
+    for i in range(len(trace) - 1):
+        e = (trace[i], trace[i + 1])
+        if e in expert:
+            continue
+        in_t, in_o = e in tdev, e in odev
+        if in_t and not in_o:
+            return 'first'
+        if in_o and not in_t:
+            return 'second'
+        if in_t and in_o:
+            return 'ambiguous'
+    return None
+
+
+def _pick_trace_ordered(dag, target, other, position):
+    """
+    Like _pick_trace_for_target, but only accepts traces where the target's
+    error is chronologically `position` ('first'/'second') relative to the
+    partner's. Returns None (triggering an expression retry) when this
+    expression can't produce the requested ordering — that rejection sampling
+    is what lets us balance each misconception across early- and late-error.
+    """
+    pair          = tuple(sorted((target, other), key=IDS.index))
+    expert_traces = generate_traces(dag, [])
+    other_traces  = generate_traces(dag, [other])
+    reference     = tree_edges(expert_traces) | tree_edges(other_traces)
+    pair_traces   = generate_traces(dag, list(pair))
+
+    def _implicates_target(trace):
+        return any((trace[i], trace[i + 1]) not in reference
+                   for i in range(len(trace) - 1))
+
+    candidates = [t for t in pair_traces
+                  if _implicates_target(t) and _is_finished(t) and _is_clean(t)
+                  and _error_order(dag, t, target, other) == position]
+    if not candidates:
+        return None
+
+    expert_answer = correct_answer(expert_traces)
+    wrong_answer  = [t for t in candidates if t[-1] != expert_answer]
+    pool = wrong_answer or candidates
+    return min(pool, key=lambda t: (len(t), t))
+
+
+def _build_category_C(per_target_position=5):
+    """
+    Rebuilt category C, balanced by the chronological position of the target's
+    error. Each of the 6 misconceptions is the target `per_target_position`
+    times as the EARLY error (which_target='first') and the same number as the
+    LATE error ('second'), rotating through its 5 partners and rejection-
+    sampling expressions until the requested ordering holds. Result: 60 items,
+    each misconception 5 'first' + 5 'second' — no confound with identity.
+    """
+    items = []
+    n_names = len(STUDENT_NAMES)
+    counter = 0
+    for target in IDS:
+        partners = [m for m in IDS if m != target]
+        for position in ('first', 'second'):
+            made, pi, guard = 0, 0, 0
+            while made < per_target_position and guard < 8 * len(partners):
+                other = partners[pi % len(partners)]
+                pi += 1
+                guard += 1
+                pair   = tuple(sorted((target, other), key=IDS.index))
+                name   = STUDENT_NAMES[counter % n_names]
+                picker = (lambda dag, t=target, o=other, p=position:
+                          _pick_trace_ordered(dag, t, o, p))
+                item = _build_item(f'C{counter:03d}', 'C', list(pair), target, True,
+                                   which_target=position, trace_picker=picker,
+                                   student_name=name)
+                if item:
+                    items.append(item)
+                    made += 1
+                    counter += 1
+            if made < per_target_position:
+                print(f"WARN: only made {made}/{per_target_position} C items "
+                      f"for target={target} position={position}")
+    return items
+
+
 def _build_item(item_id, category, misconceptions, probed, statement_correct,
                  which_target=None, trace_picker=None, student_name=None):
     trace_picker = trace_picker or (lambda dag: _pick_trace(dag, misconceptions))
@@ -195,17 +289,9 @@ def build_pool(n_per_category=60):
         if item:
             items.append(item)
 
-    # C — pair, statement names one of the two (alternates first/second per pair)
-    for i in range(n_per_category):
-        pair   = PAIRS[i % len(PAIRS)]
-        target = pair[0] if (i // len(PAIRS)) % 2 == 0 else pair[1]
-        which  = 'first' if target == pair[0] else 'second'
-        name   = STUDENT_NAMES[(i % len(PAIRS) + i // len(PAIRS)) % n_names]
-        picker = lambda dag, pair=pair, target=target: _pick_trace_for_target(dag, pair, target)
-        item   = _build_item(f'C{i:03d}', 'C', list(pair), target, True, which,
-                              trace_picker=picker, student_name=name)
-        if item:
-            items.append(item)
+    # C — pair, statement names one present misconception, balanced by the
+    # chronological position of the target's error (which_target='first'/'second')
+    items.extend(_build_category_C(per_target_position=n_per_category // len(IDS) // 2))
 
     # D — pair, statement names neither (cycles all 4 non-member misconceptions per pair)
     for i in range(n_per_category):
@@ -230,7 +316,9 @@ def _index_pool(pool):
             key = it['misconceptions'][0]
         elif cat == 'B':
             key = (it['misconceptions'][0], it['probed_misconception'])
-        else:  # C, D
+        elif cat == 'C':
+            key = (it['probed_misconception'], it['which_target'])   # (target, early/late)
+        else:  # D
             key = (tuple(it['misconceptions']), it['probed_misconception'])
         idx[cat].setdefault(key, []).append(it)
     return idx
@@ -246,8 +334,11 @@ def sample_form(pool, seed=None, n_per_category=6):
           misconception, AND (via a fixed nonzero cyclic shift, chosen per
           participant) exactly once as the foil — no misconception is
           over/under-used as foil within this form.
-      C — n_per_category distinct pairs, split exactly in half between
-          which_target='first' and 'second' (requires n_per_category even).
+      C — each of the 6 misconceptions probed once as target; exactly half
+          shown as the EARLY error (which_target='first') and half as the LATE
+          error ('second'), with which misconceptions are 'first' rotated per
+          participant so coverage is even across the sample. Pairs kept distinct
+          within a form.
       D — n_per_category distinct pairs, foil rotated across each pair's 4
           non-member misconceptions via a per-participant offset.
 
@@ -277,10 +368,34 @@ def sample_form(pool, seed=None, n_per_category=6):
         foil = IDS[(i + k) % len(IDS)]
         form.append(rng.choice(idx['B'][(mid, foil)]))
 
-    # C — 6 distinct pairs, alternating target by position -> exact 3/3 split
-    for j, pair in enumerate(rng.sample(PAIRS, n_per_category)):
-        target = pair[0] if j % 2 == 0 else pair[1]
-        form.append(rng.choice(idx['C'][(pair, target)]))
+    # C — each of the 6 misconceptions probed once as target; 3 shown as the
+    # early error ('first'), 3 as the late error ('second'); which 3 are 'first'
+    # rotates per participant via `shift`. Retry until the 6 underlying pairs
+    # are distinct (partners can otherwise collide); fall back to allowing a
+    # repeat rather than failing.
+    shift = rng.randrange(len(IDS))
+    positions = ['first' if (i + shift) % len(IDS) < n_per_category // 2 else 'second'
+                 for i in range(len(IDS))]
+
+    def _pick_C(require_distinct):
+        chosen, used = [], set()
+        for mid, position in zip(IDS, positions):
+            cands = idx['C'].get((mid, position), [])
+            fresh = [it for it in cands
+                     if tuple(sorted(it['misconceptions'])) not in used]
+            if require_distinct and not fresh:
+                return None
+            it = rng.choice(fresh or cands)
+            used.add(tuple(sorted(it['misconceptions'])))
+            chosen.append(it)
+        return chosen
+
+    c_items = None
+    for _ in range(25):
+        c_items = _pick_C(require_distinct=True)
+        if c_items is not None:
+            break
+    form.extend(c_items if c_items is not None else _pick_C(require_distinct=False))
 
     # D — 6 distinct pairs, foil rotated across each pair's 4 non-members
     offset = rng.randrange(4)
