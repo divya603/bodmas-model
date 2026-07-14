@@ -29,6 +29,10 @@ dist-ssr
 /docs/.vitepress/cache
 /public/qr.svg
 /data/private/**
+/data/real-all-main-data.json
+# teammate reference copies — not ours to publish; delete when done
+/llm_exp_buffer/
+/prereg_buffer/
 env/*.txt
 env/*.tar.gz
 env/*.zip
