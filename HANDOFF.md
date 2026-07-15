@@ -61,8 +61,40 @@ base-task/        The BODMAS model (Python): pool generation, trace sim, Bayesia
 src/              The Smile/Vue human experiment (deployed live). User code in src/user/
 analysis_human/   Human-data analysis scripts + plots (UNCOMMITTED)
 analysis-Bayesian/ Ideal-observer analysis figures (plot_bayes_2misc_heatmap.py; imports base-task/)
-Results_combined/ FINAL curated results plots (plots/) — a new Overleaf results doc will be framed
-                  from ONLY these at the end; copy figures here (exact filenames) as analyses finish
+Results_combined/ FINAL results doc: results.tex + figs/ (subfolder RENAMED from plots/ on
+                  2026-07-15 so tex references figs/<exact-name> and the folder uploads to
+                  Overleaf as-is). Results-only, no story; being written STEP BY STEP with the
+                  user — so far §1 Bayesian 1-misc (dist_A right-shifted mass, outside()
+                  weakest; dist_B three rows + sharp left shift on refuted items, 12/60
+                  refutable, absence-of-support point) and §2 LLM 1-misc (thinking ≈ softened
+                  ideal observer incl. left shift on refuted; the two direct regimes near-binary
+                  and claim-driven in OPPOSITE directions — haiku-direct endorses add/sub &
+                  rejects RTL/outside, gpt-4o the reverse; generated sub<÷ item: 2 vs 5 vs 6),
+                  and §3 human 1-misc (dist_A at chance / add<× below; dist_B two cells over
+                  0.5 = the two failure modes, refuted-row FA drop; closes with
+                  human_signal_detection.png — d' spread −1.64..+2.77, two below-chance
+                  participants, and the "considering practice trials with feedback before the
+                  confirmatory run" note). figs/ now also holds human_signal_detection.png
+                  (user copied). Figures pinned with [H] (user wants strict source order);
+                  user added soul highlights — preserve them when editing.
+                  §4 (2-misc) has a SHARED heatmap explainer up front (C = 6×6 named×partner
+                  square, D = 6×15 foil×pair rectangle, green/red diverging, value+n per cell
+                  — written once for all three observers) + §4.1 Bayesian (panel (a) all green
+                  0.76–1.00, weakest = outside() as target; panel (b) all red ≤0.26, flat →
+                  confusions elsewhere are observer properties) + §4.2 LLM heatmap (thinking:
+                  green (a)/red (b) except add<× foil row lighting up on add<÷-containing
+                  pairs = family confusion; direct: wall of 1s both panels = right on foils
+                  for the wrong reason; gpt-4o: RTL/outside() rows green in BOTH panels =
+                  claim-driven) + §4.3 human heatmap (noisy-cells caveat; (a) subtraction
+                  rows under-endorsed + sub<×/outside() partners mask targets; (b) outside()
+                  foil ROW red but outside()-containing pair COLUMNS carry the top false
+                  alarms — trace-side confusions, mirror image of gpt-4o's claim-side; shared
+                  add-family leak with haiku-thinking; ideal observer flat ⇒ observer
+                  properties). **results.tex: ALL PLANNED SECTIONS WRITTEN** (§1 bayes 1misc,
+                  §2 LLM 1misc, §3 human 1misc + SDT/practice-trials note, §4 heatmaps ×3).
+                  COMPLETE 3x3 figure set as of 2026-07-15: {human,bayes,llm} x {2misc_heatmap,
+                  1misc_dist_A, 1misc_dist_B} (9 figures). NOTE: copies are snapshots — re-copy
+                  after regenerating any source figure.
 llm_exp/          The LLM task-analog experiment (Python, OpenRouter)
 llm_exp_buffer/   Reference copy of the teammate's numberlink LLM experiment (delete when done; UNCOMMITTED)
 prereg_buffer/    Reference copy of the teammate's numberlink PRE-REGISTRATION (tex + figs)
@@ -255,6 +287,81 @@ errors (1126 vs 672) cost more.
   (2) false add<× endorsed when add<÷ present — shared by haiku-thinking; (3) ideal observer flat
   (max 0.26) → confusions are observer properties, not stimulus leaks; (4) gpt-4o is claim-driven
   (endorses RTL/outside() statements regardless of trace).
+- **1-misconception (A/B) analysis, Bayesian arm DONE:** `analysis-Bayesian/plot_bayes_1misc_marginals.py`
+  → `bayes_1misc_marginals.png`: per-item P(named rule | trace) dots (NO averaging — user's
+  explicit preference, "not seeing the full picture"), 10 A + 10 B items per misconception.
+  Findings: threshold-0.5 accuracy is 100% everywhere (ceiling, uninformative); marginals VARY
+  per item — A tight (0.82–1.00; outside() shifted lowest), B structured into "actively refuted"
+  (~0.00–0.03: the foil had chances to manifest and visibly didn't) vs "no evidence either way"
+  (~0.17–0.26 residual: the foil never had an opportunity). Human + LLM 1-misc counterparts
+  still TODO; then copy the set to Results_combined/plots/.
+- **1-misc distribution view (Bayesian):** `plot_bayes_1misc_distributions.py` →
+  `bayes_1misc_dist_A.png` (6 KDE panels by present misconception; present=named in A) and
+  `bayes_1misc_dist_B.png` (same 60 B items, TWO groupings: row 1 by misconception PRESENT,
+  row 2 by misconception NAMED/foil). KDEs are boundary-reflected at [0,1] with the 10 raw item
+  values as rug ticks. Finding: the PRESENT-grouping is near-uniform (refutation doesn't depend
+  on the student's actual bug) but the NAMED-grouping cleanly sorts foils by refutability —
+  RTL foils most often actively refuted (largest near-0 mass; equal-priority adjacencies are
+  ubiquitous), sub<÷ foils never refuted (pure ~0.2 spike; -/÷ adjacencies rarely arise), others
+  in between. I.e. for the ideal observer the action is claim-side, matching the prediction that
+  the human arm should instead show trace-side (present-grouping) effects. The B figure has a
+  THIRD row: the refuted-only subset (P < 0.15) by named foil — refuted counts per foil:
+  add<×=1, add<÷=1, sub<×=3, sub<÷=0 (empty panel), RTL=4, outside()=3; only 12/60 B items are
+  refutable at all (80% of foils are merely unsupported, never contradicted). Refuted items pile
+  at ~0.00–0.03 except outside(), whose 3 refuted items sit ~0.12 (bracket contradictions are
+  soft, mirroring outside()'s weak support in category A).
+- **1-misc distributions, human + LLM arms DONE** (same layouts as Bayesian):
+  `analysis_human/plot_human_1misc_distributions.py` → `human_1misc_dist_{A,B}.png`;
+  `llm_exp/make_llm_1misc_distributions.py` → `llm_1misc_dist_{A,B}.png` (3 regimes, grouped
+  bars per panel). ⚠️ Plot style history: KDE was dropped first (user caught oversmoothing +
+  boundary double-weighting on discrete ratings; KDE retained ONLY for continuous Bayesian
+  marginals), then the HUMAN figures were further collapsed to **BINARY agree/disagree
+  probability bars** (rating ≥4 = agree; fixed 0–1 y-axis; user: "the 1–6 scale is getting too
+  noisy, no final picture"). Color convention on these bars: GREEN = agree, RED = disagree
+  (always response-colored, same as the heatmaps' green/red; suptitle states which answer is
+  correct per figure). Binary picture: A hovers at chance everywhere (P(agree) .46–.54)
+  except add<× visibly below (.38); in ALL of category B only TWO cells cross 0.5 —
+  outside()-PRESENT (.58 FA; bracket-mangled traces) and add<÷-NAMED (.54 FA; add-family leak);
+  refutable foils draw fewer false alarms than their named-row counterparts (pooled .29 vs .39,
+  add<÷ .25 vs .54). LLM figures keep the full 1–6 scale as **smooth shape-preserving (PCHIP)
+  curves through the EXACT per-rating proportions** (user wanted Bayesian-style curves, not
+  straight segments): passes through every true value, stays at literal 0 across unused
+  ratings (no overshoot/invented bumps — plain KDE was rejected for exactly that), dots mark
+  the six exact values, fixed 0–1 y-axis. The refuted-item split comes from
+  `analysis-Bayesian/b_item_marginals.json` (written by the Bayesian distributions script) so
+  all three observers use the SAME item subset. Findings: (1) human A ratings are polarized
+  (modes at the extremes, not middling — the d' split again) but ASYMMETRIC per misconception:
+  add<× is majority-disagree (15/24 at ≤3, mode "2"), outside() most-endorsed (13/24 at 5–6,
+  zero at "4"); (2) human A difficulty partially
+  INVERTS the ideal observer: outside() gets humans' highest A ratings (3.83) despite weakest
+  IO evidence, RTL among lowest (3.21) despite strongest; (3) human B false alarms are both
+  trace-side (outside()-present bimodal, mean 3.67) and claim-side (add<÷-named 3.67);
+  (4) humans rate refutable foils lower (~2.64 vs ~3.0 unrefutable) — weak evidence they use
+  refutation; (5) haiku-thinking mirrors IO incl. softer outside() support on A; haiku-direct
+  spikes "1" everywhere (even true RTL claims); gpt-4o endorses outside() claims EVEN WHEN THE
+  TRACE REFUTES THEM (refuted-row ratings 5–6) — claim-driven, evidence-blind. 1-misc analysis
+  now covers all three observers; user copies curated figs to Results_combined/plots/.
+- **Synthetic sub<÷ refutable probe (2026-07-15).** The pool has NO B item where the sub<÷ foil
+  is refutable, so `analysis-Bayesian/make_synthetic_subdiv_item.py` (seed 20260715) generated
+  ONE supplementary item → `analysis-Bayesian/synthetic_items.json` (id SYNB002; ⚠️ NOT in the
+  deployed pool, humans never saw it; flagged `synthetic: true`). Expression
+  `6 - 8 - 9 ÷ 9 × 11`, present misconception sub<×; at state `-2 - 9 ÷ 9 × 11` the student
+  does the DIVISION first at a live sub/÷ decision point → the sub<÷ foil is actively refuted
+  (ideal-observer marginal 0.0089). `llm_exp/run_synthetic_item.py` ran it through the 3
+  regimes (same determinism params; ratings stored in the same JSON):
+  **haiku thinking = 2 (correct, 1107 thinking tokens); haiku direct = 6 (!); gpt-4o = 5.**
+  Both no-reasoning models STRONGLY endorse the refuted claim — the sub-family analog of the
+  add-family confusion ("subtraction happened early" pattern-matches, never checking which
+  operator it beat). Note haiku-direct normally rejects nearly ALL foils (criterion), yet flips
+  to 6 here: its low FA rate is criterion, not competence. Rendering: per the user's
+  preference both dist-B figures show it as an ORDINARY item (normal orange / regime-bar
+  convention, sub<÷ refuted panel titled "n=1"; no special marker or "synthetic" label on
+  figures — provenance lives only in synthetic_items.json and here). The item is NOT yet in
+  the deployed pool but is slated to be swapped/added when the pool is enlarged (user intends
+  to grow the pool later). If/when it goes in: write it into BOTH pool copies
+  (base-task + src/user/data), and check sample_form/sampleForm.js balance still holds.
+  Single item = illustration, not inference; `make_synthetic_subdiv_item.py` can mass-produce
+  a balanced refutable set if this becomes a registered contrast for a future human wave.
 - **`analysis-codes/1-Misc/plot_1misc_response_spread.py`** — Likert-spread dot plots for categories
   A (statement matches) and B (foil); x = **misconception present in the trace**, y = 1–6, dot per
   trial per participant, green→red.

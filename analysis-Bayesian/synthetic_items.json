@@ -1,0 +1,32 @@
+[
+  {
+    "id": "SYNB002",
+    "category": "B",
+    "expression": "6 - 8 - 9 \u00f7 9 \u00d7 11",
+    "n_ops": 4,
+    "misconceptions": [
+      "sub_before_mul"
+    ],
+    "num_misconceptions": 1,
+    "trace": [
+      "6 - 8 - 9 \u00f7 9 \u00d7 11",
+      "-2 - 9 \u00f7 9 \u00d7 11",
+      "-2 - 1 \u00d7 11",
+      "-3 \u00d7 11",
+      "-33"
+    ],
+    "probed_misconception": "sub_before_div",
+    "statement_correct": false,
+    "which_target": null,
+    "student_name": "Noah",
+    "belief_statement": "Noah believes subtraction should be done before division.",
+    "synthetic": true,
+    "synthetic_note": "NOT in the deployed pool; generated 2026-07-15 (seed 20260715) because no pool B item makes the sub_before_div foil refutable. Ideal-observer marginal on the foil: 0.0089",
+    "bayes_marginal_on_probe": 0.0089,
+    "llm_ratings": {
+      "haiku (thinking)": 2,
+      "haiku (direct)": 6,
+      "gpt-4o (direct)": 5
+    }
+  }
+]
