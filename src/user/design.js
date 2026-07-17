@@ -28,6 +28,7 @@ import WindowSizerView from '@/builtins/windowSizer/WindowSizerView.vue'
 
 // 2. Import user View components
 import InstructionsView from '@/user/components/trace_judgment/InstructionsView.vue'
+import PracticeView from '@/user/components/trace_judgment/PracticeView.vue'
 import TraceJudgmentView from '@/user/components/trace_judgment/TraceJudgmentView.vue'
 import TaskFeedbackSurveyView from '@/user/components/TaskFeedbackSurveyView.vue'
 
@@ -184,6 +185,14 @@ timeline.pushSeqView({
     returnTo: 'instructions',
     randomizeQandA: true,
   },
+})
+
+// practice trials: 3 fixed items answered like real trials, each followed by
+// feedback (erroneous steps highlighted + the right answer explained). Not
+// scored toward the bonus.
+timeline.pushSeqView({
+  name: 'practice',
+  component: PracticeView,
 })
 
 // main experiment

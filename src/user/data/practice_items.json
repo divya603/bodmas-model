@@ -1,0 +1,92 @@
+[
+  {
+    "id": "P1",
+    "category": "practice",
+    "expression": "12 + 4 - 11 ÷ 4 + 7",
+    "trace": [
+      "12 + 4 - 11 ÷ 4 + 7",
+      "12 + 4 - 11 ÷ 11",
+      "12 + 4 - 1",
+      "12 + 3",
+      "15"
+    ],
+    "misconceptions": [
+      "add_before_div"
+    ],
+    "num_misconceptions": 1,
+    "probed_misconception": "add_before_div",
+    "statement_correct": true,
+    "student_name": "Tara",
+    "belief_statement": "Tara believes addition should be done before division.",
+    "error_steps": [
+      {
+        "trace_index": 1,
+        "misconception": "add_before_div",
+        "note": "the student added before dividing here"
+      }
+    ],
+    "feedback": "In this trace, the student's error matches the belief statement: the highlighted step shows the student doing addition before division, exactly the misconception the statement describes. So the right answer would be to agree."
+  },
+  {
+    "id": "P2",
+    "category": "practice",
+    "expression": "1 × 2 × 2 - 6 + 3",
+    "trace": [
+      "1 × 2 × 2 - 6 + 3",
+      "1 × 2 × -4 + 3",
+      "1 × -8 + 3",
+      "-8 + 3",
+      "-5"
+    ],
+    "misconceptions": [
+      "sub_before_mul"
+    ],
+    "num_misconceptions": 1,
+    "probed_misconception": "add_before_mul",
+    "statement_correct": false,
+    "student_name": "Sam",
+    "belief_statement": "Sam believes addition should be done before multiplication.",
+    "error_steps": [
+      {
+        "trace_index": 1,
+        "misconception": "sub_before_mul",
+        "note": "the student subtracted before multiplying here"
+      }
+    ],
+    "feedback": "Here the student did subtraction before multiplication (the highlighted step), but the statement said the student does addition before multiplication. The work does not match the statement, so the right answer would be to disagree."
+  },
+  {
+    "id": "P3",
+    "category": "practice",
+    "expression": "2 + 1 × (8 - 10 + 4)",
+    "trace": [
+      "2 + 1 × (8 - 10 + 4)",
+      "3 × (8 - 10 + 4)",
+      "3 × (8 - 14)",
+      "3 × -6",
+      "-18"
+    ],
+    "misconceptions": [
+      "same_priority_rtl",
+      "outside_bracket_first"
+    ],
+    "num_misconceptions": 2,
+    "probed_misconception": "outside_bracket_first",
+    "statement_correct": true,
+    "student_name": "Kira",
+    "belief_statement": "Kira believes you should calculate outside the brackets before what's inside them.",
+    "error_steps": [
+      {
+        "trace_index": 1,
+        "misconception": "outside_bracket_first",
+        "note": "the student worked outside the brackets before inside here"
+      },
+      {
+        "trace_index": 2,
+        "misconception": "same_priority_rtl",
+        "note": "the student worked right to left here"
+      }
+    ],
+    "feedback": "Here the belief statement partially matches the work. The two highlighted steps show two different misconceptions, and the statement names only one of them (working outside the brackets first). Strongly Agree would not be the best choice since the statement does not explain everything, but agreeing is still right because the statement partially matches."
+  }
+]

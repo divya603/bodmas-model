@@ -30,17 +30,24 @@ function finish() {
 
       <p class="text-left text-lg mb-4">
         Below the work, you'll see a statement about what the student <strong>believes</strong> about the order of
-        operations &mdash; for example, that they think addition should always come before multiplication.
+        operations, for example, that they think addition should always come before multiplication.
       </p>
 
       <p class="text-left text-lg mb-4">
         Your job is to judge <strong>how well that statement explains the work shown</strong>, using the student's
-        steps as your evidence &mdash; not just whether their final answer happens to be right or wrong.
+        steps as your evidence, not just whether their final answer happens to be right or wrong.
       </p>
 
       <p class="text-left text-lg mb-4">
         For each problem, rate how much you agree with the statement on a 6-point scale from
         <strong>Strongly Disagree</strong> to <strong>Strongly Agree</strong>.
+      </p>
+
+      <p class="text-left text-lg mb-4">
+        You will begin with <strong>3 practice questions</strong>. After you answer each one, we will highlight the
+        step in the work where the student's error occurred and explain what the right answer would be. The
+        practice questions do not count toward your bonus. After the practice, you will move on to the actual
+        task.
       </p>
 
       <hr class="border-gray-300 my-4" />

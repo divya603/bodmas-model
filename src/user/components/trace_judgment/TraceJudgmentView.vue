@@ -195,7 +195,7 @@ function finish() {
       <p class="font-semibold mb-3">
         How much do you agree that this is what the student believes?
         <span v-if="locked" class="ml-1 text-sm font-normal text-muted-foreground">
-          (please read the work above — {{ remaining }}s)
+          (please read the work above: {{ remaining }}s)
         </span>
       </p>
       <div class="grid grid-cols-6 gap-2 mb-6">
