@@ -56,16 +56,22 @@ DARK_AT = 1.4          # |value - center| beyond which cell text turns white
 def load(path, cohort):
     data = json.load(open(path))
     trials = []
+    n_part = 0
     for r in data:
         d = r['data']
         if d.get('done') is not True or d.get('recruitmentService') != 'prolific':
             continue
         if cohort == 'new' and d['endtime']['_seconds'] < NEW_POOL_CUTOFF:
             continue
+        # 'practice' = the new practice-trial task, identified by a
+        # pageData_practice block (timestamp-independent, unlike 'new')
+        if cohort == 'practice' and not d.get('pageData_practice'):
+            continue
+        n_part += 1
         trials += [t for t in d['pageData_exp']['visit_0']['data']
                    if isinstance(t, dict) and 'response' in t
                    and t.get('num_misconceptions') == 2]
-    return trials
+    return trials, n_part
 
 
 def cell_stats(trials):
@@ -148,15 +154,16 @@ def main():
     ap = argparse.ArgumentParser()
     ap.add_argument('--data', default='data/real-all-main-data.json')
     ap.add_argument('--out', default='analysis_human/plots')
-    ap.add_argument('--cohort', choices=['all', 'new'], default='all',
-                    help="'new' = only the 9 rebalanced-pool participants")
+    ap.add_argument('--cohort', choices=['all', 'new', 'practice'], default='all',
+                    help="'new' = post-2026-07-13 rebalanced-pool participants; "
+                         "'practice' = the new practice-trial task (pageData_practice block)")
     args = ap.parse_args()
     os.makedirs(args.out, exist_ok=True)
 
-    trials = load(args.data, args.cohort)
+    trials, n_part = load(args.data, args.cohort)
     n_c = sum(t['category'] == 'C' for t in trials)
     print(f"2-misconception trials: {len(trials)} (C={n_c}, D={len(trials) - n_c}), "
-          f"cohort={args.cohort}")
+          f"cohort={args.cohort}, participants={n_part}")
     c_mats, d_mats = cell_stats(trials)
     print_tables(c_mats, d_mats)
 
@@ -175,10 +182,11 @@ def main():
     cbar.ax.set_yticklabels(['1 (SD)', '2', '3', '3.5', '4', '5', '6 (SA)'], fontsize=8)
     cbar.set_label('mean rating (>3.5 = agree side)', fontsize=9)
 
-    who = 'all 24 participants' if args.cohort == 'all' else '9 rebalanced-pool participants'
-    fig.suptitle(f'Two-misconception trials: present × shown × agreement ({who})',
-                 fontsize=12.5)
-    suffix = '' if args.cohort == 'all' else '_new'
+    who = {'all': 'all prolific', 'new': 'rebalanced-pool',
+           'practice': 'practice-task'}[args.cohort]
+    fig.suptitle(f'Two-misconception trials: present × shown × agreement '
+                 f'({n_part} {who} participants)', fontsize=12.5)
+    suffix = {'all': '', 'new': '_new', 'practice': '_practice'}[args.cohort]
     p = os.path.join(args.out, f'human_2misc_heatmap{suffix}.png')
     fig.savefig(p, dpi=140, bbox_inches='tight')
     plt.close(fig)

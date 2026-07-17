@@ -54,9 +54,9 @@ GREEN, RED = '#008300', '#e34948'   # agree = green, disagree = red (heatmap con
 XTICKLABELS = ['disagree\n(1–3)', 'agree\n(4–6)']
 
 
-def panel(ax, vals, title):
+def panel(ax, vals, title, empty_text='no refuted items\n(foil never testable)'):
     if len(vals) == 0:
-        ax.text(0.5, 0.5, 'no refuted items\n(foil never testable)', ha='center',
+        ax.text(0.5, 0.5, empty_text, ha='center',
                 va='center', fontsize=8, color='#898781', transform=ax.transAxes)
         ax.set_xlim(-0.6, 1.6); ax.set_ylim(0, 1)
         ax.set_xticks([0, 1]); ax.set_xticklabels(XTICKLABELS, fontsize=8)
@@ -82,6 +82,10 @@ def main():
     ap = argparse.ArgumentParser()
     ap.add_argument('--data', default='data/real-all-main-data.json')
     ap.add_argument('--out', default='analysis_human/plots')
+    ap.add_argument('--cohort', choices=['all', 'practice'], default='all',
+                    help="'practice' = only participants who did the new practice-trial "
+                         "task (identified by a pageData_practice block); the intermediate "
+                         "new-data view")
     args = ap.parse_args()
     os.makedirs(args.out, exist_ok=True)
 
@@ -90,12 +94,19 @@ def main():
 
     data = json.load(open(args.data))
     trials = []
+    n_part = 0
     for r in data:
         d = r['data']
-        if d.get('done') is True and d.get('recruitmentService') == 'prolific':
-            trials += [t for t in d['pageData_exp']['visit_0']['data']
-                       if isinstance(t, dict) and 'response' in t
-                       and t.get('num_misconceptions') == 1]
+        if d.get('done') is not True or d.get('recruitmentService') != 'prolific':
+            continue
+        if args.cohort == 'practice' and not d.get('pageData_practice'):
+            continue
+        n_part += 1
+        trials += [t for t in d['pageData_exp']['visit_0']['data']
+                   if isinstance(t, dict) and 'response' in t
+                   and t.get('num_misconceptions') == 1]
+    empty_ref = 'no trials yet' if args.cohort == 'practice' else \
+                'no refuted items\n(foil never testable)'
 
     a_by_present = {m: [] for m in IDS}
     b_by_present = {m: [] for m in IDS}
@@ -121,6 +132,8 @@ def main():
             for m in IDS)
         print(f"  {'  P(agree)':15s} " + rates)
 
+    tag = ('PRACTICE-TASK cohort' if args.cohort == 'practice'
+           else 'all prolific participants')
     # ── figure 1: category A ──
     fig, axes = plt.subplots(2, 3, figsize=(11, 6), sharex=True)
     for ax, m in zip(axes.flat, IDS):
@@ -129,7 +142,7 @@ def main():
         ax.set_xlabel('response', fontsize=9)
     fig.suptitle('Humans — category A (statement matches; agree correct):\n'
                  'probability of agree (green) vs disagree (red) by misconception present '
-                 '(24 participants; counts on bars; correct answer = agree)', fontsize=12)
+                 f'({n_part} participants, {tag}; counts on bars; correct answer = agree)', fontsize=12)
     fig.tight_layout(rect=[0, 0, 1, 0.92])
     p1 = os.path.join(args.out, 'human_1misc_dist_A.png')
     fig.savefig(p1, dpi=140)
@@ -140,13 +153,15 @@ def main():
     for j, m in enumerate(IDS):
         panel(axes[0, j], b_by_present[m], f"{SHORT[m]}  (n={len(b_by_present[m])})")
         panel(axes[1, j], b_by_named[m], f"{SHORT[m]}  (n={len(b_by_named[m])})")
-        panel(axes[2, j], b_refuted[m], f"{SHORT[m]}  (n={len(b_refuted[m])})")
+        panel(axes[2, j], b_refuted[m], f"{SHORT[m]}  (n={len(b_refuted[m])})",
+              empty_text=empty_ref)
         axes[2, j].set_xlabel('response', fontsize=8)
     axes[0, 0].set_ylabel('grouped by misconception\nPRESENT in trace', fontsize=9)
     axes[1, 0].set_ylabel('grouped by misconception\nNAMED in statement (foil)', fontsize=9)
     axes[2, 0].set_ylabel('REFUTED items only\n(ideal-obs P < 0.15), by named foil', fontsize=9)
     fig.suptitle('Humans — category B (statement is a foil; disagree correct): '
-                 'probability of agree (green) vs disagree (red)\nsame trials: two groupings, then the '
+                 'probability of agree (green) vs disagree (red)\n'
+                 f'same trials, {n_part} participants ({tag}): two groupings, then the '
                  'refutable-item subset (counts on bars; correct answer = disagree)', fontsize=12)
     fig.tight_layout(rect=[0, 0, 1, 0.92])
     p2 = os.path.join(args.out, 'human_1misc_dist_B.png')
