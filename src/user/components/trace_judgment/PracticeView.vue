@@ -16,7 +16,9 @@ const LIKERT = [
   { value: 6, label: 'Strongly Agree' },
 ]
 
-api.steps.append(practiceItems.map((item) => ({ ...item })))
+// 3 practice trials, then a transition screen ("Begin task") before the real task
+const trials = api.steps.append(practiceItems.map((item) => ({ ...item })))
+trials.append([{ id: 'transition' }])
 
 const selected = ref(null)
 // after a response is submitted we stay on the trial and show the explanation:
@@ -61,12 +63,17 @@ function startLock() {
   }, UNLOCK_DELAY_MS)
 }
 
+// re-arm the lock on every new trial (not on the transition screen)
 watch(
   () => api.stepIndex,
   () => {
-    selected.value = null
-    feedbackShown.value = false
-    startLock()
+    if (api.path[0] !== 'transition') {
+      selected.value = null
+      feedbackShown.value = false
+      startLock()
+    } else {
+      clearLockTimers()
+    }
   },
   { immediate: true }
 )
@@ -106,24 +113,25 @@ function submit() {
 }
 
 function next() {
-  if (api.isLastStep()) {
-    api.saveData(true)
-    api.goNextView()
-    return
-  }
   api.startTimer()
   api.goNextStep()
 }
 
+function beginTask() {
+  api.saveData(true)
+  api.goNextView()
+}
+
 function autofill() {
   while (api.stepIndex < api.nSteps) {
-    const value = api.faker.rchoice([1, 2, 3, 4, 5, 6])
-    api.stepData.response = value
-    api.stepData.rt = api.faker.rnorm(4000, 800)
+    if (api.path[0] !== 'transition') {
+      const value = api.faker.rchoice([1, 2, 3, 4, 5, 6])
+      api.stepData.response = value
+      api.stepData.rt = api.faker.rnorm(4000, 800)
+    }
     api.recordStep()
     if (api.goNextStep() === null) break
   }
-  api.goNextView()
 }
 api.setAutofill(autofill)
 </script>
@@ -135,7 +143,7 @@ api.setAutofill(autofill)
     :width="api.config.windowsizerRequest.width"
     :height="api.config.windowsizerRequest.height"
   >
-    <div class="text-left w-full h-full overflow-y-auto px-2">
+    <div v-if="api.path[0] !== 'transition'" class="text-left w-full h-full overflow-y-auto px-2">
       <div class="flex items-center justify-between mb-1">
         <span class="text-xs font-semibold uppercase tracking-wide text-blue-600">Practice</span>
         <span class="text-xs text-muted-foreground">{{ api.stepIndex + 1 }} of {{ practiceItems.length }}</span>
@@ -199,10 +207,23 @@ api.setAutofill(autofill)
       <div class="flex justify-end mb-4">
         <Button v-if="!feedbackShown" :disabled="selected === null || locked" @click="submit()">Submit</Button>
         <Button v-else @click="next()">
-          {{ api.isLastStep() ? 'Start the task' : 'Next practice question' }}
+          {{ api.stepIndex === practiceItems.length - 1 ? 'Continue' : 'Next practice question' }}
           <i-fa6-solid-arrow-right />
         </Button>
       </div>
+    </div>
+
+    <div class="text-center" v-else>
+      <p class="text-xl font-semibold mb-3">Practice complete!</p>
+      <p class="text-lg text-muted-foreground mb-2">Now you'll move on to the real task.</p>
+      <p class="text-lg text-muted-foreground mb-6">
+        You will judge <strong>24 problems</strong>, one at a time, just like the ones you practiced.
+        These count toward your bonus.
+      </p>
+      <Button variant="default" size="lg" @click="beginTask()">
+        Begin task
+        <i-fa6-solid-arrow-right />
+      </Button>
     </div>
   </ConstrainedTaskWindow>
 </template>
