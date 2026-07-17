@@ -53,6 +53,20 @@ SHORT = {
 GREEN, RED = '#008300', '#e34948'   # agree = green, disagree = red (heatmap convention)
 XTICKLABELS = ['disagree\n(1–3)', 'agree\n(4–6)']
 
+EXPECTED_TRIALS = 24   # a complete form is 24 task trials
+
+
+def task_trials(d):
+    return [t for t in d.get('pageData_exp', {}).get('visit_0', {}).get('data', [])
+            if isinstance(t, dict) and 'response' in t]
+
+
+def is_complete(d):
+    """Incomplete participants (abandoned / no completion code) are dropped up
+    front: require the Smile done flag AND a full 24-trial form. The 2-minute
+    'NO CODE' Prolific returns come through as done=False with 0 task trials."""
+    return d.get('done') is True and len(task_trials(d)) >= EXPECTED_TRIALS
+
 
 def panel(ax, vals, title, empty_text='no refuted items\n(foil never testable)'):
     if len(vals) == 0:
@@ -95,16 +109,21 @@ def main():
     data = json.load(open(args.data))
     trials = []
     n_part = 0
+    n_incomplete = 0
     for r in data:
         d = r['data']
-        if d.get('done') is not True or d.get('recruitmentService') != 'prolific':
-            continue
         if args.cohort == 'practice' and not d.get('pageData_practice'):
             continue
+        if not is_complete(d):          # very first filter: drop incompletes
+            if d.get('pageData_practice'):
+                n_incomplete += 1
+            continue
+        if d.get('recruitmentService') != 'prolific':
+            continue
         n_part += 1
-        trials += [t for t in d['pageData_exp']['visit_0']['data']
-                   if isinstance(t, dict) and 'response' in t
-                   and t.get('num_misconceptions') == 1]
+        trials += [t for t in task_trials(d) if t.get('num_misconceptions') == 1]
+    print(f"cohort={args.cohort}: {n_part} complete participants "
+          f"(dropped {n_incomplete} incomplete)")
     empty_ref = 'no trials yet' if args.cohort == 'practice' else \
                 'no refuted items\n(foil never testable)'
 

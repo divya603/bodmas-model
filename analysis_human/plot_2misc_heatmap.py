@@ -45,6 +45,18 @@ SHORT = {
 PAIRS = list(combinations(range(6), 2))                      # 15 unordered pairs
 PAIR_LABELS = [f"{SHORT[IDS[i]]}\n{SHORT[IDS[j]]}" for i, j in PAIRS]
 NEW_POOL_CUTOFF = datetime(2026, 7, 13, tzinfo=timezone.utc).timestamp()
+EXPECTED_TRIALS = 24   # a complete form is 24 task trials
+
+
+def task_trials(d):
+    return [t for t in d.get('pageData_exp', {}).get('visit_0', {}).get('data', [])
+            if isinstance(t, dict) and 'response' in t]
+
+
+def is_complete(d):
+    """Drop incomplete participants (abandoned / no completion code) up front:
+    require the Smile done flag AND a full 24-trial form."""
+    return d.get('done') is True and len(task_trials(d)) >= EXPECTED_TRIALS
 
 # diverging: disagree (red) .. gray boundary .. agree (green)
 CMAP = LinearSegmentedColormap.from_list('divratings',
@@ -59,18 +71,18 @@ def load(path, cohort):
     n_part = 0
     for r in data:
         d = r['data']
-        if d.get('done') is not True or d.get('recruitmentService') != 'prolific':
-            continue
-        if cohort == 'new' and d['endtime']['_seconds'] < NEW_POOL_CUTOFF:
-            continue
         # 'practice' = the new practice-trial task, identified by a
         # pageData_practice block (timestamp-independent, unlike 'new')
         if cohort == 'practice' and not d.get('pageData_practice'):
             continue
+        if not is_complete(d):          # very first filter: drop incompletes
+            continue
+        if d.get('recruitmentService') != 'prolific':
+            continue
+        if cohort == 'new' and d['endtime']['_seconds'] < NEW_POOL_CUTOFF:
+            continue
         n_part += 1
-        trials += [t for t in d['pageData_exp']['visit_0']['data']
-                   if isinstance(t, dict) and 'response' in t
-                   and t.get('num_misconceptions') == 2]
+        trials += [t for t in task_trials(d) if t.get('num_misconceptions') == 2]
     return trials, n_part
 
 
