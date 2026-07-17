@@ -441,12 +441,15 @@ Writing style: **no em dashes** (user: "screams AI").
 - LLM experiment: all 240 items × 3 regimes, 0 errors; all figures + `report/report.tex` written.
 - **Pre-registration draft** written (`PreReg/prereg.tex`, §6) — hypotheses/exclusions flagged,
   awaiting discussion.
-- **Practice trials built (2026-07-16, not yet deployed/committed):** 3 feedback practice trials
-  before the main task (PracticeView.vue + practice_items.json + make_human_practice_items.py;
-  instructions updated). This implements the "practice trials with feedback before the
-  confirmatory run" note from results.tex §3. Verified: items model-checked (IO marginals: P1
-  named 0.946, P2 foil 0.000, P3 named 0.863) and all touched frontend modules compile through
-  the Vite dev server. NOT yet pushed — pushing deploys the live site.
+- **Practice trials built AND DEPLOYED (2026-07-16/17, commit 26af20f):** 3 feedback practice
+  trials before the main task (PracticeView.vue + practice_items.json +
+  make_human_practice_items.py; instructions updated). This implements the "practice trials
+  with feedback before the confirmatory run" note from results.tex §3. Verified: items
+  model-checked (IO marginals: P1 named 0.946, P2 foil 0.000, P3 named 0.863), frontend
+  compiles, and the live bundle contains the items. Deploy note: the first deploy attempt
+  failed with an SSH i/o timeout to the lab server ("create the remote folders" step);
+  `gh run rerun <id> --failed` fixed it — transient, not a code issue. User still to eyeball
+  the deployed practice flow.
 
 **PENDING / NEXT:**
 - **Finalize the prereg decisions** (with the user, discussion-first): hypothesis set +
@@ -459,10 +462,8 @@ Writing style: **no em dashes** (user: "screams AI").
 - **BODMAS results report** like the numberlink one; `report/report.tex` is the LLM half.
 - **Uncommitted** (decide before relying on them): `analysis_human/`, `scripts/make_bonus_list.py`,
   `PreReg/`, `llm_exp/plots/`, `llm_exp/report/`, `llm_exp/make_llm_plots.py`,
-  `llm_exp/make_llm_figures.py`, and the practice-trials change set
-  (`base-task/make_human_practice_items.py`, `src/user/data/practice_items.json`,
-  `src/user/components/trace_judgment/PracticeView.vue`, edits to `design.js`,
-  `InstructionsView.vue`, `TraceJudgmentView.vue` — ⚠️ committing+pushing these deploys). (`llm_exp/bodmas_llm/` package IS committed.) `llm_exp_buffer/`
+  `llm_exp/make_llm_figures.py`. (The practice-trials change set was committed and deployed,
+  commit 26af20f.) (`llm_exp/bodmas_llm/` package IS committed.) `llm_exp_buffer/`
   and `prereg_buffer/` are reference — delete when done.
 
 ---
