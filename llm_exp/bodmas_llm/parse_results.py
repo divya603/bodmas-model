@@ -66,7 +66,10 @@ def to_dataframe(rows: list[dict]) -> pl.DataFrame:
             "error": r.get("error"),
             "warning": r.get("warning"),
         })
-    return pl.DataFrame(recs)
+    # which_target is None for A/B/D and 'first'/'second' for C; --all-items runs
+    # emit all of category A first, so a bounded schema scan would type the column
+    # Null and then fail on C's strings. Scan every row to infer the schema.
+    return pl.DataFrame(recs, infer_schema_length=None)
 
 
 def summarize(df: pl.DataFrame) -> pl.DataFrame:

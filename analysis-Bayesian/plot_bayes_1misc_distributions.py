@@ -3,24 +3,25 @@
 plot_bayes_1misc_distributions.py
 
 Distribution view of the Bayesian ideal observer's per-item posterior
-P(named rule | trace) on the 1-misconception items, 10 items per curve.
+P(named rule | trace) on the 1-misconception items (all category-A/B items in
+the pool; the extended 480-item pool gives 20 items per curve).
 
   bayes_1misc_dist_A.png — category A (statement matches). 6 panels grouped
       by the misconception present (= named; in A they coincide by design,
       so no other grouping exists).
   bayes_1misc_dist_B.png — category B (statement is a foil). Three rows over
-      the same 60 items, because present and named are decoupled:
+      the same B items, because present and named are decoupled:
       row 1 groups by the misconception PRESENT in the trace ("does the
       student's actual bug make the work confusable?"), row 2 by the
       misconception NAMED in the statement ("are some claims inherently
       easier to rule out?"), row 3 shows ONLY the refuted subset (marginal
       < 0.15: the trace contained a decision point for the named rule and
       the student visibly acted against it), grouped by named foil. Refuted
-      items should pile up near 0; foils that never get an opportunity
-      (sub<÷) have an empty panel.
+      items pile up near 0; on the extended pool every foil (including sub<÷)
+      now has refuted items, so no panel is empty.
 
 Curves are Gaussian KDEs with reflection at the [0,1] boundaries; the dots
-underneath are the actual 10 item values (the curve never claims more than
+underneath are the actual item values (the curve never claims more than
 they do).
 
 Run from repo root:
@@ -55,6 +56,10 @@ GRID = np.linspace(0.0, 1.0, 400)
 
 
 REFUTED_CUT = 0.15
+# The extended pool (base-task/extend_pool.py) now contains real refuted items
+# for every foil, including sub<÷, so the synthetic sub<÷ crutch is superseded.
+# Kept in synthetic_items.json for provenance only; never mixed into the figure.
+INJECT_SYNTHETIC = False
 
 
 def kde_bounded(vals, grid=GRID):
@@ -115,6 +120,7 @@ def main():
         json.dump({'refuted_cut': REFUTED_CUT, 'b_marginals': b_marginals}, f, indent=1)
 
     # ── figure 1: category A ──
+    n_a = len(a_by_present[IDS[0]])
     fig, axes = plt.subplots(2, 3, figsize=(11, 6), sharex=True)
     for ax, m in zip(axes.flat, IDS):
         panel(ax, a_by_present[m], BLUE, SHORT[m])
@@ -122,7 +128,7 @@ def main():
         ax.set_xlabel('P(named rule | trace)', fontsize=9)
     fig.suptitle('Bayesian ideal observer — category A (statement matches):\n'
                  'distribution of the posterior on the named rule, by misconception '
-                 '(10 items per curve; ticks = items)', fontsize=12)
+                 f'({n_a} items per curve; ticks = items)', fontsize=12)
     fig.tight_layout(rect=[0, 0, 1, 0.92])
     p1 = os.path.join(HERE, 'bayes_1misc_dist_A.png')
     fig.savefig(p1, dpi=140)
@@ -138,7 +144,7 @@ def main():
     # refuted-subset row as ordinary items
     n_extra = {m: 0 for m in IDS}
     extra_path = os.path.join(HERE, 'synthetic_items.json')
-    if os.path.exists(extra_path):
+    if INJECT_SYNTHETIC and os.path.exists(extra_path):
         for it in json.load(open(extra_path)):
             post = posterior_over_profiles(it['trace'])
             marg = marginal_rule_probability(post, it['probed_misconception'])
@@ -148,12 +154,13 @@ def main():
                 b_refuted[it['probed_misconception']].append(marg)
                 n_extra[it['probed_misconception']] += 1
 
+    n_b = sum(len(v) for v in b_by_named.values())
+    n_curve = len(b_by_named[IDS[0]])
     fig, axes = plt.subplots(3, 6, figsize=(16.5, 8.6), sharex=True)
     for j, m in enumerate(IDS):
         panel(axes[0, j], b_by_present[m], ORANGE, SHORT[m])
         panel(axes[1, j], b_by_named[m], ORANGE, SHORT[m])
-        n_lab = (f"n={len(b_refuted[m])}" if n_extra[m]
-                 else f"n={len(b_refuted[m])}/10")
+        n_lab = f"n={len(b_refuted[m])}/{len(b_by_named[m])}"
         panel(axes[2, j], b_refuted[m], ORANGE, f"{SHORT[m]}  ({n_lab})")
         axes[2, j].set_xlabel('P(named rule | trace)', fontsize=8)
     axes[0, 0].set_ylabel('grouped by misconception\nPRESENT in trace', fontsize=9)
@@ -161,8 +168,8 @@ def main():
     axes[2, 0].set_ylabel(f'REFUTED subset only\n(P < {REFUTED_CUT}), by named foil', fontsize=9)
     fig.suptitle('Bayesian ideal observer — category B (statement is a foil): '
                  'distribution of the posterior on the named rule\n'
-                 'same 60 items: two groupings, then the refuted subset '
-                 '(10 per curve in rows 1–2; ticks = items)', fontsize=12)
+                 f'same {n_b} items: two groupings, then the refuted subset '
+                 f'({n_curve} per curve in rows 1–2; ticks = items)', fontsize=12)
     fig.tight_layout(rect=[0, 0, 1, 0.92])
     p2 = os.path.join(HERE, 'bayes_1misc_dist_B.png')
     fig.savefig(p2, dpi=140)

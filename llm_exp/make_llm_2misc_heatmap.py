@@ -130,6 +130,7 @@ def main():
     df = pd.DataFrame(rows)
     df = df[df.num_misconceptions == 2]
     df = df.drop_duplicates(subset=['model', 'effort', 'id'], keep='first')
+    n_cd = df['id'].nunique()
 
     fig, axes = plt.subplots(3, 2, figsize=(17.5, 15),
                              gridspec_kw={'width_ratios': [6, 15.4],
@@ -155,7 +156,7 @@ def main():
     cbar = fig.colorbar(im, cax=cax, ticks=[1, 2, 3, 3.5, 4, 5, 6])
     cbar.ax.set_yticklabels(['1 (SD)', '2', '3', '3.5', '4', '5', '6 (SA)'], fontsize=8)
     cbar.set_label('mean rating (>3.5 = agree side)', fontsize=9)
-    fig.suptitle('LLM two-misconception items: present × shown × agreement (all 120 C/D items)',
+    fig.suptitle(f'LLM two-misconception items: present × shown × agreement (all {n_cd} C/D items)',
                  fontsize=13.5, y=0.99)
     p = os.path.join(OUTDIR, 'llm_2misc_heatmap.png')
     fig.savefig(p, dpi=140)

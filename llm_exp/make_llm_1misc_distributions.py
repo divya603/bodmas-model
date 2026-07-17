@@ -7,7 +7,8 @@ distribution of the 1-6 rating on the 1-misconception items, one curve per
 regime (haiku thinking / haiku direct / gpt-4o direct) overlaid per panel.
 
   llm_1misc_dist_A.png — category A (statement matches), 6 panels grouped by
-      the misconception present (= named in A). 10 items per regime per panel.
+      the misconception present (= named in A). All A/B items in the pool
+      (the extended 480-item pool gives ~20 items per regime per panel).
   llm_1misc_dist_B.png — category B (foil): row 1 grouped by misconception
       PRESENT, row 2 by misconception NAMED, row 3 = the REFUTED-only items
       (ideal-observer marginal < 0.15, from
@@ -137,10 +138,11 @@ def main():
         panel(ax, collect(0, m), SHORT[m])
     for ax in axes[1]:
         ax.set_xlabel('rating (1=SD .. 6=SA)', fontsize=9)
+    n_a = sum(len(v) for v in per_regime[REGIMES[0][0]][0].values()) // len(IDS)
     fig.legend(handles=handles, loc='lower center', ncol=3, fontsize=9, frameon=False)
     fig.suptitle('LLMs — category A (statement matches; agree correct):\n'
                  'distribution of ratings by misconception present '
-                 '(10 items per regime per panel; exact proportion at each rating)', fontsize=12)
+                 f'({n_a} items per regime per panel; exact proportion at each rating)', fontsize=12)
     fig.tight_layout(rect=[0, 0.05, 1, 0.92])
     p1 = os.path.join(OUTDIR, 'llm_1misc_dist_A.png')
     fig.savefig(p1, dpi=140)
@@ -150,10 +152,14 @@ def main():
     # sub<÷ refutable case; slated for the pool when it grows) join each
     # regime's refuted-subset cells as ordinary items, using the ratings
     # collected by run_synthetic_item.py
+    # The extended pool now contains real refuted items for every foil,
+    # including sub<÷, so the synthetic sub<÷ crutch is superseded (kept in
+    # synthetic_items.json for provenance only; never mixed into the figure).
+    INJECT_SYNTHETIC = False
     extra_path = os.path.join(os.path.dirname(HERE), 'analysis-Bayesian',
                               'synthetic_items.json')
     n_extra = {m: 0 for m in IDS}
-    if os.path.exists(extra_path):
+    if INJECT_SYNTHETIC and os.path.exists(extra_path):
         for it in json.load(open(extra_path)):
             m = it['probed_misconception']
             ratings = it.get('llm_ratings') or {}
@@ -168,7 +174,8 @@ def main():
         panel(axes[0, j], collect(1, m), SHORT[m])
         panel(axes[1, j], collect(2, m), SHORT[m])
         n_ref = len(per_regime[REGIMES[0][0]][3][m])
-        n_lab = f"n={n_ref} items" if n_extra[m] else f"n={n_ref}/10 items"
+        n_named = len(per_regime[REGIMES[0][0]][2][m])
+        n_lab = f"n={n_ref} items" if n_extra[m] else f"n={n_ref}/{n_named} items"
         panel(axes[2, j], collect(3, m), f"{SHORT[m]}  ({n_lab})")
         axes[2, j].set_xlabel('rating (1=SD .. 6=SA)', fontsize=8)
     axes[0, 0].set_ylabel('grouped by misconception\nPRESENT in trace', fontsize=9)

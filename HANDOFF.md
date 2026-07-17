@@ -293,13 +293,24 @@ pipeline (`llm_exp_buffer/`).
   cell over all 240. Determinism temp=0/top_p=1/seed=0; caps 8192 direct / 16000 thinking.
 - **`bodmas_llm/parse_results.py`** — raw JSONL → tidy frame in the human per-trial schema.
 
-### LLM results (all 240 items, done)
-Three regimes (gpt-4o ignores the thinking flag → 0 reasoning tokens, so run once as "direct"):
-| regime | accuracy | d' | criterion |
-|---|---|---|---|
-| **haiku (thinking)** | **0.87** | **2.34** | −0.33 |
-| haiku (direct) | 0.68 | 1.27 | +0.80 |
-| gpt-4o (direct) | 0.63 | 0.66 | +0.27 |
+### LLM results (all 487 items, re-run on the extended pool 2026-07-17)
+Three regimes (gpt-4o ignores the thinking flag → 0 reasoning tokens, so run once as "direct").
+Re-run over the full 480 design; 240 originals served from cache ($0), only new items new spend;
+0 errors. Raw runs: `results/raw_{haiku_thinking,haiku_direct,gpt4o_direct}_all487.jsonl`
+(old 240-item runs archived under `results/archive_240pool/`).
+| regime | accuracy | d' | criterion | FA refuted | FA unsupported |
+|---|---|---|---|---|---|
+| **haiku (thinking)** | **0.87** | **2.38** | −0.25 | **0.09** | 0.26 |
+| haiku (direct) | 0.69 | 1.35 | +0.84 | 0.07 | 0.06 |
+| gpt-4o (direct) | 0.62 | 0.62 | +0.19 | **0.38** | 0.25 |
+
+Endpoints match the 240-pool pilot (haiku-thinking d' 2.34→2.38 etc.). **NEW refuted-design result
+(the H5 contrast):** on the named foil, false-alarm rate by refutation status —
+haiku-thinking DROPS on refuted foils (0.26→0.09: it uses the visible contradiction, like the ideal
+observer); haiku-direct is flat but floor-bound (rejects almost everything, criterion +0.84);
+**gpt-4o goes the WRONG way (0.25→0.38: endorses refuted claims MORE than merely-unsupported ones)**
+— evidence-blind / claim-driven, the same story the 2-misc heatmap showed, now quantified on a
+balanced refuted vs unsupported split (120 refuted + 120 unsupported foil items pool-wide).
 
 **Story:** without reasoning both models are **disagree-biased** and near-binary (haiku-direct puts
 74% of ratings on "1"); they retain partial competence (d'>0) but a heavy conservative criterion.
@@ -493,14 +504,23 @@ Writing style: **no em dashes** (user: "screams AI").
   `gh run rerun <id> --failed` fixed it — transient, not a code issue. User still to eyeball
   the deployed practice flow.
 
+**DONE (2026-07-17, extended-pool analysis):**
+- **LLM arm re-run on all 487 items × 3 regimes** (0 errors; see the results table above).
+  Fixed a `parse_results` polars schema bug (which_target Null-inference on all-items runs →
+  `infer_schema_length=None`).
+- **All 6 model/observer figures regenerated on the 480 pool and copied to
+  `Results_combined/figs/`**: {bayes,llm}×{1misc_dist_A, 1misc_dist_B, 2misc_heatmap}. The
+  refuted subset row (dist_B row 3) is now populated for ALL foils including sub<÷ (was empty):
+  10/20 refuted per foil (Bayesian) and the LLM version shows gpt-4o endorsing refuted claims.
+  Figure scripts de-hardcoded (count labels now dynamic) and the synthetic sub<÷ injection
+  disabled (superseded by real refuted items; `INJECT_SYNTHETIC=False`).
+  ⚠️ The 4 HUMAN figures in figs/ (human_*.png) are STILL pilot-pool (240) snapshots —
+  regenerate once confirmatory human data on the 480 pool is collected.
+
 **PENDING / NEXT:**
-- **LLM arm on the extended pool**: re-run all-items for the 3 regimes over the 487 items —
-  the ~240 originals are served from cache ($0), only new items are new spend (~$2-4).
-  Then the 1-misc/2-misc figures can regenerate with the refuted design (dist_B row 3 goes
-  from n=12 to n≈126 refuted items pool-wide).
-- **Bayesian analyses on the extended pool** (plot_bayes_1misc_* etc.) — regenerate when the
-  three-way confirmatory analysis starts; current PNGs are pilot-pool snapshots referenced by
-  results.tex, so re-copy carefully.
+- **Regenerate human figures + results.tex prose** once confirmatory human data arrives on the
+  480 pool (the refuted contrast is now a real within-subject factor: 6 refuted + 6 unsupported
+  foils per participant).
 - **Finalize the prereg decisions** (with the user, discussion-first): hypothesis set +
   directions — the refutation contrast is now a natural H5 (FA lower on refuted than
   unsupported foils; within-subject 6v6 per participant, pilot hint 0.29 vs 0.39) —
