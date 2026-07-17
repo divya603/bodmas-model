@@ -30,6 +30,7 @@ import WindowSizerView from '@/builtins/windowSizer/WindowSizerView.vue'
 import InstructionsView from '@/user/components/trace_judgment/InstructionsView.vue'
 import PracticeView from '@/user/components/trace_judgment/PracticeView.vue'
 import TraceJudgmentView from '@/user/components/trace_judgment/TraceJudgmentView.vue'
+import StrategyQuestionView from '@/user/components/trace_judgment/StrategyQuestionView.vue'
 import TaskFeedbackSurveyView from '@/user/components/TaskFeedbackSurveyView.vue'
 
 // #3. Import smile API and timeline
@@ -202,6 +203,12 @@ timeline.pushSeqView({
   name: 'exp',
   path: '/experiment',
   component: TraceJudgmentView,
+})
+
+// strategy free-response (its own screen, right after the task)
+timeline.pushSeqView({
+  name: 'strategy',
+  component: StrategyQuestionView,
 })
 
 // feedback survey

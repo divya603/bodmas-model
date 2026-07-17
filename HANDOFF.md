@@ -215,8 +215,13 @@ GitHub Actions (`gh run list`/`gh run watch` to monitor; a `deploy-error` workfl
 on success — that's normal).
 
 - **`src/user/design.js`** — the timeline (consent → windowsizer → instructions → comprehension quiz
-  → practice (3 feedback trials) → experiment → feedback survey → demographics → save → debrief →
-  thanks).
+  → practice (3 feedback trials) → experiment → strategy question → feedback survey → demographics →
+  save → debrief → thanks).
+- **`src/user/components/trace_judgment/StrategyQuestionView.vue`** — standalone free-response screen
+  shown right after the task (added 2026-07-17): "Please describe the strategy or strategies you
+  used to decide how much you agreed with each statement..." Required (Continue disabled until
+  non-empty). Saved as `pageData_strategy` (`{strategy: ...}`). Then Continue leads to the original
+  feedback survey (difficulty/enjoyment/general feedback/issues, unchanged).
 - **`src/user/components/trace_judgment/InstructionsView.vue`** — task instructions (button says
   "Next"); announces the 3 practice questions and that they don't count toward the bonus.
 - **`src/user/components/trace_judgment/PracticeView.vue`** — 3 practice trials (added 2026-07-16
