@@ -308,20 +308,49 @@ def build_pool(n_per_category=60):
 
 def _index_pool(pool):
     """Lookup indices used by sample_form to fetch an item matching an exact
-    (present, probed[, target]) combination, rather than sampling blind."""
-    idx = {'A': {}, 'B': {}, 'C': {}, 'D': {}}
+    (present, probed[, target/status]) combination, rather than sampling blind.
+    B/D keys include foil_status ('refuted'/'unsupported'; written by
+    extend_pool.py), so sample_form REQUIRES the extended pool. Items with
+    foil_status 'ambiguous' land under unreachable keys and are never drawn.
+    'D_any' is a status-agnostic D index used only by the emergency fallback."""
+    idx = {'A': {}, 'B': {}, 'C': {}, 'D': {}, 'D_any': {}}
     for it in pool:
         cat = it['category']
         if cat == 'A':
             key = it['misconceptions'][0]
         elif cat == 'B':
-            key = (it['misconceptions'][0], it['probed_misconception'])
+            key = (it['misconceptions'][0], it['probed_misconception'],
+                   it.get('foil_status'))
         elif cat == 'C':
             key = (it['probed_misconception'], it['which_target'])   # (target, early/late)
         else:  # D
-            key = (tuple(it['misconceptions']), it['probed_misconception'])
+            key = (tuple(it['misconceptions']), it['probed_misconception'],
+                   it.get('foil_status'))
+            idx['D_any'].setdefault(key[:2], []).append(it)
         idx[cat].setdefault(key, []).append(it)
     return idx
+
+
+def _match_foils(rules, pairs, ok):
+    """Backtracking perfect matching: assign each rule a distinct pair with
+    ok(rule, pair) true. Returns {rule: pair} in `rules` order, or None."""
+    assignment, used = {}, set()
+
+    def bt(i):
+        if i == len(rules):
+            return True
+        for p in pairs:
+            if p in used or not ok(rules[i], p):
+                continue
+            used.add(p)
+            assignment[rules[i]] = p
+            if bt(i + 1):
+                return True
+            used.discard(p)
+            del assignment[rules[i]]
+        return False
+
+    return assignment if bt(0) else None
 
 
 def sample_form(pool, seed=None, n_per_category=6):
@@ -333,14 +362,21 @@ def sample_form(pool, seed=None, n_per_category=6):
       B — each of the 6 misconceptions appears exactly once as the present
           misconception, AND (via a fixed nonzero cyclic shift, chosen per
           participant) exactly once as the foil — no misconception is
-          over/under-used as foil within this form.
+          over/under-used as foil within this form. Of the 6 foils, exactly 3
+          are ACTIVELY REFUTED by the trace (foil_status='refuted') and 3 are
+          merely unsupported; which rules are refuted rotates per participant.
       C — each of the 6 misconceptions probed once as target; exactly half
           shown as the EARLY error (which_target='first') and half as the LATE
           error ('second'), with which misconceptions are 'first' rotated per
           participant so coverage is even across the sample. Pairs kept distinct
           within a form.
-      D — n_per_category distinct pairs, foil rotated across each pair's 4
-          non-member misconceptions via a per-participant offset.
+      D — 6 distinct pairs whose foils cover all 6 misconceptions exactly once
+          (backtracking assignment; foil never a member of its pair), with the
+          refuted set the COMPLEMENT of B's. Across B+D every rule is therefore
+          named as a foil exactly twice per form: once refuted, once
+          unsupported — 6 refuted + 6 unsupported foil trials per participant.
+
+    Requires the EXTENDED pool (extend_pool.py: foil_status on all B/D items).
 
     Different participants get a different shift/offset/pair-sample (all
     derived from `seed`), so coverage varies across participants while every
@@ -362,11 +398,16 @@ def sample_form(pool, seed=None, n_per_category=6):
         form.append(rng.choice(idx['A'][mid]))
 
     # B — one of each misconception as present; foil = fixed nonzero shift,
-    # so foil also covers all 6 exactly once (a cyclic shift is a bijection)
+    # so foil also covers all 6 exactly once (a cyclic shift is a bijection).
+    # 3 foils refuted + 3 unsupported; which rules are refuted rotates via r,
+    # and category D below uses the complementary set.
     k = rng.choice([1, 2, 3, 4, 5])
+    r = rng.randrange(len(IDS))
+    refuted_B = {IDS[(r + j) % len(IDS)] for j in range(len(IDS) // 2)}
     for i, mid in enumerate(IDS):
         foil = IDS[(i + k) % len(IDS)]
-        form.append(rng.choice(idx['B'][(mid, foil)]))
+        status = 'refuted' if foil in refuted_B else 'unsupported'
+        form.append(rng.choice(idx['B'][(mid, foil, status)]))
 
     # C — each of the 6 misconceptions probed once as target; 3 shown as the
     # early error ('first'), 3 as the late error ('second'); which 3 are 'first'
@@ -397,12 +438,37 @@ def sample_form(pool, seed=None, n_per_category=6):
             break
     form.extend(c_items if c_items is not None else _pick_C(require_distinct=False))
 
-    # D — 6 distinct pairs, foil rotated across each pair's 4 non-members
-    offset = rng.randrange(4)
-    for j, pair in enumerate(rng.sample(PAIRS, n_per_category)):
-        others = [m for m in IDS if m not in pair]
-        foil   = others[(offset + j) % len(others)]
-        form.append(rng.choice(idx['D'][(pair, foil)]))
+    # D — 6 distinct pairs whose foils cover all 6 rules exactly once (foil
+    # never a member of its pair), refuted set = complement of B's, so each
+    # rule is refuted exactly once per form across B+D combined.
+    refuted_D = set(IDS) - refuted_B
+
+    def _d_status(rule):
+        return 'refuted' if rule in refuted_D else 'unsupported'
+
+    d_items = None
+    for _ in range(50):
+        pairs = rng.sample(PAIRS, n_per_category)
+        order = IDS[:]
+        rng.shuffle(order)
+        ok = lambda rule, pair: (rule not in pair
+                                 and idx['D'].get((pair, rule, _d_status(rule))))
+        assignment = _match_foils(order, pairs, ok)
+        if assignment:
+            d_items = [rng.choice(idx['D'][(pair, rule, _d_status(rule))])
+                       for rule, pair in assignment.items()]
+            break
+    if d_items is None:
+        # emergency fallback (should not happen with the full 120-cell pool):
+        # old rotation logic, status ignored — a mildly unbalanced form beats
+        # a crashed session
+        d_items = []
+        offset = rng.randrange(4)
+        for j, pair in enumerate(rng.sample(PAIRS, n_per_category)):
+            others = [m for m in IDS if m not in pair]
+            foil = others[(offset + j) % len(others)]
+            d_items.append(rng.choice(idx['D_any'][(pair, foil)]))
+    form.extend(d_items)
 
     rng.shuffle(form)
 
@@ -418,8 +484,16 @@ def sample_form(pool, seed=None, n_per_category=6):
 
 
 if __name__ == '__main__':
+    import sys
     import time
     from collections import Counter
+
+    if '--rebuild-240' not in sys.argv:
+        sys.exit("stimulus_pool.json is now the EXTENDED 480-design pool "
+                 "(extend_pool.py). Running this script would overwrite it "
+                 "with a fresh 240-item pool WITHOUT foil_status, which "
+                 "sample_form requires. If you really want that, pass "
+                 "--rebuild-240 and then re-run extend_pool.py afterwards.")
 
     t0   = time.time()
     pool = build_pool()

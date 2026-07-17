@@ -10,8 +10,9 @@ explains the student's work.
 Answer-leak guard: the prompt may only contain `expression`, `trace`,
 `belief_statement`, and `student_name`. The answer-revealing fields —
 statement_correct, misconceptions, probed_misconception, which_target, category,
-num_misconceptions — must NEVER appear. `user_content` builds the prompt from only
-the allowed fields, and `assert_no_leak` double-checks the rendered text.
+num_misconceptions, foil_status, io_foil_marginal — must NEVER appear.
+`user_content` builds the prompt from only the allowed fields, and
+`assert_no_leak` double-checks the rendered text.
 """
 
 from __future__ import annotations
@@ -28,6 +29,8 @@ _LEAK_FIELDS = (
     "which_target",
     "category",
     "num_misconceptions",
+    "foil_status",        # extended pool (extend_pool.py): refuted/unsupported
+    "io_foil_marginal",
 )
 
 # ── Verbatim instructions from InstructionsView.vue ──────────────────────────────────

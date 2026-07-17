@@ -16,7 +16,8 @@ auto-deploys the human experiment** to a live site (see §3).
 
 We study **how people (and LLMs, and an ideal observer) detect arithmetic order-of-operations
 misconceptions** from a student's step-by-step work. There are **three "observers"** all judging
-the **same 240-item stimulus pool**:
+the **same stimulus pool** (240 items for the pilot; extended on 2026-07-17 to the **480-item
+refutation design**, 487 on disk — see §2):
 
 1. **Humans** — an online experiment (Smile/Vue, deployed live, run on Prolific).
 2. **A Bayesian ideal observer** — infers which misconception(s) generated a trace.
@@ -41,11 +42,17 @@ answer is right.
 | `same_priority_rtl` | evaluates equal-priority ops right-to-left instead of left-to-right |
 | `outside_bracket_first` | evaluates ops outside a bracket before resolving its contents |
 
-### The 4 stimulus categories (A/B/C/D), 60 items each = 240
+### The 4 stimulus categories (A/B/C/D), 120 sampling-eligible items each = 480
 - **A** — 1 misconception in trace; statement **names it** → correct answer = **agree**.
 - **B** — 1 misconception in trace; statement names a **different/absent** one (foil) → **disagree**.
 - **C** — **2** misconceptions in trace; statement names **one of the two** → **agree** (a *partial* explanation).
 - **D** — 2 misconceptions; statement names **neither** (foil) → **disagree**.
+
+B and D foils additionally carry a controlled **refutation status** (`foil_status`):
+**refuted** = the trace passes a decision point where the foil had a visible chance to manifest
+and the student demonstrably didn't take it (ideal-observer marginal < 0.15); **unsupported** =
+the foil never had an opportunity (marginal 0.15–0.35). Each participant sees 12 foil trials:
+**6 refuted + 6 unsupported, every rule named as a foil exactly twice (once each status)**.
 
 Scoring collapses the 1–6 rating to binary (**≥4 = agree**), correct if it matches the category's
 direction. **Signal-detection framing** (used throughout the LLM analysis): "agree" = "yes";
@@ -126,16 +133,38 @@ Pure-Python model of how a "learner" with misconceptions solves arithmetic.
   `tree_edges()`, `correct_answer()`.
 - **22 learner profiles** = expert `()` + 6 singles + 15 pairs = `C(6,2)+7`.
 
-### Pool generation — `stimulus_pool.py`
-- Builds the **240-item pool** (`stimulus_pool.json`), 60 per category A/B/C/D. Each item has:
+### Pool generation — `stimulus_pool.py` + `extend_pool.py`
+- `stimulus_pool.py` builds the original **240-item pool**, 60 per category. Each item has:
   `id, category, expression, trace (list of step strings), misconceptions (present, ground truth),
   probed_misconception (named in statement), statement_correct (bool), which_target (C only:
   'first'/'second'), num_misconceptions, student_name, belief_statement`.
+  ⚠️ Running it standalone now ABORTS unless `--rebuild-240` is passed (it would clobber the
+  extended pool with one lacking `foil_status`, which sample_form requires).
+- **`extend_pool.py` (2026-07-17, seed 20260717)** extended the pool to the **480 design**
+  (487 items on disk), preserving all 240 originals byte-for-byte (asserted) and adding:
+  A +60 (6 rules × 20), B +61 (6 present × 5 foils × {refuted, unsupported} × 2), C +60
+  (6 targets × 2 positions × 10, chronological balance kept), D +66 (15 pairs × 4 foils ×
+  {refuted, unsupported} × 1). All B/D items (old + new) get **`foil_status`** and
+  **`io_foil_marginal`**. Status classification uses TWO signals that must agree:
+  *visible refutation* (state-local: the foil forbids the observed step, OR offers an extra
+  action never taken — the latter covers outside()'s soft ~0.12 refutations) AND the marginal
+  cut (refuted < 0.15 < unsupported ≤ 0.35; observed gap in final pool: 0.148 vs 0.167).
+  Items where the signals disagree (e.g. D's combinatorial suppression, where the marginal is
+  low for reasons no participant can see) are marked **`ambiguous`** — 7 old items (1 B, 6 D)
+  stay in the pool file for continuity but are NEVER sampled. New expressions deduped against
+  pool + the 3 practice items. Writes all THREE pool copies (base-task, src/user/data,
+  llm_exp/data).
 - **Answer-leak-relevant fields** (never shown to a solver): `statement_correct, misconceptions,
-  probed_misconception, which_target, category, num_misconceptions`.
+  probed_misconception, which_target, category, num_misconceptions, foil_status,
+  io_foil_marginal`.
 - `sample_form(pool, seed)` → one participant's **balanced 24-item draw** (6 per category, distinct
-  student names). **This is mirrored in JS (`src/user/utils/sampleForm.js`) — the two MUST stay in
-  sync.**
+  student names). NEW balance (requires the extended pool): B = 3 refuted + 3 unsupported foils
+  (refuted rules rotate per participant); D = 6 distinct pairs whose foils cover all 6 rules
+  exactly once (backtracking assignment) with the refuted set the COMPLEMENT of B's → per form,
+  every rule is a foil exactly twice, once refuted once unsupported. Verified balanced over
+  500 seeds in BOTH languages; B-vs-D carrier of each rule's refuted slot splits ~50/50 across
+  participants. **Mirrored in JS (`src/user/utils/sampleForm.js`) and in
+  `llm_exp/bodmas_llm/sample_session.py` — the three MUST stay in sync.**
 
 ### ⚠️ Category-C chronological rebalance (important recent fix)
 Originally `which_target` (first/second) meant *canonical pair order*, which is **invisible to
@@ -154,9 +183,10 @@ exactly 3 first / 3 second per participant, rotating across participants.
   by the marginal, and the professor confirmed "if the marginal is fine, the model is fine").
 - **`misconception_difficulty.py`** → `misconception_difficulty.json`: the **ideal-observer
   difficulty baseline** — avg marginal on the true misconception per rule, split alone vs paired.
-  **Re-run on the current (rebalanced) pool.** Current ranking hardest→easiest:
-  `outside_bracket_first (0.69) < sub_before_div < add_before_div < add_before_mul < sub_before_mul
-  < same_priority_rtl (0.82)`. Paired marginals rose after the C fix (e.g. sub_before_mul 0.52→0.74).
+  **Re-run on the extended 487-item pool (2026-07-17).** Ranking hardest→easiest:
+  `outside_bracket_first (0.68) < sub_before_div (0.75) < add_before_mul (0.77) < add_before_div
+  (0.78) < sub_before_mul (0.80) < same_priority_rtl (0.81)` — endpoints unchanged from the
+  240-pool baseline, small mid-rank shuffle (add<× and add<÷ swapped).
 - **`test_recovery.py`** — MAP-recovery validation.
 - **`app.py`** — Streamlit app, 4 tabs: Expert Learner, Misconception Learner, Infer Learner Type,
   Misconception Difficulty. Run: `cd base-task && streamlit run app.py`.
@@ -385,6 +415,9 @@ errors (1126 vs 672) cost more.
   (base-task + src/user/data), and check sample_form/sampleForm.js balance still holds.
   Single item = illustration, not inference; `make_synthetic_subdiv_item.py` can mass-produce
   a balanced refutable set if this becomes a registered contrast for a future human wave.
+  **SUPERSEDED (2026-07-17): the extended pool (extend_pool.py, §2) now contains refutable
+  sub<÷ foil items as part of the controlled refutation design — SYNB002 stays in
+  synthetic_items.json for provenance only and will not be swapped into the pool.**
 - **`analysis-codes/1-Misc/plot_1misc_response_spread.py`** — Likert-spread dot plots for categories
   A (statement matches) and B (foil); x = **misconception present in the trace**, y = 1–6, dot per
   trial per participant, green→red.
@@ -443,6 +476,13 @@ Writing style: **no em dashes** (user: "screams AI").
 - LLM experiment: all 240 items × 3 regimes, 0 errors; all figures + `report/report.tex` written.
 - **Pre-registration draft** written (`PreReg/prereg.tex`, §6) — hypotheses/exclusions flagged,
   awaiting discussion.
+- **Pool extended to the 480 refutation design (2026-07-17):** 487 items on disk (480
+  sampling-eligible + 7 preserved ambiguous), foil refutation status controlled in B and D,
+  per-form 6 refuted + 6 unsupported foils with every rule in both statuses (see §0/§2).
+  All three sampling mirrors updated + verified over 500 seeds each; LLM leak guard extended
+  (foil_status, io_foil_marginal) and its tests pass over 487; practice items re-verified
+  not in pool; difficulty baseline re-run. This is the pool for the confirmatory wave; the
+  pilot ran on the original 240 (all preserved).
 - **Practice trials built AND DEPLOYED (2026-07-16/17, commit 26af20f):** 3 feedback practice
   trials before the main task (PracticeView.vue + practice_items.json +
   make_human_practice_items.py; instructions updated). This implements the "practice trials
@@ -454,8 +494,17 @@ Writing style: **no em dashes** (user: "screams AI").
   the deployed practice flow.
 
 **PENDING / NEXT:**
+- **LLM arm on the extended pool**: re-run all-items for the 3 regimes over the 487 items —
+  the ~240 originals are served from cache ($0), only new items are new spend (~$2-4).
+  Then the 1-misc/2-misc figures can regenerate with the refuted design (dist_B row 3 goes
+  from n=12 to n≈126 refuted items pool-wide).
+- **Bayesian analyses on the extended pool** (plot_bayes_1misc_* etc.) — regenerate when the
+  three-way confirmatory analysis starts; current PNGs are pilot-pool snapshots referenced by
+  results.tex, so re-copy carefully.
 - **Finalize the prereg decisions** (with the user, discussion-first): hypothesis set +
-  directions, participant exclusion rule (candidate: below-chance binomial gate ≤7/24, plus
+  directions — the refutation contrast is now a natural H5 (FA lower on refuted than
+  unsupported foils; within-subject 6v6 per participant, pilot hint 0.29 vs 0.39) —
+  participant exclusion rule (candidate: below-chance binomial gate ≤7/24, plus
   no-gate sensitivity), confirmatory N/power analysis, registry + timeline.
 - **Run the confirmatory cohort** after locking; C-positional questions especially need n.
 - **Three-way comparison** (human × Bayesian × LLM per misconception/category) — the headline.
@@ -474,8 +523,9 @@ Writing style: **no em dashes** (user: "screams AI").
 
 ```bash
 # Model / pool
-cd base-task && python3 stimulus_pool.py            # regenerate full pool (rarely; C-fix uses regenerate_C.py)
+cd base-task && python3 stimulus_pool.py            # ABORTS without --rebuild-240 (would clobber the extended pool)
 cd base-task && python3 regenerate_C.py             # regenerate ONLY category C (preserves A/B/D)
+cd base-task && python3 extend_pool.py              # rebuild the 480 refutation design from a 240 base (writes all 3 copies)
 cd base-task && python3 misconception_difficulty.py # re-run Bayesian difficulty baseline
 cd base-task && python3 make_human_practice_items.py # regenerate the 3 human practice trials
 cd base-task && streamlit run app.py                # the model explorer UI
