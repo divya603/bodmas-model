@@ -293,13 +293,17 @@
   }
   const OBS = [['human','Human'],['bayes','Bayes'],['thinking','Haiku·think'],['hdirect','Haiku·direct'],['gpt4o','GPT-4o']];
 
-  function verdCell(v) {
+  function verdCell(v, valueFirst) {
     if (!v.has) return '<span class="verd na"><span class="dot"></span>—</span>';
     // color by the verdict itself: agree = green, disagree = red (same convention
     // as the answer column, so a wrong observer shows up as a color mismatch)
     const cls = v.agree ? 'ok' : 'bad';
     const word = v.agree ? 'agree' : 'disagree';
-    return `<span class="verd ${cls}"><span class="dot"></span>${word}<span class="val">${v.val}${v.sub?' · '+v.sub:''}</span></span>`;
+    const sub = v.sub ? ' · ' + v.sub : '';
+    // Bayes is a continuous probability, so lead with the number and keep the
+    // agree/disagree side as the secondary label (green >= 0.5, red < 0.5)
+    if (valueFirst) return `<span class="verd ${cls}"><span class="dot"></span><b>${v.val}</b><span class="val">${word}${sub}</span></span>`;
+    return `<span class="verd ${cls}"><span class="dot"></span>${word}<span class="val">${v.val}${sub}</span></span>`;
   }
 
   // disagreement score: how many observer pairs split on agree/disagree
@@ -371,7 +375,7 @@
         `<td><span class="idcell">${it.id}</span> <span class="chip cat-${it.cat}">${it.cat}</span> ${foil}</td>` +
         `<td class="exprcell" title="${it.expr}">${it.expr}</td>` +
         `<td><span class="answer ${it.sc ? 'ok' : 'bad'}"><span class="dot"></span>${it.sc ? 'agree' : 'disagree'}</span></td>` +
-        OBS.map(o => `<td>${verdCell(verd(it, o[0]))}</td>`).join('');
+        OBS.map(o => `<td>${verdCell(verd(it, o[0]), o[0] === 'bayes')}</td>`).join('');
       tr.addEventListener('click', () => openDrawer(it.id));
       frag.appendChild(tr);
     });
