@@ -1,0 +1,553 @@
+<style>
+  :root {
+    --bg: #f5f7fa; --surface: #ffffff; --surface-2: #eef1f6; --surface-3: #e4e9f0;
+    --border: #d7dee8; --border-strong: #c2ccd9;
+    --ink: #1a2230; --ink-2: #566072; --ink-3: #8a94a4;
+    --accent: #3b5bdb; --accent-soft: #e7ecfd;
+    --good: #2b8a3e; --good-soft: #e7f4ea;
+    --bad: #c92a2a; --bad-soft: #fbe9e9;
+    --warn: #e8790c; --warn-soft: #fdefe0;
+    --mono: ui-monospace, "SF Mono", "SFMono-Regular", "Menlo", "Consolas", monospace;
+    --sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    --shadow: 0 1px 2px rgba(20,30,50,.06), 0 8px 24px rgba(20,30,50,.08);
+    --r: 9px;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #0f131a; --surface: #161c26; --surface-2: #1d2530; --surface-3: #26303d;
+      --border: #2a3542; --border-strong: #3a4655;
+      --ink: #e7ecf3; --ink-2: #9aa6b6; --ink-3: #6b7788;
+      --accent: #6d8bff; --accent-soft: #1e2a4d;
+      --good: #4bbd63; --good-soft: #16301f;
+      --bad: #ff6b6b; --bad-soft: #351a1c;
+      --warn: #ffa94d; --warn-soft: #35260f;
+      --shadow: 0 1px 2px rgba(0,0,0,.3), 0 10px 30px rgba(0,0,0,.4);
+    }
+  }
+  :root[data-theme="light"] {
+    --bg: #f5f7fa; --surface: #ffffff; --surface-2: #eef1f6; --surface-3: #e4e9f0;
+    --border: #d7dee8; --border-strong: #c2ccd9;
+    --ink: #1a2230; --ink-2: #566072; --ink-3: #8a94a4;
+    --accent: #3b5bdb; --accent-soft: #e7ecfd;
+    --good: #2b8a3e; --good-soft: #e7f4ea; --bad: #c92a2a; --bad-soft: #fbe9e9;
+    --warn: #e8790c; --warn-soft: #fdefe0;
+    --shadow: 0 1px 2px rgba(20,30,50,.06), 0 8px 24px rgba(20,30,50,.08);
+  }
+  :root[data-theme="dark"] {
+    --bg: #0f131a; --surface: #161c26; --surface-2: #1d2530; --surface-3: #26303d;
+    --border: #2a3542; --border-strong: #3a4655;
+    --ink: #e7ecf3; --ink-2: #9aa6b6; --ink-3: #6b7788;
+    --accent: #6d8bff; --accent-soft: #1e2a4d;
+    --good: #4bbd63; --good-soft: #16301f; --bad: #ff6b6b; --bad-soft: #351a1c;
+    --warn: #ffa94d; --warn-soft: #35260f;
+    --shadow: 0 1px 2px rgba(0,0,0,.3), 0 10px 30px rgba(0,0,0,.4);
+  }
+
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--bg); color: var(--ink); font-family: var(--sans);
+    font-size: 14px; line-height: 1.5; -webkit-font-smoothing: antialiased; }
+  .wrap { max-width: 1320px; margin: 0 auto; padding: 22px 22px 80px; }
+  h1 { font-size: 21px; font-weight: 680; letter-spacing: -.01em; margin: 0; text-wrap: balance; }
+  .sub { color: var(--ink-2); font-size: 13px; margin-top: 3px; }
+  a { color: var(--accent); }
+  .mono { font-family: var(--mono); font-variant-numeric: tabular-nums; }
+  .num { font-variant-numeric: tabular-nums; }
+
+  /* header */
+  header.top { display: flex; justify-content: space-between; align-items: flex-start; gap: 20px; flex-wrap: wrap; margin-bottom: 18px; }
+  .themebtn { font: inherit; font-size: 12px; color: var(--ink-2); background: var(--surface); border: 1px solid var(--border);
+    border-radius: 20px; padding: 6px 13px; cursor: pointer; }
+  .themebtn:hover { border-color: var(--border-strong); color: var(--ink); }
+
+  /* stat tiles */
+  .tiles { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 10px; margin-bottom: 20px; }
+  .tile { background: var(--surface); border: 1px solid var(--border); border-radius: var(--r); padding: 13px 15px; }
+  .tile .lab { font-size: 11px; text-transform: uppercase; letter-spacing: .06em; color: var(--ink-3); font-weight: 600; }
+  .tile .big { font-size: 26px; font-weight: 680; margin-top: 4px; font-variant-numeric: tabular-nums; }
+  .tile .meta { font-size: 11.5px; color: var(--ink-2); margin-top: 2px; }
+  .tile .spark { display: flex; gap: 3px; margin-top: 9px; height: 26px; align-items: flex-end; }
+  .tile .spark i { flex: 1; background: var(--surface-3); border-radius: 3px 3px 1px 1px; position: relative; min-height: 2px; }
+  .tile .spark i b { position: absolute; inset: auto 0 0 0; background: var(--accent); border-radius: 3px 3px 1px 1px; }
+
+  /* tabs */
+  nav.tabs { display: flex; gap: 4px; border-bottom: 1px solid var(--border); margin-bottom: 16px; }
+  nav.tabs button { font: inherit; font-size: 13.5px; font-weight: 560; color: var(--ink-2); background: none; border: none;
+    padding: 9px 14px; cursor: pointer; border-bottom: 2px solid transparent; margin-bottom: -1px; }
+  nav.tabs button:hover { color: var(--ink); }
+  nav.tabs button[aria-selected="true"] { color: var(--accent); border-bottom-color: var(--accent); }
+
+  /* filters */
+  .filters { display: flex; gap: 10px; flex-wrap: wrap; align-items: center; margin-bottom: 12px; }
+  .filters label { font-size: 12px; color: var(--ink-2); display: inline-flex; gap: 5px; align-items: center; }
+  select, input[type=search] { font: inherit; font-size: 13px; color: var(--ink); background: var(--surface);
+    border: 1px solid var(--border); border-radius: 7px; padding: 6px 9px; }
+  input[type=search] { min-width: 150px; }
+  select:focus, input:focus, button:focus-visible { outline: 2px solid var(--accent); outline-offset: 1px; }
+  .chipset { display: inline-flex; gap: 4px; }
+  .chipset button { font: inherit; font-size: 12px; font-weight: 600; padding: 5px 10px; border-radius: 20px; cursor: pointer;
+    background: var(--surface); border: 1px solid var(--border); color: var(--ink-2); }
+  .chipset button[aria-pressed="true"] { background: var(--accent-soft); border-color: var(--accent); color: var(--accent); }
+  .count { margin-left: auto; font-size: 12.5px; color: var(--ink-2); }
+
+  /* table */
+  .tablewrap { overflow-x: auto; border: 1px solid var(--border); border-radius: var(--r); background: var(--surface); }
+  table { border-collapse: collapse; width: 100%; font-size: 13px; }
+  thead th { position: sticky; top: 0; background: var(--surface-2); text-align: left; font-size: 11px; text-transform: uppercase;
+    letter-spacing: .04em; color: var(--ink-3); font-weight: 700; padding: 9px 10px; border-bottom: 1px solid var(--border); white-space: nowrap; cursor: pointer; user-select: none; }
+  thead th.no-sort { cursor: default; }
+  thead th .ar { color: var(--accent); }
+  tbody td { padding: 8px 10px; border-bottom: 1px solid var(--border); vertical-align: middle; }
+  tbody tr { cursor: pointer; }
+  tbody tr:hover { background: var(--surface-2); }
+  tbody tr.sel { background: var(--accent-soft); }
+  .idcell { font-family: var(--mono); font-weight: 600; font-size: 12.5px; }
+  .exprcell { font-family: var(--mono); font-size: 12.5px; color: var(--ink); max-width: 230px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+
+  /* chips */
+  .chip { display: inline-block; font-size: 11px; font-weight: 700; padding: 2px 7px; border-radius: 5px; letter-spacing: .02em; white-space: nowrap; }
+  .cat-A { background: #e7ecfd; color: #2f43a6; } .cat-B { background: #fdefe0; color: #a35907; }
+  .cat-C { background: #e7f4ea; color: #1d6b2c; } .cat-D { background: #f3e8fb; color: #7b34ab; }
+  :root[data-theme="dark"] .cat-A, [data-theme="dark"] .cat-A { background:#22305e; color:#a8bbff; }
+  :root[data-theme="dark"] .cat-B, [data-theme="dark"] .cat-B { background:#3a2a12; color:#ffc98a; }
+  :root[data-theme="dark"] .cat-C, [data-theme="dark"] .cat-C { background:#173322; color:#8fe0a3; }
+  :root[data-theme="dark"] .cat-D, [data-theme="dark"] .cat-D { background:#2f1c42; color:#d6a8f0; }
+  @media (prefers-color-scheme: dark) {
+    .cat-A { background:#22305e; color:#a8bbff; } .cat-B { background:#3a2a12; color:#ffc98a; }
+    .cat-C { background:#173322; color:#8fe0a3; } .cat-D { background:#2f1c42; color:#d6a8f0; }
+  }
+  .fs { font-size: 10.5px; font-weight: 700; text-transform: uppercase; letter-spacing: .04em; }
+  .fs-ref { color: var(--bad); } .fs-uns { color: var(--ink-3); } .fs-amb { color: var(--warn); }
+
+  /* verdict cell (per observer) */
+  .verd { display: inline-flex; align-items: center; gap: 5px; font-variant-numeric: tabular-nums; }
+  .dot { width: 8px; height: 8px; border-radius: 50%; flex: none; }
+  .ok .dot { background: var(--good); } .bad .dot { background: var(--bad); } .na .dot { background: var(--border-strong); }
+  .ok { color: var(--good); } .bad { color: var(--bad); } .na { color: var(--ink-3); }
+  .verd .val { color: var(--ink-2); font-size: 12px; }
+
+  /* drawer */
+  .scrim { position: fixed; inset: 0; background: rgba(15,20,30,.42); opacity: 0; pointer-events: none; transition: opacity .18s; z-index: 40; }
+  .scrim.on { opacity: 1; pointer-events: auto; }
+  .drawer { position: fixed; top: 0; right: 0; height: 100%; width: min(560px, 94vw); background: var(--surface);
+    border-left: 1px solid var(--border); box-shadow: var(--shadow); transform: translateX(100%); transition: transform .2s ease;
+    z-index: 50; overflow-y: auto; }
+  .drawer.on { transform: none; }
+  .drawer .dhead { position: sticky; top: 0; background: var(--surface); border-bottom: 1px solid var(--border);
+    padding: 15px 20px; display: flex; justify-content: space-between; align-items: center; gap: 12px; z-index: 1; }
+  .drawer .dbody { padding: 18px 20px 40px; }
+  .closex { font: inherit; font-size: 20px; line-height: 1; background: none; border: none; color: var(--ink-2); cursor: pointer; padding: 4px 8px; border-radius: 6px; }
+  .closex:hover { background: var(--surface-2); color: var(--ink); }
+
+  .sec { font-size: 11px; text-transform: uppercase; letter-spacing: .06em; color: var(--ink-3); font-weight: 700; margin: 20px 0 8px; }
+  .sec:first-child { margin-top: 0; }
+  .expr-big { font-family: var(--mono); font-size: 17px; font-weight: 600; margin: 2px 0 4px; }
+  .traceblock { font-family: var(--mono); font-size: 13.5px; background: var(--surface-2); border: 1px solid var(--border);
+    border-radius: 8px; padding: 12px 14px; line-height: 1.85; }
+  .traceblock .st { display: block; }
+  .stmtbox { background: var(--warn-soft); border: 1px solid var(--warn); border-radius: 8px; padding: 11px 14px; font-style: italic; color: var(--ink); }
+  .answer { display: inline-flex; gap: 6px; align-items: center; font-weight: 700; }
+
+  .obsgrid { display: grid; grid-template-columns: 1fr auto auto; gap: 1px; background: var(--border); border: 1px solid var(--border); border-radius: 8px; overflow: hidden; }
+  .obsgrid > div { background: var(--surface); padding: 9px 12px; display: flex; align-items: center; }
+  .obsgrid .oh { background: var(--surface-2); font-size: 10.5px; text-transform: uppercase; letter-spacing: .04em; color: var(--ink-3); font-weight: 700; }
+  .obsgrid .oname { font-weight: 600; }
+  .obsgrid . tiny { color: var(--ink-3); }
+  .osub { font-size: 11px; color: var(--ink-3); margin-left: 6px; font-weight: 500; }
+
+  .hbar { display: flex; height: 22px; border-radius: 6px; overflow: hidden; border: 1px solid var(--border); background: var(--surface-2); }
+  .hbar > span { display: flex; align-items: center; justify-content: center; font-size: 11px; font-weight: 700; color: #fff; }
+  .hbar .dis { background: var(--bad); } .hbar .agr { background: var(--good); }
+  .hresp { display: flex; flex-wrap: wrap; gap: 4px; margin-top: 8px; }
+  .hresp .pill { font-size: 11px; font-family: var(--mono); padding: 2px 7px; border-radius: 5px; border: 1px solid var(--border); }
+  .hresp .pill.a { background: var(--good-soft); color: var(--good); border-color: var(--good); }
+  .hresp .pill.d { background: var(--bad-soft); color: var(--bad); border-color: var(--bad); }
+
+  details.reason { border: 1px solid var(--border); border-radius: 8px; background: var(--surface-2); overflow: hidden; }
+  details.reason > summary { cursor: pointer; padding: 10px 13px; font-weight: 600; font-size: 13px; list-style: none; display: flex; justify-content: space-between; gap: 8px; align-items: center; }
+  details.reason > summary::-webkit-details-marker { display: none; }
+  details.reason[open] > summary { border-bottom: 1px solid var(--border); }
+  .reasontext { padding: 12px 14px; font-family: var(--mono); font-size: 12px; line-height: 1.7; white-space: pre-wrap; color: var(--ink); max-height: 380px; overflow-y: auto; }
+  .failtag { display: inline-block; font-size: 11px; font-weight: 700; padding: 3px 9px; border-radius: 6px; background: var(--bad-soft); color: var(--bad); border: 1px solid var(--bad); }
+
+  /* person view */
+  .plist { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 10px; }
+  .pcard { background: var(--surface); border: 1px solid var(--border); border-radius: var(--r); padding: 13px 15px; cursor: pointer; }
+  .pcard:hover { border-color: var(--accent); }
+  .pcard .pid { font-weight: 700; font-family: var(--mono); }
+  .pcard .pacc { font-size: 22px; font-weight: 680; font-variant-numeric: tabular-nums; }
+  .pcat { display: flex; gap: 3px; margin-top: 8px; }
+  .pcat span { flex: 1; text-align: center; font-size: 10.5px; font-weight: 700; padding: 3px 0; border-radius: 5px; font-variant-numeric: tabular-nums; }
+
+  /* thinking-errors view */
+  .fmsummary { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 10px; margin-bottom: 8px; }
+  .fmcard { background: var(--surface); border: 1px solid var(--border); border-radius: var(--r); padding: 12px 14px; }
+  .fmcard .fc { font-size: 22px; font-weight: 680; }
+  .fmcard .fn { font-weight: 640; margin-top: 2px; }
+  .fmcard .fd { font-size: 12px; color: var(--ink-2); margin-top: 3px; }
+  .headline { background: var(--surface-2); border: 1px solid var(--border); border-radius: var(--r); padding: 13px 16px; margin: 4px 0 18px; color: var(--ink); }
+
+  .empty { color: var(--ink-3); padding: 30px; text-align: center; }
+  .hide { display: none !important; }
+  @media (prefers-reduced-motion: reduce) { .drawer, .scrim { transition: none; } }
+</style>
+
+<div class="wrap">
+  <header class="top">
+    <div>
+      <h1>BODMAS stimulus explorer</h1>
+      <div class="sub" id="subline"></div>
+    </div>
+    <button class="themebtn" id="themebtn" type="button">Toggle theme</button>
+  </header>
+
+  <div class="tiles" id="tiles"></div>
+
+  <nav class="tabs" role="tablist">
+    <button role="tab" aria-selected="true" data-view="stim">Stimuli</button>
+    <button role="tab" aria-selected="false" data-view="person">By person</button>
+    <button role="tab" aria-selected="false" data-view="think">Thinking errors</button>
+  </nav>
+
+  <section id="view-stim">
+    <div class="filters">
+      <div class="chipset" id="catchips" role="group" aria-label="category">
+        <button data-cat="A" aria-pressed="false">A</button>
+        <button data-cat="B" aria-pressed="false">B</button>
+        <button data-cat="C" aria-pressed="false">C</button>
+        <button data-cat="D" aria-pressed="false">D</button>
+      </div>
+      <label>foil
+        <select id="fsel"><option value="">any</option><option value="refuted">refuted</option><option value="unsupported">unsupported</option><option value="ambiguous">ambiguous</option></select>
+      </label>
+      <label>named
+        <select id="msel"><option value="">any rule</option></select>
+      </label>
+      <label><input type="checkbox" id="humchk"> has human data</label>
+      <input type="search" id="q" placeholder="search id or expression" aria-label="search">
+      <label>sort
+        <select id="sortsel">
+          <option value="id">id</option>
+          <option value="hacc">human accuracy (low→high)</option>
+          <option value="disagree">observer disagreement</option>
+          <option value="bayes">bayes marginal</option>
+        </select>
+      </label>
+      <span class="count" id="count"></span>
+    </div>
+    <div class="tablewrap">
+      <table id="stimtable">
+        <thead><tr>
+          <th data-k="id">Item</th>
+          <th class="no-sort">Expression</th>
+          <th class="no-sort">Ans</th>
+          <th data-k="human">Human</th>
+          <th data-k="bayes">Bayes</th>
+          <th data-k="thinking">Haiku·think</th>
+          <th data-k="hdirect">Haiku·direct</th>
+          <th data-k="gpt4o">GPT-4o</th>
+        </tr></thead>
+        <tbody id="stimbody"></tbody>
+      </table>
+    </div>
+  </section>
+
+  <section id="view-person" class="hide">
+    <div id="personlist" class="plist"></div>
+  </section>
+
+  <section id="view-think" class="hide">
+    <div id="thinkwrap"></div>
+  </section>
+</div>
+
+<div class="scrim" id="scrim"></div>
+<aside class="drawer" id="drawer" aria-label="detail"></aside>
+
+<script id="D" type="application/json">__DATA__</script>
+<script id="F" type="application/json">__FAIL__</script>
+<script>
+(function () {
+  "use strict";
+  const DATA = JSON.parse(document.getElementById('D').textContent);
+  const FAIL = JSON.parse(document.getElementById('F').textContent);
+  const ITEMS = DATA.items, PARTS = DATA.participants;
+  const failById = {}; (FAIL.per_item || []).forEach(f => failById[f.id] = f);
+
+  const RULES = ['add_before_mul','add_before_div','sub_before_mul','sub_before_div','same_priority_rtl','outside_bracket_first'];
+  const SHORT = {add_before_mul:'add<×',add_before_div:'add<÷',sub_before_mul:'sub<×',sub_before_div:'sub<÷',same_priority_rtl:'RTL',outside_bracket_first:'outside()'};
+  const $ = s => document.querySelector(s);
+  const el = (t, c, h) => { const n = document.createElement(t); if (c) n.className = c; if (h != null) n.innerHTML = h; return n; };
+  const pct = x => (x == null ? '—' : Math.round(x * 100) + '%');
+
+  // ---- observer verdicts: everything maps to agree/disagree + correctness ----
+  function humanVerd(it) {
+    const h = it.human; if (!h.n) return { has:false };
+    const pa = h.nagree / h.n, agree = pa >= 0.5;
+    return { has:true, agree, ok: agree === (it.sc === true), val: pct(pa), sub: 'n=' + h.n };
+  }
+  function bayesVerd(it) {
+    if (it.bayes == null) return { has:false };
+    const agree = it.bayes >= 0.5;
+    return { has:true, agree, ok: agree === (it.sc === true), val: it.bayes.toFixed(2), sub: '' };
+  }
+  function llmVerd(it, key) {
+    const o = it.llm[key]; if (!o) return { has:false };
+    return { has:true, agree: o.r >= 4, ok: o.ok, val: String(o.r), sub: '' };
+  }
+  function verd(it, obs) {
+    if (obs === 'human') return humanVerd(it);
+    if (obs === 'bayes') return bayesVerd(it);
+    return llmVerd(it, obs);
+  }
+  const OBS = [['human','Human'],['bayes','Bayes'],['thinking','Haiku·think'],['hdirect','Haiku·direct'],['gpt4o','GPT-4o']];
+
+  function verdCell(v) {
+    if (!v.has) return '<span class="verd na"><span class="dot"></span>—</span>';
+    const cls = v.ok ? 'ok' : 'bad';
+    const word = v.agree ? 'agree' : 'disagree';
+    return `<span class="verd ${cls}"><span class="dot"></span>${word}<span class="val">${v.val}${v.sub?' · '+v.sub:''}</span></span>`;
+  }
+
+  // disagreement score: how many observer pairs split on agree/disagree
+  function disagreeScore(it) {
+    const vs = OBS.map(o => verd(it, o[0])).filter(v => v.has);
+    const a = vs.filter(v => v.agree).length, d = vs.length - a;
+    return Math.min(a, d); // 0 = unanimous
+  }
+  function humanAcc(it) { return it.human.n ? it.human.ncorr / it.human.n : null; }
+
+  // ---- header tiles ----
+  function accOf(obs) {
+    let n = 0, ok = 0;
+    ITEMS.forEach(it => { const v = verd(it, obs); if (v.has) { n++; if (v.ok) ok++; } });
+    return { acc: ok / n, n };
+  }
+  function catAcc(obs) {
+    const out = {};
+    'ABCD'.split('').forEach(c => {
+      let n = 0, ok = 0;
+      ITEMS.filter(it => it.cat === c).forEach(it => { const v = verd(it, obs); if (v.has) { n++; if (v.ok) ok++; } });
+      out[c] = n ? ok / n : null;
+    });
+    return out;
+  }
+  function renderTiles() {
+    const tiles = $('#tiles'); tiles.innerHTML = '';
+    const order = [['human','Humans'],['bayes','Bayes (ideal)'],['thinking','Haiku thinking'],['hdirect','Haiku direct'],['gpt4o','GPT-4o']];
+    order.forEach(([o, name]) => {
+      const a = accOf(o), cats = catAcc(o);
+      const spark = 'ABCD'.split('').map(c => `<i title="${c}: ${pct(cats[c])}"><b style="height:${Math.round((cats[c]||0)*100)}%"></b></i>`).join('');
+      const t = el('div', 'tile', `<div class="lab">${name}</div><div class="big">${pct(a.acc)}</div><div class="meta">${a.n} judged · A/B/C/D</div><div class="spark">${spark}</div>`);
+      tiles.appendChild(t);
+    });
+  }
+
+  // ---- stimuli table ----
+  const state = { cats: new Set(), fs: '', rule: '', hum: false, q: '', sort: 'id', dir: 1, sel: null };
+  function ruleSelect() {
+    const s = $('#msel'); RULES.forEach(r => { const o = el('option'); o.value = r; o.textContent = SHORT[r]; s.appendChild(o); });
+  }
+  function filtered() {
+    let a = ITEMS.slice();
+    if (state.cats.size) a = a.filter(it => state.cats.has(it.cat));
+    if (state.fs) a = a.filter(it => it.fs === state.fs);
+    if (state.rule) a = a.filter(it => it.probed === state.rule);
+    if (state.hum) a = a.filter(it => it.human.n > 0);
+    if (state.q) { const q = state.q.toLowerCase(); a = a.filter(it => it.id.toLowerCase().includes(q) || it.expr.toLowerCase().includes(q)); }
+    const key = state.sort;
+    const val = it => {
+      if (key === 'id') return it.id;
+      if (key === 'hacc') return humanAcc(it) == null ? 2 : humanAcc(it);
+      if (key === 'disagree') return -disagreeScore(it);
+      if (key === 'bayes') return it.bayes == null ? -1 : it.bayes;
+      const v = verd(it, key); return v.has ? (v.ok ? 1 : 0) : 2;
+    };
+    a.sort((x, y) => { const vx = val(x), vy = val(y); return vx < vy ? -1 * state.dir : vx > vy ? 1 * state.dir : (x.id < y.id ? -1 : 1); });
+    return a;
+  }
+  function renderTable() {
+    const rows = filtered(), body = $('#stimbody'); body.innerHTML = '';
+    $('#count').textContent = rows.length + ' of ' + ITEMS.length + ' items';
+    const frag = document.createDocumentFragment();
+    rows.forEach(it => {
+      const tr = el('tr');
+      if (state.sel === it.id) tr.className = 'sel';
+      const foil = it.fs ? `<span class="fs fs-${it.fs === 'refuted' ? 'ref' : it.fs === 'unsupported' ? 'uns' : 'amb'}">${it.fs === 'unsupported' ? 'unsup' : it.fs}</span>` : '';
+      tr.innerHTML =
+        `<td><span class="idcell">${it.id}</span> <span class="chip cat-${it.cat}">${it.cat}</span> ${foil}</td>` +
+        `<td class="exprcell" title="${it.expr}">${it.expr}</td>` +
+        `<td><span class="answer ${it.sc ? 'ok' : 'bad'}"><span class="dot"></span>${it.sc ? 'agree' : 'disagree'}</span></td>` +
+        OBS.map(o => `<td>${verdCell(verd(it, o[0]))}</td>`).join('');
+      tr.addEventListener('click', () => openDrawer(it.id));
+      frag.appendChild(tr);
+    });
+    body.appendChild(frag);
+    if (!rows.length) body.appendChild(el('tr', '', '<td colspan="8" class="empty">No items match these filters.</td>'));
+  }
+
+  // ---- drawer ----
+  function traceHtml(it) {
+    // render like the task: expression then "= step" lines; highlight error steps by re-deriving is out of scope,
+    // so we show the raw trace the participant saw
+    const steps = it.trace.slice(1).map(s => `<span class="st">= ${s}</span>`).join('');
+    return `<div class="expr-big">${it.expr}</div><div class="traceblock">${steps}</div>`;
+  }
+  function openDrawer(id) {
+    const it = ITEMS.find(x => x.id === id); if (!it) return;
+    state.sel = id; renderTable();
+    const d = $('#drawer');
+    const misNames = it.mis.map(m => SHORT[m]).join(' + ');
+    const wt = it.wt ? ` · target error ${it.wt}` : '';
+    const fsline = it.fs ? ` · foil ${it.fs}${it.io_foil_marginal != null ? '' : ''}` : '';
+    const obs = OBS.map(o => {
+      const v = verd(it, o[0]);
+      const cell = v.has ? `<span class="verd ${v.ok ? 'ok' : 'bad'}"><span class="dot"></span>${v.agree ? 'agree' : 'disagree'}</span>` : '<span class="na">no data</span>';
+      const val = v.has ? `<span class="osub">${v.val}${v.sub ? ' ' + v.sub : ''}</span>` : '';
+      return `<div class="oname">${o[1]}</div><div>${cell}</div><div>${val}</div>`;
+    }).join('');
+
+    // human breakdown
+    let humanSec = '<div class="sec">Humans</div>';
+    if (it.human.n) {
+      const n = it.human.n, na = it.human.nagree, nd = n - na;
+      const wa = na / n * 100, wd = nd / n * 100;
+      humanSec += `<div class="hbar">${nd ? `<span class="dis" style="width:${wd}%">${nd}</span>` : ''}${na ? `<span class="agr" style="width:${wa}%">${na}</span>` : ''}</div>`;
+      humanSec += `<div class="sub" style="margin-top:6px">${it.human.ncorr}/${n} correct (${pct(it.human.ncorr / n)})</div>`;
+      humanSec += '<div class="hresp">' + it.human.resp.slice().sort((a, b) => a.r - b.r).map(r => `<span class="pill ${r.r >= 4 ? 'a' : 'd'}" title="${r.p}">${r.p}:${r.r}</span>`).join('') + '</div>';
+    } else humanSec += '<div class="sub">No participant has seen this item yet.</div>';
+
+    // thinking reasoning
+    let think = '';
+    const th = it.llm.thinking;
+    if (th) {
+      const f = failById[it.id];
+      const tag = (!th.ok && f) ? `<span class="failtag" title="${(f.note||'').replace(/"/g,'&quot;')}">${f.category}${f.direction ? ' · ' + f.direction : ''}</span>` : (th.ok ? '<span class="osub">correct</span>' : '<span class="failtag">wrong</span>');
+      think = `<div class="sec">Haiku thinking trace <span class="osub">${th.tok || '?'} tokens</span></div>` +
+        (f && !th.ok ? `<div style="margin-bottom:8px">${tag}${f.note ? ' <span class="sub">'+f.note+'</span>' : ''}</div>` : `<div style="margin-bottom:8px">${tag}</div>`) +
+        `<details class="reason"><summary>Show reasoning <span class="osub">rated ${th.r}</span></summary><div class="reasontext">${escapeHtml(th.reason || '')}</div></details>`;
+    }
+
+    d.innerHTML =
+      `<div class="dhead"><div><span class="idcell" style="font-size:15px">${it.id}</span> <span class="chip cat-${it.cat}">${it.cat}</span></div><button class="closex" aria-label="close">×</button></div>` +
+      `<div class="dbody">` +
+      `<div class="sub" style="margin-bottom:12px">${misNames} in trace · statement names ${SHORT[it.probed]}${wt}${fsline}</div>` +
+      `<div class="sec">Expression &amp; student work (${it.name})</div>${traceHtml(it)}` +
+      `<div class="sec">Belief statement</div><div class="stmtbox">${it.stmt}</div>` +
+      `<div class="sec">Correct answer</div><div class="answer ${it.sc ? 'ok' : 'bad'}"><span class="dot"></span>${it.sc ? 'agree' : 'disagree'}</div>` +
+      `<div class="sec">Observers</div><div class="obsgrid"><div class="oh">Observer</div><div class="oh">Verdict</div><div class="oh">Value</div>${obs}</div>` +
+      humanSec + think +
+      `</div>`;
+    d.querySelector('.closex').addEventListener('click', closeDrawer);
+    d.classList.add('on'); $('#scrim').classList.add('on');
+  }
+  function closeDrawer() { $('#drawer').classList.remove('on'); $('#scrim').classList.remove('on'); state.sel = null; renderTable(); }
+  function escapeHtml(s) { return s.replace(/[&<>]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;' }[c])); }
+
+  // ---- person view ----
+  function catColor(v) { if (v == null) return ''; return v >= 0.6 ? 'background:var(--good-soft);color:var(--good)' : v >= 0.5 ? 'background:var(--surface-3)' : 'background:var(--bad-soft);color:var(--bad)'; }
+  function renderPersons() {
+    const wrap = $('#personlist'); wrap.innerHTML = '';
+    PARTS.slice().sort((a, b) => b.acc - a.acc).forEach(p => {
+      const cats = 'ABCD'.split('').map(c => `<span style="${catColor(p.byCat[c])}" title="${c}: ${pct(p.byCat[c])}">${c} ${p.byCat[c] == null ? '—' : Math.round(p.byCat[c] * 100)}</span>`).join('');
+      const card = el('div', 'pcard',
+        `<div style="display:flex;justify-content:space-between;align-items:baseline"><span class="pid">${p.pid}</span><span class="pacc">${pct(p.acc)}</span></div>` +
+        `<div class="sub">d′ ${p.dprime} · crit ${p.crit}</div><div class="pcat">${cats}</div>`);
+      card.addEventListener('click', () => openPerson(p.pid));
+      wrap.appendChild(card);
+    });
+  }
+  function openPerson(pid) {
+    const p = PARTS.find(x => x.pid === pid); if (!p) return;
+    const trials = [];
+    ITEMS.forEach(it => it.human.resp.forEach(r => { if (r.p === pid) trials.push({ it, r: r.r }); }));
+    trials.sort((a, b) => a.it.cat < b.it.cat ? -1 : a.it.cat > b.it.cat ? 1 : (a.it.id < b.it.id ? -1 : 1));
+    const rows = trials.map(t => {
+      const ok = (t.r >= 4) === (t.it.sc === true);
+      return `<tr data-id="${t.it.id}"><td><span class="idcell">${t.it.id}</span> <span class="chip cat-${t.it.cat}">${t.it.cat}</span></td><td class="exprcell">${t.it.expr}</td><td class="mono">${t.r}</td><td><span class="verd ${ok ? 'ok' : 'bad'}"><span class="dot"></span>${ok ? 'correct' : 'wrong'}</span></td></tr>`;
+    }).join('');
+    const d = $('#drawer');
+    d.innerHTML =
+      `<div class="dhead"><div><span class="pid" style="font-size:16px">${p.pid}</span> <span class="sub">${pct(p.acc)} · d′ ${p.dprime}</span></div><button class="closex" aria-label="close">×</button></div>` +
+      `<div class="dbody">` +
+      (p.strategy ? `<div class="sec">Their stated strategy</div><div class="stmtbox" style="font-style:normal">${escapeHtml(p.strategy)}</div>` : '<div class="sub">No strategy response recorded.</div>') +
+      `<div class="sec">All ${trials.length} trials</div><div class="tablewrap"><table><thead><tr><th class="no-sort">Item</th><th class="no-sort">Expression</th><th class="no-sort">Rated</th><th class="no-sort">Result</th></tr></thead><tbody>${rows}</tbody></table></div>` +
+      `</div>`;
+    d.querySelector('.closex').addEventListener('click', closeDrawer);
+    d.querySelectorAll('tbody tr').forEach(tr => tr.addEventListener('click', () => openDrawer(tr.dataset.id)));
+    d.classList.add('on'); $('#scrim').classList.add('on');
+  }
+
+  // ---- thinking-errors view ----
+  function renderThink() {
+    const wrap = $('#thinkwrap'); wrap.innerHTML = '';
+    const sum = FAIL.summary || {};
+    if (sum.headline) wrap.appendChild(el('div', 'headline', escapeHtml(sum.headline)));
+    const cats = (sum.categories || []).slice().sort((a, b) => b.count - a.count);
+    const grid = el('div', 'fmsummary');
+    cats.forEach(c => grid.appendChild(el('div', 'fmcard', `<div class="fc">${c.count}</div><div class="fn">${c.slug}</div><div class="fd">${escapeHtml(c.description || '')}</div>`)));
+    wrap.appendChild(grid);
+    // list of wrong items grouped by category
+    const wrong = ITEMS.filter(it => it.llm.thinking && !it.llm.thinking.ok);
+    const bycat = {}; wrong.forEach(it => { const f = failById[it.id]; const k = f ? f.category : 'uncategorized'; (bycat[k] = bycat[k] || []).push(it); });
+    const listwrap = el('div'); listwrap.style.marginTop = '18px';
+    Object.keys(bycat).sort((a, b) => bycat[b].length - bycat[a].length).forEach(k => {
+      listwrap.appendChild(el('div', 'sec', `${k} — ${bycat[k].length}`));
+      const tw = el('div', 'tablewrap');
+      const rows = bycat[k].map(it => {
+        const f = failById[it.id] || {};
+        return `<tr data-id="${it.id}"><td><span class="idcell">${it.id}</span> <span class="chip cat-${it.cat}">${it.cat}</span></td><td class="exprcell">${it.expr}</td><td><span class="mono">rated ${it.llm.thinking.r}</span> <span class="osub">want ${it.sc ? 'agree' : 'disagree'}</span></td><td class="sub">${escapeHtml(f.note || '')}</td></tr>`;
+      }).join('');
+      tw.innerHTML = `<table><tbody>${rows}</tbody></table>`;
+      tw.querySelectorAll('tr').forEach(tr => tr.addEventListener('click', () => { switchView('stim'); openDrawer(tr.dataset.id); }));
+      listwrap.appendChild(tw);
+    });
+    wrap.appendChild(listwrap);
+  }
+
+  // ---- wiring ----
+  function switchView(v) {
+    document.querySelectorAll('nav.tabs button').forEach(b => b.setAttribute('aria-selected', b.dataset.view === v));
+    $('#view-stim').classList.toggle('hide', v !== 'stim');
+    $('#view-person').classList.toggle('hide', v !== 'person');
+    $('#view-think').classList.toggle('hide', v !== 'think');
+  }
+  document.querySelectorAll('nav.tabs button').forEach(b => b.addEventListener('click', () => switchView(b.dataset.view)));
+  $('#catchips').addEventListener('click', e => {
+    const b = e.target.closest('button'); if (!b) return;
+    const c = b.dataset.cat, on = b.getAttribute('aria-pressed') === 'true';
+    b.setAttribute('aria-pressed', !on); if (on) state.cats.delete(c); else state.cats.add(c); renderTable();
+  });
+  $('#fsel').addEventListener('change', e => { state.fs = e.target.value; renderTable(); });
+  $('#msel').addEventListener('change', e => { state.rule = e.target.value; renderTable(); });
+  $('#humchk').addEventListener('change', e => { state.hum = e.target.checked; renderTable(); });
+  $('#q').addEventListener('input', e => { state.q = e.target.value; renderTable(); });
+  $('#sortsel').addEventListener('change', e => {
+    const v = e.target.value; state.dir = 1;
+    state.sort = v === 'hacc' ? 'hacc' : v === 'disagree' ? 'disagree' : v === 'bayes' ? 'bayes' : 'id';
+    if (v === 'bayes') state.dir = -1;
+    renderTable();
+  });
+  document.querySelectorAll('#stimtable thead th[data-k]').forEach(th => th.addEventListener('click', () => {
+    const k = th.dataset.k;
+    if (state.sort === k) state.dir *= -1; else { state.sort = k; state.dir = 1; }
+    document.querySelectorAll('#stimtable thead th').forEach(h => { const t = h.textContent.replace(/ [▲▼]$/, ''); h.textContent = t; });
+    th.textContent = th.textContent + (state.dir === 1 ? ' ▲' : ' ▼');
+    renderTable();
+  }));
+  $('#scrim').addEventListener('click', closeDrawer);
+  document.addEventListener('keydown', e => { if (e.key === 'Escape') closeDrawer(); });
+
+  // theme
+  const tb = $('#themebtn');
+  tb.addEventListener('click', () => {
+    const cur = document.documentElement.getAttribute('data-theme');
+    const next = cur === 'dark' ? 'light' : cur === 'light' ? 'dark' : (matchMedia('(prefers-color-scheme: dark)').matches ? 'light' : 'dark');
+    document.documentElement.setAttribute('data-theme', next);
+    renderTiles();
+  });
+
+  // init
+  $('#subline').innerHTML = `${DATA.meta.n_items} stimuli · 3 model observers + ideal observer · ${DATA.meta.n_participants} human participants (with-practice cohort) · <span class="sub">human column fills in as more people run</span>`;
+  ruleSelect(); renderTiles(); renderTable(); renderPersons(); renderThink();
+})();
+</script>

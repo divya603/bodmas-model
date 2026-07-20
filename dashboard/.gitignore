@@ -1,0 +1,6 @@
+# derived data snapshots (anonymized but participant-derived) and the built page
+dashboard_data.json
+bayes_per_item.json
+thinking_wrong.json
+thinking_failures.json
+index.html
