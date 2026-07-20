@@ -402,4 +402,80 @@ now below the category-A mean of 3.98). Panel (b): foils are mostly rejected, wi
 false alarms tending toward \texttt{outside\_bracket\_first}-containing pairs.}
 \label{fig:human2}
 \end{figure}
+%----------------------
+\section{One-misconception items: present $\times$ named heatmaps}\label{sec:1misc-heatmap}
+
+Sections~\ref{sec:bayes-1misc}--\ref{sec:human-1misc} summarized the one-misconception items as
+rating distributions. Those same 240 items also have a natural \emph{present $\times$ named}
+structure, the confusion-matrix reading that the two-misconception heatmaps use: every item is
+defined by the misconception \emph{present} in the trace (row) and the one \emph{named} in the
+statement (column). The diagonal (present = named) is category A, where the statement names the
+rule that is actually there, so agreeing is correct; the off-diagonal (present $\neq$ named) is
+category B, where the statement names a foil, so disagreeing is correct. Cells use the same
+diverging scale as the two-misconception heatmaps (green toward agree, red toward disagree; the
+ideal observer centered at 0.5, humans and LLMs at 3.5), so a perfect observer produces a green
+boxed diagonal and a red off-diagonal. Each off-diagonal cell here averages the refuted and
+unsupported foils of that (present, named) pair; the refutation split itself is the subject of
+the distribution figures above.
+
+\subsection{Bayesian ideal observer}\label{sec:bayes-1misc-heatmap}
+
+Figure~\ref{fig:bayes1h} restates the distributions in matrix form. The boxed diagonal is green
+throughout (0.89 to 0.97), \sethlcolor{green}\hl{the palest cell being \texttt{outside\_bracket\_first} at 0.89,
+the recurring bracket weakness.} The off-diagonal is uniformly low (about 0.10 to 0.16) and
+flat, with no bright cell anywhere: the ideal observer carries no confusion structure, so any
+off-diagonal cell that lights up in the human or LLM matrices is a property of that observer,
+not of the stimuli.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.62\textwidth]{figs/bayes_1misc_heatmap_combined.png}
+\caption{Ideal observer, one-misconception present $\times$ named matrix. Rows = misconception
+present, columns = named; boxed diagonal = category A (agree correct), off-diagonal = category B
+foils (disagree correct). Green diagonal (weakest for \texttt{outside\_bracket\_first}), flat
+low-red off-diagonal.}
+\label{fig:bayes1h}
+\end{figure}
+
+\subsection{LLMs}\label{sec:llm-1misc-heatmap}
+
+Figure~\ref{fig:llm1h} places the three regimes side by side, and each has a distinct signature.
+\sethlcolor{green}\hl{Haiku (thinking) is closest to ideal: a green diagonal and a mostly red off-diagonal,
+with only a few tepid off-diagonal cells.} Haiku (direct) turns the off-diagonal into a
+near-uniform wall of red (it rejects essentially every foil at rating 1) but pays for it on the
+diagonal, where it even rejects a true \texttt{same\_priority\_rtl} statement (1.1): it is right
+on foils only by reflex. \sethlcolor{yellow}\hl{Gpt-4o is claim-driven: its \texttt{same\_priority\_rtl} and
+\texttt{outside\_bracket\_first} \emph{named} columns are green regardless of what is present in
+the trace,} while its add/sub columns and much of its own diagonal are red. Its confusion lives
+on the claim axis (which rule is named), not on the evidence.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=\textwidth]{figs/llm_1misc_heatmap_combined.png}
+\caption{LLMs, one-misconception present $\times$ named matrix, one panel per regime (same layout
+and scale as Figure~\ref{fig:bayes1h}). Haiku (thinking): green diagonal, red off-diagonal.
+Haiku (direct): red off-diagonal wall, weak diagonal. Gpt-4o: green \texttt{RTL} and
+\texttt{outside()} named columns regardless of the trace.}
+\label{fig:llm1h}
+\end{figure}
+
+\subsection{Humans}\label{sec:human-1misc-heatmap}
+
+Figure~\ref{fig:human1h} shows the practice cohort. The boxed diagonal is solid (21 trials per
+cell) and sits weakly on the agree side (means 3.5 to 4.4), the matrix form of the 0.61
+category-A endorsement. \sethlcolor{yellow}\hl{The off-diagonal is sparse (1 to 4 trials per cell) and should be
+read as exploratory}: it is mostly red (correct rejection), with a few single-participant cells
+on the agree side that will resolve as the cohort grows. At this sample size the matrix mainly
+confirms that humans reject foils more often than not; its confusion structure is not yet
+readable.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.62\textwidth]{figs/human_1misc_heatmap_combined_with_practice.png}
+\caption{Humans (practice cohort, $n=21$), one-misconception present $\times$ named matrix (same
+layout and scale as Figure~\ref{fig:bayes1h}). Solid diagonal weakly on the agree side; sparse,
+mostly-red off-diagonal (exploratory at this sample size).}
+\label{fig:human1h}
+\end{figure}
+
 \end{document}
