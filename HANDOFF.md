@@ -359,6 +359,14 @@ errors (1126 vs 672) cost more.
 - **`plot_human_sdt.py`** — per-participant signal detection: sorted d' dot plot + ROC space with
   iso-d' curves (mirrors the LLM fig_signal; same 1/(2N) correction so d' values are comparable).
 - **`plot_human_rt.py`** — RT screening: per-trial RTs sorted by d' (3s-lock line) + median-RT-vs-d'.
+- **1-misconception heatmaps (present × named "confusion matrix"), Bayes arm DONE (2026-07-20):**
+  `analysis-Bayesian/plot_bayes_1misc_heatmap.py` → `bayes_1misc_heatmap.png` (copied to
+  Results_combined/figs). Rows = misconception PRESENT, cols = NAMED; DIAGONAL = category A
+  (agree correct, boxed green ~0.9, outside weakest 0.89), OFF-DIAGONAL = category B foils
+  (disagree correct), split into TWO panels by foil refutation status: (a) refuted → off-diag
+  collapses to ~0 (outside-named column softer ~0.1), (b) unsupported → off-diag ~0.2 residual.
+  The shared diagonal is the agree reference in both panels. Same CMAP/NORM/cell style as the
+  2-misc bayes heatmap. Human + LLM 1-misc heatmap counterparts still TODO (same design).
 - **`plot_2misc_heatmap.py`** — 2-misconception (C/D) present×shown heatmaps: C = 6×6 (named
   target × partner), D = 6×15 (named foil × present PAIR; pair-columns containing the foil are
   impossible). Green=agree/red=disagree diverging map. Mirrored by
@@ -525,6 +533,11 @@ Writing style: **no em dashes** (user: "screams AI").
   the deployed practice flow.
 
 **DONE (2026-07-20):**
+- **results.tex fully on the 480 pool + with-practice human arm**: human sections rewritten for
+  the n=21 practice cohort (all four human figures → `_with_practice`, without-practice removed);
+  Bayes/LLM sections + title updated to 480 (240 one-misc items, refutation now a controlled
+  factor, refuted subset real for every foil). New Bayes 1-misc present×named heatmap added to
+  figs (not yet cited in the tex — user writes the doc step by step).
 - **Pool finalized to a clean 480** (`drop_ambiguous.py`, §2): the 7 never-sampled ambiguous
   items removed, 120 per category. All figures + the dashboard regenerated on 480.
 - **Shareable dashboard published** (Artifact `dashboard/`): stimulus explorer + per-person +
