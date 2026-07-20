@@ -188,89 +188,90 @@ contradicts; haiku (direct) rejects everything except the generated
 %----------------------
 \section{Humans: one-misconception items}\label{sec:human-1misc}
 
-Twenty-four Prolific participants each completed 24 trials (6 per category, balanced so that
-every misconception appears exactly once as the present misconception in their A trials and
-once in their B trials), giving 24 trials per panel below. Ratings are collapsed to a binary
-response, the same collapse used for accuracy scoring: 1 to 3 counts as disagree (red) and
-4 to 6 as agree (green). Each panel shows the probability of the two responses with raw trial
-counts on the bars; the dashed line marks 0.5.
+Twenty-one Prolific participants, each of whom worked through three feedback practice trials
+before the main block, completed 24 trials (6 per category, balanced so that every
+misconception appears exactly once as the present misconception in their A trials and once in
+their B trials), giving 21 trials per panel below. Ratings are collapsed to a binary response,
+the same collapse used for accuracy scoring: 1 to 3 counts as disagree (red) and 4 to 6 as
+agree (green). Each panel shows the probability of the two responses with raw trial counts on
+the bars; the dashed line marks 0.5.
 
 \subsection{Category A: the named misconception is present}\label{sec:human-1misc-a}
 
-Humans were bad at this half of the task. Where the ideal observer endorses every category-A
-statement with high confidence and haiku (thinking) concentrates on ratings 5 and 6,
-Figure~\ref{fig:human1a} shows humans hovering at a coin flip for every misconception:
-$P(\text{agree})$ runs from 0.46 to 0.54 across five of the six panels. The one departure is
-in the wrong direction: for \texttt{add\_before\_mul} the majority actively disagrees with a
-true statement (9 agree versus 15 disagree, $P(\text{agree}) = 0.38$). Recognizing that a
-correctly named misconception explains the work is the part of the task humans could not do
-reliably.
+With practice, humans recognize a correctly named misconception more often than not.
+Figure~\ref{fig:human1a} shows every panel above the 0.5 line: \sethlcolor{green}\hl{$P(\text{agree})$ runs from
+0.52 to 0.71 across the six misconceptions (overall 0.61), so endorsing a true statement is now
+the majority response for each one.} The \texttt{add\_before\_mul} and \texttt{add\_before\_div}
+claims are both endorsed by a small majority (0.57 each); \texttt{outside\_bracket\_first} is
+endorsed most often (0.71) and \texttt{same\_priority\_rtl} least (0.52, essentially chance).
+\sethlcolor{yellow}\hl{The endorsement is still well short of the ideal observer's ceiling and of
+haiku (thinking)'s ratings of 5 and 6}, so recognizing a true explanation remains the harder
+half of the task, but it is now performed above chance across the board rather than at or below
+it.
 
 \begin{figure}[H]
 \centering
-\includegraphics[width=0.85\textwidth]{figs/human_1misc_dist_A_without_practice.png}
-\caption{Humans, category A (statement matches the work; agreeing is correct). Bars are the
-probability of each binary response (green = agree, red = disagree), with trial counts on
-top. Every misconception sits at or near chance, and \texttt{add\_before\_mul} is below it.}
+\includegraphics[width=0.85\textwidth]{figs/human_1misc_dist_A_with_practice.png}
+\caption{Humans (practice cohort, $n=21$), category A (statement matches the work; agreeing is
+correct). Bars are the probability of each binary response (green = agree, red = disagree),
+with trial counts on top. Every misconception now sits above chance, most clearly
+\texttt{outside\_bracket\_first}; \texttt{same\_priority\_rtl} is the weakest at 0.52.}
 \label{fig:human1a}
 \end{figure}
 
 \subsection{Category B: the named misconception is absent}\label{sec:human-1misc-b}
 
-Figure~\ref{fig:human1b} uses the same three rows as the two previous sections: foils grouped
-by the misconception present, by the misconception named, and the refuted subset only. \sethlcolor{green}\hl{Here
-humans are better: correct rejection (a taller red bar) is the majority response in almost
-every panel.} Exactly two cells in the figure cross the 0.5 line, and they isolate the two
-human failure modes. In row~1, traces containing \texttt{outside\_bracket\_first} are the only
-case where the majority endorses a false claim ($P(\text{agree}) = 0.58$): work with mangled
-brackets looks disordered enough that any accusation becomes believable. In row~2, foils
-naming \texttt{add\_before\_div} are the only claim endorsed more often than not (0.54),
-typically when the addition in the trace really did fire early but before a different
-operator. In the refuted row the false-alarm rate drops relative to row~2 for every foil with
-usable data (pooled 0.29 versus 0.39; for \texttt{add\_before\_div} foils, 0.25 versus 0.54),
-so participants do exploit an explicit contradiction when the trace contains one. The
-\texttt{sub\_before\_div} panel is empty because the deployed pool contains no refutable item
-for that foil; the supplementary generated item of the previous sections was never shown to
-humans.
+Figure~\ref{fig:human1b} keeps the same three rows, foils grouped by the misconception
+present, by the misconception named, and the refuted subset, except that the refuted row now
+pools the actively refuted foils from categories B and D. Each misconception is refuted exactly
+once per participant across those two categories, so every refuted panel rests on the full 21
+trials and none is left empty as \texttt{sub\_before\_div} was in the pilot pool.
+\sethlcolor{green}\hl{Humans reject foils well: no cell in the by-present or by-named rows crosses 0.5, so
+correct rejection is the majority response for every misconception, both by what the trace
+contains and by what the statement claims.} The bracket false alarm that stood out in the pilot
+(traces containing \texttt{outside\_bracket\_first} endorsed at 0.58) is gone here (0.38).
+\sethlcolor{green}\hl{The refutation effect is clean: false alarms are markedly lower on actively refuted
+foils than on merely unsupported ones (0.21 versus 0.36, pooled over all six rules), and every
+refuted panel sits near the floor (0.14 to 0.29).} Participants exploit an explicit
+contradiction in the work when one is present, the same behavior the ideal observer and haiku
+(thinking) show.
 
 \begin{figure}[H]
 \centering
-\includegraphics[width=\textwidth]{figs/human_1misc_dist_B_without_practice.png}
-\caption{Humans, category B (statement names an absent misconception; disagreeing is
-correct), in the same three-row layout as the ideal-observer and LLM figures. Only two cells
-cross 0.5: traces containing bracket errors (row 1) and foils naming
-\texttt{add\_before\_div} (row 2). On refutable items (row 3) false alarms drop below the
-corresponding row-2 rates.}
+\includegraphics[width=\textwidth]{figs/human_1misc_dist_B_with_practice.png}
+\caption{Humans (practice cohort, $n=21$), category B (statement names an absent misconception;
+disagreeing is correct). Rows 1--2 are the category-B foils grouped by the misconception
+present and named; row 3 pools the actively refuted foils across categories B and D. No cell in
+rows 1--2 crosses 0.5, and the refuted panels sit near the floor: false alarms are lower on
+refuted foils (0.21) than on merely unsupported ones (0.36).}
 \label{fig:human1b}
 \end{figure}
 
-\subsection{Individual differences: the average hides two populations}\label{sec:human-1misc-sdt}
+\subsection{Individual differences: a wide spread without the reversers}\label{sec:human-1misc-sdt}
 
-The chance-level averages above are not a description of a typical participant. Treating
-agree as a yes response (signal = statement true, noise = foil), each participant's hit and
-false-alarm rates give a sensitivity $\dpr = z(\text{hit}) - z(\text{FA})$; \sethlcolor{green}\hl{zero means the
-participant cannot distinguish true statements from foils at all.} Figure~\ref{fig:humansdt}
-shows the result: pooled over everyone, sensitivity is weak ($\dpr = 0.51$) with a nearly
-neutral criterion, but the per-participant values span $-1.64$ to $+2.77$. \sethlcolor{green}\hl{Three participants
-reach $\dpr \geq 2$, and the best (92\% accuracy, $\dpr = 2.77$) outperforms every LLM regime
-on the identical pool.} \sethlcolor{yellow}\hl{At the other end, about seven participants sit at chance and two are
-reliably below it: one answered disagree on 23 of 24 trials, and one spent 11 minutes
-answering systematically opposite to the key, a pattern consistent with misreading the scale
-or the question rather than low effort (response times showed no participant answering faster
-than 4 seconds per trial).} A substantial share of the sample either never understood the task
-or adopted a degenerate strategy, which is why we are considering adding practice trials with
-feedback (the current experiment gates entry with a single comprehension question and no
-practice) before the confirmatory run.
+The averages above still hide real variation between participants. Treating agree as a yes
+response (signal = statement true, noise = foil), each participant's hit and false-alarm rates
+give a sensitivity $\dpr = z(\text{hit}) - z(\text{FA})$; \sethlcolor{green}\hl{zero means the participant cannot
+distinguish true statements from foils at all.} Figure~\ref{fig:humansdt} shows that pooled
+sensitivity has risen to $\dpr = 0.79$ (from 0.51 in the pilot) with a mild disagree-leaning
+criterion ($+0.18$), and the per-participant values now span $-0.42$ to $+2.77$ with a median
+of 0.97. \sethlcolor{green}\hl{Sixteen of the 21 participants are above chance; three reach $\dpr \geq 2$, and
+the best (92\% accuracy, $\dpr = 2.77$) again outperforms every LLM regime on the identical
+pool.} \sethlcolor{yellow}\hl{Five participants still sit at or just below chance, but the systematic reversers
+of the pilot are gone: the worst sensitivity is $-0.42$, not the $-1.64$ of a pilot participant
+who spent eleven minutes answering opposite to the key.} The practice trials appear to have
+removed the degenerate-strategy tail without collapsing everyone onto one value: a genuine
+spread in sensitivity remains, but it no longer includes participants who reliably invert the
+task.
 
 \begin{figure}[H]
 \centering
-\includegraphics[width=\textwidth]{figs/human_signal_detection.png}
-\caption{Human signal detection over all 24 trials per participant (12 statement-true, 12
-foil). Left: per-participant $\dpr$, sorted; the orange line is the pooled value. Right: each
-participant in ROC space (hit rate versus false-alarm rate) against iso-$\dpr$ curves; the
-diamond is the pooled point, and points below the diagonal are participants who answered
-systematically opposite to the key. The spread from $-1.64$ to $+2.77$, rather than the weak
-pooled value, is the central human result.}
+\includegraphics[width=\textwidth]{figs/human_signal_detection_with_practice.png}
+\caption{Human signal detection (practice cohort, $n=21$) over all 24 trials per participant
+(12 statement-true, 12 foil). Left: per-participant $\dpr$, sorted; the orange line is the
+pooled value. Right: each participant in ROC space (hit rate versus false-alarm rate) against
+iso-$\dpr$ curves; the diamond is the pooled point. The spread runs from $-0.42$ to $+2.77$
+(median 0.97), above the pilot's pooled value and without the below-chance reversers.}
 \label{fig:humansdt}
 \end{figure}
 
@@ -367,46 +368,41 @@ panels regardless of what the trace shows.}
 
 \subsection{Humans}\label{sec:human-2misc}
 
-Figure~\ref{fig:human2} shows the human version. Unlike the two previous figures these cells
-are noisy behavioral averages: the 24 participants contribute 144 category-C and 144
-category-D trials, so panel (a) cells hold 1 to 11 trials, panel (b) cells 0 to 6, and a dot
-marks a foil-pair combination that no participant happened to draw. The patterns below should
-therefore be read as exploratory structure.
+Figure~\ref{fig:human2} shows the human version, and at $n=21$ these cells are sparse
+behavioral averages: the 21 participants contribute 126 category-C and 126 category-D trials,
+so panel (a) cells hold roughly 1 to 7 trials and panel (b) cells 1 to 6, with a dot where no
+participant happened to draw a foil-pair combination. The patterns below should be read as
+exploratory.
 
-In panel (a) humans sit in the middle of the scale rather than at the green ceiling, and the
-structure runs along both axes. By row, naming a subtraction rule is under-endorsed even
-though the claim is true: the \texttt{sub\_before\_mul} and \texttt{sub\_before\_div} rows
-average on the disagree side of 3.5, while the \texttt{add\_before\_mul}, \texttt{RTL}, and
-\texttt{outside()} rows land on the agree side. By column, the partner matters, which it never
-does for the ideal observer: having \texttt{sub\_before\_mul} or \texttt{outside()} as the
-\emph{other} misconception in the trace drags endorsement of the named one down (the worst
-cell, a true \texttt{sub\_before\_div} statement next to a \texttt{sub\_before\_mul} partner,
-averages 1.7). A messy companion error can mask a genuinely present target.
+In panel (a) humans sit in the middle of the scale rather than at the green ceiling: a true but
+partial explanation earns only weak endorsement (mean category-C rating 3.79), and at this
+sample size the per-cell values scatter rather than trace a clean row-and-column structure.
+\sethlcolor{yellow}\hl{Notably, the practice cohort no longer rates partial explanations above exact ones:
+category-A statements average 3.98 against category C's 3.79, reversing the pilot ordering, and
+category-C accuracy is the one place the practice cohort does not exceed the pilot (0.56 versus
+0.64).} That C dip is concentrated in the newly generated category-C items and is a property of
+those stimuli rather than of the heatmap structure; it is consistent with the practice trials
+teaching that a statement naming only one of two present misconceptions should not draw the
+highest rating.
 
-Panel (b) shows where human false alarms live, and their organization is the mirror image of
-gpt-4o's. The \texttt{outside()} foil row is uniformly red (no cell above 3.0): a bracket
-claim is easy to check against the work and reject. Instead, the strongest false alarms sit in
-\emph{columns} whose pair contains \texttt{outside()}: a false \texttt{add\_before\_mul} claim
-on an \texttt{add\_before\_div}+\texttt{outside()} trace averages 5.0, false \texttt{RTL} on
-\texttt{sub\_before\_mul}+\texttt{outside()} 5.0, false \texttt{sub\_before\_div} on
-\texttt{RTL}+\texttt{outside()} 4.7. Work containing mangled brackets looks disordered enough
-that unrelated accusations become believable. Humans also share the add-family leak seen in
-haiku (thinking): a false \texttt{add\_before\_mul} claim is endorsed when
-\texttt{add\_before\_div} is actually present. \sethlcolor{green}\hl{In short, human confusions organize around what
-the \emph{trace} looks like, gpt-4o's around what the \emph{claim} says, haiku (thinking)
-shares the human operation-family confusion, and the ideal observer, flat on the same items,
-shows that none of these confusions is forced by the stimuli.}
+Panel (b) is mostly on the correct (red) side, matching the 0.72 category-D accuracy: foils are
+rejected more often than not across the pairs. The strongest residual false alarms still tend
+to fall on pairs that contain \texttt{outside\_bracket\_first}, echoing the earlier pattern
+that bracket-mangled work makes unrelated accusations more believable, but at these cell counts
+the individual cells are single- or few-participant estimates, so we do not read specific
+values. \sethlcolor{green}\hl{As with the one-misconception items, the ideal observer is flat on these same
+stimuli (Figure~\ref{fig:bayes2}), so whatever structure survives in the human panel is a
+property of the human observer, not of the pool.}
 
 \begin{figure}[H]
 \centering
-\includegraphics[width=\textwidth]{figs/human_2misc_heatmap_without_practice.png}
-\caption{Humans, two-misconception items (same layout and color scale as
-Figure~\ref{fig:bayes2}; cell values are mean ratings over the trials in the cell, dots mark
-combinations no participant drew). Panel (a): true partial explanations are endorsed only
-weakly, subtraction rules least, and a \texttt{sub\_before\_mul} or \texttt{outside()}
-partner masks the named target. Panel (b): bracket foils are reliably rejected (bottom row
-red), while the strongest false alarms occur when the pair present in the trace contains
-\texttt{outside()}, i.e.\ when the work itself looks mangled.}
+\includegraphics[width=\textwidth]{figs/human_2misc_heatmap_with_practice.png}
+\caption{Humans (practice cohort, $n=21$), two-misconception items (same layout and color scale
+as Figure~\ref{fig:bayes2}; cell values are mean ratings over the trials in the cell, dots mark
+combinations no participant drew). Cells are sparse (panel (a) 1--7 trials, panel (b) 1--6), so
+the figure is exploratory. Panel (a): partial explanations are endorsed only weakly (mean 3.79,
+now below the category-A mean of 3.98). Panel (b): foils are mostly rejected, with residual
+false alarms tending toward \texttt{outside\_bracket\_first}-containing pairs.}
 \label{fig:human2}
 \end{figure}
 \end{document}

@@ -55,11 +55,12 @@ def sdt(trials):
                 accuracy=acc, n=len(trials))
 
 
-def load(path):
+def load(path, cohort='all'):
     data = json.load(open(path))
     parts = [r['data'] for r in data
              if r['data'].get('done') is True
-             and r['data'].get('recruitmentService') == 'prolific']
+             and r['data'].get('recruitmentService') == 'prolific'
+             and (cohort != 'practice' or r['data'].get('pageData_practice'))]
     out = []
     for d in parts:
         ts = [t for t in d['pageData_exp']['visit_0']['data']
@@ -76,10 +77,12 @@ def main():
     ap = argparse.ArgumentParser()
     ap.add_argument('--data', default='data/real-all-main-data.json')
     ap.add_argument('--out', default='analysis_human/plots')
+    ap.add_argument('--cohort', choices=['all', 'practice'], default='all',
+                    help="'practice' = only the new practice-trial cohort (pageData_practice block)")
     args = ap.parse_args()
     os.makedirs(args.out, exist_ok=True)
 
-    parts = load(args.data)
+    parts = load(args.data, args.cohort)
     parts.sort(key=lambda s: s['dprime'])
     pooled = sdt([t for s in parts for t in s['trials']])
 
@@ -145,7 +148,8 @@ def main():
     fig.suptitle(f'Human signal detection — {len(parts)} participants '
                  f'(12 signal / 12 noise trials each)', fontsize=13)
     fig.tight_layout(rect=[0, 0, 1, 0.95])
-    p = os.path.join(args.out, 'human_signal_detection.png')
+    suffix = '_with_practice' if args.cohort == 'practice' else ''
+    p = os.path.join(args.out, f'human_signal_detection{suffix}.png')
     fig.savefig(p, dpi=140)
     plt.close(fig)
     print(f"\nWrote {p}")
