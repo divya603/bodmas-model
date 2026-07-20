@@ -9,12 +9,12 @@ panel layouts, with the decision boundary at 3.5 instead of 0.5.
   human_1misc_dist_A.png — category A (statement matches; agree correct).
       6 panels grouped by the misconception present (= named in A).
   human_1misc_dist_B.png — category B (statement is a foil; disagree
-      correct). Row 1 grouped by the misconception PRESENT in the trace,
-      row 2 by the misconception NAMED in the statement, row 3 = trials on
-      the REFUTED-only items (the 12 B items whose ideal-observer marginal
-      on the foil is < 0.15, from analysis-Bayesian/b_item_marginals.json),
-      grouped by named foil. If humans use refutation evidence, row 3
-      should sit lower than row 2.
+      correct). Rows 1-2 are category-B (1-misconception) trials grouped by
+      the misconception PRESENT and NAMED. Row 3 is the REFUTED foils only,
+      POOLED across categories B and D (foil_status == 'refuted' in the pool;
+      each rule is refuted exactly once per participant across B+D, so pooling
+      doubles the density vs a B-only view), grouped by named rule. If humans
+      use refutation evidence, row 3 should sit lower than row 2.
 
 Responses are shown BINARY: the 1-6 rating is collapsed to disagree (<=3)
 vs agree (>=4), the same collapse used for accuracy scoring, and each panel
@@ -40,8 +40,7 @@ matplotlib.use('Agg')
 import matplotlib.pyplot as plt
 
 HERE = os.path.dirname(os.path.abspath(__file__))
-BAYES_MARGINALS = os.path.join(os.path.dirname(HERE), 'analysis-Bayesian',
-                               'b_item_marginals.json')
+POOL = os.path.join(os.path.dirname(HERE), 'base-task', 'stimulus_pool.json')
 
 IDS = ['add_before_mul', 'add_before_div', 'sub_before_mul', 'sub_before_div',
        'same_priority_rtl', 'outside_bracket_first']
@@ -103,11 +102,13 @@ def main():
     args = ap.parse_args()
     os.makedirs(args.out, exist_ok=True)
 
-    bay = json.load(open(BAYES_MARGINALS))
-    refuted_ids = {i for i, v in bay['b_marginals'].items() if v < bay['refuted_cut']}
+    # authoritative per-item refutation status (the extended pool has foil_status
+    # on every B and D foil); join by id so it works for old and new pool ids
+    foil_status = {it['id']: it.get('foil_status') for it in json.load(open(POOL))}
 
     data = json.load(open(args.data))
-    trials = []
+    trials = []        # 1-misconception trials (categories A, B) for rows 1-2
+    foil_trials = []   # all foil trials (B + D) for the pooled refuted row 3
     n_part = 0
     n_incomplete = 0
     for r in data:
@@ -121,7 +122,9 @@ def main():
         if d.get('recruitmentService') != 'prolific':
             continue
         n_part += 1
-        trials += [t for t in task_trials(d) if t.get('num_misconceptions') == 1]
+        tt = task_trials(d)
+        trials += [t for t in tt if t.get('num_misconceptions') == 1]
+        foil_trials += [t for t in tt if t['category'] in ('B', 'D')]
     print(f"cohort={args.cohort}: {n_part} complete participants "
           f"(dropped {n_incomplete} incomplete)")
     empty_ref = 'no trials yet' if args.cohort == 'practice' else \
@@ -130,21 +133,26 @@ def main():
     a_by_present = {m: [] for m in IDS}
     b_by_present = {m: [] for m in IDS}
     b_by_named = {m: [] for m in IDS}
-    b_refuted = {m: [] for m in IDS}
     for t in trials:
         if t['category'] == 'A':
             a_by_present[t['misconceptions'][0]].append(t['response'])
         else:
             b_by_present[t['misconceptions'][0]].append(t['response'])
             b_by_named[t['probed_misconception']].append(t['response'])
-            if t['id'] in refuted_ids:
-                b_refuted[t['probed_misconception']].append(t['response'])
+
+    # refuted row pools refuted foils from BOTH B and D (each rule is refuted
+    # exactly once per participant across B+D, doubling the density vs a B-only
+    # view), grouped by the named foil rule
+    b_refuted = {m: [] for m in IDS}
+    for t in foil_trials:
+        if foil_status.get(t['id']) == 'refuted':
+            b_refuted[t['probed_misconception']].append(t['response'])
 
     print(f"1-misc trials: {len(trials)}  "
           f"(A={sum(t['category'] == 'A' for t in trials)}, "
           f"B={sum(t['category'] == 'B' for t in trials)})")
     for name, cell in [('A by present', a_by_present), ('B by present', b_by_present),
-                       ('B by named', b_by_named), ('B refuted-only', b_refuted)]:
+                       ('B by named', b_by_named), ('refuted B+D', b_refuted)]:
         print(f"  {name:15s} " + "  ".join(f"{SHORT[m]}:{len(cell[m])}" for m in IDS))
         rates = "  ".join(
             f"{SHORT[m]}:{np.mean([v >= 4 for v in cell[m]]):.2f}" if cell[m] else f"{SHORT[m]}:-"
@@ -177,11 +185,11 @@ def main():
         axes[2, j].set_xlabel('response', fontsize=8)
     axes[0, 0].set_ylabel('grouped by misconception\nPRESENT in trace', fontsize=9)
     axes[1, 0].set_ylabel('grouped by misconception\nNAMED in statement (foil)', fontsize=9)
-    axes[2, 0].set_ylabel('REFUTED items only\n(ideal-obs P < 0.15), by named foil', fontsize=9)
+    axes[2, 0].set_ylabel('REFUTED foils only\n(B + D pooled), by named rule', fontsize=9)
     fig.suptitle('Humans — category B (statement is a foil; disagree correct): '
                  'probability of agree (green) vs disagree (red)\n'
-                 f'same trials, {n_part} participants ({tag}): two groupings, then the '
-                 'refutable-item subset (counts on bars; correct answer = disagree)', fontsize=12)
+                 f'{n_part} participants ({tag}): B by present, B by named, then REFUTED '
+                 'foils pooled across B+D (counts on bars; correct answer = disagree)', fontsize=12)
     fig.tight_layout(rect=[0, 0, 1, 0.92])
     p2 = os.path.join(args.out, 'human_1misc_dist_B.png')
     fig.savefig(p2, dpi=140)
