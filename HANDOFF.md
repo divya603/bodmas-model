@@ -17,7 +17,7 @@ auto-deploys the human experiment** to a live site (see §3).
 We study **how people (and LLMs, and an ideal observer) detect arithmetic order-of-operations
 misconceptions** from a student's step-by-step work. There are **three "observers"** all judging
 the **same stimulus pool** (240 items for the pilot; extended on 2026-07-17 to the **480-item
-refutation design**, 487 on disk — see §2):
+refutation design** — see §2):
 
 1. **Humans** — an online experiment (Smile/Vue, deployed live, run on Prolific).
 2. **A Bayesian ideal observer** — infers which misconception(s) generated a trace.
@@ -148,7 +148,8 @@ Pure-Python model of how a "learner" with misconceptions solves arithmetic.
   ⚠️ Running it standalone now ABORTS unless `--rebuild-240` is passed (it would clobber the
   extended pool with one lacking `foil_status`, which sample_form requires).
 - **`extend_pool.py` (2026-07-17, seed 20260717)** extended the pool to the **480 design**
-  (487 items on disk), preserving all 240 originals byte-for-byte (asserted) and adding:
+  (was 487 on disk before `drop_ambiguous.py`, see below), preserving all 240 originals
+  byte-for-byte (asserted) and adding:
   A +60 (6 rules × 20), B +61 (6 present × 5 foils × {refuted, unsupported} × 2), C +60
   (6 targets × 2 positions × 10, chronological balance kept), D +66 (15 pairs × 4 foils ×
   {refuted, unsupported} × 1). All B/D items (old + new) get **`foil_status`** and
@@ -157,10 +158,17 @@ Pure-Python model of how a "learner" with misconceptions solves arithmetic.
   action never taken — the latter covers outside()'s soft ~0.12 refutations) AND the marginal
   cut (refuted < 0.15 < unsupported ≤ 0.35; observed gap in final pool: 0.148 vs 0.167).
   Items where the signals disagree (e.g. D's combinatorial suppression, where the marginal is
-  low for reasons no participant can see) are marked **`ambiguous`** — 7 old items (1 B, 6 D)
-  stay in the pool file for continuity but are NEVER sampled. New expressions deduped against
-  pool + the 3 practice items. Writes all THREE pool copies (base-task, src/user/data,
+  low for reasons no participant can see) are marked **`ambiguous`**. New expressions deduped
+  against pool + the 3 practice items. Writes all THREE pool copies (base-task, src/user/data,
   llm_exp/data).
+- **`drop_ambiguous.py` (2026-07-20)** removed the 7 ambiguous items (1 B, 6 D: B057, D003,
+  D007, D016, D020, D029, D036) that extend_pool had kept for continuity but sample_form never
+  drew. Pool is now a clean **480** (exactly 120 per category; every B (present,foil,status)
+  cell = 2, every D (pair,foil,status) cell = 1). Safe: the ambiguous items sat under
+  foil_status='ambiguous', a key no sampler requests, so no participant's form changed. Item
+  ids left as-is (gaps fine). Writes all THREE pool copies; sampling re-verified 300/500 seeds
+  (Py/JS). ⚠️ The LLM raw runs still contain 487 rows (the 7 removed items were run); the
+  figure scripts and dashboard filter to current-pool ids, so all analysis is on the 480.
 - **Answer-leak-relevant fields** (never shown to a solver): `statement_correct, misconceptions,
   probed_misconception, which_target, category, num_misconceptions, foil_status,
   io_foil_marginal`.
@@ -516,8 +524,21 @@ Writing style: **no em dashes** (user: "screams AI").
   `gh run rerun <id> --failed` fixed it — transient, not a code issue. User still to eyeball
   the deployed practice flow.
 
+**DONE (2026-07-20):**
+- **Pool finalized to a clean 480** (`drop_ambiguous.py`, §2): the 7 never-sampled ambiguous
+  items removed, 120 per category. All figures + the dashboard regenerated on 480.
+- **Shareable dashboard published** (Artifact `dashboard/`): stimulus explorer + per-person +
+  thinking-errors views over all 480 stimuli × {humans, 2 LLM regimes, Bayes ideal observer},
+  with haiku-thinking reasoning inline and an automated failure analysis of its 60 errors
+  (two opposite biases: too lenient on foils via precedence-overgeneralization/spurious-rtl,
+  too strict on true matches; 14 of the false-agrees are "foil-surface-supported" = the trace
+  literally performs the foil op, a WEAK-FOIL stimulus-design signal worth acting on).
+  URL is private; user shares from the artifact page. Rebuild+redeploy: assemble_data.py →
+  build_dashboard.py → republish same file path. `dashboard/.gitignore` keeps the
+  participant-derived data snapshots + built index.html out of git.
+
 **DONE (2026-07-17, extended-pool analysis):**
-- **LLM arm re-run on all 487 items × 3 regimes** (0 errors; see the results table above).
+- **LLM arm re-run on all items × 3 regimes** (0 errors; see the results table above).
   Fixed a `parse_results` polars schema bug (which_target Null-inference on all-items runs →
   `infer_schema_length=None`).
 - **All 6 model/observer figures regenerated on the 480 pool and copied to
@@ -560,6 +581,12 @@ cd base-task && python3 regenerate_C.py             # regenerate ONLY category C
 cd base-task && python3 extend_pool.py              # rebuild the 480 refutation design from a 240 base (writes all 3 copies)
 cd base-task && python3 misconception_difficulty.py # re-run Bayesian difficulty baseline
 cd base-task && python3 make_human_practice_items.py # regenerate the 3 human practice trials
+cd base-task && python3 drop_ambiguous.py            # drop the 7 ambiguous items -> clean 480 (all 3 copies)
+
+# Dashboard (shareable Artifact explorer over all 480 stimuli x 3 observers + humans)
+python3 dashboard/assemble_data.py                   # build PII-free dashboard_data.json
+python3 dashboard/build_dashboard.py                 # inject data + failure analysis -> dashboard/index.html
+# then publish dashboard/index.html as an Artifact (same URL redeploys on rebuild)
 cd base-task && streamlit run app.py                # the model explorer UI
 
 # Human experiment

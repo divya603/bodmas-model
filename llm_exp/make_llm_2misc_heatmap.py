@@ -120,12 +120,14 @@ def draw(ax, mean, n, impossible, xlabels, title, xlabel):
 
 def main():
     os.makedirs(OUTDIR, exist_ok=True)
+    # only items still in the current pool (drops the removed ambiguous items)
+    pool_ids = {it['id'] for it in json.load(open(os.path.join(HERE, 'data', 'stimulus_pool.json')))}
     rows = []
     for path in sorted(glob.glob(os.path.join(HERE, 'results', 'raw_*.jsonl'))):
         for line in open(path):
             r = json.loads(line)
             if 'all_items' in r['subject_id'] and r.get('error') is None \
-                    and r.get('response') is not None:
+                    and r.get('response') is not None and r['id'] in pool_ids:
                 rows.append(r)
     df = pd.DataFrame(rows)
     df = df[df.num_misconceptions == 2]

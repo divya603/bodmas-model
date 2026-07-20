@@ -92,12 +92,15 @@ def main():
     bay = json.load(open(BAYES_MARGINALS))
     refuted_ids = {i for i, v in bay['b_marginals'].items() if v < bay['refuted_cut']}
 
+    # only items still in the current pool (drops the removed ambiguous items)
+    pool_ids = {it['id'] for it in json.load(open(os.path.join(HERE, 'data', 'stimulus_pool.json')))}
     rows = []
     for path in sorted(glob.glob(os.path.join(HERE, 'results', 'raw_*.jsonl'))):
         for line in open(path):
             r = json.loads(line)
             if 'all_items' in r['subject_id'] and r.get('error') is None \
-                    and r.get('response') is not None and r['num_misconceptions'] == 1:
+                    and r.get('response') is not None and r['num_misconceptions'] == 1 \
+                    and r['id'] in pool_ids:
                 rows.append(r)
 
     def cells(regime_model, regime_effort):
