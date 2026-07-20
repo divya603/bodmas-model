@@ -30,7 +30,7 @@
 \begin{center}
 {\LARGE\bfseries Results}\\[6pt]
 {\large Detecting Order-of-Operations Misconceptions from a Student's Written Work:\\[2pt]
-Humans, a Bayesian Ideal Observer, and LLMs on the Same 240-Item Pool}\\[10pt]
+Humans, a Bayesian Ideal Observer, and LLMs on the Same 480-Item Pool}\\[10pt]
 {\small Draft compiled \today}
 \end{center}
 
@@ -41,18 +41,18 @@ posterior over all 22 learner profiles (the expert, 6 single misconceptions, 15 
 reports the marginal probability that the misconception \emph{named in the belief statement}
 is part of the student's policy, $P(\text{named rule} \mid \text{trace})$. This marginal is
 its analog of the human 1--6 agreement rating; 0.5 is the neutral point. The one-misconception
-items are the 120 items of categories A and B: in A the statement names the misconception that
+items are the 240 items of categories A and B: in A the statement names the misconception that
 generated the work (agreeing is correct), in B it names one that is absent (disagreeing is
-correct). Each misconception contributes exactly 10 items to each category.
+correct). Each misconception contributes exactly 20 items to each category.
 
 \subsection{Category A: the named misconception is present}\label{sec:bayes-1misc-a}
 
 Figure~\ref{fig:bayes1a} shows the distribution of the per-item marginal, one panel per
 misconception present in the trace (in category A the present and named misconceptions
 coincide by design, so no other grouping exists). All of the probability mass sits at the far
-right of the scale: every one of the 60 items lands between 0.82 and 1.00, far above the 0.5
+right of the scale: every one of the 120 items lands between 0.82 and 1.00, far above the 0.5
 decision point, so thresholded accuracy is 100\% for every misconception. Five of the six
-misconceptions concentrate in a narrow 0.92 to 1.00 band. \sethlcolor{green} \hl{The exception is \texttt{outside\_bracket\_first}, whose whole distribution is shifted left (0.82 to 0.93):
+misconceptions concentrate in a narrow 0.89 to 1.00 band. \sethlcolor{green} \hl{The exception is \texttt{outside\_bracket\_first}, whose whole distribution is shifted left (0.82 to 0.93):
 bracket evidence is systematically the weakest of the six, a property of most of its items
 rather than of a few outliers.}
 
@@ -61,7 +61,7 @@ rather than of a few outliers.}
 \includegraphics[width=0.85\textwidth]{figs/bayes_1misc_dist_A.png}
 \caption{Ideal observer, category A (statement matches the work; agreeing is correct).
 Each panel is the distribution of the posterior marginal on the named rule over that
-misconception's 10 items (curves are boundary-reflected kernel densities; the ticks underneath
+misconception's 20 items (curves are boundary-reflected kernel densities; the ticks underneath
 are the individual items). All items sit far right of the 0.5 decision boundary;
 \texttt{outside\_bracket\_first} is the one visibly weaker case.}
 \label{fig:bayes1a}
@@ -69,46 +69,44 @@ are the individual items). All items sit far right of the 0.5 decision boundary;
 
 \subsection{Category B: the named misconception is absent}\label{sec:bayes-1misc-b}
 
-Figure~\ref{fig:bayes1b} shows the same quantity for the 60 foil items, in three rows.
+Figure~\ref{fig:bayes1b} shows the same quantity for the 120 foil items, in three rows.
 Row~1 groups the items by the misconception actually \emph{present} in the trace, asking
-whether some student bugs make the work more confusable. Row~2 regroups the same 60 items by
+whether some student bugs make the work more confusable. Row~2 regroups the same 120 items by
 the misconception \emph{named} in the statement, asking whether some claims are easier to rule
 out. Row~3 keeps only the \emph{refuted} subset of row~2: items on which the marginal falls
 below 0.15 because the trace reached a decision point where a student who truly held the named
-rule would have acted differently, and the student visibly acted conventionally instead.
+rule would have acted differently, and the student visibly acted conventionally instead. The
+extended pool makes refutation a controlled factor: \sethlcolor{green}\hl{each foil is now actively refuted on
+exactly 10 of its 20 items and merely unsupported on the other 10 (60 of the 120 foils are
+refutable), so every panel of row~3 is populated, including \texttt{sub\_before\_div}, which
+the pilot pool could not refute at all.}
 
 Two regularities stand out. First, every item in rows 1 and 2 sits below the 0.5 boundary
 (thresholded accuracy is again 100\%), but the distributions are bimodal: a cluster near
-0.17 to 0.26, where the named rule simply never had an opportunity to express itself and the
+0.18 to 0.21, where the named rule simply never had an opportunity to express itself and the
 observer retains a residual possibility that the student holds it silently, and a second
 cluster near zero. \sethlcolor{green}\hl{The row~1 panels are nearly interchangeable, so the structure is not driven
 by what the student actually did;} \sethlcolor{yellow}\hl{the row~2 panels differ sharply, so it is driven by the
-claim itself.} Same-priority (\texttt{RTL}) claims are refutable most often (4 of 10 items),
-because equal-priority configurations occur in almost every expression, whereas
-\texttt{sub\_before\_div} claims are never refutable in the deployed pool (0 of 10): a
-subtraction-next-to-division decision point never arises in those traces. The row~3
-\texttt{sub\_before\_div} panel therefore shows one supplementary generated item that fills
-this gap; the deployed pool itself contains no such case.
+claim itself.}
 
-Second, wherever an item is refutable, the distribution shifts sharply left: the refuted
-subset in row~3 collapses onto zero (0.00 to 0.03) for every misconception except
-\texttt{outside\_bracket\_first}, whose three refuted items settle near 0.12. Bracket
+Second, on the refutable items the distribution shifts sharply left: the refuted subset in
+row~3 collapses onto zero (maximum marginal below 0.03) for every misconception except
+\texttt{outside\_bracket\_first}, whose refuted items settle near 0.12 (maximum 0.15). Bracket
 contradictions are soft in the same way that bracket support is weak in
-Figure~\ref{fig:bayes1a}. Overall only 12 of the 60 foil items are refutable at all, so for
-about 80\% of foils even an ideal reasoner cannot find a contradiction; the correct route to
-disagreement is noticing the absence of support, not the presence of counter-evidence.
+Figure~\ref{fig:bayes1a}. Now that every foil is refutable, the ideal observer reaches
+disagreement two ways depending on the item: noticing an explicit contradiction on the refuted
+half, and noticing the absence of support on the unsupported half.
 
 \begin{figure}[H]
 \centering
 \includegraphics[width=\textwidth]{figs/bayes_1misc_dist_B.png}
 \caption{Ideal observer, category B (statement names an absent misconception; disagreeing is
-correct). Row 1: the 60 foil items grouped by the misconception present in the trace. Row 2:
+correct). Row 1: the 120 foil items grouped by the misconception present in the trace. Row 2:
 the same items grouped by the misconception named in the statement. Row 3: only the refuted
-items (marginal below 0.15), grouped as in row 2, with per-panel counts; the
-\texttt{sub\_before\_div} panel shows one supplementary generated item because the deployed
-pool contains no refutable case for that foil. Rows 1 and 2 are bimodal (unsupported items at
-roughly 0.2, refuted items near 0); row 3 isolates the refuted items and the distributions
-collapse onto zero, except the softer bracket cases.}
+items (marginal below 0.15), grouped as in row 2, with per-panel counts (10 of 20 per foil by
+design). Rows 1 and 2 are bimodal (unsupported items at roughly 0.2, refuted items near 0);
+row 3 isolates the refuted items and the distributions collapse onto zero, except the softer
+bracket cases.}
 \label{fig:bayes1b}
 \end{figure}
 
@@ -121,7 +119,7 @@ and 1--6 response scale as the human participants: \textbf{haiku (thinking)}
 (claude-haiku-4.5 with extended reasoning), \textbf{haiku (direct)} (the same model with
 reasoning disabled), and \textbf{gpt-4o (direct)} (gpt-4o ignores the reasoning flag, so it
 runs once). Each regime rated every pool item exactly once at temperature 0, so each panel
-below rests on 10 deterministic ratings per regime. Curves pass through the exact proportion
+below rests on 20 deterministic ratings per regime. Curves pass through the exact proportion
 of items at each rating (dots); where a curve lies on the axis, that regime literally never
 used that rating. The dashed line at 3.5 separates disagreement from agreement.
 
@@ -129,8 +127,9 @@ used that rating. The dashed line at 3.5 separates disagreement from agreement.
 
 Figure~\ref{fig:llm1a} shows a three-way split. Haiku (thinking) behaves like a softened
 ideal observer: its mass sits at ratings 5 and 6 in every panel (on \texttt{add\_before\_div}
-it rates all 10 items exactly 6), and it is the only regime that ever uses the middle of the
-scale, doing so mainly for \texttt{same\_priority\_rtl} and \texttt{outside\_bracket\_first},
+and \texttt{sub\_before\_div} it rates almost every item 6), and it is the only regime that
+ever uses the middle of the scale, doing so mainly for \texttt{same\_priority\_rtl} and
+\texttt{outside\_bracket\_first},
 the same items where the ideal observer's evidence is weakest. The two no-reasoning regimes
 are near-binary (their curves lie on zero across ratings 2 to 4) and split the claims between
 them in opposite, claim-specific ways. Haiku (direct) endorses most true add/sub statements
@@ -144,7 +143,7 @@ identity of the claim.
 \centering
 \includegraphics[width=0.95\textwidth]{figs/llm_1misc_dist_A.png}
 \caption{LLMs, category A (statement matches the work; agreeing is correct). One curve per
-regime; y-axis is the exact proportion of that regime's 10 items at each rating, and dots mark
+regime; y-axis is the exact proportion of that regime's 20 items at each rating, and dots mark
 the exact values. Haiku (thinking) concentrates on 5--6 throughout; the two direct regimes are
 near-binary and disagree with each other about \emph{which} claims to endorse.}
 \label{fig:llm1a}
@@ -159,17 +158,17 @@ foils, which is correct here but is the same reflexive disagreement it applied t
 \texttt{RTL} and \texttt{outside()} statements in category A. Haiku (thinking) concentrates on
 1 and 2 with a modest graded tail. Gpt-4o again mirrors its category-A signature: it rejects
 add/sub foils outright yet endorses a large share of \texttt{RTL} and \texttt{outside()}
-foils (for foils naming \texttt{outside\_bracket\_first}, half of its ratings land at 5),
-giving false alarms concentrated entirely on the two claims it favors.
+foils (it agrees with roughly 45\% of foils naming \texttt{outside\_bracket\_first}), giving
+false alarms concentrated entirely on the two claims it favors.
 
-The refuted row is where the regimes separate most cleanly. Haiku (thinking) shifts sharply
-left, like the ideal observer: on refuted items its ratings collapse onto 1 and 2, so it
-demonstrably registers the contradicting step. Gpt-4o does not: it rates the refuted
-\texttt{add\_before\_div} item 6 and refuted \texttt{outside()} items 5 to 6, endorsing
-claims that the student's own work contradicts. The single \texttt{sub\_before\_div} panel
-(the supplementary generated item, whose trace shows the student taking the division first at
-a live subtraction-division choice point) makes the contrast explicit: haiku (thinking) rates
-it 2, gpt-4o rates it 5, and haiku (direct), which rejects nearly everything else, rates it 6.
+The refuted row is where the regimes separate most cleanly, and the extended pool now supplies
+a full refuted subset for every foil (10 items each) rather than the single generated case of
+the pilot. Haiku (thinking) shifts sharply left, like the ideal observer: it agrees with only
+9\% of refuted foils, its ratings collapsing onto 1 and 2, so it demonstrably registers the
+contradicting step. Haiku (direct) agrees with 7\%, but by rejecting nearly everything it is
+right here for the wrong reason. Gpt-4o does the opposite: it agrees with 38\% of refuted
+foils, more often than with merely unsupported ones (25\%), endorsing \texttt{outside()} and
+other claims that the student's own work explicitly contradicts.
 Both no-reasoning models read ``the subtraction happened early'' and endorse the claim without
 checking which operator the subtraction actually preceded.
 
@@ -178,10 +177,9 @@ checking which operator the subtraction actually preceded.
 \includegraphics[width=\textwidth]{figs/llm_1misc_dist_B.png}
 \caption{LLMs, category B (statement names an absent misconception; disagreeing is correct),
 in the same three-row layout as the ideal-observer figure: by misconception present, by
-misconception named, and the refuted subset only. Haiku (thinking) shifts left on refuted
-items, as the ideal observer does; gpt-4o endorses several claims the work explicitly
-contradicts; haiku (direct) rejects everything except the generated
-\texttt{sub\_before\_div} item, which it rates 6.}
+misconception named, and the refuted subset only (10 items per foil). Haiku (thinking) shifts
+left on refuted items, as the ideal observer does; gpt-4o endorses many refuted claims the work
+explicitly contradicts; haiku (direct) rejects nearly all foils, correct here only by reflex.}
 \label{fig:llm1b}
 \end{figure}
 
@@ -278,7 +276,7 @@ iso-$\dpr$ curves; the diamond is the pooled point. The spread runs from $-0.42$
 %----------------------
 \section{Two-misconception items: present $\times$ shown heatmaps}\label{sec:2misc}
 
-The remaining 120 items contain \emph{two} misconceptions in the trace. In category C the
+The remaining 240 items contain \emph{two} misconceptions in the trace. In category C the
 statement names one of the two (a true but partial explanation; agreeing is correct), and in
 category D it names neither (a foil; disagreeing is correct). Because a response now depends
 on two things at once, what pair is present in the work and what the statement claims, we
@@ -302,17 +300,16 @@ rests on.
 
 Figure~\ref{fig:bayes2} shows that the two-misconception items remain unambiguous for an
 observer that actually inverts the generative model. In panel (a) every cell is green: the
-mean marginal on the named target ranges from 0.76 to 1.00, so no partner misconception ever
-masks a genuinely present target enough to matter. The two weakest cells both have
-\texttt{outside\_bracket\_first} as the named target (0.76 with a \texttt{sub\_before\_mul}
-partner, 0.80 with an \texttt{RTL} partner), the same bracket weakness that ran through the
-one-misconception results. In panel (b) every cell is red and nearly uniform: the marginal on
-the named foil never exceeds 0.26, whichever pair is actually present. The ideal observer has
-no confusion structure here; whatever confusions appear in the human and LLM versions of this
-figure are properties of those observers, not information missing from the stimuli. (Cell
-counts are small by design: panel (a) cells hold 1 to 4 items and panel (b) exactly one item
-per foil-pair combination, but the observer is deterministic, so these are exact item-level
-values rather than noisy samples.)
+mean marginal on the named target ranges from 0.68 to 1.00, so no partner misconception ever
+masks a genuinely present target enough to matter. The weakest cells all have
+\texttt{outside\_bracket\_first} as the named target (0.68 with a \texttt{sub\_before\_mul}
+partner), the same bracket weakness that ran through the one-misconception results. In panel
+(b) every cell is red and nearly uniform: the marginal on the named foil never exceeds 0.26,
+whichever pair is actually present. The ideal observer has no confusion structure here;
+whatever confusions appear in the human and LLM versions of this figure are properties of those
+observers, not information missing from the stimuli. (Cell counts are still modest: panel (a)
+cells hold 3 to 6 items and panel (b) exactly two items per foil-pair combination, but the
+observer is deterministic, so these are exact item-level values rather than noisy samples.)
 
 \begin{figure}[H]
 \centering
@@ -330,8 +327,8 @@ both panels; its only soft spots are bracket claims as the named target in panel
 
 Figure~\ref{fig:llm2} repeats the two panels for each regime (one row per regime). As with the
 ideal observer, the cell values are exact rather than sampled: each regime rated every item
-once at temperature 0, so a panel (a) cell averages 1 to 4 deterministic ratings and every
-panel (b) cell is the single rating of its one item.
+once at temperature 0, so a panel (a) cell averages 3 to 6 deterministic ratings and every
+panel (b) cell averages the two ratings of its two items.
 
 \sethlcolor{yellow}\hl{Haiku (thinking) again approximates the ideal observer. Its panel (a) is green nearly
 throughout:} partial explanations are endorsed for almost every target-partner combination,
