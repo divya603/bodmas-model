@@ -61,7 +61,7 @@ def build_matrices(data, cohort):
                    for it in json.load(open(POOL))}
     idx = {m: i for i, m in enumerate(IDS)}
     diag = {i: [] for i in range(6)}
-    off = {'refuted': {}, 'unsupported': {}}
+    off = {'refuted': {}, 'unsupported': {}, 'combined': {}}
     n_part = 0
     for r in data:
         d = r['data']
@@ -78,10 +78,11 @@ def build_matrices(data, cohort):
                 diag[present].append(t['response'])
             else:
                 st = foil_status.get(t['id'])
-                if st in off:
+                if st in ('refuted', 'unsupported'):
                     off[st].setdefault((present, named), []).append(t['response'])
+                    off['combined'].setdefault((present, named), []).append(t['response'])
     mats = {}
-    for st in ('refuted', 'unsupported'):
+    for st in ('refuted', 'unsupported', 'combined'):
         mean, n = np.full((6, 6), np.nan), np.zeros((6, 6), int)
         for i in range(6):
             if diag[i]:
@@ -146,6 +147,19 @@ def main():
     fig.savefig(p, dpi=140)
     plt.close(fig)
     print(f"Wrote {p}")
+
+    # combined single-panel version (off-diagonal averages refuted + unsupported)
+    fig, ax = plt.subplots(figsize=(6.8, 6.8))
+    im = draw(ax, *mats['combined'],
+              f'Humans (practice cohort, n={n_part}), one-misconception items\n'
+              'diagonal = category A (agree); off-diagonal = category B foils (disagree)')
+    cbar = fig.colorbar(im, ax=ax, fraction=0.046, pad=0.04, ticks=[1, 2, 3, 3.5, 4, 5, 6])
+    cbar.ax.set_yticklabels(['1 (SD)', '2', '3', '3.5', '4', '5', '6 (SA)'], fontsize=8)
+    cbar.set_label('mean rating (>3.5 = agree side)', fontsize=9)
+    pc = os.path.join(args.out, f'human_1misc_heatmap_combined{suffix}.png')
+    fig.savefig(pc, dpi=140, bbox_inches='tight')
+    plt.close(fig)
+    print(f"Wrote {pc}")
 
 
 if __name__ == '__main__':

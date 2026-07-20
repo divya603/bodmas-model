@@ -60,7 +60,7 @@ def build_matrices(pool):
     present on rows, named on cols. Diagonal = category A (shared)."""
     idx = {m: i for i, m in enumerate(IDS)}
     diag = {i: [] for i in range(6)}
-    off = {'refuted': {}, 'unsupported': {}}
+    off = {'refuted': {}, 'unsupported': {}, 'combined': {}}
     for it in pool:
         if it['num_misconceptions'] != 1:
             continue
@@ -71,10 +71,11 @@ def build_matrices(pool):
             diag[present].append(marg)
         else:                                   # category B foil
             st = it.get('foil_status')
-            if st in off:
+            if st in ('refuted', 'unsupported'):
                 off[st].setdefault((present, named), []).append(marg)
+                off['combined'].setdefault((present, named), []).append(marg)
     mats = {}
-    for st in ('refuted', 'unsupported'):
+    for st in ('refuted', 'unsupported', 'combined'):
         mean, n = np.full((6, 6), np.nan), np.zeros((6, 6), int)
         for i in range(6):
             mean[i, i], n[i, i] = np.mean(diag[i]), len(diag[i])
@@ -136,6 +137,18 @@ def main():
     fig.savefig(p, dpi=140)
     plt.close(fig)
     print(f"\nWrote {p}")
+
+    # combined single-panel version (off-diagonal averages refuted + unsupported)
+    fig, ax = plt.subplots(figsize=(6.8, 6.8))
+    im = draw(ax, *mats['combined'],
+              'Bayesian ideal observer, one-misconception items\n'
+              'diagonal = category A (agree); off-diagonal = category B foils (disagree)')
+    cbar = fig.colorbar(im, ax=ax, fraction=0.046, pad=0.04, ticks=[0, 0.25, 0.5, 0.75, 1.0])
+    cbar.set_label('posterior marginal P(named rule | trace)', fontsize=9)
+    pc = os.path.join(HERE, 'bayes_1misc_heatmap_combined.png')
+    fig.savefig(pc, dpi=140, bbox_inches='tight')
+    plt.close(fig)
+    print(f"Wrote {pc}")
 
 
 if __name__ == '__main__':

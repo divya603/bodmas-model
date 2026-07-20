@@ -66,7 +66,8 @@ def load_rows():
 def matrices(rows, model, effort):
     idx = {m: i for i, m in enumerate(IDS)}
     sub = [r for r in rows if r['model'] == model and r['effort'] == effort]
-    seen, diag, off = set(), {i: [] for i in range(6)}, {'refuted': {}, 'unsupported': {}}
+    seen, diag = set(), {i: [] for i in range(6)}
+    off = {'refuted': {}, 'unsupported': {}, 'combined': {}}
     for r in sub:
         if r['id'] in seen:
             continue
@@ -76,10 +77,11 @@ def matrices(rows, model, effort):
             diag[present].append(r['response'])
         else:
             st = r['foil_status']
-            if st in off:
+            if st in ('refuted', 'unsupported'):
                 off[st].setdefault((present, named), []).append(r['response'])
+                off['combined'].setdefault((present, named), []).append(r['response'])
     out = {}
-    for st in ('refuted', 'unsupported'):
+    for st in ('refuted', 'unsupported', 'combined'):
         mean, n = np.full((6, 6), np.nan), np.zeros((6, 6), int)
         for i in range(6):
             if diag[i]:
@@ -141,6 +143,26 @@ def main():
     fig.savefig(p, dpi=140, bbox_inches='tight')
     plt.close(fig)
     print(f"Wrote {p}")
+
+    # combined single-panel-per-regime version (off-diagonal averages refuted + unsupported)
+    fig, axes = plt.subplots(1, 3, figsize=(16.5, 6.2), gridspec_kw={'wspace': 0.18})
+    fig.subplots_adjust(top=0.84)
+    im = None
+    for col, (label, model, effort) in enumerate(REGIMES):
+        mats = matrices(rows, model, effort)
+        im = draw(axes[col], *mats['combined'], label, '')
+        axes[col].set_xlabel('named in statement', fontsize=8)
+    axes[0].set_ylabel('misconception PRESENT in trace', fontsize=9)
+    cbar = fig.colorbar(im, ax=axes, fraction=0.012, pad=0.02, ticks=[1, 2, 3, 3.5, 4, 5, 6])
+    cbar.ax.set_yticklabels(['1 (SD)', '2', '3', '3.5', '4', '5', '6 (SA)'], fontsize=8)
+    cbar.set_label('mean rating (>3.5 = agree side)', fontsize=9)
+    fig.suptitle('LLMs, one-misconception items: present (rows) × named (columns)\n'
+                 'boxed diagonal = category A (agree correct); off-diagonal = all category B foils '
+                 '(disagree correct)', fontsize=12.5)
+    pc = os.path.join(OUTDIR, 'llm_1misc_heatmap_combined.png')
+    fig.savefig(pc, dpi=140, bbox_inches='tight')
+    plt.close(fig)
+    print(f"Wrote {pc}")
 
 
 if __name__ == '__main__':
