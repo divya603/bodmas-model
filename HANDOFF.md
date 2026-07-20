@@ -101,7 +101,14 @@ Results_combined/ FINAL results doc: results.tex + figs/ (subfolder RENAMED from
                   §2 LLM 1misc, §3 human 1misc + SDT/practice-trials note, §4 heatmaps ×3).
                   COMPLETE 3x3 figure set as of 2026-07-15: {human,bayes,llm} x {2misc_heatmap,
                   1misc_dist_A, 1misc_dist_B} (9 figures). NOTE: copies are snapshots — re-copy
-                  after regenerating any source figure.
+                  after regenerating any source figure. bayes/llm figures re-copied on the 480
+                  pool 2026-07-17. HUMAN figures now split by cohort (2026-07-20): the pilot
+                  (no-practice, 240 pool) plots renamed `human_*_without_practice.png`; the
+                  practice cohort (480 pool) plots added as `human_*_with_practice.png` (copied
+                  from human_buffer/, currently n=21). results.tex references the
+                  `_without_practice` set; the `_with_practice` figures are staged in figs/ but
+                  not yet cited (prose written step-by-step with the user).
+                  human_signal_detection.png is still the single pilot version (unchanged).
 llm_exp/          The LLM task-analog experiment (Python, OpenRouter)
 llm_exp_buffer/   Reference copy of the teammate's numberlink LLM experiment (delete when done; UNCOMMITTED)
 prereg_buffer/    Reference copy of the teammate's numberlink PRE-REGISTRATION (tex + figs)
