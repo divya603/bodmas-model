@@ -88,11 +88,16 @@
     background: var(--surface); border: 1px solid var(--border); color: var(--ink-2); }
   .chipset button[aria-pressed="true"] { background: var(--accent-soft); border-color: var(--accent); color: var(--accent); }
   .count { margin-left: auto; font-size: 12.5px; color: var(--ink-2); }
+  .legend { display: flex; align-items: center; gap: 6px; flex-wrap: wrap; font-size: 12px; color: var(--ink-2); margin: 0 0 10px; }
+  .legend .lg { display: inline-flex; align-items: center; gap: 4px; font-weight: 600; }
+  .legend .lg.ok { color: var(--good); } .legend .lg.bad { color: var(--bad); }
+  .legend .lg .dot { width: 8px; height: 8px; border-radius: 50%; }
+  .legend .lg.ok .dot { background: var(--good); } .legend .lg.bad .dot { background: var(--bad); }
 
   /* table */
-  .tablewrap { overflow-x: auto; border: 1px solid var(--border); border-radius: var(--r); background: var(--surface); }
+  .tablewrap { overflow: auto; max-height: calc(100vh - 250px); min-height: 320px; border: 1px solid var(--border); border-radius: var(--r); background: var(--surface); }
   table { border-collapse: collapse; width: 100%; font-size: 13px; }
-  thead th { position: sticky; top: 0; background: var(--surface-2); text-align: left; font-size: 11px; text-transform: uppercase;
+  thead th { position: sticky; top: 0; z-index: 2; background: var(--surface-2); text-align: left; font-size: 11px; text-transform: uppercase;
     letter-spacing: .04em; color: var(--ink-3); font-weight: 700; padding: 9px 10px; border-bottom: 1px solid var(--border); white-space: nowrap; cursor: pointer; user-select: none; }
   thead th.no-sort { cursor: default; }
   thead th .ar { color: var(--accent); }
@@ -228,6 +233,7 @@
       </label>
       <span class="count" id="count"></span>
     </div>
+    <p class="legend"><span class="lg ok"><span class="dot"></span>agree</span><span class="lg bad"><span class="dot"></span>disagree</span> &nbsp;colored by verdict everywhere; an observer whose color differs from the <b>Ans</b> column got that item wrong.</p>
     <div class="tablewrap">
       <table id="stimtable">
         <thead><tr>
@@ -289,7 +295,9 @@
 
   function verdCell(v) {
     if (!v.has) return '<span class="verd na"><span class="dot"></span>—</span>';
-    const cls = v.ok ? 'ok' : 'bad';
+    // color by the verdict itself: agree = green, disagree = red (same convention
+    // as the answer column, so a wrong observer shows up as a color mismatch)
+    const cls = v.agree ? 'ok' : 'bad';
     const word = v.agree ? 'agree' : 'disagree';
     return `<span class="verd ${cls}"><span class="dot"></span>${word}<span class="val">${v.val}${v.sub?' · '+v.sub:''}</span></span>`;
   }
@@ -387,7 +395,7 @@
     const fsline = it.fs ? ` · foil ${it.fs}${it.io_foil_marginal != null ? '' : ''}` : '';
     const obs = OBS.map(o => {
       const v = verd(it, o[0]);
-      const cell = v.has ? `<span class="verd ${v.ok ? 'ok' : 'bad'}"><span class="dot"></span>${v.agree ? 'agree' : 'disagree'}</span>` : '<span class="na">no data</span>';
+      const cell = v.has ? `<span class="verd ${v.agree ? 'ok' : 'bad'}"><span class="dot"></span>${v.agree ? 'agree' : 'disagree'}</span>` : '<span class="na">no data</span>';
       const val = v.has ? `<span class="osub">${v.val}${v.sub ? ' ' + v.sub : ''}</span>` : '';
       return `<div class="oname">${o[1]}</div><div>${cell}</div><div>${val}</div>`;
     }).join('');
