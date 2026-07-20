@@ -202,12 +202,6 @@
 
   <div class="tiles" id="tiles"></div>
 
-  <nav class="tabs" role="tablist">
-    <button role="tab" aria-selected="true" data-view="stim">Stimuli</button>
-    <button role="tab" aria-selected="false" data-view="person">By person</button>
-    <button role="tab" aria-selected="false" data-view="think">LLM reasoning errors</button>
-  </nav>
-
   <section id="view-stim">
     <div class="filters">
       <div class="chipset" id="catchips" role="group" aria-label="category">
@@ -249,14 +243,6 @@
         <tbody id="stimbody"></tbody>
       </table>
     </div>
-  </section>
-
-  <section id="view-person" class="hide">
-    <div id="personlist" class="plist"></div>
-  </section>
-
-  <section id="view-think" class="hide">
-    <div id="thinkwrap"></div>
   </section>
 </div>
 
@@ -443,75 +429,7 @@
   function closeDrawer() { $('#drawer').classList.remove('on'); $('#scrim').classList.remove('on'); state.sel = null; renderTable(); }
   function escapeHtml(s) { return s.replace(/[&<>]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;' }[c])); }
 
-  // ---- person view ----
-  function catColor(v) { if (v == null) return ''; return v >= 0.6 ? 'background:var(--good-soft);color:var(--good)' : v >= 0.5 ? 'background:var(--surface-3)' : 'background:var(--bad-soft);color:var(--bad)'; }
-  function renderPersons() {
-    const wrap = $('#personlist'); wrap.innerHTML = '';
-    PARTS.slice().sort((a, b) => b.acc - a.acc).forEach(p => {
-      const cats = 'ABCD'.split('').map(c => `<span style="${catColor(p.byCat[c])}" title="${c}: ${pct(p.byCat[c])}">${c} ${p.byCat[c] == null ? '—' : Math.round(p.byCat[c] * 100)}</span>`).join('');
-      const card = el('div', 'pcard',
-        `<div style="display:flex;justify-content:space-between;align-items:baseline"><span class="pid">${p.pid}</span><span class="pacc">${pct(p.acc)}</span></div>` +
-        `<div class="sub">d′ ${p.dprime} · crit ${p.crit}</div><div class="pcat">${cats}</div>`);
-      card.addEventListener('click', () => openPerson(p.pid));
-      wrap.appendChild(card);
-    });
-  }
-  function openPerson(pid) {
-    const p = PARTS.find(x => x.pid === pid); if (!p) return;
-    const trials = [];
-    ITEMS.forEach(it => it.human.resp.forEach(r => { if (r.p === pid) trials.push({ it, r: r.r }); }));
-    trials.sort((a, b) => a.it.cat < b.it.cat ? -1 : a.it.cat > b.it.cat ? 1 : (a.it.id < b.it.id ? -1 : 1));
-    const rows = trials.map(t => {
-      const ok = (t.r >= 4) === (t.it.sc === true);
-      return `<tr data-id="${t.it.id}"><td><span class="idcell">${t.it.id}</span> <span class="chip cat-${t.it.cat}">${t.it.cat}</span></td><td class="exprcell">${t.it.expr}</td><td class="mono">${t.r}</td><td><span class="verd ${ok ? 'ok' : 'bad'}"><span class="dot"></span>${ok ? 'correct' : 'wrong'}</span></td></tr>`;
-    }).join('');
-    const d = $('#drawer');
-    d.innerHTML =
-      `<div class="dhead"><div><span class="pid" style="font-size:16px">${p.pid}</span> <span class="sub">${pct(p.acc)} · d′ ${p.dprime}</span></div><button class="closex" aria-label="close">×</button></div>` +
-      `<div class="dbody">` +
-      (p.strategy ? `<div class="sec">Their stated strategy</div><div class="stmtbox" style="font-style:normal">${escapeHtml(p.strategy)}</div>` : '<div class="sub">No strategy response recorded.</div>') +
-      `<div class="sec">All ${trials.length} trials</div><div class="tablewrap"><table><thead><tr><th class="no-sort">Item</th><th class="no-sort">Expression</th><th class="no-sort">Rated</th><th class="no-sort">Result</th></tr></thead><tbody>${rows}</tbody></table></div>` +
-      `</div>`;
-    d.querySelector('.closex').addEventListener('click', closeDrawer);
-    d.querySelectorAll('tbody tr').forEach(tr => tr.addEventListener('click', () => openDrawer(tr.dataset.id)));
-    d.classList.add('on'); $('#scrim').classList.add('on');
-  }
-
-  // ---- thinking-errors view ----
-  function renderThink() {
-    const wrap = $('#thinkwrap'); wrap.innerHTML = '';
-    const sum = FAIL.summary || {};
-    if (sum.headline) wrap.appendChild(el('div', 'headline', escapeHtml(sum.headline)));
-    const cats = (sum.categories || []).slice().sort((a, b) => b.count - a.count);
-    const grid = el('div', 'fmsummary');
-    cats.forEach(c => grid.appendChild(el('div', 'fmcard', `<div class="fc">${c.count}</div><div class="fn">${c.slug}</div><div class="fd">${escapeHtml(c.description || '')}</div>`)));
-    wrap.appendChild(grid);
-    // list of wrong items grouped by category
-    const wrong = ITEMS.filter(it => it.llm.thinking && !it.llm.thinking.ok);
-    const bycat = {}; wrong.forEach(it => { const f = failById[it.id]; const k = f ? f.category : 'uncategorized'; (bycat[k] = bycat[k] || []).push(it); });
-    const listwrap = el('div'); listwrap.style.marginTop = '18px';
-    Object.keys(bycat).sort((a, b) => bycat[b].length - bycat[a].length).forEach(k => {
-      listwrap.appendChild(el('div', 'sec', `${k} — ${bycat[k].length}`));
-      const tw = el('div', 'tablewrap');
-      const rows = bycat[k].map(it => {
-        const f = failById[it.id] || {};
-        return `<tr data-id="${it.id}"><td><span class="idcell">${it.id}</span> <span class="chip cat-${it.cat}">${it.cat}</span></td><td class="exprcell">${it.expr}</td><td><span class="mono">rated ${it.llm.thinking.r}</span> <span class="osub">want ${it.sc ? 'agree' : 'disagree'}</span></td><td class="sub">${escapeHtml(f.note || '')}</td></tr>`;
-      }).join('');
-      tw.innerHTML = `<table><tbody>${rows}</tbody></table>`;
-      tw.querySelectorAll('tr').forEach(tr => tr.addEventListener('click', () => { switchView('stim'); openDrawer(tr.dataset.id); }));
-      listwrap.appendChild(tw);
-    });
-    wrap.appendChild(listwrap);
-  }
-
   // ---- wiring ----
-  function switchView(v) {
-    document.querySelectorAll('nav.tabs button').forEach(b => b.setAttribute('aria-selected', b.dataset.view === v));
-    $('#view-stim').classList.toggle('hide', v !== 'stim');
-    $('#view-person').classList.toggle('hide', v !== 'person');
-    $('#view-think').classList.toggle('hide', v !== 'think');
-  }
-  document.querySelectorAll('nav.tabs button').forEach(b => b.addEventListener('click', () => switchView(b.dataset.view)));
   $('#catchips').addEventListener('click', e => {
     const b = e.target.closest('button'); if (!b) return;
     const c = b.dataset.cat, on = b.getAttribute('aria-pressed') === 'true';
@@ -548,6 +466,6 @@
 
   // init
   $('#subline').innerHTML = `${DATA.meta.n_items} stimuli · 3 model observers + ideal observer · ${DATA.meta.n_participants} human participants (with-practice cohort) · <span class="sub">human column fills in as more people run</span>`;
-  ruleSelect(); renderTiles(); renderTable(); renderPersons(); renderThink();
+  ruleSelect(); renderTiles(); renderTable();
 })();
 </script>
