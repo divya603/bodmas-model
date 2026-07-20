@@ -366,7 +366,7 @@ errors (1126 vs 672) cost more.
   (disagree correct), split into TWO panels by foil refutation status: (a) refuted → off-diag
   collapses to ~0 (outside-named column softer ~0.1), (b) unsupported → off-diag ~0.2 residual.
   The shared diagonal is the agree reference in both panels. Same CMAP/NORM/cell style as the
-  2-misc bayes heatmap. Human + LLM 1-misc heatmap counterparts still TODO (same design).
+  2-misc bayes heatmap. Human counterpart `analysis_human/plot_human_1misc_heatmap.py` (`human_1misc_heatmap_with_practice.png`, n=21, diagonal solid / off-diagonal sparse) and LLM `llm_exp/make_llm_1misc_heatmap.py` (`llm_1misc_heatmap.png`, 3 regimes x 2 panels: thinking green-diagonal + refutation-sensitive, direct all-red off-diagonal, gpt-4o claim-driven RTL/outside columns) DONE 2026-07-20. 1-misc heatmap set complete.
 - **`plot_2misc_heatmap.py`** — 2-misconception (C/D) present×shown heatmaps: C = 6×6 (named
   target × partner), D = 6×15 (named foil × present PAIR; pair-columns containing the foil are
   impossible). Green=agree/red=disagree diverging map. Mirrored by
