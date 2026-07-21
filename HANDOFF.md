@@ -461,6 +461,24 @@ errors (1126 vs 672) cost more.
   (2) false add<× endorsed when add<÷ present — shared by haiku-thinking; (3) ideal observer flat
   (max 0.26) → confusions are observer properties, not stimulus leaks; (4) gpt-4o is claim-driven
   (endorses RTL/outside() statements regardless of trace).
+- **DOT version of the 2-misc heatmaps, DONE 2026-07-21** (new files, the originals above are
+  untouched): `analysis_human/plot_2misc_heatmap_dots.py` →
+  `plots/human_2misc_heatmap_dots_practice.png`, and `llm_exp/make_llm_2misc_heatmap_dots.py` →
+  `plots/llm_2misc_heatmap_dots.png` (3 regime rows, ~26x26in by design). Same cells and same
+  mean colour, but every individual trial/item is drawn inside its cell: horizontal position =
+  the 1-6 rating (ticks mark the six positions), dashed centre line = the 3.5 boundary, dots
+  stack on repeats. **No Bayes version**: at ε=0 all 30 category-C cells are exactly 1.000 with
+  zero spread, so there is nothing to draw.
+  Why dots and not mini distributions: cells hold 1-7 values (humans: min 1, median 3, max 7;
+  LLM/Bayes: C 3-6, D exactly 2). A density curve through 2 points is theatre, so the raw values
+  are shown directly.
+  **Finding — the cell mean was systematically hiding bimodality.** Cells whose values span ≥4
+  rating points: humans 27 of the 45 cells with n≥3; haiku-direct 31/90; gpt-4o 33/90;
+  haiku-thinking only 11/90. And a middling mean is almost never actual middling responses:
+  humans `mean 3.5 n=6 → 1,2,2,5,5,6` and `mean 3.4 n=7 → 1,2,2,2,5,6,6`; haiku-direct
+  `mean 3.5 n=4 → 1,1,6,6`; gpt-4o `mean 3.2 n=4 → 1,1,5,6`. So a grey "undecided" cell in the
+  original heatmaps is usually two confident opposite answers. haiku-thinking is the only
+  observer whose cells are genuinely tight and unimodal.
 - **1-misconception (A/B) analysis, Bayesian arm DONE:** `analysis-Bayesian/plot_bayes_1misc_marginals.py`
   → `bayes_1misc_marginals.png`: per-item P(named rule | trace) dots (NO averaging — user's
   explicit preference, "not seeing the full picture"), 10 A + 10 B items per misconception.
@@ -616,6 +634,25 @@ Writing style: **no em dashes** (user: "screams AI").
   failed with an SSH i/o timeout to the lab server ("create the remote folders" step);
   `gh run rerun <id> --failed` fixed it — transient, not a code issue. User still to eyeball
   the deployed practice flow.
+
+**DONE (2026-07-21):**
+- **Dot versions of the 2-misc heatmaps (human + LLM)**, showing every individual value inside
+  its cell instead of only the mean. Full description and the bimodality numbers in §5. Headline:
+  the cell mean was hiding two-sided splits in about 60% of human cells with n≥3 and in a third
+  of LLM cells, except for haiku-thinking. Relevant to how §4 of results.tex describes those
+  heatmaps: "grey cell = undecided" is wrong, it is usually "two confident opposite answers".
+- **LLM 1-misc dist figures restyled**: haiku-thinking blue → red, plus per-regime markers
+  (thinking star, haiku-direct square, gpt-4o circle) because the three curves coincide exactly
+  on many panels. `llm_exp/make_llm_1misc_distributions.py`.
+- ⚠️ **Open design question, discussed but NOT built**: a single combined human × LLM × Bayes
+  figure for the 1-misc distributions. Blocked on a scale decision. The three arms are not the
+  same object today (LLM = 6-point frequency polygon over ratings, Bayes = continuous KDE over
+  [0,1], human = ALREADY BINARY because 1-6 was too noisy at n≈21 per cell), the unit differs
+  (item for LLM/Bayes, trial for humans), and dist_B row 3 is B-only for LLM/Bayes but pooled
+  over B+D for humans. Recommendation on the table: make the common scale **P(agree)** (humans
+  and LLMs = proportion rated ≥4, Bayes = proportion with marginal > 0.5), x-axis = the six
+  misconceptions, LLM solid / human dashed / Bayes dotted, Wilson intervals on the two sampled
+  observers. Note Bayes is a flat line at 1.0 (A) and 0.0 (B) at ε=0.
 
 **DONE (2026-07-20):**
 - **ε switched 0.05 → 0.0 and the whole Bayes arm regenerated** (user's call; see §2 Bayesian for
