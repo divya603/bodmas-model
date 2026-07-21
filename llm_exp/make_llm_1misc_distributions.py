@@ -51,18 +51,22 @@ SHORT = {
     'sub_before_mul': 'sub<×', 'sub_before_div': 'sub<÷',
     'same_priority_rtl': 'RTL', 'outside_bracket_first': 'outside()',
 }
+# (label, model, effort, colour, xoff, marker, scatter size, legend markersize).
+# Distinct markers as well as distinct colours: the three curves overlap exactly
+# on many panels (all three at 0.0 across ratings 2-4 is common), so the marker
+# is what tells them apart where the lines coincide.
 REGIMES = [
-    ('haiku (thinking)', 'anthropic/claude-haiku-4.5', 'thinking', '#2a78d6', -0.24),
-    ('haiku (direct)', 'anthropic/claude-haiku-4.5', 'direct', '#eda100', 0.0),
-    ('gpt-4o (direct)', 'openai/gpt-4o', 'direct', '#4a3aa7', 0.24),
+    ('haiku (thinking)', 'anthropic/claude-haiku-4.5', 'thinking', '#d62728', -0.24, '*', 70, 10),
+    ('haiku (direct)', 'anthropic/claude-haiku-4.5', 'direct', '#eda100', 0.0, 's', 20, 5.5),
+    ('gpt-4o (direct)', 'openai/gpt-4o', 'direct', '#4a3aa7', 0.24, 'o', 20, 5.5),
 ]
 
 
 def panel(ax, by_regime, title):
-    """by_regime: list of (label, vals, color, xoff); exact frequency-polygon
-    curves — through the true proportion at each rating, through 0 where a
-    rating was never used."""
-    nonempty = [(lab, v, c, o) for lab, v, c, o in by_regime if len(v)]
+    """by_regime: list of (label, vals, color, xoff, marker, msize); exact
+    frequency-polygon curves — through the true proportion at each rating,
+    through 0 where a rating was never used."""
+    nonempty = [t for t in by_regime if len(t[1])]
     if not nonempty:
         ax.text(0.5, 0.5, 'no refuted items\n(foil never testable)', ha='center',
                 va='center', fontsize=8, color='#898781', transform=ax.transAxes)
@@ -72,13 +76,14 @@ def panel(ax, by_regime, title):
         ax.set_title(title, fontsize=10)
         return
     grid = np.linspace(1, 6, 300)
-    for _, vals, color, _ in nonempty:
+    for _, vals, color, _, marker, msize in nonempty:
         counts = Counter(vals)
         props = [counts.get(r, 0) / len(vals) for r in range(1, 7)]
         smooth = np.clip(PchipInterpolator(range(1, 7), props)(grid), 0, None)
         ax.plot(grid, smooth, color=color, lw=1.8, zorder=3)
         ax.fill_between(grid, smooth, color=color, alpha=0.12, lw=0)
-        ax.scatter(range(1, 7), props, s=13, color=color, zorder=4)
+        ax.scatter(range(1, 7), props, s=msize, marker=marker, color=color,
+                   zorder=4, clip_on=False)
     ax.axvline(3.5, ls='--', lw=0.8, color='grey')
     ax.set_xlim(0.7, 6.3)
     ax.set_ylim(0, 1.05)
@@ -122,18 +127,18 @@ def main():
         return a_p, b_p, b_n, b_r
 
     per_regime = {}
-    for label, model, effort, color, xoff in REGIMES:
+    for label, model, effort, *_ in REGIMES:
         per_regime[label] = cells(model, effort)
         a_p = per_regime[label][0]
         print(f"{label}: A items {sum(len(v) for v in a_p.values())}, "
               f"B items {sum(len(v) for v in per_regime[label][1].values())}")
 
     def collect(idx, m):
-        return [(label, per_regime[label][idx][m], color, xoff)
-                for label, _, _, color, xoff in REGIMES]
+        return [(label, per_regime[label][idx][m], color, xoff, marker, size)
+                for label, _, _, color, xoff, marker, size, _ in REGIMES]
 
-    handles = [plt.Line2D([], [], color=c, lw=2, label=lab)
-               for lab, _, _, c, _ in REGIMES]
+    handles = [plt.Line2D([], [], color=c, lw=2, marker=mk, markersize=lms, label=lab)
+               for lab, _, _, c, _, mk, _, lms in REGIMES]
 
     # ── figure 1: category A ──
     fig, axes = plt.subplots(2, 3, figsize=(11, 6.4), sharex=True)
