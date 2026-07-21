@@ -18,6 +18,16 @@ policy's notion of correctness — the noise/slip space. Defining it this way
 transition is ever assigned exactly zero probability for any L, unless it's
 a physically impossible move.
 
+DEFAULT_EPSILON is 0.0: every trace in the stimulus pool is generated
+deterministically by one of the 22 profiles (traces.generate_traces), so
+there is no slip process to model and a nonzero epsilon is a misspecified
+likelihood. At epsilon = 0 the transition model is uniform-over-valid and a
+step that a profile forbids eliminates that profile outright, which is the
+correct inference for noiseless traces. Verified over all 480 pool items:
+no item is left with zero surviving profiles. Pass epsilon > 0 explicitly
+(as app.py's slider does) to soften this for traces that were NOT produced
+by one of the 22 profiles, e.g. real student work.
+
 Likelihood of a trace s0..sT under L (Markov, one factor per step):
     P(s1..sT | L, s0) = ∏ₜ π_L(s_{t+1} | s_t)
 
@@ -40,7 +50,7 @@ from learner import MISCONCEPTION_FLIPS
 IDS = list(MISCONCEPTION_FLIPS.keys())
 ALL_PROFILES = [()] + [(m,) for m in IDS] + list(combinations(IDS, 2))  # 22 profiles
 
-DEFAULT_EPSILON = 0.05
+DEFAULT_EPSILON = 0.0
 
 
 # ── AllActions(s): policy-agnostic noise space ─────────────────────
