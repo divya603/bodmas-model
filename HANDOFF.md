@@ -86,8 +86,9 @@ Results_combined/ FINAL results doc: results.tex + figs/ (subfolder RENAMED from
                   user added soul highlights — preserve them when editing.
                   §4 (2-misc) has a SHARED heatmap explainer up front (C = 6×6 named×partner
                   square, D = 6×15 foil×pair rectangle, green/red diverging, value+n per cell
-                  — written once for all three observers) + §4.1 Bayesian (panel (a) all green
-                  0.76–1.00, weakest = outside() as target; panel (b) all red ≤0.26, flat →
+                  — written once for all three observers) + §4.1 Bayesian (at ε=0 panel (a) is
+                  uniformly 1.00 in every cell, was 0.76–1.00 with outside() weakest; panel (b)
+                  all red ≤0.16, was ≤0.26, flat →
                   confusions elsewhere are observer properties) + §4.2 LLM heatmap (thinking:
                   green (a)/red (b) except add<× foil row lighting up on add<÷-containing
                   pairs = family confusion; direct: wall of 1s both panels = right on foils
@@ -192,17 +193,97 @@ exactly 3 first / 3 second per participant, rotating across participants.
 
 ### Bayesian ideal observer
 - **`inference.py`** — `posterior_over_profiles(trace)`: posterior over all 22 profiles from a
-  trace, via an **epsilon-greedy transition model** (ε=0.05); `marginal_rule_probability()` =
-  P(a misconception is in the learner's policy | trace). Known limitation: exact ties between a
-  single misconception and pairs containing it when the second never manifests (resolved in practice
-  by the marginal, and the professor confirmed "if the marginal is fine, the model is fine").
+  trace, via a uniform-over-valid transition model; `marginal_rule_probability()` =
+  P(a misconception is in the learner's policy | trace). **ε switched 0.05 → 0.0 on 2026-07-20**
+  (`DEFAULT_EPSILON`, inference.py). Rationale: every pool trace is generated deterministically by
+  one of the 22 profiles (`traces.generate_traces`), so there is no slip process and a nonzero ε is
+  a misspecified likelihood. At ε=0 a forbidden step eliminates its profile outright. Verified over
+  all 480 items: no item is left with zero surviving profiles, so no `ValueError`, no −inf
+  posterior. Keep `epsilon > 0` (app.py's slider) for traces NOT produced by the 22 profiles,
+  e.g. real student work. Known limitation, now sharper: exact ties between a single misconception
+  and pairs containing it when the second never manifests. At ε=0 those ties are *exact*, so
+  `most_likely_profile` breaks them arbitrarily and `test_recovery.py` reports 22/40 MAP — but the
+  true profile is **never strictly beaten** (checked n=66: in the argmax set 66/66), and the
+  marginal, which every figure uses, is unaffected. Professor: "if the marginal is fine, the model
+  is fine."
 - **`misconception_difficulty.py`** → `misconception_difficulty.json`: the **ideal-observer
   difficulty baseline** — avg marginal on the true misconception per rule, split alone vs paired.
-  **Re-run on the extended 487-item pool (2026-07-17).** Ranking hardest→easiest:
-  `outside_bracket_first (0.68) < sub_before_div (0.75) < add_before_mul (0.77) < add_before_div
-  (0.78) < sub_before_mul (0.80) < same_priority_rtl (0.81)` — endpoints unchanged from the
-  240-pool baseline, small mid-rank shuffle (add<× and add<÷ swapped).
+  **Re-run at ε=0 on the 480 pool (2026-07-20).** Ranking hardest→easiest:
+  `outside_bracket_first (0.78) < sub_before_div (0.78) < add_before_mul (0.81) < add_before_div
+  (0.82) < sub_before_mul (0.85) < same_priority_rtl (0.85)` — same order as the ε=0.05 run
+  (0.68/0.75/0.77/0.78/0.80/0.81) but compressed, and outside() is no longer distinctly hardest
+  (0.779 vs 0.784, a 0.005 gap where it used to be 0.068). **All six are exactly 1.000 on the
+  `alone` (category A) items**, so the entire remaining spread comes from paired items where the
+  second rule never manifests, which is a stimulus-design property rather than an inference one.
+  This matters for prereg **H3**: the ideal-observer difficulty gradient is nearly flat at ε=0.
 - **`test_recovery.py`** — MAP-recovery validation.
+
+#### ⚠️ `outside_bracket_first` is UNFALSIFIABLE in the current encoding (found 2026-07-21)
+
+This is a model property, not a bug in any script, and it survives the ε=0 switch. It is the
+single most important caveat on the Bayesian arm.
+
+**Mechanism.** All six misconceptions flip cells in a 3-node window truth table
+(`learner.py: MISCONCEPTION_FLIPS`, keys `(table, op1, op2, role)`). Five of them flip TWO cells
+in the SAME Table-2 window: one op promoted (`to_true`), the competing op demoted (`to_false`).
+So they *substitute* a move, which forces the learner and makes them testable. Example:
+
+```
+12 + 8 × 4 - 3        expert           -> ['12 + 32 - 3']
+                      +add_before_mul  -> ['20 × 4 - 3']        <- expert's move is GONE
+```
+
+`outside_bracket_first` has `'to_false': set()`, uniquely. Its keys are Table 3
+(`a op1 b op2 Y`) and Table 4 (`Y op1 b op2 c`), where the third slot is an UNRESOLVED bracket.
+There, the second op was never fireable to begin with (you cannot multiply by an unevaluated
+bracket), so there is no competing op cell to demote. The move it actually competes with is
+`recurse_Y`, going inside the bracket, which belongs to the bracket's own inner window and is
+scanned as a separate level (`traces.inner_valid_actions_for_learner` calls `match_patterns`
+on the inner dag with no reference to the enclosing window). `recurse_Y` therefore has no key
+that a `to_false` could name. So outside() can only APPEND:
+
+```
+12 + 8 × (1 × 4 - 3)  expert                  -> ['12 + 8 × (4 - 3)']
+                      +outside_bracket_first  -> ['12 + 8 × (4 - 3)', '20 × (1 × 4 - 3)']
+```
+
+**Verified:** adding a rule to the expert removes a legal action in 0 of 1920 pool states for
+outside(), versus 249 to 302 states for each of the other five.
+
+**Consequences.**
+1. Adding outside() to any profile only enlarges its legal-move set, so no observation can ever
+   make that profile impossible. Its marginal can never reach 0. In category B: the other five
+   foils hit exactly 0.000 on their refuted items (0 surviving profiles contain the foil);
+   outside() always has exactly 1 surviving profile containing it, and averages 0.099 on its
+   "refuted" 10 and 0.177 on its unsupported 10.
+2. So the trace can only argue against outside() by DILUTION, never by contradiction: a learner
+   with outside() who resolves the bracket had 2 legal moves and picked one (p=1/2) where an
+   expert had 1 (p=1). Worked example B026 (`11 - 6 ÷ 10 × (11 ÷ 5)`, foil = outside()):
+   four surviving profiles at 0.2222 each plus `sub_before_mul + outside_bracket_first` at
+   0.1111, i.e. 0.5/(4+0.5). Never 0.
+3. **The "refuted" label on the 10 outside()-named category-B items is a misnomer.** They fall
+   under the 0.15 cut by dilution, not by logical contradiction like the other 50. Relevant to
+   prereg **H5** (FA lower on refuted than unsupported foils): outside() contributes a weaker
+   contrast (0.099 vs 0.177) and for a different reason, so either exclude it from H5 or
+   pre-register H5 as a per-foil analysis.
+4. This is the same asymmetry that pinned the bracket category-C items at 0.68 to 0.70 under
+   ε=0.05 (dilution penalty on the present side). ε=0 fixed the present side because hard
+   elimination now dominates there; the absent side has nothing to eliminate, so dilution is
+   the whole signal and outside() is the one rule where dilution is all you ever get.
+5. **Task-validity gap:** the belief statement participants read is a PREFERENCE claim
+   ("believes you should calculate outside the brackets before what's inside them"), which
+   would force `20 × (1 × 4 - 3)`. The model implements a PERMISSION ("may calculate outside
+   first"). Humans and LLMs are being asked about a stronger claim than the one the observer
+   scores.
+
+**Model-v2 fix (do NOT do mid-experiment).** `_classify_window` already emits `recurse_Y` as a
+first-class candidate reduction for Tables 3 and 4, it just is not keyed. Add a role value
+`'recurse_Y'` (keys like `(3, '+', '×', 'recurse_Y')`), put those in outside()'s `to_false`, and
+thread the enclosing window's verdict into `inner_valid_actions_for_learner` so the inner scan
+can be suppressed. Roughly 20 lines across `learner.py`, `pattern_matcher.py`, `traces.py`. But
+it changes which traces each profile generates, so the 480 pool, answer keys, refutation
+statuses, every Bayes figure and the whole LLM run would need regenerating, against a live
+experiment with n=21 collected. Park it as v2 for a future wave.
 - **`app.py`** — Streamlit app, 4 tabs: Expert Learner, Misconception Learner, Infer Learner Type,
   Misconception Difficulty. Run: `cd base-task && streamlit run app.py`.
 - **`make_practice_examples.py`** — regenerates the 3 LLM practice examples (writes
@@ -362,9 +443,10 @@ errors (1126 vs 672) cost more.
 - **1-misconception heatmaps (present × named "confusion matrix"), Bayes arm DONE (2026-07-20):**
   `analysis-Bayesian/plot_bayes_1misc_heatmap.py` → `bayes_1misc_heatmap.png` (copied to
   Results_combined/figs). Rows = misconception PRESENT, cols = NAMED; DIAGONAL = category A
-  (agree correct, boxed green ~0.9, outside weakest 0.89), OFF-DIAGONAL = category B foils
+  (agree correct; **at ε=0 all six diagonal cells are exactly 1.00**, previously ~0.9 with
+  outside() weakest at 0.89), OFF-DIAGONAL = category B foils
   (disagree correct), split into TWO panels by foil refutation status: (a) refuted → off-diag
-  collapses to ~0 (outside-named column softer ~0.1), (b) unsupported → off-diag ~0.2 residual.
+  collapses to exactly 0, (b) unsupported → off-diag 0.17–0.25 residual.
   The shared diagonal is the agree reference in both panels. Same CMAP/NORM/cell style as the
   2-misc bayes heatmap. Human counterpart `analysis_human/plot_human_1misc_heatmap.py` (`human_1misc_heatmap_with_practice.png`, n=21, diagonal solid / off-diagonal sparse) and LLM `llm_exp/make_llm_1misc_heatmap.py` (`llm_1misc_heatmap.png`, 3 regimes x 2 panels: thinking green-diagonal + refutation-sensitive, direct all-red off-diagonal, gpt-4o claim-driven RTL/outside columns) DONE 2026-07-20. 1-misc heatmap set complete.
 - **`plot_2misc_heatmap.py`** — 2-misconception (C/D) present×shown heatmaps: C = 6×6 (named
@@ -426,7 +508,10 @@ errors (1126 vs 672) cost more.
   add<× is majority-disagree (15/24 at ≤3, mode "2"), outside() most-endorsed (13/24 at 5–6,
   zero at "4"); (2) human A difficulty partially
   INVERTS the ideal observer: outside() gets humans' highest A ratings (3.83) despite weakest
-  IO evidence, RTL among lowest (3.21) despite strongest; (3) human B false alarms are both
+  IO evidence, RTL among lowest (3.21) despite strongest. **STALE after the ε=0 switch
+  (2026-07-20):** the IO is now exactly 1.00 on every category-A item, so there is no IO gradient
+  on A to invert. The human asymmetry is unchanged and still real, but it must be restated as
+  "humans vary where the IO is uniformly certain," not as an inversion of IO difficulty; (3) human B false alarms are both
   trace-side (outside()-present bimodal, mean 3.67) and claim-side (add<÷-named 3.67);
   (4) humans rate refutable foils lower (~2.64 vs ~3.0 unrefutable) — weak evidence they use
   refutation; (5) haiku-thinking mirrors IO incl. softer outside() support on A; haiku-direct
@@ -533,6 +618,27 @@ Writing style: **no em dashes** (user: "screams AI").
   the deployed practice flow.
 
 **DONE (2026-07-20):**
+- **ε switched 0.05 → 0.0 and the whole Bayes arm regenerated** (user's call; see §2 Bayesian for
+  the rationale and the verification that no item loses all profiles). Regenerated:
+  `misconception_difficulty.json`, `analysis-Bayesian/b_item_marginals.json`, all 5 Bayes figures
+  (`bayes_1misc_dist_A/B`, `bayes_1misc_heatmap`, `bayes_1misc_heatmap_combined`,
+  `bayes_2misc_heatmap`, copied to `Results_combined/figs/`), `dashboard/bayes_per_item.json` →
+  `dashboard_data.json` → `index.html`. **Pool untouched** (`extend_pool.py` /
+  `make_human_practice_items.py` deliberately NOT re-run, the experiment is live), and the
+  refuted/unsupported foil labels are byte-identical at the same 0.15 cut: 0 of 240 B/D items
+  relabelled, still 10 refuted per named foil.
+  What changed numerically: every present item (A and C, 240 of them) now scores exactly 1.000,
+  so the `outside_bracket_first` floor at 0.68–0.70 on the bracket C items is gone. Absent items
+  barely moved (B 0.113 → 0.107, D 0.109 → 0.102) but 103 of them are now exactly 0.
+  ⚠️ **Consequence to decide on:** the graded structure on the agree side is gone, so
+  `bayes_1misc_dist_A.png` is six identical spikes at 1.0 and the 1-misc heatmap diagonal and the
+  whole 2-misc panel (a) are uniform 1.00. Those three figures now carry no information and either
+  need reframing (report the ideal observer as a logical oracle: 1.0 present vs ≤0.25 absent) or
+  dropping. results.tex prose is stale in the same places, see PENDING.
+  ⚠️ **What ε=0 does NOT fix:** the outside() column of `bayes_1misc_dist_B` row 3 still never
+  spikes at zero, because `outside_bracket_first` is unfalsifiable by construction. Full
+  mechanism, evidence and v2 fix in §2 Bayesian, "outside_bracket_first is UNFALSIFIABLE"
+  (2026-07-21). Read that before writing any prose about the refuted contrast.
 - **results.tex fully on the 480 pool + with-practice human arm**: human sections rewritten for
   the n=21 practice cohort (all four human figures → `_with_practice`, without-practice removed);
   Bayes/LLM sections + title updated to 480 (240 one-misc items, refutation now a controlled
@@ -564,12 +670,25 @@ Writing style: **no em dashes** (user: "screams AI").
   regenerate once confirmatory human data on the 480 pool is collected.
 
 **PENDING / NEXT:**
+- **Update results.tex for ε=0** (numbers below are now wrong in the tex, line refs as of
+  2026-07-20): L56 "bracket evidence is systematically the weakest of the six"; L133 "the same
+  items where the ideal observer's evidence is weakest"; L216 the difficulty caption; L303–305
+  "mean marginal on the named target ranges from 0.68 to 1.00 … weakest cells all have
+  outside_bracket_first"; L435 "green diagonal (weakest for outside_bracket_first)". All five rest
+  on a graded present-side marginal that no longer exists. Decide the reframing first (logical
+  oracle vs keep ε>0 as a secondary robustness analysis), then edit.
+- **Restate prereg H3.** The ideal-observer difficulty ordering is unchanged in rank but nearly
+  flat at ε=0 (0.78 → 0.85 across six rules, all 1.000 on single-misconception items), so H3 as
+  written tests a gradient that is now mostly stimulus design. Same for the "humans invert the
+  ideal observer" finding in §5.
 - **Regenerate human figures + results.tex prose** once confirmatory human data arrives on the
   480 pool (the refuted contrast is now a real within-subject factor: 6 refuted + 6 unsupported
   foils per participant).
 - **Finalize the prereg decisions** (with the user, discussion-first): hypothesis set +
   directions — the refutation contrast is now a natural H5 (FA lower on refuted than
-  unsupported foils; within-subject 6v6 per participant, pilot hint 0.29 vs 0.39) —
+  unsupported foils; within-subject 6v6 per participant, pilot hint 0.29 vs 0.39), but see the
+  outside()-unfalsifiability caveat in §2 before fixing H5's wording: its "refuted" items are
+  diluted, not contradicted —
   participant exclusion rule (candidate: below-chance binomial gate ≤7/24, plus
   no-gate sensitivity), confirmatory N/power analysis, registry + timeline.
 - **Run the confirmatory cohort** after locking; C-positional questions especially need n.
