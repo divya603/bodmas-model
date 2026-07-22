@@ -26,27 +26,28 @@ misconception-detection experiment)}
 
 \begin{abstract}
 \noindent
-We built an LLM analog of our human BODMAS experiment: models see the same 240-item
+We built an LLM analog of our human BODMAS experiment: models see the same 480-item
 stimulus pool, the same verbatim instructions, and make the same 6-point Likert judgment of
 \emph{how well a belief statement explains a student's step-by-step work}. Each item pairs a
 math expression, a student's worked solution (containing one or two order-of-operations
 misconceptions), and a statement claiming the student holds a particular misconception; the
 model rates agreement from Strongly Disagree to Strongly Agree. We ran the \emph{entire} pool
 through three regimes, \haiku{} (thinking), \haiku{} (direct), and \gpt{} (direct), with
-one answer per item ($720$ judgments). Three findings stand out. \textbf{(1) Without extended
+one answer per item ($1{,}440$ judgments). Three findings stand out. \textbf{(1) Without extended
 reasoning, both models are disagree-biased and near-binary.} They retain partial competence
-($\dprime = 0.66$--$1.27$) but apply a strong conservative criterion ($+0.27$ to $+0.80$),
-defaulting to ``Strongly Disagree'' (\haiku{}-direct puts $74\%$ of its ratings on the
+($\dprime = 0.60$--$1.33$) but apply a strong conservative criterion ($+0.19$ to $+0.83$),
+defaulting to ``Strongly Disagree'' (\haiku{}-direct puts $73\%$ of its ratings on the
 bottom of the scale), so they ace the disagree-items and flunk the agree-items.
-\textbf{(2) Extended reasoning transforms \haiku{}} (accuracy $0.68 \to 0.87$; $\dprime\ 1.27
-\to 2.34$): the bias vanishes (criterion $+0.80 \to -0.33$), confidence becomes calibrated
-(AUC $0.49 \to 0.79$), the model uses the full graded scale, and it perceives the
+\textbf{(2) Extended reasoning transforms \haiku{}} (accuracy $0.68 \to 0.88$; $\dprime\ 1.33
+\to 2.37$): the bias vanishes (criterion $+0.83 \to -0.25$), confidence becomes calibrated
+(AUC $0.49 \to 0.81$), the model uses the full graded scale, and it perceives the
 partial-explanation nuance: it rates a statement that names \emph{one} of two present
 misconceptions lower than one that fully explains a single-misconception trace.
 \textbf{(3) Thinking tokens behave like reaction times}: the harder \emph{direction} (ruling a
 foil out) and errors both cost more thinking. \gpt{} ignores the reasoning switch entirely
 ($0$ thinking tokens), so it stays biased and oblivious to the nuance. This report covers the
-full-pool run; the human$\times$model$\times$ideal-observer comparison is the drop-in next step.
+full 480-item pool and closes with the three-way human$\times$model$\times$ideal-observer
+comparison on a common accuracy scale.
 \end{abstract}
 
 \section{Introduction}
@@ -61,7 +62,7 @@ order-of-operations reasoning over the student's steps. This is exactly what mak
 useful for comparing human and machine reasoning.
 
 The \texttt{llm\_exp/} project feeds the \emph{same} task to LLMs through OpenRouter: the same
-240-item stimulus pool, instructions lifted verbatim from the human experiment's instruction
+480-item stimulus pool, instructions lifted verbatim from the human experiment's instruction
 screen, the same 6-point response, and output rows matching the human analysis schema, so
 model results drop into the existing human (and Bayesian ideal-observer) analysis. Beyond a
 headline accuracy, we want to know \emph{how} models decide (do they default to a bias, or
@@ -71,7 +72,7 @@ analog of reaction time; the Likert magnitude, an analog of confidence) resemble
 A brief screening (one 24-item balanced draw, both models, crossing effort and worked-example
 factors) chose the run format; it confirmed that \emph{effort} (direct vs.\ thinking) is the
 only factor with a large, consistent effect, and that worked examples do essentially nothing.
-This report then runs the chosen format over the \emph{entire} 240-item pool. All numbers
+This report then runs the chosen format over the \emph{entire} 480-item pool. All numbers
 below are re-derived from the raw response logs (\texttt{results/raw\_*.jsonl}); the on-disk
 response cache means no result required a fresh model call to reproduce.
 
@@ -87,7 +88,7 @@ be done before multiplication}''). The model answers with a single integer $1$--
 to judge \emph{how well the statement explains the work shown}, using the student's steps as
 evidence, not whether the final answer happens to be right.
 
-\subsection{Trial generation (the 240-item pool)}
+\subsection{Trial generation (the 480-item pool)}
 The pool is built around six order-of-operations misconceptions:
 \emph{add-before-$\times$}, \emph{add-before-$\div$}, \emph{sub-before-$\times$},
 \emph{sub-before-$\div$} (four cross-precedence errors, firing a low-priority $+$/$-$ before an
@@ -105,7 +106,7 @@ only \emph{diagnostic} traces, ones whose transitions genuinely differ from the 
 any trace that does not reduce all the way to a single number. Every shown trace therefore
 ends in a (usually wrong) final answer produced by a specific, identifiable reasoning error.
 
-Items fall into four categories of $60$ each ($240$ total), balanced so every misconception is
+Items fall into four categories of $120$ each ($480$ total), balanced so every misconception is
 equally represented and no participant sees a repeated student name:
 \begin{itemize}
 \item \textbf{A}: one misconception in the trace; the statement \emph{names it}
@@ -122,9 +123,17 @@ reader can perceive is which misconception's error appears \emph{first} vs.\ \em
 the work, category C is balanced by that chronological position: each misconception is the
 named (``probed'') target equally often as the early error and as the late error.
 
+The extended 480-item pool adds one further controlled factor on the foil items (categories B
+and D). Half the foils are \emph{refuted}: the trace contains a decision point where the named
+misconception, had the student held it, would have fired, and the student visibly did the
+correct thing instead, so an observer that reads the trace can positively rule the statement
+out. The other half are \emph{unsupported}: the named misconception simply never had an
+opportunity to manifest, so the trace neither supports nor contradicts it. Each rule is refuted
+exactly as often as it is unsupported.
+
 An answer-leak guard ensures the prompt contains only the expression, the trace, the belief
 statement, and the student name; it never contains the ground-truth misconceptions, whether the
-statement is correct, or the category. The guard is machine-verified over all $240$ items and
+statement is correct, or the category. The guard is machine-verified over all $480$ items and
 is covered by the package's offline tests.
 
 \subsection{Design and regimes}
@@ -134,7 +143,7 @@ direct / $16{,}000$ thinking). The \emph{effort} switch sends OpenRouter's unifi
 control: the thinking arm requests high reasoning effort, the direct arm requests reasoning
 off. \gpt{} ignores the switch (0 thinking tokens either way), so its two arms are identical
 and we run it once. \haiku{} honors it. We therefore report \textbf{three regimes}: \gpt{}
-(direct), \haiku{} (direct), and \haiku{} (thinking), $n = 240$ each.
+(direct), \haiku{} (direct), and \haiku{} (thinking), $n = 480$ each.
 
 \subsection{Analysis}
 Each $1$--$6$ rating is collapsed to a binary judgment (rating $\ge 4 =$ \emph{agree}) and
@@ -151,16 +160,16 @@ confidence analog and \emph{thinking tokens} as a reaction-time analog for the r
 \subsection{Headline: without reasoning, the models are biased, not incapable}
 Table~\ref{tab:sdt} and Figure~\ref{fig:signal} give the headline. \gpt{} and \haiku{}-direct
 sit well below \haiku{}-thinking on accuracy, but the signal-detection decomposition shows
-\emph{why}: their sensitivity is non-trivial ($\dprime = 0.66$ and $1.27$), but they carry a
+\emph{why}: their sensitivity is non-trivial ($\dprime = 0.60$ and $1.33$), but they carry a
 strong positive criterion, a bias toward answering \emph{disagree}. \haiku{}-direct in
 particular rarely agrees (hit rate $0.43$), so it is nearly perfect on the disagree-items
 (B/D) and far below chance on the agree-items (A/C). Extended reasoning both raises sensitivity
-($\dprime = 2.34$) and removes the bias (criterion $-0.33$): \haiku{}-thinking is the only
+($\dprime = 2.37$) and removes the bias (criterion $-0.25$): \haiku{}-thinking is the only
 regime that actually discriminates.
 
 \begin{table}[htb]
 \centering\small
-\caption{Accuracy and signal detection per regime ($n = 240$ each). Agree items $=$ A/C
+\caption{Accuracy and signal detection per regime ($n = 480$ each). Agree items $=$ A/C
 (statement true), disagree items $=$ B/D (foil). Hit $=$ P(agree$\mid$A/C), FA $=$
 P(agree$\mid$B/D). Positive criterion $=$ bias toward ``disagree.''}
 \label{tab:sdt}
@@ -168,9 +177,9 @@ P(agree$\mid$B/D). Positive criterion $=$ bias toward ``disagree.''}
 \toprule
 regime & accuracy & agree (A/C) & disagree (B/D) & hit & FA & $\dprime$ & criterion \\
 \midrule
-\gpt{} (direct)      & 0.625 & 0.525 & 0.725 & 0.525 & 0.275 & 0.66 & $+0.27$ \\
-\haiku{} (direct)    & 0.679 & 0.433 & 0.925 & 0.433 & 0.075 & 1.27 & $+0.80$ \\
-\haiku{} (thinking)  & \textbf{0.867} & 0.933 & 0.800 & 0.933 & 0.200 & \textbf{2.34} & $-0.33$ \\
+\gpt{} (direct)      & 0.617 & 0.546 & 0.688 & 0.546 & 0.312 & 0.60 & $+0.19$ \\
+\haiku{} (direct)    & 0.683 & 0.433 & 0.933 & 0.433 & 0.067 & 1.33 & $+0.83$ \\
+\haiku{} (thinking)  & \textbf{0.875} & 0.925 & 0.825 & 0.925 & 0.175 & \textbf{2.37} & $-0.25$ \\
 \bottomrule
 \end{tabular}
 \end{table}
@@ -196,10 +205,11 @@ regime & accuracy & agree (A/C) & disagree (B/D) & hit & FA & $\dprime$ & criter
 
 \subsection{Accuracy by misconception}
 Figure~\ref{fig:bymisc} breaks accuracy down by the misconception present in the trace.
-\haiku{}-thinking is high and flat across all six ($0.83$--$0.95$), though the sharper
+\haiku{}-thinking is high and flat across all six ($0.81$--$0.92$), though the sharper
 per-probed-misconception analysis below shows this flatness hides real variation in
-sensitivity. The direct regimes are lower and more jagged; \gpt{} even dips below chance on
-the add-before-$\times$ items. For \haiku{}-thinking, paired (two-misconception) items are
+sensitivity. The direct regimes are lower and more jagged; \gpt{} hovers near chance on the
+cross-precedence items (as low as $0.52$ on add-before-$\times$). For \haiku{}-thinking, paired
+(two-misconception) items are
 \emph{not} harder than single-misconception ones, a contrast with the ideal-observer
 baseline, whose confidence in the probed misconception drops on paired traces.
 
@@ -218,25 +228,28 @@ mixes two different questions on foil items. A sharper cut groups trials by the 
 \emph{named in the statement} (the probed one) and separates detection from rejection:
 detection $=$ P(agree $\mid$ named \emph{and} present), from A items and C items where it is
 the target; false alarm $=$ P(agree $\mid$ named but \emph{absent}), from B/D foil items. Each
-probed misconception then gets its own $\dprime$ ($n = 20$ signal $+$ $20$ noise trials per
+probed misconception then gets its own $\dprime$ ($n = 40$ signal $+$ $40$ noise trials per
 regime). Figure~\ref{fig:dprime} shows that the flat accuracy profile of
 Figure~\ref{fig:bymisc} was hiding large variation.
 
-\haiku{}-thinking's per-misconception $\dprime$ ranges from $1.64$ to $3.92$, and its two weak
-spots are specific. For add-before-$\times$ the weakness is on the rejection side: when
-``believes addition should be done before multiplication'' is named but absent, it wrongly
-agrees $50\%$ of the time. For right-to-left it is on the detection side: it detects only
-$0.75$ of genuinely present right-to-left errors, its lowest hit rate.
+\haiku{}-thinking's per-misconception $\dprime$ ranges from $1.88$ to $3.40$, and its two soft
+spots are specific: right-to-left ($\dprime = 1.88$) and the bracket misconception ($2.11$).
+For the bracket rule the weakness is on the detection side: it detects only $0.75$ of
+genuinely present outside-bracket errors, its lowest hit rate. For add-before-$\times$ the
+weakness is instead on the rejection side: when ``believes addition should be done before
+multiplication'' is named but absent, it wrongly agrees $35\%$ of the time, its highest
+false-alarm rate.
 
-\haiku{}-direct cannot detect right-to-left at all ($\dprime = 0.00$; it agreed to a true
-right-to-left statement once in 20 chances), and barely detects the bracket misconception
-($\dprime = 0.36$). Without reasoning it discriminates only the four cross-precedence errors
-($\dprime$ $1.16$--$2.21$), and even those under its strong disagree bias.
+\haiku{}-direct cannot detect right-to-left at all ($\dprime = 0.00$; it did not once agree to
+a genuinely present right-to-left error across 40 signal trials), and barely detects the
+bracket misconception ($\dprime = 0.55$). Without reasoning it discriminates only the four
+cross-precedence errors ($\dprime$ $1.54$--$2.10$), and even those under its strong disagree
+bias.
 
 \gpt{} shows the \emph{reversed} profile, and this is the clearest surface-cue evidence in the
-experiment: for right-to-left it agrees $80\%$ of the time when the statement is true and
-$65\%$ when it is false ($\dprime = 0.46$); for the bracket misconception, $90\%$ vs.\ $75\%$
-($\dprime = 0.61$). Its response tracks \emph{which statement type is named}, not what the
+experiment: for right-to-left it agrees $75\%$ of the time when the statement is true and
+$68\%$ when it is false ($\dprime = 0.22$); for the bracket misconception, $82\%$ vs.\ $60\%$
+($\dprime = 0.68$). Its response tracks \emph{which statement type is named}, not what the
 trace shows: it likes endorsing right-to-left and bracket statements and rejecting
 cross-precedence ones, largely independent of the work. This is the BODMAS analog of the
 numberlink pilot's ``path drawn $\Rightarrow$ say no'' rule.
@@ -259,15 +272,14 @@ absent foil \emph{named} in the statement.
 The two regimes fail in qualitatively different ways. \haiku{}-thinking's rare false alarms
 are \emph{row-structured}, i.e.\ driven by what is actually in the trace, and they are
 near-miss confusions between behaviorally adjacent misconceptions: with add-before-$\div$
-present it endorses ``add before $\times$'' at $0.67$; with sub-before-$\times$ present it
-endorses ``add before $\times$'' at $0.67$; with sub-before-$\div$ present it endorses ``sub
-before $\times$'' at $0.50$. In each case the falsely endorsed statement shares an operator
+present it endorses ``add before $\times$'' at $0.50$, and with sub-before-$\times$ present it
+endorses ``add before $\times$'' at $0.50$. In each case the falsely endorsed statement shares an operator
 with the real error (the same low-priority operation fired early, or the same high-priority
 operation deferred). The model saw something real in the work and matched it to a semantically
 neighboring statement: partial reasoning, not noise.
 
 The pooled direct regimes are instead \emph{column-structured}: the right-to-left and bracket
-columns are hot ($0.25$--$0.58$) regardless of what is present. Their false alarms depend on
+columns are hot ($0.34$ and $0.36$) regardless of what is present. Their false alarms depend on
 what is \emph{named}, not on what is \emph{shown}, confirming the statement-type cue from
 Figure~\ref{fig:dprime}.
 
@@ -284,11 +296,11 @@ Figure~\ref{fig:dprime}.
 
 \subsection{Response style: how the direct models respond}
 Figure~\ref{fig:response} shows the mechanism behind the bias. The direct regimes use the
-6-point scale almost as a \emph{binary}: \haiku{}-direct places $74\%$ of its responses on
+6-point scale almost as a \emph{binary}: \haiku{}-direct places $73\%$ of its responses on
 ``Strongly Disagree'' and the rest near ``Strongly Agree,'' barely touching the middle; \gpt{}
 is similar. \haiku{}-thinking uses the full graded scale. Overall agree-rates make the bias
 quantitative: against a true agree-rate of $50\%$ (half the pool is agree-correct),
-\haiku{}-thinking agrees $57\%$ of the time, \gpt{} $40\%$, and \haiku{}-direct only $25\%$.
+\haiku{}-thinking agrees $55\%$ of the time, \gpt{} $43\%$, and \haiku{}-direct only $25\%$.
 
 \begin{figure}[!htb]
   \centering
@@ -303,18 +315,19 @@ quantitative: against a true agree-rate of $50\%$ (half the pool is agree-correc
 For the reasoning regime we treat thinking-token counts the way we treat human reaction time
 (Figure~\ref{fig:tokens}). Two human-like patterns emerge. First, the harder \emph{direction}
 costs more: disagree-items (ruling a foil out) take more thinking than agree-items (median
-$732$ vs.\ $651$ tokens; $p = .004$), echoing ``establishing that something is \emph{not} the
+$772$ vs.\ $629$ tokens; $p < 10^{-4}$), echoing ``establishing that something is \emph{not} the
 case takes longer.'' Second, errors are slow: incorrect answers take far more thinking than
-correct ones (median $1126$ vs.\ $672$ tokens; $p < 10^{-3}$), and accuracy falls monotonically
-across token quartiles ($0.93 \to 0.72$), the ``think longer, still fail'' signature of a
-search budget running out. Thinking tokens do \emph{not} scale with the number of
-misconceptions ($\rho = 0.05$, n.s.), as expected: unlike the numberlink grid-size axis, our
-items have no strong built-in difficulty gradient (all are four-operator expressions).
+correct ones (median $1076$ vs.\ $672$ tokens; $p < 10^{-6}$), and accuracy falls monotonically
+across token quartiles ($0.94 \to 0.73$), the ``think longer, still fail'' signature of a
+search budget running out. Thinking tokens scale only weakly with the number of
+misconceptions ($\rho = 0.11$, $p = .02$), a small effect consistent with items having no
+strong built-in difficulty gradient (all are four-operator expressions), unlike the numberlink
+grid-size axis.
 
 \begin{figure}[!htb]
   \centering
   \includegraphics[width=\textwidth]{figs/llm_thinking_tokens.png}
-  \caption{\haiku{} (thinking), $n = 240$. (a) Tokens by category. (b) Tokens by direction:
+  \caption{\haiku{} (thinking), $n = 480$. (a) Tokens by category. (b) Tokens by direction:
   disagree-items cost more than agree-items. (c) Tokens by outcome: errors are slow in both
   directions. (d) Accuracy by thinking-token quartile: more thinking marks harder items.}
   \label{fig:tokens}
@@ -323,18 +336,18 @@ items have no strong built-in difficulty gradient (all are four-operator express
 \subsection{Confidence, and the partial-explanation nuance}
 We take the Likert magnitude $|\text{rating}-3.5|$ as a confidence signal
 (Figure~\ref{fig:confidence}a). It is calibrated \emph{only} for the reasoning regime:
-\haiku{}-thinking is more confident when correct than when wrong (AUC $= 0.79$), while both
+\haiku{}-thinking is more confident when correct than when wrong (AUC $= 0.81$), while both
 direct regimes are uniformly over-confident regardless of correctness (AUC $\approx 0.50$),
 consistent with their near-binary, unreflective responding. A reasoning trace apparently gives
 the model something real to be uncertain about.
 
 Figure~\ref{fig:confidence}b tests whether the models perceive that a category-C statement is a
 \emph{partial} explanation (it names one of two present misconceptions). Among the items it
-agreed with, \haiku{}-thinking rates single-misconception A items at $5.73$ but partial-match C
-items at only $5.32$, a clear, confidence-interval-separated gap: it moderates its agreement
-when the statement leaves a second error unexplained. \haiku{}-direct shows a smaller gap and
-\gpt{} shows none ($5.52$ vs.\ $5.50$), i.e.\ only the reasoning model registers the
-distinction.
+agreed with, \haiku{}-thinking rates single-misconception A items at $5.78$ but partial-match C
+items at only $5.34$, a clear, confidence-interval-separated gap: it moderates its agreement
+when the statement leaves a second error unexplained. \haiku{}-direct shows a smaller gap
+($5.93$ vs.\ $5.69$) and \gpt{} shows almost none ($5.45$ vs.\ $5.38$), i.e.\ only the
+reasoning model clearly registers the distinction.
 
 \begin{figure}[!htb]
   \centering
@@ -349,18 +362,17 @@ distinction.
 \subsection{Where the evidence sits: early vs.\ late errors in category C}
 In a category-C trace both misconceptions leave errors, at different steps, and
 \texttt{which\_target} records whether the \emph{named} misconception's error appears first or
-later than its partner's (balanced $30/30$ per regime by construction). Figure~\ref{fig:position}
+later than its partner's (balanced $60/60$ per regime by construction). Figure~\ref{fig:position}
 asks whether detection depends on where the evidence sits in the work.
 
-Only the reasoning model shows a position effect, and it appears most clearly in the graded
+Only the reasoning model shows a clear position effect, and it appears most clearly in the graded
 measure: \haiku{}-thinking's accuracy dips slightly when the named error comes later ($0.97 \to
-0.90$), but its mean rating drops from $5.50$ to $4.80$. It still finds a late-buried error,
+0.88$), but its mean rating drops from $5.47$ to $4.77$. It still finds a late-buried error,
 yet endorses the statement less strongly, a primacy-like weighting of early evidence familiar
-from human reading. The direct regimes show no consistent position effect (\haiku{}-direct
-$0.37$ vs.\ $0.43$; \gpt{} $0.57$ vs.\ $0.50$, both within noise), consistent with their not
-stepping through the trace at all. Because the human experiment samples exactly this
-first/second contrast (three of each per participant), this panel is directly comparable to
-the human data once collected.
+from human reading. The direct regimes' differences are smaller and noisier (\haiku{}-direct
+$0.43$ vs.\ $0.37$; \gpt{} $0.62$ vs.\ $0.53$), consistent with their not stepping through the
+trace at all. Because the human experiment samples exactly this first/second contrast (three of
+each per participant), this panel is directly comparable to the human data.
 
 \begin{figure}[!htb]
   \centering
@@ -373,25 +385,124 @@ the human data once collected.
 \end{figure}
 
 \subsection{Cost and latency}
-The reasoning regime is the only one with a real cost (Table~\ref{tab:cost}): $\sim$13$\times$
+The reasoning regime is the only one with a real cost (Table~\ref{tab:cost}): $\sim$14$\times$
 the latency and $\sim$220$\times$ the output tokens of its direct counterpart. That is the
 price of the only regime that can actually do the task.
 
 \begin{table}[!htb]
 \centering\small
-\caption{Operational profile per regime (240 items each). Latency is the median per call;
+\caption{Operational profile per regime (480 items each). Latency is the median per call;
 tokens are totals over the regime.}
 \label{tab:cost}
 \begin{tabular}{@{}lrrr@{}}
 \toprule
 regime & median latency & total prompt tokens & total output tokens \\
 \midrule
-\gpt{} (direct)      & 0.6\,s  & 77k  & 1.3k \\
-\haiku{} (direct)    & 1.0\,s  & 114k & 2.2k \\
-\haiku{} (thinking)  & 13.0\,s & 121k & 478k (of which 195k reasoning) \\
+\gpt{} (direct)      & 0.6\,s  & 154k & 2.6k \\
+\haiku{} (direct)    & 1.0\,s  & 228k & 4.3k \\
+\haiku{} (thinking)  & 13.7\,s & 242k & 959k (of which 387k reasoning) \\
 \bottomrule
 \end{tabular}
 \end{table}
+
+\subsection{One-misconception structure: present vs.\ named, across observers}
+Figures~\ref{fig:heat_bayes}--\ref{fig:heat_human} give the one-misconception items (categories
+A and B) as a present$\times$named grid for all three observers. Rows are the misconception
+\emph{present} in the trace, columns the misconception \emph{named} in the statement. The
+diagonal is category A (the statement names the present rule, so agreeing is correct); the
+off-diagonal is category B (the statement names an absent foil, so disagreeing is correct), and
+the off-diagonal is split into two panels by the foil's refutation status: \emph{refuted}
+(the trace positively rules the foil out) and \emph{unsupported} (the foil simply never had a
+chance to manifest). A trace-reading observer should show a solid diagonal and a near-empty
+off-diagonal, with the refuted panel emptier than the unsupported one.
+
+The Bayesian ideal observer (Figure~\ref{fig:heat_bayes}, run at $\varepsilon = 0$, the logical
+no-slip limit) is the reference: every diagonal cell is exactly $1.00$, the refuted off-diagonal
+collapses to exactly $0$, and the unsupported off-diagonal sits at a small residual
+($0.17$--$0.25$, the prior mass on a foil that never showed itself). The one exception is the
+\emph{outside-bracket} column, which never reaches $0$ even when ``refuted'' ($0.08$--$0.13$):
+in the generative model that misconception only ever \emph{permits} an extra move and never
+forbids a correct one, so no trace can logically contradict it. It is the one rule the ideal
+observer cannot refute, only leave unsupported.
+
+Against that reference, \haiku{}-thinking (Figure~\ref{fig:heat_llm}, top row) is the closest:
+a solid green diagonal and an off-diagonal that is emptier in the refuted panel than the
+unsupported one, i.e.\ it uses the refutation evidence. The direct regimes do not: \haiku{}-direct
+is red almost everywhere off-diagonal (it rejects foils for the wrong reason, via its blanket
+disagree bias, so refuted and unsupported look alike), and \gpt{} lights up the right-to-left and
+bracket \emph{columns} in both panels regardless of refutation, the same claim-driven signature
+seen in Figure~\ref{fig:confusion}. The human practice cohort (Figure~\ref{fig:heat_human},
+$n = 21$) shows a solid diagonal and a sparse off-diagonal, closer to the reasoning model than to
+the direct regimes, though noisier at one trial per (present, named) cell.
+
+\begin{figure}[!htb]
+  \centering
+  \includegraphics[width=\textwidth]{figs/bayes_1misc_heatmap.png}
+  \caption{Bayesian ideal observer ($\varepsilon = 0$), one-misconception items. Diagonal
+  (category A) is uniformly $1.00$; refuted foils collapse to $0$ (except the unfalsifiable
+  outside-bracket column); unsupported foils leave a small prior residual.}
+  \label{fig:heat_bayes}
+\end{figure}
+
+\begin{figure}[!htb]
+  \centering
+  \includegraphics[width=\textwidth]{figs/llm_1misc_heatmap.png}
+  \caption{The three LLM regimes, one-misconception present$\times$named grid, off-diagonal
+  split by refutation status. \haiku{}-thinking: green diagonal, refutation-sensitive
+  off-diagonal. Direct regimes: \haiku{}-direct rejects foils indiscriminately; \gpt{} endorses
+  the right-to-left and bracket columns regardless of the trace.}
+  \label{fig:heat_llm}
+\end{figure}
+
+\begin{figure}[!htb]
+  \centering
+  \includegraphics[width=\textwidth]{figs/human_1misc_heatmap_with_practice.png}
+  \caption{Human practice cohort ($n = 21$), one-misconception present$\times$named grid. Solid
+  diagonal and sparse off-diagonal, qualitatively like the reasoning model but noisier (one
+  trial per cell).}
+  \label{fig:heat_human}
+\end{figure}
+
+\subsection{Three-way comparison on a common accuracy scale}
+\label{sec:comparison}
+The three observers rate on different scales (humans and LLMs give a $1$--$6$ Likert judgment,
+the ideal observer emits a posterior probability), so to compare them we reduce every observer
+to one quantity, the probability it places on the \emph{correct} answer:
+$P(\text{Acc}\mid\text{trace}) = \hat{P}(\text{agree})$ when the statement is true (agree
+correct) and $1 - \hat{P}(\text{agree})$ when it is a foil (disagree correct), where
+$\hat{P}(\text{agree})$ is the ideal observer's marginal directly, and the graded rating
+$(\text{rating}-1)/5$ for humans and LLMs. One point is one (named misconception $\times$
+category) group, pooling $\sim$$20$ items (Bayes/LLM) or $\sim$$21$ trials (human practice
+cohort) per point, since per-item human coverage is too sparse (median one rating) to compare
+item by item. Figure~\ref{fig:scatter} plots the observers pairwise; a point above the dashed
+$y = x$ line means the $y$-axis observer placed more probability on the correct answer for that
+group.
+
+Three things stand out. First, the ideal observer is a near-ceiling: at $\varepsilon = 0$ its
+$P(\text{Acc})$ is $1.00$ on every present group (A, C) and $\sim$$0.88$ on the absent groups
+(B, D), so in every panel that includes it (Bayes on the $y$-axis) the points form a flat band
+along the top, above the diagonal. Second, the regimes separate exactly as the rest of the
+report predicts: \haiku{}-thinking sits above the human diagonal on most groups (more accurate
+than people), \haiku{}-direct straddles it, and \gpt{} falls mostly below. Third, against the
+ideal observer the LLM columns are horizontal bands, widest for \gpt{} and tightest for
+\haiku{}-thinking: on the very items the ideal observer finds unambiguous, \gpt{}'s accuracy is
+scattered from $\sim$$0.25$ to $\sim$$1.0$, the signature of an observer whose errors are not on
+hard items but on claim type. The one place a human observer \emph{beats} the graded human/ideal
+pattern in interest is the outside-bracket rule, where people place their highest agreement on
+category-A bracket statements ($0.66$) even though it is the ideal observer's least
+diagnosable rule, a human$\to$ideal inversion worth following up.
+
+\begin{figure}[!htb]
+  \centering
+  \includegraphics[width=\textwidth]{figs/observer_scatter_graded.png}
+  \caption{Observer comparison on the common scale $P(\text{Acc}\mid\text{trace})$, graded
+  scoring. Each point is one (misconception $\times$ category) group; colour $=$ misconception,
+  marker $=$ category. Bayes is on the $y$-axis wherever it appears (always the ceiling, above
+  the diagonal); the LLM is the axis that moves between the two comparison rows. Human data is
+  the $21$-participant practice cohort. A binary-scored version (agree iff rating $\ge 4$) gives
+  the same picture.}
+  \label{fig:scatter}
+\end{figure}
 
 \section{Discussion}
 Without reasoning, both models default to a conservative ``disagree'' and use the scale as a
@@ -400,16 +511,21 @@ per-misconception and confusion analyses localize what that bias is made of: \gp
 responses track the \emph{statement type} (endorsing right-to-left and bracket claims,
 rejecting cross-precedence ones, largely independent of the trace), and the direct regimes'
 false alarms are column-structured accordingly. Extended reasoning transforms \haiku{}: it
-discriminates ($\dprime = 2.34$), drops the bias, uses the graded scale, becomes
+discriminates ($\dprime = 2.37$), drops the bias, uses the graded scale, becomes
 confidence-calibrated, and registers the partial-explanation structure of the two-misconception
 items. Its remaining errors look like \emph{partial reasoning} rather than noise: false alarms
 are near-miss confusions between operator-adjacent misconceptions, and statements whose
 evidence appears later in the work are endorsed less strongly. \gpt{}, unable to reason here,
 stays biased and oblivious. Thinking tokens carry human-reaction-time-like structure (harder
-direction and errors cost more). The natural next step is the three-way comparison against
-human participants and the Bayesian ideal observer over the same 240-item pool: are the
-misconceptions and categories that are hard for people the same ones that are hard for the
-reasoning model and, in principle, for an ideal reasoner? The human-side dataset drops into
-this analysis by construction.
+direction and errors cost more). Section~\ref{sec:comparison} takes the three-way comparison
+against human participants and the Bayesian ideal observer over the same 480-item pool: reduced
+to a common $P(\text{Acc}\mid\text{trace})$ scale, the reasoning model tracks the ideal observer
+closely and sits above people on most groups, the direct regimes fall below, and \gpt{}'s errors
+land on items the ideal observer finds unambiguous rather than on genuinely hard ones. The
+one-misconception grids (Figures~\ref{fig:heat_bayes}--\ref{fig:heat_human}) tell the same story
+through the refutation contrast, and expose one structural caveat: the outside-bracket
+misconception is unfalsifiable in the current generative model, so the ideal observer can only
+leave it unsupported, never refute it. The human practice-cohort data drops into this analysis by
+construction; the full confirmatory human sample is the remaining piece.
 
 \end{document}

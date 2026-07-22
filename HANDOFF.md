@@ -426,9 +426,27 @@ errors (1126 vs 672) cost more.
   `llm_confidence.png`, `llm_response_style.png`, + a cost table (stdout). Run: `python3
   make_llm_figures.py [signal|tokens|confidence|response|cost]`.
 - **`report/report.tex`** — LaTeX report mirroring the numberlink one (`llm_exp_buffer/report/
-  report.tex`). Self-contained: figures in `report/figs/`, referenced as `figs/llm_*.png`. Sections:
-  abstract, intro, methods (incl. trial generation), results (all 6 figures + signal-detection &
-  cost tables), discussion. Figures are PNG (could switch scripts to also emit PDF for vector).
+  report.tex`). Self-contained: figures in `report/figs/`, referenced as `figs/*.png`. Sections:
+  abstract, intro, methods (incl. trial generation), results, discussion. Figures are PNG.
+  **FULLY RECONCILED TO THE 480 POOL (2026-07-22).** Both figure scripts (`make_llm_figures.py`,
+  `make_llm_plots.py`) now filter `load_all_items()` to the current 480-pool ids and dedup
+  (the raw logs hold 487; the 7 dropped ambiguous items were being silently included, and the
+  suptitles/prose still said 240). Every number in the prose and both tables was recomputed on
+  480 and updated. Key 480 values now in the doc: accuracy 0.617/0.683/0.875 (gpt/haiku-direct/
+  haiku-thinking), d′ 0.60/1.33/2.37, criterion +0.19/+0.83/−0.25, agree-rate 43/25/55%,
+  haiku-thinking token medians disagree 772 vs agree 629 and error 1076 vs correct 672, quartile
+  accuracy 0.94→0.73, ρ(tokens,#misc)=0.11 p=.02 (now weakly significant, was "n.s."), cost
+  242k/959k tokens (387k reasoning) for thinking. Two things flipped vs the 240 draft: gpt-4o no
+  longer dips below chance on add<× (now 0.52), and the token/#-misc correlation is now
+  significant.
+  **Two NEW results subsections added (2026-07-22):** (1) "One-misconception structure: present
+  vs named, across observers" embedding the three 1-misc present×named heatmaps
+  (`figs/bayes_1misc_heatmap.png`, `figs/human_1misc_heatmap_with_practice.png`,
+  `figs/llm_1misc_heatmap.png`), including the outside()-unfalsifiability caveat; (2)
+  "Three-way comparison on a common accuracy scale" (`\label{sec:comparison}`) embedding
+  `figs/observer_scatter_graded.png`, with the P(Acc|trace) definition and the
+  Bayes-ceiling/gpt-scatter reading. Discussion's closing paragraph rewritten to point at
+  §comparison instead of promising it as future work.
 
 ---
 
@@ -615,7 +633,8 @@ Writing style: **no em dashes** (user: "screams AI").
   (see §5 key findings: A at chance, d' spread −1.64..+2.77, no click-through).
 - **All 24 participants bonused and ledgered (2026-07-14)** via `make_bonus_list.py --mark-paid`.
 - Bayesian difficulty baseline re-run on the current pool.
-- LLM experiment: all 240 items × 3 regimes, 0 errors; all figures + `report/report.tex` written.
+- LLM experiment: all 480 items × 3 regimes, 0 errors; all figures + `report/report.tex` (now
+  fully on the 480 pool, 2026-07-22) written.
 - **Pre-registration draft** written (`PreReg/prereg.tex`, §6) — hypotheses/exclusions flagged,
   awaiting discussion.
 - **Pool extended to the 480 refutation design (2026-07-17):** 487 items on disk (480
@@ -653,6 +672,25 @@ Writing style: **no em dashes** (user: "screams AI").
   and LLMs = proportion rated ≥4, Bayes = proportion with marginal > 0.5), x-axis = the six
   misconceptions, LLM solid / human dashed / Bayes dotted, Wilson intervals on the two sampled
   observers. Note Bayes is a flat line at 1.0 (A) and 0.0 (B) at ε=0.
+
+**DONE (2026-07-22):**
+- **Three-way observer-comparison scatter** (`analysis-comparison/plot_observer_scatter.py` →
+  `observer_scatter_graded.png` + `_binary.png`; copied to `Results_combined/figs/` and
+  `llm_exp/report/figs/`). Common scale for all three observers:
+  `P(Acc|trace) = P̂(agree)` if the statement is true (present, A/C) else `1 − P̂(agree)`, where
+  P̂(agree) = the Bayes marginal directly, or graded `(rating−1)/5` for human/LLM (binary
+  `≥4` in the `--scoring binary` variant, same conclusions). **One point = one (named
+  misconception × category) group**, because per-item human coverage is a median of 1 rating,
+  unusable; per group humans have n=21 (practice cohort), Bayes/LLM ~20 items. Layout: Bayes
+  anchored to the y-axis in every panel it appears (panel a Bayes-vs-Human, panel c
+  Bayes-vs-LLM per regime), Human on x, LLM the one observer that flips axis between rows b/c
+  (a round-robin of 3 observers cannot keep all three axis-fixed). Readings: Bayes is a
+  near-ceiling at ε=0 (present 1.00, absent ~0.88) so its panels are flat horizontal bands;
+  haiku-thinking sits above the human diagonal, haiku-direct straddles, gpt-4o mostly below and
+  widely scattered against Bayes (errors on logically-unambiguous items = claim-driven). The
+  outside()/A human point (0.66) is the human→ideal inversion.
+- **`report/report.tex` fully reconciled to the 480 pool + two new comparison subsections.**
+  See §4 "LLM plots + report" for the full recompute detail and the new-section list.
 
 **DONE (2026-07-20):**
 - **ε switched 0.05 → 0.0 and the whole Bayes arm regenerated** (user's call; see §2 Bayesian for
@@ -732,7 +770,8 @@ Writing style: **no em dashes** (user: "screams AI").
 - **Three-way comparison** (human × Bayesian × LLM per misconception/category) — the headline.
   All three arms now have data; the framing questions (pooled vs median vs distribution for
   humans, given the individual spread) feed the prereg discussion.
-- **BODMAS results report** like the numberlink one; `report/report.tex` is the LLM half.
+- **BODMAS results report** like the numberlink one; `report/report.tex` is the LLM half (now
+  on the 480 pool, with the three-way comparison + 1-misc heatmap sections in it).
 - **Uncommitted** (decide before relying on them): `analysis_human/`, `scripts/make_bonus_list.py`,
   `PreReg/`, `llm_exp/plots/`, `llm_exp/report/`, `llm_exp/make_llm_plots.py`,
   `llm_exp/make_llm_figures.py`. (The practice-trials change set was committed and deployed,

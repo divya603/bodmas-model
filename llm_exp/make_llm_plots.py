@@ -2,7 +2,7 @@
 """
 make_llm_plots.py
 
-Plots for the LLM experiment on the full 240-item pool (the --all-items runs).
+Plots for the LLM experiment on the full 480-item pool (the --all-items runs).
 Three configs: haiku (thinking), haiku (direct), gpt-4o (direct).
 
   1. accuracy overview  — overall accuracy per config + accuracy by category (A/B/C/D)
@@ -49,15 +49,21 @@ def wilson(k, n, z=1.96):
 
 
 def load_all_items():
-    rows = []
+    # filter to the current 480-item pool (raw logs hold 487; 7 ambiguous dropped)
+    pool_ids = {it["id"] for it in json.load(open("data/stimulus_pool.json"))}
+    rows, seen = [], set()
     for f in glob.glob("results/raw_*.jsonl"):
         for line in open(f, encoding="utf-8"):
             r = json.loads(line)
             if not r["subject_id"].endswith("all_items|r0") or r.get("response") is None:
                 continue
-            cfg = f"{r['model'].split('/')[-1].replace('claude-','').replace('-4.5','').replace('-4o','-4o')} ({r['effort']})"
-            cfg = cfg.replace("haiku ", "haiku ")  # keep 'haiku (...)' / 'gpt (...)'
-            rows.append({**r, "config": _cfg_label(r)})
+            if r["id"] not in pool_ids:
+                continue
+            lab = _cfg_label(r)
+            if (lab, r["id"]) in seen:
+                continue
+            seen.add((lab, r["id"]))
+            rows.append({**r, "config": lab})
     return rows
 
 
@@ -89,7 +95,7 @@ def plot_overview(rows):
     agg = {c: [0, 0] for c in CONFIGS}
     for r in rows:
         a = agg[r["config"]]; a[0] += r["correct"]; a[1] += 1
-    _acc([agg[c] for c in CONFIGS], axes[0], CONFIGS, "Overall accuracy on all 240 items")
+    _acc([agg[c] for c in CONFIGS], axes[0], CONFIGS, "Overall accuracy on all 480 items")
 
     # by category, grouped by config
     bycat = {c: {cat: [0, 0] for cat in CATS} for c in CONFIGS}
@@ -109,7 +115,7 @@ def plot_overview(rows):
     axes[1].set_title("Accuracy by category (correct = agree for A/C, disagree for B/D)", fontsize=11)
     axes[1].legend(fontsize=8, loc="lower center", ncol=3)
 
-    fig.suptitle("LLM accuracy — all 240 items", fontsize=13)
+    fig.suptitle("LLM accuracy  (all 480 items)", fontsize=13)
     fig.tight_layout(rect=[0, 0, 1, 0.95])
     p = os.path.join(OUTDIR, "llm_accuracy_overview.png")
     fig.savefig(p, dpi=140); plt.close(fig)
@@ -158,7 +164,7 @@ def plot_by_misconception(rows):
     axes[1].set_title(f"{best}: alone vs paired", fontsize=11)
     axes[1].legend(fontsize=8, loc="lower center")
 
-    fig.suptitle("LLM accuracy by misconception — all 240 items", fontsize=13)
+    fig.suptitle("LLM accuracy by misconception  (all 480 items)", fontsize=13)
     fig.tight_layout(rect=[0, 0, 1, 0.95])
     p = os.path.join(OUTDIR, "llm_accuracy_by_misconception.png")
     fig.savefig(p, dpi=140); plt.close(fig)

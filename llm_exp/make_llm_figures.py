@@ -2,7 +2,7 @@
 """
 make_llm_figures.py
 
-Report figures for the BODMAS LLM experiment on the full 240-item pool
+Report figures for the BODMAS LLM experiment on the full 480-item pool
 (--all-items runs), mirroring the numberlink results report but re-framed for a
 6-point Likert judgment over misconceptions instead of a binary solvability call.
 
@@ -44,14 +44,23 @@ def _cfg_label(r):
 
 
 def load_all_items():
-    rows = []
+    # filter to the current 480-item pool (the raw logs hold 487: the 7
+    # never-sampled ambiguous items were dropped, see base-task/drop_ambiguous.py)
+    pool_ids = {it["id"] for it in json.load(open("data/stimulus_pool.json"))}
+    rows, seen = [], set()
     for f in glob.glob("results/raw_*.jsonl"):
         for line in open(f, encoding="utf-8"):
             r = json.loads(line)
-            if r["subject_id"].endswith("all_items|r0") and r.get("response") is not None:
-                r["config"] = _cfg_label(r)
-                r["agree"] = r["response"] >= 4
-                rows.append(r)
+            if not r["subject_id"].endswith("all_items|r0") or r.get("response") is None:
+                continue
+            if r["id"] not in pool_ids:
+                continue
+            r["config"] = _cfg_label(r)
+            if (r["config"], r["id"]) in seen:
+                continue
+            seen.add((r["config"], r["id"]))
+            r["agree"] = r["response"] >= 4
+            rows.append(r)
     return rows
 
 
@@ -127,7 +136,7 @@ def fig_signal(rows):
     axes[1].set_title("(b) Signal detection (iso-d' curves)", fontsize=11)
     axes[1].legend(fontsize=8, loc="lower right")
 
-    fig.suptitle("LLM signal detection — all 240 items", fontsize=13)
+    fig.suptitle("LLM signal detection (all 480 items)", fontsize=13)
     fig.tight_layout(rect=[0, 0, 1, 0.95])
     p = os.path.join(OUTDIR, "llm_signal_detection.png")
     fig.savefig(p, dpi=140); plt.close(fig)
@@ -198,7 +207,7 @@ def fig_tokens(rows):
     axes[3].set_ylim(0, 1.05); axes[3].set_ylabel("accuracy")
     axes[3].set_title("(d) Accuracy by token quartile", fontsize=10)
 
-    fig.suptitle("haiku (thinking): thinking tokens as a reaction-time analog — all 240 items", fontsize=12)
+    fig.suptitle("haiku (thinking): thinking tokens as a reaction-time analog (all 480 items)", fontsize=12)
     fig.tight_layout(rect=[0, 0, 1, 0.94])
     p = os.path.join(OUTDIR, "llm_thinking_tokens.png")
     fig.savefig(p, dpi=140); plt.close(fig)
@@ -257,7 +266,7 @@ def fig_confidence(rows):
     axes[1].set_title("(b) Partial-match: A (full) vs C (partial)\nlower on C => perceives incompleteness", fontsize=11)
     axes[1].legend(fontsize=8, loc="upper right")
 
-    fig.suptitle("LLM confidence (Likert magnitude) — all 240 items", fontsize=13)
+    fig.suptitle("LLM confidence (Likert magnitude) (all 480 items)", fontsize=13)
     fig.tight_layout(rect=[0, 0, 1, 0.94])
     p = os.path.join(OUTDIR, "llm_confidence.png")
     fig.savefig(p, dpi=140); plt.close(fig)
@@ -294,7 +303,7 @@ def fig_response(rows):
     axes[1].set_ylim(0, 1); axes[1].set_ylabel("P(agree)")
     axes[1].set_title("(b) Overall agree-rate\n(below 50% = disagree-biased)", fontsize=11)
 
-    fig.suptitle("LLM response style — all 240 items", fontsize=13)
+    fig.suptitle("LLM response style (all 480 items)", fontsize=13)
     fig.tight_layout(rect=[0, 0, 1, 0.94])
     p = os.path.join(OUTDIR, "llm_response_style.png")
     fig.savefig(p, dpi=140); plt.close(fig)
