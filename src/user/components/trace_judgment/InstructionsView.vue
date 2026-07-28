@@ -44,7 +44,7 @@ function finish() {
       </p>
 
       <p class="text-left text-lg mb-4">
-        You will begin with <strong>3 practice questions</strong>. After you answer each one, we will highlight the
+        You will begin with <strong>5 practice questions</strong>. After you answer each one, we will highlight the
         step in the work where the student's error occurred and explain what the right answer would be. The
         practice questions do not count toward your bonus. After the practice, you will move on to the actual
         task.

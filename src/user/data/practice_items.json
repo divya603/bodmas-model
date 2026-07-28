@@ -87,6 +87,76 @@
         "note": "the student worked right to left here"
       }
     ],
-    "feedback": "Here the belief statement partially matches the work. The two highlighted steps show two different misconceptions, and the statement names only one of them (working outside the brackets first). Strongly Agree would not be the best choice since the statement does not explain everything, but agreeing is still right because the statement partially matches."
+    "feedback": "Here the belief statement partially matches the work. The two highlighted steps show two different misconceptions, and the statement points to only one of them, marked in bold (working outside the brackets first). Strongly Agree would not be the best choice since the statement does not explain everything, but agreeing is still right because the statement partially matches."
+  },
+  {
+    "id": "P4",
+    "category": "practice",
+    "expression": "9 ÷ 6 - 3 + 6 × 4",
+    "trace": [
+      "9 ÷ 6 - 3 + 6 × 4",
+      "9 ÷ 3 + 6 × 4",
+      "3 + 6 × 4",
+      "9 × 4",
+      "36"
+    ],
+    "misconceptions": [
+      "sub_before_div",
+      "add_before_mul"
+    ],
+    "num_misconceptions": 2,
+    "probed_misconception": "sub_before_div",
+    "statement_correct": true,
+    "student_name": "Milo",
+    "belief_statement": "Milo believes subtraction should be done before division.",
+    "error_steps": [
+      {
+        "trace_index": 1,
+        "misconception": "sub_before_div",
+        "note": "the student subtracted before dividing here"
+      },
+      {
+        "trace_index": 3,
+        "misconception": "add_before_mul",
+        "note": "the student added before multiplying here"
+      }
+    ],
+    "feedback": "Here the two highlighted steps show two different misconceptions, and the belief statement points to the one marked in bold (subtracting before dividing). In this case the belief statement partially matches the trace: Strongly Agree would not be the best choice since the statement does not explain everything, but agreeing is still right.",
+    "which_target": "first"
+  },
+  {
+    "id": "P5",
+    "category": "practice",
+    "expression": "4 - 10 + 2 - 6 × 11",
+    "trace": [
+      "4 - 10 + 2 - 6 × 11",
+      "4 - 10 + -4 × 11",
+      "4 - 10 + -44",
+      "4 - -34",
+      "38"
+    ],
+    "misconceptions": [
+      "sub_before_mul",
+      "same_priority_rtl"
+    ],
+    "num_misconceptions": 2,
+    "probed_misconception": "same_priority_rtl",
+    "statement_correct": true,
+    "student_name": "Anya",
+    "belief_statement": "Anya believes operations of the same priority should be worked right to left.",
+    "error_steps": [
+      {
+        "trace_index": 1,
+        "misconception": "sub_before_mul",
+        "note": "the student subtracted before multiplying here"
+      },
+      {
+        "trace_index": 3,
+        "misconception": "same_priority_rtl",
+        "note": "the student worked right to left here"
+      }
+    ],
+    "feedback": "Again the two highlighted steps show two different misconceptions, and the belief statement points to the one marked in bold (working right to left). The belief statement partially matches the trace, so agreeing is still right, though Strongly Agree would not be the best choice since the statement does not explain everything.",
+    "which_target": "second"
   }
 ]

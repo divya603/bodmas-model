@@ -16,7 +16,7 @@ const LIKERT = [
   { value: 6, label: 'Strongly Agree' },
 ]
 
-// 3 practice trials, then a transition screen ("Begin task") before the real task
+// 5 practice trials, then a transition screen ("Begin task") before the real task
 const trials = api.steps.append(practiceItems.map((item) => ({ ...item })))
 trials.append([{ id: 'transition' }])
 
@@ -100,6 +100,14 @@ function errorNote(displayIndex) {
   return e ? e.note : ''
 }
 
+// on two-misconception items, the highlighted step the belief statement points
+// to additionally gets a bold "the belief statement points to this one" marker
+function isProbedStep(displayIndex) {
+  if (api.stepData.error_steps.length < 2) return false
+  const e = api.stepData.error_steps.find((e) => e.trace_index === displayIndex + 1)
+  return !!e && e.misconception === api.stepData.probed_misconception
+}
+
 function submit() {
   if (selected.value === null || feedbackShown.value) return
   api.stepData.response = selected.value
@@ -164,6 +172,9 @@ api.setAutofill(autofill)
           = {{ step }}
           <span v-if="isErrorStep(i)" class="ml-2 text-sm italic text-amber-800 font-sans">
             &larr; {{ errorNote(i) }}
+            <strong v-if="isProbedStep(i)" class="not-italic font-bold text-amber-900">
+              (the belief statement points to this one)
+            </strong>
           </span>
         </p>
       </div>

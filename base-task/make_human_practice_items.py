@@ -2,7 +2,7 @@
 """
 make_human_practice_items.py
 
-Generate the 3 feedback practice trials for the HUMAN experiment and write them to
+Generate the 5 feedback practice trials for the HUMAN experiment and write them to
 ../src/user/data/practice_items.json. Participants answer each one exactly like a real
 trial; after responding they see the erroneous step(s) highlighted plus a feedback
 statement giving the right answer (never referencing their own choice).
@@ -11,6 +11,15 @@ statement giving the right answer (never referencing their own choice).
   P2  sub_before_mul in trace, statement names add_before_mul (foil) -> disagree
   P3  same_priority_rtl + outside_bracket_first in trace, statement
       names outside_bracket_first (partial match)                    -> agree, not strongly
+  P4  sub_before_div + add_before_mul in trace, statement names
+      sub_before_div, whose error fires FIRST (partial match)        -> agree, not strongly
+  P5  sub_before_mul + same_priority_rtl in trace, statement names
+      same_priority_rtl, whose error fires SECOND (partial match)    -> agree, not strongly
+
+On the two-misconception items (P3-P5) the frontend additionally marks the highlighted
+step the belief statement points to in bold ("the belief statement points to this one"),
+so the partial-match structure is visually explicit. P4/P5 give the first/second target
+positions one practice trial each (recorded as which_target).
 
 Each item carries `error_steps`: the full-trace indices where a misconception actually
 fired. Detection is state-local: a step is an error iff an expert standing at that
@@ -44,7 +53,7 @@ OUT = "../src/user/data/practice_items.json"
 pool = json.load(open("stimulus_pool.json"))
 pool_exprs = {it["expression"] for it in pool}
 
-PRACTICE_NAMES = {"P1": "Tara", "P2": "Sam", "P3": "Kira"}
+PRACTICE_NAMES = {"P1": "Tara", "P2": "Sam", "P3": "Kira", "P4": "Milo", "P5": "Anya"}
 
 STEP_NOTES = {
     "add_before_div":        "the student added before dividing here",
@@ -63,10 +72,19 @@ FEEDBACK = {
           "but the statement said the student does addition before multiplication. The work "
           "does not match the statement, so the right answer would be to disagree.",
     "P3": "Here the belief statement partially matches the work. The two highlighted steps "
-          "show two different misconceptions, and the statement names only one of them "
-          "(working outside the brackets first). Strongly Agree would not be the best choice "
-          "since the statement does not explain everything, but agreeing is still right "
-          "because the statement partially matches.",
+          "show two different misconceptions, and the statement points to only one of them, "
+          "marked in bold (working outside the brackets first). Strongly Agree would not be "
+          "the best choice since the statement does not explain everything, but agreeing is "
+          "still right because the statement partially matches.",
+    "P4": "Here the two highlighted steps show two different misconceptions, and the belief "
+          "statement points to the one marked in bold (subtracting before dividing). In this "
+          "case the belief statement partially matches the trace: Strongly Agree would not be "
+          "the best choice since the statement does not explain everything, but agreeing is "
+          "still right.",
+    "P5": "Again the two highlighted steps show two different misconceptions, and the belief "
+          "statement points to the one marked in bold (working right to left). The belief "
+          "statement partially matches the trace, so agreeing is still right, though Strongly "
+          "Agree would not be the best choice since the statement does not explain everything.",
 }
 
 
@@ -167,9 +185,44 @@ def _find_pair(pair, seedrange):
     raise RuntimeError(f"no practice item found for pair {pair}")
 
 
-def _entry(pid, expr, trace, misconceptions, probed, statement_correct, steps):
+def _find_flat_pair(pair, probed, probed_position, required_ops, seedrange):
+    """
+    Bracket-free expression + trace where BOTH pair members fire exactly once,
+    cleanly attributable, with a final answer different from the expert's, at
+    least 4 distinct numbers for readability, no standalone 0 or ±1 anywhere in
+    the trace (they make ×, ÷ and + steps trivial or invisible), and the probed
+    misconception's error step coming chronologically 'first' or 'second'
+    relative to the partner's (the category-C which_target design).
+    """
+    partner = next(m for m in pair if m != probed)
+    for s in seedrange:
+        random.seed(s)
+        expr = generate_expression(n_ops=4, bracket_prob=0.0)
+        if expr in pool_exprs or not all(op in expr for op in required_ops):
+            continue
+        if len(set(re.findall(r"\d+", expr))) < 4 or re.search(r"\b1\b", expr):
+            continue
+        dag = build_dag(expr)
+        expert_answer = correct_answer(generate_traces(dag, []))
+        cands = [t for t in generate_traces(dag, list(pair))
+                 if _is_finished(t) and _is_clean(t) and _is_integer_only(t)
+                 and t[-1] != expert_answer
+                 and not any(re.search(r"(?<![\d.])-?[01](?![\d.])", s) for s in t)]
+        for t in sorted(cands, key=lambda t: (len(t), t)):
+            steps = _error_steps(t, list(pair))
+            if not (steps and len(steps) == 2 and {m for _, m in steps} == set(pair)):
+                continue
+            where = {m: i for i, m in steps}
+            probed_is_first = where[probed] < where[partner]
+            if probed_is_first == (probed_position == "first"):
+                return expr, t, steps
+    raise RuntimeError(f"no practice item found for pair {pair} probed={probed} {probed_position}")
+
+
+def _entry(pid, expr, trace, misconceptions, probed, statement_correct, steps,
+           which_target=None):
     name = PRACTICE_NAMES[pid]
-    return {
+    entry = {
         "id": pid,
         "category": "practice",
         "expression": expr,
@@ -184,20 +237,33 @@ def _entry(pid, expr, trace, misconceptions, probed, statement_correct, steps):
                         for i, m in steps],
         "feedback": FEEDBACK[pid],
     }
+    if which_target is not None:
+        entry["which_target"] = which_target
+    return entry
 
 
 def main():
     e1, t1, s1 = _find_single("add_before_div", ["+", "÷"], range(1, 5000))
     e2, t2, s2 = _find_single("sub_before_mul", ["+", "-", "×"], range(1, 5000))
     e3, t3, s3 = _find_pair(("same_priority_rtl", "outside_bracket_first"), range(1, 10000))
+    e4, t4, s4 = _find_flat_pair(("sub_before_div", "add_before_mul"), "sub_before_div",
+                                 "first", ["-", "÷", "+", "×"], range(1, 20000))
+    e5, t5, s5 = _find_flat_pair(("sub_before_mul", "same_priority_rtl"), "same_priority_rtl",
+                                 "second", ["-", "×"], range(1, 20000))
 
     items = [
         _entry("P1", e1, t1, ["add_before_div"], "add_before_div", True, s1),
         _entry("P2", e2, t2, ["sub_before_mul"], "add_before_mul", False, s2),
         _entry("P3", e3, t3, ["same_priority_rtl", "outside_bracket_first"],
                "outside_bracket_first", True, s3),
+        _entry("P4", e4, t4, ["sub_before_div", "add_before_mul"],
+               "sub_before_div", True, s4, which_target="first"),
+        _entry("P5", e5, t5, ["sub_before_mul", "same_priority_rtl"],
+               "same_priority_rtl", True, s5, which_target="second"),
     ]
 
+    exprs = [it["expression"] for it in items]
+    assert len(set(exprs)) == len(exprs), "duplicate expression across practice items"
     for it in items:
         assert it["expression"] not in pool_exprs, f"leak: {it['expression']} is in the pool"
         assert it["student_name"] not in STUDENT_NAMES, f"name clash: {it['student_name']}"
