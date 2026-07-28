@@ -39,6 +39,11 @@ def compute_valid_actions_for_learner(dag, matches, misconceptions):
                                 op_index=idx, truth=[], valid=True))
             continue
 
+        if m['table'] == 6:          # a OP Y / Y OP a — op can't fire (recurse Y)
+            actions.append(dict(op_id=m['op_id'], op_label=m['op_label'],
+                                op_index=idx, truth=[], valid=False))
+            continue
+
         truth = []
         for w in m['windows']:
             correct = is_correct_for_learner(w, misconceptions)
@@ -94,8 +99,22 @@ def _next_dags(dag, misconceptions):
         if a['valid'] and not is_zero_divide(dag, a['op_index']):
             nexts.append(fire_operator(dag, a['op_index']))
 
-    for ia in inner_valid_actions_for_learner(dag, misconceptions):
-        nexts.append(fire_inner_op(dag, ia['atom_index'], ia['inner_op_index']))
+    # outside_bracket_first v2 (preference, not permission): the learner
+    # believes you resolve everything OUTSIDE a bracket before what is inside.
+    # So while any literal-literal operation is still available outside, entering
+    # a bracket is forbidden; recursion is only offered once the level has been
+    # reduced to the a-OP-Y / Y-OP-a forms (Table 6), where no outside op remains.
+    # Expert and the other five misconceptions are unaffected.
+    block_recursion = (
+        'outside_bracket_first' in misconceptions
+        and any(a['valid']
+                and dag.atoms[a['op_index']].is_number()
+                and dag.atoms[a['op_index'] + 1].is_number()
+                for a in actions)
+    )
+    if not block_recursion:
+        for ia in inner_valid_actions_for_learner(dag, misconceptions):
+            nexts.append(fire_inner_op(dag, ia['atom_index'], ia['inner_op_index']))
 
     return nexts
 

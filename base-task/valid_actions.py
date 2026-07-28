@@ -92,6 +92,11 @@ def compute_valid_actions(dag, matches):
                                 op_index=idx, truth=[], valid=True))
             continue
 
+        if m['table'] == 6:          # a OP Y / Y OP a — op can't fire (recurse Y)
+            actions.append(dict(op_id=m['op_id'], op_label=m['op_label'],
+                                op_index=idx, truth=[], valid=False))
+            continue
+
         truth = []
         for w in m['windows']:
             correct = _is_correct_in_window(w)

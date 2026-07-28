@@ -410,7 +410,29 @@ pipeline (`llm_exp_buffer/`).
   cell over all 240. Determinism temp=0/top_p=1/seed=0; caps 8192 direct / 16000 thinking.
 - **`bodmas_llm/parse_results.py`** — raw JSONL → tidy frame in the human per-trial schema.
 
-### LLM results (all 487 items, re-run on the extended pool 2026-07-17)
+### LLM results — CURRENT (gpt-5.6-terra replaces gpt-4o; runs 2026-07-22, figures swapped 2026-07-28)
+The user re-ran the suite on 2026-07-22 17:48-17:51: `results/raw_{haiku_thinking,haiku_direct,
+gpt56terra_direct}_all480.jsonl` (exactly 480 rows each, clean pool, 0 errors). The old
+`raw_*_all487.jsonl` files (including openai/gpt-4o) were DELETED. The figure scripts were
+already on the `'gpt-5.6 (direct)'` regime (`openai/gpt-5.6-terra`); all 15 plots regenerated
+2026-07-28 and both snapshot sets refreshed (Results_combined/figs LLM figures, report/figs).
+| regime | acc | hit | FA | d' | criterion |
+|---|---|---|---|---|---|
+| haiku (thinking) | 0.892 | 0.975 | 0.192 | 2.83 | -0.54 |
+| haiku (direct) | 0.652 | 0.371 | 0.067 | 1.17 | +0.92 |
+| **gpt-5.6-terra (direct)** | 0.821 | 0.838 | 0.196 | 1.84 | -0.06 |
+terra story: a no-reasoning model with near-neutral criterion and d' 1.84, far above gpt-4o's
+0.60 and above haiku-direct; its weak groups (outside()/C, RTL/D, add<x) mirror the humans'
+(see the analysis_human_practice_2 scatters), unlike gpt-4o's claim-driven scatter.
+⚠️ The haiku numbers differ non-trivially from the 487-era runs (thinking hit 0.92 -> 0.975,
+d' 2.37 -> 2.83, criterion -0.25 -> -0.54), so the 07-22 rewrite was NOT a pure cache replay of
+the haiku arms; the 487-era responses survive only in the old tables/tex.
+⚠️ STILL GPT-4O/487-BASED (prose not yet reconciled): report/report.tex,
+Results_combined/results.tex (and its observer_scatter_{binary,graded}.png copies, which are
+also still n=21-human + gpt-4o), the historical section below, run_synthetic_item.py
+(its stored gpt-4o rating stays as provenance).
+
+### LLM results (HISTORICAL, 487-era runs with gpt-4o, 2026-07-17; raw files deleted 2026-07-22)
 Three regimes (gpt-4o ignores the thinking flag → 0 reasoning tokens, so run once as "direct").
 Re-run over the full 480 design; 240 originals served from cache ($0), only new items new spend;
 0 errors. Raw runs: `results/raw_{haiku_thinking,haiku_direct,gpt4o_direct}_all487.jsonl`
@@ -688,6 +710,95 @@ Writing style: **no em dashes** (user: "screams AI").
   and LLMs = proportion rated ≥4, Bayes = proportion with marginal > 0.5), x-axis = the six
   misconceptions, LLM solid / human dashed / Bayes dotted, Wilson intervals on the two sampled
   observers. Note Bayes is a flat line at 1.0 (A) and 0.0 (B) at ε=0.
+
+**⚠️⚠️ MODEL/POOL FORK (v2 staged locally, 2026-07-22) — READ BEFORE ANY CROSS-OBSERVER ANALYSIS:**
+The working tree holds an UNCOMMITTED **outside_bracket_first v2**: pattern_matcher.py adds
+Table 6 (`a OP Y` / `Y OP a`, op cannot fire, recurse_Y only), traces.py/valid_actions.py mark
+Table-6 ops invalid, and `_next_dags` BLOCKS bracket recursion for outside()-learners while any
+literal-literal op remains outside. This converts outside() from a PERMISSION (may work outside
+first) to a PREFERENCE (must finish outside before going inside), matching the belief-statement
+wording, and makes outside() FALSIFIABLE (an inside-first step with outside work available now
+eliminates every outside()-containing profile at ε=0). It supersedes-in-v2 the "outside() is
+UNFALSIFIABLE" caveat in §2 (the mechanism there described v1 and sketched a different fix).
+Because v2 changes which traces outside()-profiles generate, all three stimulus_pool.json
+copies were regenerated at 16:57 (one hour before the terra LLM runs); misconception_difficulty
+.json and analysis-Bayesian/b_item_marginals.json were also regenerated. User confirmed the
+bracket change was known work, but the session that did it never updated HANDOFF.
+Versus HEAD the v2 pool has: 8 ids swapped (HEAD-only: B012 B032 D014 D018
+D022 D041 D043 D056; working-only: B057 B121 D003 D007 D016 D020 D029 D126 — note this
+resurrects 6 of the 7 dropped-ambiguous ids), and of the 472 common ids **437 have different
+expressions/traces**, 88 a different probed_misconception, 96 a different foil_status
+(statement_correct matches on all common ids). It is a DIFFERENT POOL, not an 8-item patch.
+Alignment of the arms as of now:
+- **Humans (all cohorts incl. pilot 2) + Bayes** (dashboard/bayes_per_item.json,
+  analysis-Bayesian/b_item_marginals.json) = the OLD/HEAD pool. The live site deploys from
+  git, and the pool change was never committed, so participants still see the OLD pool.
+- **Current LLM raw runs** (raw_*_all480.jsonl, incl. both haiku arms) = the NEW pool. This
+  fully explains the "haiku drift" (hit 0.92→0.975 etc.): different stimuli, not model change.
+Contaminated outputs (id-joins across the fork): observer_scatter_{binary,graded}_pilot2
+(82/456 human trials misgrouped via the new pool's probed_misconception + 4 dropped);
+human 1misc heatmap/distributions foil_status panels IF joined via base-task pool (94 B/D
+pilot-2 trials would mislabel — scripts should switch to the trial-embedded foil_status).
+SAFE (trial-embedded fields only): analyze_human, plot_human_sdt/rt, both human 2misc figures,
+the cohort comparison table below (incl. FA refuted/unsupported). LLM-only figures are
+internally consistent but describe the NEW pool, so LLM-vs-human/Bayes readings are cross-pool
+and provisional. **RESOLVED 2026-07-28:** the fork was INTENTIONAL — the user had told the
+07-22 session to replace the pool entirely; that session staged everything locally but never
+committed, deployed, or updated HANDOFF, which is why pilot-2 (19 people) ran on v1.
+**USER DECISION: v2 is the only pool from now on. v1 is retired** (human records kept solely
+to pay the still-unpaid pilot-2 bonuses and re-downloadable from Firebase; no further v1
+analysis planned; no v1 LLM re-runs).
+**v2 DEPLOYED 2026-07-28**: model files (pattern_matcher/traces/valid_actions) + all 3 pool
+copies + misconception_difficulty.json + b_item_marginals.json. Pre-deploy verification:
+pool structure exact (120/category, B cells 60 of size 2, D cells 120 of size 1, zero
+ambiguous statuses), Python sample_form AND JS sampleForm.js both 500/500 seeds balanced on
+v2, practice_items.json regenerated under v2 came out byte-identical (P1-P5 same; P3's
+outside() IO marginal is now 1.000 under preference semantics), local bundle grep shows
+v2-only content.
+⚠️ Cohort bookkeeping: the upcoming confirmatory participants are the V2 COHORT but they also
+see 5 practice trials, so cohorts.py 'practice5' alone canNOT separate them from pilot-2
+(v1, also 5 practice items). Split on session start after the 2026-07-28 v2 deploy, or
+content-match trials against the v2 pool (every 24-item form virtually surely contains
+v2-only content). Wire a 'v2' cohort into cohorts.py when the first v2 data arrives.
+STILL PENDING after cutover: rebuild dashboard/bayes_per_item.json + dashboard on v2 (its
+Bayes data is still v1); regenerate the pilot-2-facing scatters only if ever needed (v1,
+low priority now); prereg + results.tex/report.tex reconciliation onto v2 numbers.
+
+**DONE (2026-07-28, pilot 2 collected + analyzed):**
+- **19 new Prolific participants on the 5-practice-trial flow** (user launched ~20, one never
+  finished; data pulled by the user). Cohort fingerprint: number of recorded practice items
+  (3 = Jul-17 cohort n=21, 5 = pilot-2 n=19, 0 = original pilot n=24) via NEW
+  `analysis_human/cohorts.py` (`n_practice_items`, `in_cohort`); a `--cohort practice5`
+  choice was added to analyze_human.py, plot_human_sdt.py, plot_human_rt.py,
+  plot_human_1misc_heatmap.py, plot_human_1misc_distributions.py, plot_2misc_heatmap.py,
+  plot_2misc_heatmap_dots.py AND analysis-comparison/plot_observer_scatter.py
+  (file suffix `_pilot2`; all fully wired).
+- **Figures in NEW `analysis_human_practice_2/`** (user renamed it from analysis_human_pilot2;
+  13 files): sanity, accuracy_group_category, accuracy_by_misconception,
+  human_signal_detection_pilot2, human_rt_pilot2, human_1misc_heatmap{,_combined}_pilot2,
+  human_1misc_dist_A/B, human_2misc_heatmap{,_dots}_pilot2,
+  observer_scatter_{binary,graded}_pilot2.
+- ⚠️ **LLM raw data REPLACED (discovered 2026-07-28, run by the user):**
+  `llm_exp/results/` now holds `raw_{haiku_thinking,haiku_direct,gpt56terra_direct}_all480.jsonl`
+  (480 rows each); the old `raw_*_all487.jsonl` set is GONE and **gpt-4o was replaced by
+  `openai/gpt-5.6-terra` (direct)**. plot_observer_scatter.py's REGIMES updated accordingly
+  (label 'gpt-5.6-terra (direct)'). User confirmed 2026-07-28 they ran the terra model
+  themselves. All llm_exp figure scripts were already terra-wired; all 15 plots regenerated and
+  snapshot copies refreshed 2026-07-28 (see §4 CURRENT). Tex prose (report.tex, results.tex)
+  still describes gpt-4o and awaits reconciliation.
+- **Checkpoint result, by cohort (acc by category / pooled SDT):**
+  no-practice n=24: A .49 B .61 C .64 D .66, d' 0.51, crit +0.09;
+  3-practice n=21: A .61 B .71 C .56 D .72, d' 0.79, crit +0.18, FA refuted .21 vs unsup .36;
+  5-practice n=19: A .73 B .64 C .68 D .60, d' 0.84, crit −0.12, FA refuted .26 vs unsup .50.
+  Reading: practice moved A far off chance (.49→.73, hit rate .57→.71) and individual d'
+  tightened (range −0.67..2.35, 15/19 above 0, median 1.18). BUT the 3→5 step is mostly a
+  CRITERION shift toward agreeing (+0.18→−0.12: A/C up, B/D down, d' only 0.79→0.84).
+  Likely cause: the practice answer keys are now 4 agree / 1 disagree (P1 agree, P2 disagree,
+  P3/P4/P5 agree). If there is a practice v3, balance the keys (e.g. add a D-style disagree
+  trial). Refutation contrast (H5 direction) present in both practice cohorts and larger in
+  pilot 2 (.26 vs .50).
+- **Pilot-2 bonuses NOT yet paid** (run scripts/make_bonus_list.py when ready; ledger guards
+  the earlier cohorts).
 
 **DONE (2026-07-27, pushed/deployed 2026-07-28):**
 - **Practice set grown 3 → 5 trials** (user request: humans still weak, want more familiarization).

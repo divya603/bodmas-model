@@ -90,15 +90,28 @@ def _scan_level(dag, results, inside_bracket):
     for i, op in enumerate(dag.ops):
 
         if n == 1:
-            # Table 1 — standalone: only matches when both atoms are literals
             a0, a1 = dag.atoms[0], dag.atoms[1]
-            if not (_is_lit(a0) and _is_lit(a1)):
-                continue                          # no pattern matches — skip
-            pat = f'(a {op.label} b)' if inside_bracket else f'a {op.label} b'
-            results.append(dict(
-                op_id=op.node_id, op_label=op.label,
-                table=1, pattern=pat, windows=[],
-            ))
+            if _is_lit(a0) and _is_lit(a1):
+                # Table 1 — standalone, both literals: the op fires.
+                pat = f'(a {op.label} b)' if inside_bracket else f'a {op.label} b'
+                results.append(dict(
+                    op_id=op.node_id, op_label=op.label,
+                    table=1, pattern=pat, windows=[],
+                ))
+            elif _is_lit(a0) ^ _is_lit(a1):
+                # Table 6 — one literal, one bracket: a OP Y or Y OP a. The 8
+                # forms (4 ops x 2 sides). The op itself cannot fire (a bracket
+                # operand is unresolved); the only legal transition is to
+                # recurse into Y. Naming it explicitly lets the outside-bracket
+                # learner treat "now the bracket" as its own case (see traces).
+                s0 = 'a' if _is_lit(a0) else 'Y'
+                s1 = 'a' if _is_lit(a1) else 'Y'
+                results.append(dict(
+                    op_id=op.node_id, op_label=op.label,
+                    table=6, pattern=f'{s0} {op.label} {s1}',
+                    windows=[], reductions=['recurse_Y'],
+                ))
+            # else: both brackets (Y OP Y) — no table, recurse either; skip.
             continue
 
         windows = []
