@@ -7,19 +7,23 @@ Generate the 5 feedback practice trials for the HUMAN experiment and write them 
 trial; after responding they see the erroneous step(s) highlighted plus a feedback
 statement giving the right answer (never referencing their own choice).
 
-  P1  add_before_div in trace, statement names add_before_div        -> agree
-  P2  sub_before_mul in trace, statement names add_before_mul (foil) -> disagree
+  P1  add_before_div in trace, statement names add_before_div        -> agree      (category A)
+  P2  sub_before_mul in trace, statement names add_before_mul (foil) -> disagree   (category B)
   P3  same_priority_rtl + outside_bracket_first in trace, statement
-      names outside_bracket_first (partial match)                    -> agree, not strongly
-  P4  sub_before_div + add_before_mul in trace, statement names
-      sub_before_div, whose error fires FIRST (partial match)        -> agree, not strongly
-  P5  sub_before_mul + same_priority_rtl in trace, statement names
-      same_priority_rtl, whose error fires SECOND (partial match)    -> agree, not strongly
+      names outside_bracket_first, whose error fires FIRST
+      (partial match)                                                -> agree, not strongly  (category C)
+  P4  sub_before_mul + same_priority_rtl in trace, statement names
+      same_priority_rtl, whose error fires SECOND (partial match)    -> agree, not strongly  (category C)
+  P5  add_before_mul + sub_before_div in trace, statement names
+      sub_before_mul (foil, absent from the trace)                   -> disagree   (category D)
 
-On the two-misconception items (P3-P5) the frontend additionally marks the highlighted
+On the two-misconception items (P3, P4) the frontend additionally marks the highlighted
 step the belief statement points to in bold ("the belief statement points to this one"),
-so the partial-match structure is visually explicit. P4/P5 give the first/second target
-positions one practice trial each (recorded as which_target).
+so the partial-match structure is visually explicit. P3/P4 give the first/second target
+positions one practice trial each (recorded as which_target). P5 has two highlighted
+steps but no bold marker, since the statement points to neither (both are real mistakes,
+but not the one named): this is the category-D case, and is new as of 2026-08-10 (the
+set previously had three category-C items and no category D).
 
 Each item carries `error_steps`: the full-trace indices where a misconception actually
 fired. Detection is state-local: a step is an error iff an expert standing at that
@@ -76,15 +80,16 @@ FEEDBACK = {
           "marked in bold (working outside the brackets first). Strongly Agree would not be "
           "the best choice since the statement does not explain everything, but agreeing is "
           "still right because the statement partially matches.",
-    "P4": "Here the two highlighted steps show two different misconceptions, and the belief "
-          "statement points to the one marked in bold (subtracting before dividing). In this "
-          "case the belief statement partially matches the trace: Strongly Agree would not be "
-          "the best choice since the statement does not explain everything, but agreeing is "
-          "still right.",
-    "P5": "Again the two highlighted steps show two different misconceptions, and the belief "
+    "P4": "Again the two highlighted steps show two different misconceptions, and the belief "
           "statement points to the one marked in bold (working right to left). The belief "
           "statement partially matches the trace, so agreeing is still right, though Strongly "
           "Agree would not be the best choice since the statement does not explain everything.",
+    "P5": "Here the two highlighted steps show two different misconceptions, but neither is "
+          "the one the belief statement describes (subtracting before multiplying), so there "
+          "is no bold marker this time. The statement is not just unsupported, it is actively "
+          "contradicted: earlier in the trace the student had a subtraction sitting right next "
+          "to a multiplication and did not take it, which a student who subtracted before "
+          "multiplying would have done. So the right answer would be to disagree.",
 }
 
 
@@ -219,6 +224,50 @@ def _find_flat_pair(pair, probed, probed_position, required_ops, seedrange):
     raise RuntimeError(f"no practice item found for pair {pair} probed={probed} {probed_position}")
 
 
+def _find_flat_foil(pair, foil, required_ops, seedrange, want_refuted=True):
+    """
+    Bracket-free expression + trace where BOTH pair members fire exactly once each,
+    cleanly attributable, with a final answer different from the expert's, at least
+    4 distinct numbers, no standalone 0 or +-1 anywhere in the trace (the same
+    readability constraints as _find_flat_pair). `foil` is NOT one of `pair`: it is
+    the misconception the belief statement will name, absent from the trace (the
+    category-D design). If want_refuted, prefers a trace where the ideal observer's
+    marginal on `foil` is below 0.15 (a decision point the foil had a visible chance
+    to manifest at, and visibly didn't), falling back to the first valid candidate
+    if no refuted one turns up within seedrange.
+    """
+    assert foil not in pair
+    fallback = None
+    for s in seedrange:
+        random.seed(s)
+        expr = generate_expression(n_ops=4, bracket_prob=0.0)
+        if expr in pool_exprs or not all(op in expr for op in required_ops):
+            continue
+        if len(set(re.findall(r"\d+", expr))) < 4 or re.search(r"\b1\b", expr):
+            continue
+        dag = build_dag(expr)
+        expert_answer = correct_answer(generate_traces(dag, []))
+        cands = [t for t in generate_traces(dag, list(pair))
+                 if _is_finished(t) and _is_clean(t) and _is_integer_only(t)
+                 and t[-1] != expert_answer
+                 and not any(re.search(r"(?<![\d.])-?[01](?![\d.])", s) for s in t)]
+        for t in sorted(cands, key=lambda t: (len(t), t)):
+            steps = _error_steps(t, list(pair))
+            if not (steps and len(steps) == 2 and {m for _, m in steps} == set(pair)):
+                continue
+            marg = marginal_rule_probability(posterior_over_profiles(t), foil)
+            if fallback is None:
+                fallback = (expr, t, steps, marg)
+            if not want_refuted or marg < 0.15:
+                return expr, t, steps
+    if fallback is not None:
+        expr, t, steps, marg = fallback
+        print(f"WARNING: no refuted candidate for foil {foil}; using unsupported "
+              f"(marginal {marg:.3f})")
+        return expr, t, steps
+    raise RuntimeError(f"no practice item found for pair {pair} foil {foil}")
+
+
 def _entry(pid, expr, trace, misconceptions, probed, statement_correct, steps,
            which_target=None):
     name = PRACTICE_NAMES[pid]
@@ -246,20 +295,20 @@ def main():
     e1, t1, s1 = _find_single("add_before_div", ["+", "÷"], range(1, 5000))
     e2, t2, s2 = _find_single("sub_before_mul", ["+", "-", "×"], range(1, 5000))
     e3, t3, s3 = _find_pair(("same_priority_rtl", "outside_bracket_first"), range(1, 10000))
-    e4, t4, s4 = _find_flat_pair(("sub_before_div", "add_before_mul"), "sub_before_div",
-                                 "first", ["-", "÷", "+", "×"], range(1, 20000))
-    e5, t5, s5 = _find_flat_pair(("sub_before_mul", "same_priority_rtl"), "same_priority_rtl",
+    e4, t4, s4 = _find_flat_pair(("sub_before_mul", "same_priority_rtl"), "same_priority_rtl",
                                  "second", ["-", "×"], range(1, 20000))
+    e5, t5, s5 = _find_flat_foil(("add_before_mul", "sub_before_div"), "sub_before_mul",
+                                 ["+", "×", "-", "÷"], range(1, 20000))
 
     items = [
         _entry("P1", e1, t1, ["add_before_div"], "add_before_div", True, s1),
         _entry("P2", e2, t2, ["sub_before_mul"], "add_before_mul", False, s2),
         _entry("P3", e3, t3, ["same_priority_rtl", "outside_bracket_first"],
                "outside_bracket_first", True, s3),
-        _entry("P4", e4, t4, ["sub_before_div", "add_before_mul"],
-               "sub_before_div", True, s4, which_target="first"),
-        _entry("P5", e5, t5, ["sub_before_mul", "same_priority_rtl"],
-               "same_priority_rtl", True, s5, which_target="second"),
+        _entry("P4", e4, t4, ["sub_before_mul", "same_priority_rtl"],
+               "same_priority_rtl", True, s4, which_target="second"),
+        _entry("P5", e5, t5, ["add_before_mul", "sub_before_div"],
+               "sub_before_mul", False, s5),
     ]
 
     exprs = [it["expression"] for it in items]

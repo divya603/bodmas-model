@@ -92,41 +92,6 @@
   {
     "id": "P4",
     "category": "practice",
-    "expression": "9 ÷ 6 - 3 + 6 × 4",
-    "trace": [
-      "9 ÷ 6 - 3 + 6 × 4",
-      "9 ÷ 3 + 6 × 4",
-      "3 + 6 × 4",
-      "9 × 4",
-      "36"
-    ],
-    "misconceptions": [
-      "sub_before_div",
-      "add_before_mul"
-    ],
-    "num_misconceptions": 2,
-    "probed_misconception": "sub_before_div",
-    "statement_correct": true,
-    "student_name": "Milo",
-    "belief_statement": "Milo believes subtraction should be done before division.",
-    "error_steps": [
-      {
-        "trace_index": 1,
-        "misconception": "sub_before_div",
-        "note": "the student subtracted before dividing here"
-      },
-      {
-        "trace_index": 3,
-        "misconception": "add_before_mul",
-        "note": "the student added before multiplying here"
-      }
-    ],
-    "feedback": "Here the two highlighted steps show two different misconceptions, and the belief statement points to the one marked in bold (subtracting before dividing). In this case the belief statement partially matches the trace: Strongly Agree would not be the best choice since the statement does not explain everything, but agreeing is still right.",
-    "which_target": "first"
-  },
-  {
-    "id": "P5",
-    "category": "practice",
     "expression": "4 - 10 + 2 - 6 × 11",
     "trace": [
       "4 - 10 + 2 - 6 × 11",
@@ -142,8 +107,8 @@
     "num_misconceptions": 2,
     "probed_misconception": "same_priority_rtl",
     "statement_correct": true,
-    "student_name": "Anya",
-    "belief_statement": "Anya believes operations of the same priority should be worked right to left.",
+    "student_name": "Milo",
+    "belief_statement": "Milo believes operations of the same priority should be worked right to left.",
     "error_steps": [
       {
         "trace_index": 1,
@@ -158,5 +123,39 @@
     ],
     "feedback": "Again the two highlighted steps show two different misconceptions, and the belief statement points to the one marked in bold (working right to left). The belief statement partially matches the trace, so agreeing is still right, though Strongly Agree would not be the best choice since the statement does not explain everything.",
     "which_target": "second"
+  },
+  {
+    "id": "P5",
+    "category": "practice",
+    "expression": "2 × 10 + 12 - 5 ÷ 3",
+    "trace": [
+      "2 × 10 + 12 - 5 ÷ 3",
+      "2 × 22 - 5 ÷ 3",
+      "44 - 5 ÷ 3",
+      "39 ÷ 3",
+      "13"
+    ],
+    "misconceptions": [
+      "add_before_mul",
+      "sub_before_div"
+    ],
+    "num_misconceptions": 2,
+    "probed_misconception": "sub_before_mul",
+    "statement_correct": false,
+    "student_name": "Anya",
+    "belief_statement": "Anya believes subtraction should be done before multiplication.",
+    "error_steps": [
+      {
+        "trace_index": 1,
+        "misconception": "add_before_mul",
+        "note": "the student added before multiplying here"
+      },
+      {
+        "trace_index": 3,
+        "misconception": "sub_before_div",
+        "note": "the student subtracted before dividing here"
+      }
+    ],
+    "feedback": "Here the two highlighted steps show two different misconceptions, but neither is the one the belief statement describes (subtracting before multiplying), so there is no bold marker this time. The statement is not just unsupported, it is actively contradicted: earlier in the trace the student had a subtraction sitting right next to a multiplication and did not take it, which a student who subtracted before multiplying would have done. So the right answer would be to disagree."
   }
 ]
