@@ -16,12 +16,21 @@ conversation history.
 ONE stimulus pool, the model that generates it, the Bayesian ideal observer, and the experiment
 frontend. Everything else was deliberately deleted.
 
-**Deleted on this branch (all of it still lives on `main` and `pool-v3`, and in git history):**
-the v1/v2 480-item pool and its builders, the v3 432-item position pool, all human data analysis,
-the whole LLM experiment (`llm_exp/`), the pre-registration (`PreReg/`), the results document
-(`Results_combined/`), the observer-comparison scripts, and the dashboard. There are **no human
-results and no LLM results on this branch**, by design. Do not try to reconstruct them here; check
-out `main` or `pool-v3` if you need them.
+**Deleted on this branch.** There are **no human results and no LLM results here**, by design. Do
+not try to reconstruct them; nothing is lost, but the two halves live in different places:
+
+- **On `main`** (branch `main`, commit `d73ddb6`): the v1/v2 480-item pool and its builders, all
+  human data analysis (`analysis_human/`), the whole LLM experiment (`llm_exp/`), the
+  pre-registration (`PreReg/`), the results document (`Results_combined/`), the observer-comparison
+  scripts, and the dashboard. Check out `main` to get any of it back.
+- **Only in THIS branch's own history**, at commit `08b380b` and earlier: the v3 432-item position
+  pool (`pool_v3.py`, `stimulus_pool_v3.json`, `verify_v3.py`, `bayes_v3.py`,
+  `bayes_per_item_v3.json`) and the v3 Bayes figures. These were never on `main`, and the `pool-v3`
+  branch was deleted on 2026-09-09 once `pilot-v4` had superseded it. Recover a file with
+  `git show 08b380b:base-task/stimulus_pool_v3.json`. Deleting the branch lost nothing: its tip is
+  an ancestor of this branch.
+
+Only two branches exist now: `main` and `pilot-v4`.
 
 So this branch has exactly one arm with data in it: the Bayesian ideal observer, run over the pool.
 
