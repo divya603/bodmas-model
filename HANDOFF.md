@@ -206,9 +206,25 @@ marginal.
 - **`plot_bayes_1misc_distributions.py`** -> three figures:
   - `bayes_1misc_dist_A.png` category A. A POINT MASS at 1.000 in every panel. Kept as the
     reference, but it carries no information beyond "the observer is a logical oracle".
-  - `bayes_1misc_dist_B.png` category B, two rows (grouped by PRESENT, then by NAMED), positions
-    overlaid. x zoomed to [0, 0.4] since no probed foil marginal exceeds 0.333.
+  - `bayes_1misc_dist_B.png` category B, two rows, positions overlaid, x zoomed to [0, 0.4] since
+    no probed foil marginal exceeds 0.333. **Row 2 (by NAMED rule) is the clean one**: grouping
+    variable and plotted marginal are the same rule, so each panel asks one question.
+    ⚠️ **Row 1 (by PRESENT rule) is a MIXTURE.** It groups by the rule in the trace but still plots
+    the marginal on whichever rule the statement named, so one panel pools five different
+    marginals: the panel for `add_before_mul` never plots P(add_before_mul | trace) at all. It is a
+    task-level summary of the B trials arising from those traces, not a property of the observer.
+    Titles and caption now say this explicitly (they did not on 2026-09-09 and it misled a reader
+    immediately). Use the profile figure for the observer-level trace-side question.
   - `bayes_1misc_profile.png` **the one worth looking at.** See below.
+
+### ⚠️ Category A vs B is NOT a difference in the observer
+`posterior_over_profiles()` takes ONLY the trace. A and B are properties of the TASK, not of the
+inference: the observer computes one posterior per trace, yielding six marginals, and the category
+only decides which entry gets read off. The labels exist on the Bayes side purely for
+COMPARABILITY, because humans and LLMs do see the statement and are scored per item, so the Bayes
+arm has to be scored on the same items to sit on the same axis. Any figure that groups by one rule
+while plotting a marginal selected by a different rule is mixing incommensurable quantities; see
+the dist_B row 1 warning above.
 
 ### ⚠️ The statement is NOT an input to inference
 `posterior_over_profiles()` takes ONLY the trace. The named rule enters afterwards purely as an

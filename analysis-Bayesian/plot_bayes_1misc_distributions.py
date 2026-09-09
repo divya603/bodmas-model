@@ -21,10 +21,18 @@ Three figures:
       draw and the figure exists to show that.
 
   bayes_1misc_dist_B.png  category B (statement names a foil). Two rows over the
-      same 120 items, because present and named are decoupled: row 1 groups by
-      the misconception PRESENT in the trace ("does the student's actual bug make
-      the work confusable?"), row 2 by the misconception NAMED ("are some claims
-      inherently easier to rule out?").
+      same 120 items. Row 2 is the clean one: it groups by the NAMED rule, so the
+      grouping variable and the plotted marginal are the same rule and each panel
+      asks exactly one question ("how confidently can this claim be ruled out
+      when it is false?").
+      ⚠️ Row 1 groups by the rule PRESENT in the trace while still plotting the
+      marginal on whichever rule the statement named, so a single panel pools
+      five different marginals. The panel titled "trace contains add<mul" never
+      plots P(add<mul | trace) at all. It is a task-level summary of the B trials
+      that came from those traces, NOT a property of the observer, and it is
+      titled and captioned to say so. For the observer-level version of the
+      trace-side question use bayes_1misc_profile.png, which keeps every rule's
+      marginal separate.
 
   bayes_1misc_profile.png  the figure the indexing point above motivates. For
       every trace it plots ALL SIX marginals, not just the queried one, grouped
@@ -142,20 +150,31 @@ def main():
     # ── figure 2: category B, two groupings ──
     b_present = by_position(b_rows, 'true_misconception')
     b_named = by_position(b_rows, 'probed_misconception')
-    fig, axes = plt.subplots(2, 6, figsize=(16.5, 6.2), sharex=True)
+    fig, axes = plt.subplots(2, 6, figsize=(16.5, 6.6), sharex=True)
     for j, m in enumerate(IDS):
-        stem_panel(axes[0, j], b_present[m], SHORT[m], xmax=B_XMAX)
-        stem_panel(axes[1, j], b_named[m], SHORT[m], xmax=B_XMAX)
+        # ⚠️ The two rows do NOT plot the same quantity, and the panel titles say so.
+        # Row 1 groups by the rule in the TRACE while the value plotted is the marginal
+        # on whichever rule that item's statement named, so one panel pools five
+        # different marginals. It is a task-level summary, not a property of the
+        # observer. For the observer-level version of the same question, use
+        # bayes_1misc_profile.png, which plots each rule's marginal separately.
+        # Row 2 groups by the NAMED rule, so grouping variable and plotted quantity
+        # coincide and each panel asks exactly one question.
+        stem_panel(axes[0, j], b_present[m], f'trace contains {SHORT[m]}', xmax=B_XMAX)
+        stem_panel(axes[1, j], b_named[m], f'statement names {SHORT[m]}', xmax=B_XMAX)
         axes[1, j].set_xlabel('P(named rule | trace)', fontsize=8)
-    axes[0, 0].set_ylabel('grouped by misconception\nPRESENT in trace', fontsize=9)
-    axes[1, 0].set_ylabel('grouped by misconception\nNAMED in statement (foil)', fontsize=9)
+    axes[0, 0].set_ylabel('by rule PRESENT in trace\n(pools 5 different named rules)', fontsize=8.5)
+    axes[1, 0].set_ylabel('by rule NAMED in statement\n(one question per panel)', fontsize=8.5)
     fig.suptitle('Bayesian ideal observer, category B (statement names a foil): '
                  'posterior on the named rule\n'
-                 f'same {len(b_rows)} items under two groupings; stems sit on the exact observed '
-                 'values (n = step 1 / step 3)\n'
-                 'x axis zoomed to [0, 0.4]: no foil item exceeds 0.333, so the 0.5 decision '
-                 'boundary is off-scale',
-                 fontsize=11.5)
+                 f'same {len(b_rows)} items under two groupings, 20 per panel '
+                 '(n = step 1 / step 3); stems sit on the exact observed values\n'
+                 '⚠️ ROW 1 IS A MIXTURE: it groups by the rule in the trace, but plots the '
+                 'marginal on whichever rule the statement named,\nso each panel pools five '
+                 'different marginals. Row 2 groups and plots the same rule, so each panel asks '
+                 'one question.\nx axis zoomed to [0, 0.4]: no probed foil exceeds 0.333, so the '
+                 '0.5 decision boundary is off-scale',
+                 fontsize=10)
     legend(fig)
     fig.tight_layout(rect=[0, 0, 1, 0.86])
     p2 = os.path.join(HERE, 'bayes_1misc_dist_B.png')
