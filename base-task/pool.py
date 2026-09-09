@@ -1,5 +1,5 @@
 """
-pool_v4.py
+pool.py
 
 Builds the v4 "position x named" stimulus pool.
 
@@ -51,8 +51,8 @@ from itertools import combinations
 
 from learner import MISCONCEPTION_FLIPS
 from inference import posterior_over_profiles, marginal_rule_probability
-from generator_v3 import generate_expression
-from find_pairs_v3 import pairs_for_expression, N_OPS, POSITIONS
+from generator_constrained import generate_expression
+from find_pairs import pairs_for_expression, N_OPS, POSITIONS
 
 IDS        = list(MISCONCEPTION_FLIPS.keys())
 HYPOTHESES = [()] + [(m,) for m in IDS] + list(combinations(IDS, 2))
@@ -269,6 +269,6 @@ if __name__ == '__main__':
     print("Building v4 pool...")
     items = build()
     summarise(items)
-    with open('stimulus_pool_v4.json', 'w', encoding='utf-8') as fh:
+    with open('stimulus_pool.json', 'w', encoding='utf-8') as fh:
         json.dump(items, fh, ensure_ascii=False, indent=1)
-    print("\nwrote stimulus_pool_v4.json")
+    print("\nwrote stimulus_pool.json")

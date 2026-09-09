@@ -1,7 +1,7 @@
 """
-verify_v4.py
+verify.py
 
-Independent checks on stimulus_pool_v4.json. Recomputes everything from the
+Independent checks on stimulus_pool.json. Recomputes everything from the
 model rather than trusting the builder: traces are re-derived from the
 expression, error positions re-tested for expert legality, and foil marginals
 re-run through the 22-hypothesis observer.
@@ -28,8 +28,8 @@ from traces import generate_traces
 from distance import correct_answer
 from learner import MISCONCEPTION_FLIPS
 from inference import posterior_over_profiles, marginal_rule_probability
-from generator_v3 import validate_trace, error_steps
-from pool_v4 import (HYPOTHESES, STATEMENT_TEMPLATES, POSITIONS, N_OPS,
+from generator_constrained import validate_trace, error_steps
+from pool import (HYPOTHESES, STATEMENT_TEMPLATES, POSITIONS, N_OPS,
                      REFUTED_MAX, UNSUPPORTED_MAX, _status,
                      A_PAIRS_PER_RULE, B_PAIRS_PER_CELL)
 
@@ -42,7 +42,7 @@ def check(cond, msg):
         fails.append(msg)
 
 
-def main(path='stimulus_pool_v4.json'):
+def main(path='stimulus_pool.json'):
     items = json.load(open(path, encoding='utf-8'))
     print(f"verifying {len(items)} items from {path}\n")
 

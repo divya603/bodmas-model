@@ -1,8 +1,8 @@
 """
-bayes_v3.py
+bayes.py
 
-Runs the ideal observer over every item in the v3 pool and saves its response,
-the v3 replacement for analysis-Bayesian/b_item_marginals.json.
+Runs the ideal observer over every item in the v4 pool and saves its response,
+the v4 replacement for analysis-Bayesian/b_item_marginals.json.
 
 For each item the observer sees only what a participant sees (the trace) and
 scores the probed rule under the 22 hypotheses (expert + 6 singletons +
@@ -10,6 +10,11 @@ scores the probed rule under the 22 hypotheses (expert + 6 singletons +
 is the marginal probability that the student holds the named rule; the binary
 judgment collapses that at 0.5, matching how human ratings are collapsed
 (>=4 on the 1-6 scale = agree).
+
+v4 note: refutation is no longer a design factor. foil_status is still
+computed and reported here, but nothing is balanced on it, so the per-status
+cells are lopsided (outside_bracket_first runs about 2 refuted to 18
+unsupported). Treat the status breakdown as descriptive, not as a contrast.
 
 Use `probed_marginal` as the observer's response. `map_profile` is stored for
 completeness but is NOT a good summary: on ~13% of items the MAP names two
@@ -25,10 +30,10 @@ import json
 from collections import defaultdict
 
 from inference import posterior_over_profiles, marginal_rule_probability
-from pool_v3 import HYPOTHESES, IDS, POSITIONS
+from pool import HYPOTHESES, IDS, POSITIONS
 
-POOL = 'stimulus_pool_v3.json'
-OUT  = 'bayes_per_item_v3.json'
+POOL = 'stimulus_pool.json'
+OUT  = 'bayes_per_item.json'
 
 
 def run(pool_path=POOL, out_path=OUT):
@@ -87,7 +92,7 @@ def summarise(rows):
         print(f"    {m:24s} " + "   ".join(cells))
     print()
 
-    print("B items, foil marginal by status x position (the refutation effect):")
+    print("B items, foil marginal by status x position (status RECORDED, not balanced,\n       so the cell sizes are uneven by design):")
     for st in ('refuted', 'unsupported'):
         for p in POSITIONS:
             v = [r['probed_marginal'] for r in rows if r['foil_status'] == st

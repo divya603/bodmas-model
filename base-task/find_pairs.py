@@ -1,5 +1,5 @@
 """
-find_pairs_v3.py
+find_pairs.py
 
 Search for v3 matched item pairs: one expression that yields BOTH a step-1 and
 a step-3 version of the same misconception, where each shown trace has exactly
@@ -17,7 +17,7 @@ from parser import build_dag
 from traces import generate_traces
 from distance import correct_answer
 from learner import MISCONCEPTION_FLIPS
-from generator_v3 import generate_expression, validate_trace, error_steps
+from generator_constrained import generate_expression, validate_trace, error_steps
 
 IDS       = list(MISCONCEPTION_FLIPS.keys())
 N_OPS     = 6

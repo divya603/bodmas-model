@@ -2,87 +2,54 @@
 """
 plot_bayes_1misc_heatmap.py
 
-Present x named "confusion matrix" for the 1-misconception items (categories A
-and B), Bayesian ideal observer. Rows = misconception PRESENT in the trace,
-columns = misconception NAMED in the statement.
+Present x named "confusion matrix" for the Bayesian ideal observer on the v4
+pool. Rows = misconception PRESENT in the trace, columns = misconception NAMED
+in the statement.
 
   - The DIAGONAL (present = named) is category A: the statement names the rule
-    that is actually there, so agreeing is correct (green is ideal).
+    that is there, so agreeing is correct.
   - The OFF-DIAGONAL (present != named) is category B: the statement names a
-    foil, so disagreeing is correct (red is ideal).
+    foil, so disagreeing is correct.
 
-Cell value = mean posterior marginal P(named rule | trace) from
-posterior_over_profiles(); 0.5 neutral, same diverging green/red scale and cell
-style as plot_bayes_2misc_heatmap.py.
+The v4 pool was built so this figure has NO EMPTY BOXES. Every present rule
+supplies 40 items: 10 in each (category x position) cell, with the 20 category-B
+items spread evenly over all 5 foils. So the panels below are complete whether
+they are drawn pooled or split by position:
 
-Two panels split the category-B off-diagonal by the foil's refutation status;
-the diagonal category-A cells are identical in both (the shared agree reference):
-  (a) foil REFUTED by the trace           (marginal collapses toward 0)
-  (b) foil UNSUPPORTED (never had an opportunity to manifest; ~0.2 residual)
+    pooled by position   diagonal 20, off-diagonal 4
+    split by position    diagonal 10, off-diagonal 2
 
-A perfect observer shows a green diagonal and a red off-diagonal in both panels.
+Panels here split by ERROR POSITION, which is the v4 factor. Do NOT split this
+figure by refutation status: under v4 status is recorded but not balanced, so a
+status split reintroduces exactly the holes v4 was built to remove (that is the
+v3 heatmap's problem, see HANDOFF 7b).
 
 Run from repo root:
     python3 analysis-Bayesian/plot_bayes_1misc_heatmap.py
 """
-import json
 import os
-import sys
 
 import numpy as np
 import matplotlib
 
 matplotlib.use('Agg')
 import matplotlib.pyplot as plt
-from matplotlib.colors import LinearSegmentedColormap, TwoSlopeNorm
 
-HERE = os.path.dirname(os.path.abspath(__file__))
-BASE_TASK = os.path.join(os.path.dirname(HERE), 'base-task')
-sys.path.insert(0, BASE_TASK)
-
-from inference import posterior_over_profiles, marginal_rule_probability  # noqa: E402
-
-IDS = ['add_before_mul', 'add_before_div', 'sub_before_mul', 'sub_before_div',
-       'same_priority_rtl', 'outside_bracket_first']
-SHORT = {
-    'add_before_mul': 'add<×', 'add_before_div': 'add<÷',
-    'sub_before_mul': 'sub<×', 'sub_before_div': 'sub<÷',
-    'same_priority_rtl': 'RTL', 'outside_bracket_first': 'outside()',
-}
-CMAP = LinearSegmentedColormap.from_list('divmarg',
-                                         ['#e34948', '#f0efec', '#008300'])
-NORM = TwoSlopeNorm(vmin=0.0, vcenter=0.5, vmax=1.0)
-DARK_AT = 0.28
+from bayes_common import (HERE, BASE_TASK, ROWS_PATH, IDS, SHORT, CMAP, NORM,
+                          DARK_AT, POSITIONS, load_rows)
 
 
-def build_matrices(pool):
-    """Return {'refuted': (mean,n), 'unsupported': (mean,n)}; each 6x6 with
-    present on rows, named on cols. Diagonal = category A (shared)."""
+def build_matrix(rows):
+    """(mean 6x6, n 6x6) with present on rows and named on columns."""
     idx = {m: i for i, m in enumerate(IDS)}
-    diag = {i: [] for i in range(6)}
-    off = {'refuted': {}, 'unsupported': {}, 'combined': {}}
-    for it in pool:
-        if it['num_misconceptions'] != 1:
-            continue
-        marg = marginal_rule_probability(
-            posterior_over_profiles(it['trace']), it['probed_misconception'])
-        present, named = idx[it['misconceptions'][0]], idx[it['probed_misconception']]
-        if it['category'] == 'A':
-            diag[present].append(marg)
-        else:                                   # category B foil
-            st = it.get('foil_status')
-            if st in ('refuted', 'unsupported'):
-                off[st].setdefault((present, named), []).append(marg)
-                off['combined'].setdefault((present, named), []).append(marg)
-    mats = {}
-    for st in ('refuted', 'unsupported', 'combined'):
-        mean, n = np.full((6, 6), np.nan), np.zeros((6, 6), int)
-        for i in range(6):
-            mean[i, i], n[i, i] = np.mean(diag[i]), len(diag[i])
-        for (p, nm), vals in off[st].items():
-            mean[p, nm], n[p, nm] = np.mean(vals), len(vals)
-        mats[st] = (mean, n)
-    return mats
+    vals = {}
+    for r in rows:
+        vals.setdefault((idx[r['true_misconception']],
+                         idx[r['probed_misconception']]), []).append(r['probed_marginal'])
+    mean, n = np.full((6, 6), np.nan), np.zeros((6, 6), int)
+    for (i, j), v in vals.items():
+        mean[i, j], n[i, j] = np.mean(v), len(v)
+    return mean, n
 
 
 def draw(ax, mean, n, title):
@@ -99,7 +66,6 @@ def draw(ax, mean, n, title):
                     color='white' if dark else '#0b0b0b')
             ax.text(j, i + 0.28, f"n={n[i, j]}", ha='center', va='center',
                     fontsize=5.5, color='white' if dark else '#52514e')
-    # outline the category-A diagonal so it reads as the agree reference
     for i in range(6):
         ax.add_patch(plt.Rectangle((i - 0.5, i - 0.5), 1, 1, fill=False,
                                    edgecolor='#0b0b0b', lw=1.3))
@@ -113,35 +79,40 @@ def draw(ax, mean, n, title):
 
 
 def main():
-    pool = json.load(open(os.path.join(BASE_TASK, 'stimulus_pool.json')))
-    mats = build_matrices(pool)
-    for st in ('refuted', 'unsupported'):
-        mean, n = mats[st]
-        print(f"\n=== {st} panel (diagonal = A, off-diagonal = B {st}); mean marginal (n) ===")
+    rows = load_rows(ROWS_PATH, expect=240)
+
+    for pos in POSITIONS:
+        mean, n = build_matrix([r for r in rows if r['error_position'] == pos])
+        empty = int((n == 0).sum())
+        print(f"\n=== error at step {pos}; mean marginal (n) ===  empty cells: {empty}")
         print(f"{'present \\ named':>15s} " + " ".join(f"{SHORT[m]:>10s}" for m in IDS))
         for i, p in enumerate(IDS):
-            print(f"{SHORT[p]:>15s} " + " ".join(f"{mean[i, j]:>6.2f}({n[i, j]:>2d})" for j in range(6)))
+            print(f"{SHORT[p]:>15s} " + " ".join(
+                f"{mean[i, j]:>6.2f}({n[i, j]:>2d})" for j in range(6)))
 
     fig, axes = plt.subplots(1, 2, figsize=(13.6, 6.0), gridspec_kw={'wspace': 0.30})
     fig.subplots_adjust(top=0.80)
-    draw(axes[0], *mats['refuted'],
-         '(a) category-B foils REFUTED by the trace\n(boxed diagonal = category A, agreeing is correct)')
-    im = draw(axes[1], *mats['unsupported'],
-              '(b) category-B foils UNSUPPORTED\n(boxed diagonal = category A, agreeing is correct)')
+    im = None
+    for ax, pos in zip(axes, POSITIONS):
+        mean, n = build_matrix([r for r in rows if r['error_position'] == pos])
+        im = draw(ax, mean, n,
+                  f'({"ab"[POSITIONS.index(pos)]}) error at step {pos}\n'
+                  '(boxed diagonal = category A, agreeing is correct)')
     cbar = fig.colorbar(im, ax=axes, fraction=0.025, pad=0.02,
                         ticks=[0, 0.25, 0.5, 0.75, 1.0])
     cbar.set_label('posterior marginal P(named rule | trace)', fontsize=9)
-    fig.suptitle('Bayesian ideal observer, one-misconception items: present (rows) × named (columns)',
+    fig.suptitle('Bayesian ideal observer, v4 pool (240 items): present (rows) × named (columns)\n'
+                 'split by error position; every cell occupied by design',
                  fontsize=12.5, y=0.98)
     p = os.path.join(HERE, 'bayes_1misc_heatmap.png')
     fig.savefig(p, dpi=140)
     plt.close(fig)
     print(f"\nWrote {p}")
 
-    # combined single-panel version (off-diagonal averages refuted + unsupported)
+    mean, n = build_matrix(rows)
     fig, ax = plt.subplots(figsize=(6.8, 6.8))
-    im = draw(ax, *mats['combined'],
-              'Bayesian ideal observer, one-misconception items\n'
+    im = draw(ax, mean, n,
+              'Bayesian ideal observer, v4 pool (positions pooled)\n'
               'diagonal = category A (agree); off-diagonal = category B foils (disagree)')
     cbar = fig.colorbar(im, ax=ax, fraction=0.046, pad=0.04, ticks=[0, 0.25, 0.5, 0.75, 1.0])
     cbar.set_label('posterior marginal P(named rule | trace)', fontsize=9)

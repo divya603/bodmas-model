@@ -1,5 +1,5 @@
 """
-generator_v3.py
+generator_constrained.py
 
 Constrained expression generation for the v3 "position" pool (HANDOFF 7b).
 
