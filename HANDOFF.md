@@ -203,19 +203,23 @@ marginal.
 - **`plot_bayes_1misc_heatmap.py`** -> `bayes_1misc_heatmap.png` (2 panels split by error position)
   and `bayes_1misc_heatmap_combined.png` (positions pooled). Rows = misconception PRESENT, columns =
   misconception NAMED. Both confirmed 0 empty cells.
-- **`plot_bayes_1misc_distributions.py`** -> three figures:
-  - `bayes_1misc_dist_A.png` category A. A POINT MASS at 1.000 in every panel. Kept as the
-    reference, but it carries no information beyond "the observer is a logical oracle".
-  - `bayes_1misc_dist_B.png` category B, two rows, positions overlaid, x zoomed to [0, 0.4] since
-    no probed foil marginal exceeds 0.333. **Row 2 (by NAMED rule) is the clean one**: grouping
-    variable and plotted marginal are the same rule, so each panel asks one question.
-    ⚠️ **Row 1 (by PRESENT rule) is a MIXTURE.** It groups by the rule in the trace but still plots
-    the marginal on whichever rule the statement named, so one panel pools five different
-    marginals: the panel for `add_before_mul` never plots P(add_before_mul | trace) at all. It is a
-    task-level summary of the B trials arising from those traces, not a property of the observer.
-    Titles and caption now say this explicitly (they did not on 2026-09-09 and it misled a reader
-    immediately). Use the profile figure for the observer-level trace-side question.
-  - `bayes_1misc_profile.png` **the one worth looking at.** See below.
+- **`plot_bayes_1misc_by_rule.py`** -> `bayes_1misc_by_rule.png`. **The main distribution figure.**
+  One panel per misconception, showing P(that rule | trace) when the rule IS in the trace (a point
+  mass at 1.000 for all six) versus when it is ABSENT. It uses ALL 240 traces (40 present, 200
+  absent per rule), not only the items whose statement happened to name that rule, which is the
+  right denominator once you accept the statement is not an input, and which is what makes the
+  excluded-foil band visible. Shades the region above 0.35 where an absent rule is never used as a
+  foil.
+- **`plot_bayes_1misc_profile.py`** -> `bayes_1misc_profile.png`. The transpose: for traces
+  containing rule X, the marginal on ALL SIX rules at once. Use it to see a trace's full confusion
+  pattern rather than one rule's present/absent split.
+- ⚠️ **RETIRED 2026-09-09: `bayes_1misc_dist_A.png` and `bayes_1misc_dist_B.png`** (and their
+  script). They split one question by task category, which made a figure out of a distinction the
+  observer does not have. dist_A was the present half and dist_B row 2 the absent half of a single
+  question, now merged into `by_rule`. dist_B row 1 was worse than redundant: it grouped by the rule
+  in the TRACE while plotting the marginal on whichever rule the STATEMENT named, so each panel
+  pooled five incommensurable marginals and the panel titled `add_before_mul` never plotted
+  P(add_before_mul | trace) at all. It misled a reader immediately. Do not reintroduce that pairing.
 
 ### ⚠️ Category A vs B is NOT a difference in the observer
 `posterior_over_profiles()` takes ONLY the trace. A and B are properties of the TASK, not of the
@@ -311,7 +315,8 @@ cd base-task && python3 find_pairs.py 12    # per-misconception matched-pair yie
 
 # Figures (from repo root)
 python3 analysis-Bayesian/plot_bayes_1misc_heatmap.py
-python3 analysis-Bayesian/plot_bayes_1misc_distributions.py   # dist_A, dist_B, and the profile figure
+python3 analysis-Bayesian/plot_bayes_1misc_by_rule.py          # present vs absent, per rule
+python3 analysis-Bayesian/plot_bayes_1misc_profile.py          # all six marginals per trace
 
 # Experiment
 npm run dev                           # local
@@ -332,7 +337,8 @@ npm run getdata ; npm run getrecruitment   # pull participant + recruitment data
 3. **Practice items.** The generator was deleted with the old categories. A new one is needed that
    produces A and B practice trials for this design. Keep the answer keys balanced: the old set was
    4 agree / 1 disagree, which shifted participants' criterion toward agreeing.
-4. **More figures.** The heatmap, the A/B distributions and the six-marginal profile exist. A
+4. **More figures.** The heatmap, the per-rule present/absent figure and the six-marginal profile
+   exist. A
    position figure is NOT worth building for the Bayes arm: the observer's answer is identical at
    both positions in 116 of 120 matched pairs (all 60 A pairs, 56 of 60 B pairs), and the 4 that
    differ do not agree on a direction. It becomes worth plotting once a human or LLM arm exists to
