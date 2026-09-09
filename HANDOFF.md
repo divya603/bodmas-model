@@ -318,6 +318,7 @@ cd base-task && python3 find_pairs.py 12    # per-misconception matched-pair yie
 python3 analysis-Bayesian/plot_bayes_1misc_heatmap.py
 python3 analysis-Bayesian/plot_bayes_1misc_by_rule.py          # present vs absent, per rule
 python3 analysis-Bayesian/plot_bayes_1misc_profile.py          # all six marginals per trace
+python3 analysis-Bayesian/plot_bayes_hidden_dist_A.py          # category A by hidden-step condition
 
 # Experiment
 npm run dev                           # local
@@ -416,6 +417,16 @@ The observer stays 240/240 correct in every condition, so no amount of hiding fl
 not produce a general effect, it produces a bracket-rule effect, which is the same asymmetry that
 shows up everywhere else in this project: outside() is the only rule that REMOVES options, so it is
 the only one whose evidence a single hidden line can meaningfully disturb.
+
+### Figure: `plot_bayes_hidden_dist_A.py` -> `bayes_hidden_dist_A.png`
+Category A posterior on the present rule, one panel per misconception, one stem series per hidden
+condition. Reads `base-task/bayes_per_item_hidden.json`.
+⚠️ Read the overlap correctly: `none`, `s2` and `s4` are EXACTLY equal on all 120 category-A items,
+so their three series coincide at 1.000 in every panel and are offset only to be visible. Five of
+the six panels are therefore a single spike. **All the movement in the entire figure is in the
+`outside_bracket_first` panel**, where hiding the error's own line drops 5 of 20 items to
+0.556 to 0.706 (panel mean 1.000 -> 0.898).
+Stems on exact values, not KDEs: the marginals take four distinct values in total.
 
 ### What this means for the design
 The manipulation is **normatively free**. That is a legitimate and even attractive framing for the
