@@ -358,11 +358,36 @@ All on the 240-item pilot-v4 pool, category A, epsilon 0, 22 hypotheses:
 Sweeping every hideable line over the whole pool, hiding s2 or s4 changed the marginal on **7 of
 480** item-by-hide combinations.
 
-**Why.** A gap is still pinned by its endpoints. Seeing `s_{k-1} -> s_{k+1}` as a two-step jump
-tells the observer that the intermediate must have been the illegal move, because no expert path
-connects them. The evidence is in the jump, not in the missing line. The information is also
-doubly redundant: the work alone identifies the rule (1.000 with the answer removed) and the answer
-alone nearly does (0.943 from expression + answer only), so removing either route leaves the other.
+**Why. There are TWO reasons and they apply to different cells.** An earlier version of this note
+gave only the second and wrongly applied it to the first; do not repeat that.
+
+*Reason 1, and the one that governs hiding s2 or s4: correct steps carry almost no evidence.*
+Counting how many of the 22 profiles each step eliminates, summed over all 240 traces:
+
+| step | 1 | 2 | 3 | 4 | 5 | 6 |
+|---|---|---|---|---|---|---|
+| profiles eliminated | **2482** | 335 | **1333** | 85 | 81 | 0 |
+
+Steps 1 and 3, which are exactly the two error positions, carry **88%** of all eliminations. Step 6
+carries literally none, because the last move is forced. Only **2.62 of 6 steps** per trace
+eliminate anything at all. So hiding s2 or s4 removes steps that were doing almost no work, and
+when the error is at step 1 the observer never has to reason about the gap: it still sees the
+illegal move directly at s0 -> s1. Nothing is inferred about the hidden correct step.
+
+*Reason 2, which governs only the cells where the gap swallows the error* (error at step 3 with s2
+hidden, or hiding the error's own output line): there the error transition really is unobserved,
+but marginalising recovers it. Summing over the hidden state keeps only profiles that can bridge
+`s_{k-1} -> s_{k+1}` in two steps, and typically only the true profile can, so the elimination
+still happens. Verified on A001: hiding s2 with the error at step 3 leaves the surviving profile
+set byte-identical to the fully observed case.
+
+The information is also doubly redundant across routes: the work alone identifies the rule (1.000
+with the answer removed) and the answer alone nearly does (0.943 from expression + answer only), so
+removing either route leaves the other.
+
+⚠️ **Task-design observation worth acting on separately:** only 2.62 of 6 steps do any inferential
+work, and step 6 does none. Participants are reading six lines where about two and a half matter.
+That is dead weight in the stimulus, independent of anything to do with hiding.
 
 The only thing that genuinely degrades the observer is **not yet having seen the error**: shown just
 the first step, error-at-step-1 items score 1.000 but error-at-step-3 items collapse to **0.297**.
