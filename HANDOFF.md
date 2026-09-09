@@ -1504,6 +1504,26 @@ correct for v2) and carry a `_v3` infix in both script and output names.
   reads as an observer property, not a stimulus artifact.
 - Verified while building: the stored `foil_status` and the 0.15 cut disagree on 0 of 288 B items,
   and every named foil has exactly 24 refuted items (12 per position).
+- **WARNING: the blank cells in the two heatmap panels are a POOL-SAMPLING artifact, not a
+  structural fact, MEASURED 2026-09-09.** 13 of the 30 (present x named) cells hold only one
+  refutation status in the pool (7 refuted-only, 6 unsupported-only), which is why panel (a) and
+  panel (b) each show gaps; the combined heatmap has all 30 cells occupied. It would be easy to
+  read those gaps as "this rule pair can never be refuted", and that is WRONG. Probe: drawing 40
+  fresh matched pairs per present rule offers BOTH statuses in 29 of the 30 cells, and the one
+  holdout (sub<div present, add<div named) splits 172 refuted / 18 unsupported over 200 pairs.
+  So every cell can carry either status; the pool just did not sample them.
+  Cause: `pool_v3.py` balances (probed foil x status x position) at 12 each and puts NO constraint
+  on which generating rule supplies each item, so the present-side breakdown falls where it falls.
+  This is the same uneven-spread issue already noted under "Pool BUILT", now measured on the
+  status split rather than on counts.
+  Consequences: harmless for the position contrast (within-expression) and for the refutation
+  contrast pooled over foils (balanced by construction). NOT harmless for any cell-by-cell reading
+  of a present x named heatmap, which is exactly how the v2 human heatmaps were analysed (the
+  "wrong-side majority" pass). In 13 of 30 cells, present x named identity is perfectly confounded
+  with refutation status.
+  **Fix if that analysis matters: add a spread constraint over generating rules to the B-item
+  selection in `pool_v3.py` and rebuild.** Worth deciding BEFORE the sampler work, since a rebuild
+  changes item ids.
 - Still MISSING and worth building next: a dedicated **position** figure per observer, and
   **position x refutation**. These five are the v2 set ported, not new v3-specific views.
 
