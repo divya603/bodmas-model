@@ -38,7 +38,7 @@ import matplotlib
 matplotlib.use('Agg')
 import matplotlib.pyplot as plt
 
-from bayes_v3_common import (HERE, IDS, SHORT, CMAP, NORM, DARK_AT, POSITIONS,
+from bayes_common import (HERE, IDS, SHORT, CMAP, NORM, DARK_AT, POSITIONS,
                              load_rows, split_ab)
 
 

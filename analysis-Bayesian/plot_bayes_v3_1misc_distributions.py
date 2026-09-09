@@ -38,7 +38,7 @@ import matplotlib
 matplotlib.use('Agg')
 import matplotlib.pyplot as plt
 
-from bayes_v3_common import (HERE, IDS, SHORT, POSITIONS, POS_COLOR, POS_MARKER,
+from bayes_common import (HERE, IDS, SHORT, POSITIONS, POS_COLOR, POS_MARKER,
                              POS_LABEL, REFUTED_CUT, load_rows, split_ab)
 
 DX = 0.007          # x offset between the two position stems (category A, full axis)

@@ -1550,6 +1550,83 @@ correct for v2) and carry a `_v3` infix in both script and output names.
 - `base-task/make_human_practice_items.py` / `make_practice_examples.py` still assume the old
   categories and must be regenerated for v3.
 
+---
+
+## 7c. THE v4 "POSITION x NAMED" POOL: decided AND built 2026-09-09 (branch `pool-v3`)
+
+**v4 supersedes v3 as the intended design.** v3 is kept on disk and in git for reference; nothing
+about it was deleted. Read this section before 7b if you are picking up the current work.
+
+### Why v4 exists
+v3 balanced B on (named foil x refutation status x position) and let the PRESENT rule fall where
+it may. Consequence, discovered when the v3 Bayes heatmaps were drawn: 13 of the 30 present x named
+cells held only ONE refutation status, so the status-split panels had holes. User's call: make the
+heatmap the thing that is balanced, and drop refutation as a factor for now.
+
+### The v4 design
+- 6 misconceptions, 1 per trace, categories A and B only (C/D stayed dead).
+- **Error position kept** (step 1 vs step 3), still via MATCHED PAIRS: one expression supplies both
+  the step-1 and the step-3 version, so position moves with expression structure held constant.
+- **Refutation dropped as a factor.** `foil_status` and `io_foil_marginal` are still computed and
+  stored per item, but nothing is balanced on them.
+- **The named foil IS balanced within each present rule**, which is what fills the heatmap columns.
+
+Grid, 240 items in 120 matched pairs:
+```
+A: present(6) x position(2)            = 12 cells x 10 items = 120
+B: present(6) x named(5) x position(2) = 60 cells x  2 items = 120
+```
+So every rule is the true misconception in exactly 40 items: 10 each of (A,pos1) (A,pos3) (B,pos1)
+(B,pos3). The present x named heatmap is FULL, pooled (diagonal 20, off-diagonal 4) and split by
+position (diagonal 10, off-diagonal 2).
+
+### ⚠️ 6 operators is FORCED, MEASURED 2026-09-09
+Over 2500 bracketed expressions, the count supporting BOTH step 1 and step 3 for
+`outside_bracket_first`: **0 at 4 ops, 0 at 5 ops, 32 at 6 ops.** At 4 ops that rule never reaches
+step 3 at all (single-error steps were 271 at step 1, 121 at step 2, none at step 3). At 5 ops step 3
+is reachable (162 traces) but no single expression does both, so matched pairs are impossible.
+Do not "simplify" v4 to shorter expressions; it silently kills the outside() step-3 cell.
+
+### ⚠️ Consequences of dropping refutation, READ BEFORE ANALYSING
+1. **Never split the v4 heatmap by `foil_status`.** Status is unbalanced by construction, so a split
+   reintroduces exactly the v3 holes that v4 was built to remove. One unsplit heatmap, or split by
+   position.
+2. **The refutation contrast is no longer a clean test.** Pool-wide it is 58 refuted / 62
+   unsupported, which looks fine, but per foil it is lopsided: RTL 16/4 and
+   **outside_bracket_first 2 refuted / 18 unsupported**. The three-way refutation result (Bayes
+   perfect, humans partial, LLMs not at all) CANNOT be replicated on v4 as a balanced within-subject
+   factor. If that finding is wanted in the next wave, refutation has to come back as a factor and
+   the pool needs rebuilding.
+
+### Built 2026-09-09 (all on branch `pool-v3`)
+- **`base-task/pool_v4.py`** -> `stimulus_pool_v4.json`. Seed 2026, built in 137 pair draws.
+  Reuses `generator_v3.py` and `find_pairs_v3.pairs_for_expression` unchanged. A foil is only used
+  when its status is the SAME at both positions: status is not a factor any more, but letting it
+  flip inside a pair would put a nuisance difference between the two positions being compared, and
+  it costs only ~7% of foil options.
+- **`base-task/verify_v4.py`** independent verifier, re-derives everything from the model. Asserts
+  the exact cell counts that guarantee a full heatmap and asserts 0 empty cells. Currently ALL
+  CHECKS PASSED. It deliberately does NOT check refutation balance, only that each stored status
+  matches a fresh recomputation and is stable across a pair.
+- **`base-task/bayes_v4.py`** -> `bayes_per_item_v4.json`. **240/240 = 100%** at epsilon=0.
+  A marginals exactly 1.000 at both positions for all six rules; B P(agree) 0.000, marginal
+  min 0.000 / mean 0.130 / max 0.333. 24 of 240 items (10%) have a 2-rule MAP, partner always
+  outside_bracket_first, same known cause as v3; use `probed_marginal`, not `map_profile`.
+- **`analysis-Bayesian/plot_bayes_v4_1misc_heatmap.py`** -> `bayes_v4_1misc_heatmap.png` (2 panels
+  by error position) + `bayes_v4_1misc_heatmap_combined.png`. Both confirmed 0 empty cells.
+- **`analysis-Bayesian/bayes_v3_common.py` was RENAMED to `bayes_common.py`** and generalised to
+  take a pool path plus an expected item count, since it now serves both v3 and v4 figures. The
+  three v3 plot scripts were repointed and re-run unchanged.
+
+### Still to do for v4
+- Port the marginals and distributions figures (only the heatmap exists so far). Their v3 versions
+  are position-aware already, so it is mostly a loader swap.
+- The form sampler still cannot sample v4: `src/user/utils/sampleForm.js` and its Python twin need a
+  rule x position rotation over 24 trials, then the 500-seed balance check. Same blocker as v3.
+- `stimulus_pool_v4.json` is NOT propagated to `llm_exp/data/` or `src/user/data/`, and must not be
+  until the sampler can handle it.
+- Practice items (`make_human_practice_items.py`) still assume the old categories.
+
 ### Repo strategy (decided 2026-09-08)
 Build on a **side branch in a git worktree**, as was done for `outside-bracket-v2`. NOT a new
 repo: the deploy secrets, Firebase wiring and Prolific links are bound to this repo, the analysis
@@ -1567,7 +1644,13 @@ free staging deployment and does NOT touch main's live site.
 ## 8. Commands cheat-sheet
 
 ```bash
-# v3 position pool (branch `pool-v3` ONLY, see 7b)
+# v4 position x named pool (CURRENT design, branch `pool-v3` ONLY, see 7c)
+cd base-task && python3 pool_v4.py                  # build -> stimulus_pool_v4.json (240 items)
+cd base-task && python3 verify_v4.py                # independent checks; RUN AFTER ANY REBUILD
+cd base-task && python3 bayes_v4.py                 # ideal observer -> bayes_per_item_v4.json
+python3 analysis-Bayesian/plot_bayes_v4_1misc_heatmap.py   # full present x named heatmap
+
+# v3 position pool (SUPERSEDED by v4, kept for reference, see 7b)
 cd base-task && python3 find_pairs_v3.py 12         # per-misconception matched-pair yields
 cd base-task && python3 pool_v3.py                  # build -> stimulus_pool_v3.json (432 items, ~1 min)
 cd base-task && python3 verify_v3.py                # independent checks; RUN AFTER ANY REBUILD, exits nonzero on failure

@@ -33,7 +33,7 @@ import matplotlib
 matplotlib.use('Agg')
 import matplotlib.pyplot as plt
 
-from bayes_v3_common import (HERE, IDS, SHORT, BLUE, ORANGE, POSITIONS,
+from bayes_common import (HERE, IDS, SHORT, BLUE, ORANGE, POSITIONS,
                              POS_MARKER, REFUTED_CUT, load_rows)
 
 # (category, position) -> (x offset within the rule's slot, colour, marker)

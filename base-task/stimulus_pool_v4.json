@@ -1,0 +1,6482 @@
+[
+ {
+  "id": "A000",
+  "pair_id": "P000",
+  "category": "A",
+  "error_position": 1,
+  "expression": "4 + 9 × 4 ÷ 2 × (3 + 10) × 2",
+  "n_ops": 6,
+  "misconceptions": [
+   "add_before_mul"
+  ],
+  "num_misconceptions": 1,
+  "trace": [
+   "4 + 9 × 4 ÷ 2 × (3 + 10) × 2",
+   "13 × 4 ÷ 2 × (3 + 10) × 2",
+   "52 ÷ 2 × (3 + 10) × 2",
+   "26 × (3 + 10) × 2",
+   "26 × 13 × 2",
+   "338 × 2",
+   "676"
+  ],
+  "probed_misconception": "add_before_mul",
+  "statement_correct": true,
+  "which_target": null,
+  "student_name": "Noah",
+  "belief_statement": "Noah believes addition should be done before multiplication."
+ },
+ {
+  "id": "A001",
+  "pair_id": "P000",
+  "category": "A",
+  "error_position": 3,
+  "expression": "4 + 9 × 4 ÷ 2 × (3 + 10) × 2",
+  "n_ops": 6,
+  "misconceptions": [
+   "add_before_mul"
+  ],
+  "num_misconceptions": 1,
+  "trace": [
+   "4 + 9 × 4 ÷ 2 × (3 + 10) × 2",
+   "4 + 9 × 2 × (3 + 10) × 2",
+   "4 + 9 × 2 × 13 × 2",
+   "13 × 2 × 13 × 2",
+   "26 × 13 × 2",
+   "338 × 2",
+   "676"
+  ],
+  "probed_misconception": "add_before_mul",
+  "statement_correct": true,
+  "which_target": null,
+  "student_name": "Maya",
+  "belief_statement": "Maya believes addition should be done before multiplication."
+ },
+ {
+  "id": "A002",
+  "pair_id": "P001",
+  "category": "A",
+  "error_position": 1,
+  "expression": "10 × 3 + 7 - 1 + 11 - 9 ÷ 3",
+  "n_ops": 6,
+  "misconceptions": [
+   "add_before_mul"
+  ],
+  "num_misconceptions": 1,
+  "trace": [
+   "10 × 3 + 7 - 1 + 11 - 9 ÷ 3",
+   "10 × 10 - 1 + 11 - 9 ÷ 3",
+   "100 - 1 + 11 - 9 ÷ 3",
+   "99 + 11 - 9 ÷ 3",
+   "110 - 9 ÷ 3",
+   "110 - 3",
+   "107"
+  ],
+  "probed_misconception": "add_before_mul",
+  "statement_correct": true,
+  "which_target": null,
+  "student_name": "Liam",
+  "belief_statement": "Liam believes addition should be done before multiplication."
+ },
+ {
+  "id": "A003",
+  "pair_id": "P001",
+  "category": "A",
+  "error_position": 3,
+  "expression": "10 × 3 + 7 - 1 + 11 - 9 ÷ 3",
+  "n_ops": 6,
+  "misconceptions": [
+   "add_before_mul"
+  ],
+  "num_misconceptions": 1,
+  "trace": [
+   "10 × 3 + 7 - 1 + 11 - 9 ÷ 3",
+   "10 × 3 + 6 + 11 - 9 ÷ 3",
+   "10 × 3 + 17 - 9 ÷ 3",
+   "10 × 20 - 9 ÷ 3",
+   "200 - 9 ÷ 3",
+   "200 - 3",
+   "197"
+  ],
+  "probed_misconception": "add_before_mul",
+  "statement_correct": true,
+  "which_target": null,
+  "student_name": "Ava",
+  "belief_statement": "Ava believes addition should be done before multiplication."
+ },
+ {
+  "id": "A004",
+  "pair_id": "P002",
+  "category": "A",
+  "error_position": 1,
+  "expression": "8 + 12 × 4 × 5 - 3 + 4 + 11",
+  "n_ops": 6,
+  "misconceptions": [
+   "add_before_mul"
+  ],
+  "num_misconceptions": 1,
+  "trace": [
+   "8 + 12 × 4 × 5 - 3 + 4 + 11",
+   "20 × 4 × 5 - 3 + 4 + 11",
+   "80 × 5 - 3 + 4 + 11",
+   "400 - 3 + 4 + 11",
+   "397 + 4 + 11",
+   "401 + 11",
+   "412"
+  ],
+  "probed_misconception": "add_before_mul",
+  "statement_correct": true,
+  "which_target": null,
+  "student_name": "Ethan",
+  "belief_statement": "Ethan believes addition should be done before multiplication."
+ },
+ {
+  "id": "A005",
+  "pair_id": "P002",
+  "category": "A",
+  "error_position": 3,
+  "expression": "8 + 12 × 4 × 5 - 3 + 4 + 11",
+  "n_ops": 6,
+  "misconceptions": [
+   "add_before_mul"
+  ],
+  "num_misconceptions": 1,
+  "trace": [
+   "8 + 12 × 4 × 5 - 3 + 4 + 11",
+   "8 + 12 × 20 - 3 + 4 + 11",
+   "8 + 12 × 20 - 3 + 15",
+   "20 × 20 - 3 + 15",
+   "400 - 3 + 15",
+   "397 + 15",
+   "412"
+  ],
+  "probed_misconception": "add_before_mul",
+  "statement_correct": true,
+  "which_target": null,
+  "student_name": "Zoe",
+  "belief_statement": "Zoe believes addition should be done before multiplication."
+ },
+ {
+  "id": "A006",
+  "pair_id": "P003",
+  "category": "A",
+  "error_position": 1,
+  "expression": "9 × 5 + 6 × 6 ÷ 3 × 4 ÷ 2",
+  "n_ops": 6,
+  "misconceptions": [
+   "add_before_mul"
+  ],
+  "num_misconceptions": 1,
+  "trace": [
+   "9 × 5 + 6 × 6 ÷ 3 × 4 ÷ 2",
+   "9 × 11 × 6 ÷ 3 × 4 ÷ 2",
+   "99 × 6 ÷ 3 × 4 ÷ 2",
+   "594 ÷ 3 × 4 ÷ 2",
+   "198 × 4 ÷ 2",
+   "792 ÷ 2",
+   "396"
+  ],
+  "probed_misconception": "add_before_mul",
+  "statement_correct": true,
+  "which_target": null,
+  "student_name": "Mia",
+  "belief_statement": "Mia believes addition should be done before multiplication."
+ },
+ {
+  "id": "A007",
+  "pair_id": "P003",
+  "category": "A",
+  "error_position": 3,
+  "expression": "9 × 5 + 6 × 6 ÷ 3 × 4 ÷ 2",
+  "n_ops": 6,
+  "misconceptions": [
+   "add_before_mul"
+  ],
+  "num_misconceptions": 1,
+  "trace": [
+   "9 × 5 + 6 × 6 ÷ 3 × 4 ÷ 2",
+   "9 × 5 + 6 × 2 × 4 ÷ 2",
+   "9 × 5 + 6 × 8 ÷ 2",
+   "9 × 11 × 8 ÷ 2",
+   "99 × 8 ÷ 2",
+   "792 ÷ 2",
+   "396"
+  ],
+  "probed_misconception": "add_before_mul",
+  "statement_correct": true,
+  "which_target": null,
+  "student_name": "Lucas",
+  "belief_statement": "Lucas believes addition should be done before multiplication."
+ },
+ {
+  "id": "A008",
+  "pair_id": "P004",
+  "category": "A",
+  "error_position": 1,
+  "expression": "11 × 4 × 3 + 4 - 1 × 4 ÷ 2",
+  "n_ops": 6,
+  "misconceptions": [
+   "add_before_mul"
+  ],
+  "num_misconceptions": 1,
+  "trace": [
+   "11 × 4 × 3 + 4 - 1 × 4 ÷ 2",
+   "11 × 4 × 7 - 1 × 4 ÷ 2",
+   "44 × 7 - 1 × 4 ÷ 2",
+   "308 - 1 × 4 ÷ 2",
+   "308 - 4 ÷ 2",
+   "308 - 2",
+   "306"
+  ],
+  "probed_misconception": "add_before_mul",
+  "statement_correct": true,
+  "which_target": null,
+  "student_name": "Emma",
+  "belief_statement": "Emma believes addition should be done before multiplication."
+ },
+ {
+  "id": "A009",
+  "pair_id": "P004",
+  "category": "A",
+  "error_position": 3,
+  "expression": "11 × 4 × 3 + 4 - 1 × 4 ÷ 2",
+  "n_ops": 6,
+  "misconceptions": [
+   "add_before_mul"
+  ],
+  "num_misconceptions": 1,
+  "trace": [
+   "11 × 4 × 3 + 4 - 1 × 4 ÷ 2",
+   "44 × 3 + 4 - 1 × 4 ÷ 2",
+   "44 × 3 + 4 - 4 ÷ 2",
+   "44 × 7 - 4 ÷ 2",
+   "308 - 4 ÷ 2",
+   "308 - 2",
+   "306"
+  ],
+  "probed_misconception": "add_before_mul",
+  "statement_correct": true,
+  "which_target": null,
+  "student_name": "Owen",
+  "belief_statement": "Owen believes addition should be done before multiplication."
+ },
+ {
+  "id": "A010",
+  "pair_id": "P005",
+  "category": "A",
+  "error_position": 1,
+  "expression": "7 × 6 × 6 + 3 - (1 + 4) + 4",
+  "n_ops": 6,
+  "misconceptions": [
+   "add_before_mul"
+  ],
+  "num_misconceptions": 1,
+  "trace": [
+   "7 × 6 × 6 + 3 - (1 + 4) + 4",
+   "7 × 6 × 9 - (1 + 4) + 4",
+   "42 × 9 - (1 + 4) + 4",
+   "378 - (1 + 4) + 4",
+   "378 - 5 + 4",
+   "373 + 4",
+   "377"
+  ],
+  "probed_misconception": "add_before_mul",
+  "statement_correct": true,
+  "which_target": null,
+  "student_name": "Sofia",
+  "belief_statement": "Sofia believes addition should be done before multiplication."
+ },
+ {
+  "id": "A011",
+  "pair_id": "P005",
+  "category": "A",
+  "error_position": 3,
+  "expression": "7 × 6 × 6 + 3 - (1 + 4) + 4",
+  "n_ops": 6,
+  "misconceptions": [
+   "add_before_mul"
+  ],
+  "num_misconceptions": 1,
+  "trace": [
+   "7 × 6 × 6 + 3 - (1 + 4) + 4",
+   "42 × 6 + 3 - (1 + 4) + 4",
+   "42 × 6 + 3 - 5 + 4",
+   "42 × 9 - 5 + 4",
+   "378 - 5 + 4",
+   "373 + 4",
+   "377"
+  ],
+  "probed_misconception": "add_before_mul",
+  "statement_correct": true,
+  "which_target": null,
+  "student_name": "Caleb",
+  "belief_statement": "Caleb believes addition should be done before multiplication."
+ },
+ {
+  "id": "A012",
+  "pair_id": "P006",
+  "category": "A",
+  "error_position": 1,
+  "expression": "(7 × 4) + 10 ÷ 2 × 3 × 2 + 12",
+  "n_ops": 6,
+  "misconceptions": [
+   "add_before_mul"
+  ],
+  "num_misconceptions": 1,
+  "trace": [
+   "(7 × 4) + 10 ÷ 2 × 3 × 2 + 12",
+   "(7 × 4) + 10 ÷ 2 × 3 × 14",
+   "(7 × 4) + 5 × 3 × 14",
+   "(7 × 4) + 15 × 14",
+   "(7 × 4) + 210",
+   "28 + 210",
+   "238"
+  ],
+  "probed_misconception": "add_before_mul",
+  "statement_correct": true,
+  "which_target": null,
+  "student_name": "Ruby",
+  "belief_statement": "Ruby believes addition should be done before multiplication."
+ },
+ {
+  "id": "A013",
+  "pair_id": "P006",
+  "category": "A",
+  "error_position": 3,
+  "expression": "(7 × 4) + 10 ÷ 2 × 3 × 2 + 12",
+  "n_ops": 6,
+  "misconceptions": [
+   "add_before_mul"
+  ],
+  "num_misconceptions": 1,
+  "trace": [
+   "(7 × 4) + 10 ÷ 2 × 3 × 2 + 12",
+   "(7 × 4) + 5 × 3 × 2 + 12",
+   "(7 × 4) + 15 × 2 + 12",
+   "(7 × 4) + 15 × 14",
+   "(7 × 4) + 210",
+   "28 + 210",
+   "238"
+  ],
+  "probed_misconception": "add_before_mul",
+  "statement_correct": true,
+  "which_target": null,
+  "student_name": "Jonah",
+  "belief_statement": "Jonah believes addition should be done before multiplication."
+ },
+ {
+  "id": "A014",
+  "pair_id": "P007",
+  "category": "A",
+  "error_position": 1,
+  "expression": "(11 + 2 × 3) + 9 - 6 + 12 ÷ 3",
+  "n_ops": 6,
+  "misconceptions": [
+   "add_before_mul"
+  ],
+  "num_misconceptions": 1,
+  "trace": [
+   "(11 + 2 × 3) + 9 - 6 + 12 ÷ 3",
+   "(13 × 3) + 9 - 6 + 12 ÷ 3",
+   "(13 × 3) + 3 + 12 ÷ 3",
+   "(13 × 3) + 3 + 4",
+   "(13 × 3) + 7",
+   "39 + 7",
+   "46"
+  ],
+  "probed_misconception": "add_before_mul",
+  "statement_correct": true,
+  "which_target": null,
+  "student_name": "Isla",
+  "belief_statement": "Isla believes addition should be done before multiplication."
+ },
+ {
+  "id": "A015",
+  "pair_id": "P007",
+  "category": "A",
+  "error_position": 3,
+  "expression": "(11 + 2 × 3) + 9 - 6 + 12 ÷ 3",
+  "n_ops": 6,
+  "misconceptions": [
+   "add_before_mul"
+  ],
+  "num_misconceptions": 1,
+  "trace": [
+   "(11 + 2 × 3) + 9 - 6 + 12 ÷ 3",
+   "(11 + 2 × 3) + 3 + 12 ÷ 3",
+   "(11 + 2 × 3) + 3 + 4",
+   "(13 × 3) + 3 + 4",
+   "(13 × 3) + 7",
+   "39 + 7",
+   "46"
+  ],
+  "probed_misconception": "add_before_mul",
+  "statement_correct": true,
+  "which_target": null,
+  "student_name": "Felix",
+  "belief_statement": "Felix believes addition should be done before multiplication."
+ },
+ {
+  "id": "A016",
+  "pair_id": "P008",
+  "category": "A",
+  "error_position": 1,
+  "expression": "10 ÷ 5 × 2 × 4 + 1 × 4 ÷ 2",
+  "n_ops": 6,
+  "misconceptions": [
+   "add_before_mul"
+  ],
+  "num_misconceptions": 1,
+  "trace": [
+   "10 ÷ 5 × 2 × 4 + 1 × 4 ÷ 2",
+   "10 ÷ 5 × 2 × 5 × 4 ÷ 2",
+   "2 × 2 × 5 × 4 ÷ 2",
+   "4 × 5 × 4 ÷ 2",
+   "20 × 4 ÷ 2",
+   "80 ÷ 2",
+   "40"
+  ],
+  "probed_misconception": "add_before_mul",
+  "statement_correct": true,
+  "which_target": null,
+  "student_name": "Nora",
+  "belief_statement": "Nora believes addition should be done before multiplication."
+ },
+ {
+  "id": "A017",
+  "pair_id": "P008",
+  "category": "A",
+  "error_position": 3,
+  "expression": "10 ÷ 5 × 2 × 4 + 1 × 4 ÷ 2",
+  "n_ops": 6,
+  "misconceptions": [
+   "add_before_mul"
+  ],
+  "num_misconceptions": 1,
+  "trace": [
+   "10 ÷ 5 × 2 × 4 + 1 × 4 ÷ 2",
+   "2 × 2 × 4 + 1 × 4 ÷ 2",
+   "4 × 4 + 1 × 4 ÷ 2",
+   "4 × 5 × 4 ÷ 2",
+   "20 × 4 ÷ 2",
+   "80 ÷ 2",
+   "40"
+  ],
+  "probed_misconception": "add_before_mul",
+  "statement_correct": true,
+  "which_target": null,
+  "student_name": "Dylan",
+  "belief_statement": "Dylan believes addition should be done before multiplication."
+ },
+ {
+  "id": "A018",
+  "pair_id": "P009",
+  "category": "A",
+  "error_position": 1,
+  "expression": "7 + 3 × 4 ÷ 2 × 4 ÷ 2 - 1",
+  "n_ops": 6,
+  "misconceptions": [
+   "add_before_mul"
+  ],
+  "num_misconceptions": 1,
+  "trace": [
+   "7 + 3 × 4 ÷ 2 × 4 ÷ 2 - 1",
+   "10 × 4 ÷ 2 × 4 ÷ 2 - 1",
+   "40 ÷ 2 × 4 ÷ 2 - 1",
+   "20 × 4 ÷ 2 - 1",
+   "80 ÷ 2 - 1",
+   "40 - 1",
+   "39"
+  ],
+  "probed_misconception": "add_before_mul",
+  "statement_correct": true,
+  "which_target": null,
+  "student_name": "Priya",
+  "belief_statement": "Priya believes addition should be done before multiplication."
+ },
+ {
+  "id": "A019",
+  "pair_id": "P009",
+  "category": "A",
+  "error_position": 3,
+  "expression": "7 + 3 × 4 ÷ 2 × 4 ÷ 2 - 1",
+  "n_ops": 6,
+  "misconceptions": [
+   "add_before_mul"
+  ],
+  "num_misconceptions": 1,
+  "trace": [
+   "7 + 3 × 4 ÷ 2 × 4 ÷ 2 - 1",
+   "7 + 3 × 2 × 4 ÷ 2 - 1",
+   "7 + 3 × 8 ÷ 2 - 1",
+   "10 × 8 ÷ 2 - 1",
+   "80 ÷ 2 - 1",
+   "40 - 1",
+   "39"
+  ],
+  "probed_misconception": "add_before_mul",
+  "statement_correct": true,
+  "which_target": null,
+  "student_name": "Marcus",
+  "belief_statement": "Marcus believes addition should be done before multiplication."
+ },
+ {
+  "id": "A020",
+  "pair_id": "P010",
+  "category": "A",
+  "error_position": 1,
+  "expression": "12 + 4 ÷ 2 × 4 × 5 × 2 - 1",
+  "n_ops": 6,
+  "misconceptions": [
+   "add_before_div"
+  ],
+  "num_misconceptions": 1,
+  "trace": [
+   "12 + 4 ÷ 2 × 4 × 5 × 2 - 1",
+   "16 ÷ 2 × 4 × 5 × 2 - 1",
+   "8 × 4 × 5 × 2 - 1",
+   "32 × 5 × 2 - 1",
+   "160 × 2 - 1",
+   "320 - 1",
+   "319"
+  ],
+  "probed_misconception": "add_before_div",
+  "statement_correct": true,
+  "which_target": null,
+  "student_name": "Elena",
+  "belief_statement": "Elena believes addition should be done before division."
+ },
+ {
+  "id": "A021",
+  "pair_id": "P010",
+  "category": "A",
+  "error_position": 3,
+  "expression": "12 + 4 ÷ 2 × 4 × 5 × 2 - 1",
+  "n_ops": 6,
+  "misconceptions": [
+   "add_before_div"
+  ],
+  "num_misconceptions": 1,
+  "trace": [
+   "12 + 4 ÷ 2 × 4 × 5 × 2 - 1",
+   "12 + 4 ÷ 2 × 20 × 2 - 1",
+   "12 + 4 ÷ 2 × 40 - 1",
+   "16 ÷ 2 × 40 - 1",
+   "8 × 40 - 1",
+   "320 - 1",
+   "319"
+  ],
+  "probed_misconception": "add_before_div",
+  "statement_correct": true,
+  "which_target": null,
+  "student_name": "Theo",
+  "belief_statement": "Theo believes addition should be done before division."
+ },
+ {
+  "id": "A022",
+  "pair_id": "P011",
+  "category": "A",
+  "error_position": 1,
+  "expression": "3 + 8 - 5 × 4 ÷ 2 + 8 ÷ 2",
+  "n_ops": 6,
+  "misconceptions": [
+   "add_before_div"
+  ],
+  "num_misconceptions": 1,
+  "trace": [
+   "3 + 8 - 5 × 4 ÷ 2 + 8 ÷ 2",
+   "3 + 8 - 5 × 4 ÷ 10 ÷ 2",
+   "11 - 5 × 4 ÷ 10 ÷ 2",
+   "11 - 20 ÷ 10 ÷ 2",
+   "11 - 2 ÷ 2",
+   "11 - 1",
+   "10"
+  ],
+  "probed_misconception": "add_before_div",
+  "statement_correct": true,
+  "which_target": null,
+  "student_name": "Jasmine",
+  "belief_statement": "Jasmine believes addition should be done before division."
+ },
+ {
+  "id": "A023",
+  "pair_id": "P011",
+  "category": "A",
+  "error_position": 3,
+  "expression": "3 + 8 - 5 × 4 ÷ 2 + 8 ÷ 2",
+  "n_ops": 6,
+  "misconceptions": [
+   "add_before_div"
+  ],
+  "num_misconceptions": 1,
+  "trace": [
+   "3 + 8 - 5 × 4 ÷ 2 + 8 ÷ 2",
+   "11 - 5 × 4 ÷ 2 + 8 ÷ 2",
+   "11 - 20 ÷ 2 + 8 ÷ 2",
+   "11 - 20 ÷ 10 ÷ 2",
+   "11 - 2 ÷ 2",
+   "11 - 1",
+   "10"
+  ],
+  "probed_misconception": "add_before_div",
+  "statement_correct": true,
+  "which_target": null,
+  "student_name": "Omar",
+  "belief_statement": "Omar believes addition should be done before division."
+ },
+ {
+  "id": "A024",
+  "pair_id": "P012",
+  "category": "A",
+  "error_position": 1,
+  "expression": "6 ÷ 3 × 6 ÷ 2 × 4 ÷ 2 + 1",
+  "n_ops": 6,
+  "misconceptions": [
+   "add_before_div"
+  ],
+  "num_misconceptions": 1,
+  "trace": [
+   "6 ÷ 3 × 6 ÷ 2 × 4 ÷ 2 + 1",
+   "6 ÷ 3 × 6 ÷ 2 × 4 ÷ 3",
+   "2 × 6 ÷ 2 × 4 ÷ 3",
+   "12 ÷ 2 × 4 ÷ 3",
+   "6 × 4 ÷ 3",
+   "24 ÷ 3",
+   "8"
+  ],
+  "probed_misconception": "add_before_div",
+  "statement_correct": true,
+  "which_target": null,
+  "student_name": "Noah",
+  "belief_statement": "Noah believes addition should be done before division."
+ },
+ {
+  "id": "A025",
+  "pair_id": "P012",
+  "category": "A",
+  "error_position": 3,
+  "expression": "6 ÷ 3 × 6 ÷ 2 × 4 ÷ 2 + 1",
+  "n_ops": 6,
+  "misconceptions": [
+   "add_before_div"
+  ],
+  "num_misconceptions": 1,
+  "trace": [
+   "6 ÷ 3 × 6 ÷ 2 × 4 ÷ 2 + 1",
+   "2 × 6 ÷ 2 × 4 ÷ 2 + 1",
+   "12 ÷ 2 × 4 ÷ 2 + 1",
+   "12 ÷ 2 × 4 ÷ 3",
+   "6 × 4 ÷ 3",
+   "24 ÷ 3",
+   "8"
+  ],
+  "probed_misconception": "add_before_div",
+  "statement_correct": true,
+  "which_target": null,
+  "student_name": "Maya",
+  "belief_statement": "Maya believes addition should be done before division."
+ },
+ {
+  "id": "A026",
+  "pair_id": "P013",
+  "category": "A",
+  "error_position": 1,
+  "expression": "5 - 2 + 5 + 12 - (8 + 6 ÷ 2)",
+  "n_ops": 6,
+  "misconceptions": [
+   "add_before_div"
+  ],
+  "num_misconceptions": 1,
+  "trace": [
+   "5 - 2 + 5 + 12 - (8 + 6 ÷ 2)",
+   "5 - 2 + 5 + 12 - (14 ÷ 2)",
+   "3 + 5 + 12 - (14 ÷ 2)",
+   "8 + 12 - (14 ÷ 2)",
+   "20 - (14 ÷ 2)",
+   "20 - 7",
+   "13"
+  ],
+  "probed_misconception": "add_before_div",
+  "statement_correct": true,
+  "which_target": null,
+  "student_name": "Liam",
+  "belief_statement": "Liam believes addition should be done before division."
+ },
+ {
+  "id": "A027",
+  "pair_id": "P013",
+  "category": "A",
+  "error_position": 3,
+  "expression": "5 - 2 + 5 + 12 - (8 + 6 ÷ 2)",
+  "n_ops": 6,
+  "misconceptions": [
+   "add_before_div"
+  ],
+  "num_misconceptions": 1,
+  "trace": [
+   "5 - 2 + 5 + 12 - (8 + 6 ÷ 2)",
+   "3 + 5 + 12 - (8 + 6 ÷ 2)",
+   "8 + 12 - (8 + 6 ÷ 2)",
+   "8 + 12 - (14 ÷ 2)",
+   "20 - (14 ÷ 2)",
+   "20 - 7",
+   "13"
+  ],
+  "probed_misconception": "add_before_div",
+  "statement_correct": true,
+  "which_target": null,
+  "student_name": "Ava",
+  "belief_statement": "Ava believes addition should be done before division."
+ },
+ {
+  "id": "A028",
+  "pair_id": "P014",
+  "category": "A",
+  "error_position": 1,
+  "expression": "(9 - 8 ÷ 2) × 3 × 6 ÷ 2 + 7",
+  "n_ops": 6,
+  "misconceptions": [
+   "add_before_div"
+  ],
+  "num_misconceptions": 1,
+  "trace": [
+   "(9 - 8 ÷ 2) × 3 × 6 ÷ 2 + 7",
+   "(9 - 8 ÷ 2) × 3 × 6 ÷ 9",
+   "(9 - 8 ÷ 2) × 18 ÷ 9",
+   "(9 - 8 ÷ 2) × 2",
+   "(9 - 4) × 2",
+   "5 × 2",
+   "10"
+  ],
+  "probed_misconception": "add_before_div",
+  "statement_correct": true,
+  "which_target": null,
+  "student_name": "Ethan",
+  "belief_statement": "Ethan believes addition should be done before division."
+ },
+ {
+  "id": "A029",
+  "pair_id": "P014",
+  "category": "A",
+  "error_position": 3,
+  "expression": "(9 - 8 ÷ 2) × 3 × 6 ÷ 2 + 7",
+  "n_ops": 6,
+  "misconceptions": [
+   "add_before_div"
+  ],
+  "num_misconceptions": 1,
+  "trace": [
+   "(9 - 8 ÷ 2) × 3 × 6 ÷ 2 + 7",
+   "(9 - 8 ÷ 2) × 18 ÷ 2 + 7",
+   "(9 - 4) × 18 ÷ 2 + 7",
+   "(9 - 4) × 18 ÷ 9",
+   "(9 - 4) × 2",
+   "5 × 2",
+   "10"
+  ],
+  "probed_misconception": "add_before_div",
+  "statement_correct": true,
+  "which_target": null,
+  "student_name": "Zoe",
+  "belief_statement": "Zoe believes addition should be done before division."
+ },
+ {
+  "id": "A030",
+  "pair_id": "P015",
+  "category": "A",
+  "error_position": 1,
+  "expression": "11 - 6 × 4 × 6 ÷ 3 + 6 ÷ 2",
+  "n_ops": 6,
+  "misconceptions": [
+   "add_before_div"
+  ],
+  "num_misconceptions": 1,
+  "trace": [
+   "11 - 6 × 4 × 6 ÷ 3 + 6 ÷ 2",
+   "11 - 6 × 4 × 6 ÷ 9 ÷ 2",
+   "11 - 24 × 6 ÷ 9 ÷ 2",
+   "11 - 144 ÷ 9 ÷ 2",
+   "11 - 16 ÷ 2",
+   "11 - 8",
+   "3"
+  ],
+  "probed_misconception": "add_before_div",
+  "statement_correct": true,
+  "which_target": null,
+  "student_name": "Mia",
+  "belief_statement": "Mia believes addition should be done before division."
+ },
+ {
+  "id": "A031",
+  "pair_id": "P015",
+  "category": "A",
+  "error_position": 3,
+  "expression": "11 - 6 × 4 × 6 ÷ 3 + 6 ÷ 2",
+  "n_ops": 6,
+  "misconceptions": [
+   "add_before_div"
+  ],
+  "num_misconceptions": 1,
+  "trace": [
+   "11 - 6 × 4 × 6 ÷ 3 + 6 ÷ 2",
+   "11 - 24 × 6 ÷ 3 + 6 ÷ 2",
+   "11 - 144 ÷ 3 + 6 ÷ 2",
+   "11 - 144 ÷ 9 ÷ 2",
+   "11 - 16 ÷ 2",
+   "11 - 8",
+   "3"
+  ],
+  "probed_misconception": "add_before_div",
+  "statement_correct": true,
+  "which_target": null,
+  "student_name": "Lucas",
+  "belief_statement": "Lucas believes addition should be done before division."
+ },
+ {
+  "id": "A032",
+  "pair_id": "P016",
+  "category": "A",
+  "error_position": 1,
+  "expression": "6 + (6 × 4) + 1 × 6 ÷ 2 + 4",
+  "n_ops": 6,
+  "misconceptions": [
+   "add_before_div"
+  ],
+  "num_misconceptions": 1,
+  "trace": [
+   "6 + (6 × 4) + 1 × 6 ÷ 2 + 4",
+   "6 + (6 × 4) + 1 × 6 ÷ 6",
+   "6 + (6 × 4) + 6 ÷ 6",
+   "6 + (6 × 4) + 1",
+   "6 + 24 + 1",
+   "30 + 1",
+   "31"
+  ],
+  "probed_misconception": "add_before_div",
+  "statement_correct": true,
+  "which_target": null,
+  "student_name": "Emma",
+  "belief_statement": "Emma believes addition should be done before division."
+ },
+ {
+  "id": "A033",
+  "pair_id": "P016",
+  "category": "A",
+  "error_position": 3,
+  "expression": "6 + (6 × 4) + 1 × 6 ÷ 2 + 4",
+  "n_ops": 6,
+  "misconceptions": [
+   "add_before_div"
+  ],
+  "num_misconceptions": 1,
+  "trace": [
+   "6 + (6 × 4) + 1 × 6 ÷ 2 + 4",
+   "6 + 24 + 1 × 6 ÷ 2 + 4",
+   "30 + 1 × 6 ÷ 2 + 4",
+   "30 + 1 × 6 ÷ 6",
+   "30 + 1 × 1",
+   "30 + 1",
+   "31"
+  ],
+  "probed_misconception": "add_before_div",
+  "statement_correct": true,
+  "which_target": null,
+  "student_name": "Owen",
+  "belief_statement": "Owen believes addition should be done before division."
+ },
+ {
+  "id": "A034",
+  "pair_id": "P017",
+  "category": "A",
+  "error_position": 1,
+  "expression": "4 ÷ 2 × 6 × 6 + (8 ÷ 2 + 2)",
+  "n_ops": 6,
+  "misconceptions": [
+   "add_before_div"
+  ],
+  "num_misconceptions": 1,
+  "trace": [
+   "4 ÷ 2 × 6 × 6 + (8 ÷ 2 + 2)",
+   "4 ÷ 2 × 6 × 6 + (8 ÷ 4)",
+   "2 × 6 × 6 + (8 ÷ 4)",
+   "12 × 6 + (8 ÷ 4)",
+   "72 + (8 ÷ 4)",
+   "72 + 2",
+   "74"
+  ],
+  "probed_misconception": "add_before_div",
+  "statement_correct": true,
+  "which_target": null,
+  "student_name": "Sofia",
+  "belief_statement": "Sofia believes addition should be done before division."
+ },
+ {
+  "id": "A035",
+  "pair_id": "P017",
+  "category": "A",
+  "error_position": 3,
+  "expression": "4 ÷ 2 × 6 × 6 + (8 ÷ 2 + 2)",
+  "n_ops": 6,
+  "misconceptions": [
+   "add_before_div"
+  ],
+  "num_misconceptions": 1,
+  "trace": [
+   "4 ÷ 2 × 6 × 6 + (8 ÷ 2 + 2)",
+   "2 × 6 × 6 + (8 ÷ 2 + 2)",
+   "12 × 6 + (8 ÷ 2 + 2)",
+   "12 × 6 + (8 ÷ 4)",
+   "72 + (8 ÷ 4)",
+   "72 + 2",
+   "74"
+  ],
+  "probed_misconception": "add_before_div",
+  "statement_correct": true,
+  "which_target": null,
+  "student_name": "Caleb",
+  "belief_statement": "Caleb believes addition should be done before division."
+ },
+ {
+  "id": "A036",
+  "pair_id": "P018",
+  "category": "A",
+  "error_position": 1,
+  "expression": "8 + 4 ÷ 2 × 5 × 4 ÷ 2 × 4",
+  "n_ops": 6,
+  "misconceptions": [
+   "add_before_div"
+  ],
+  "num_misconceptions": 1,
+  "trace": [
+   "8 + 4 ÷ 2 × 5 × 4 ÷ 2 × 4",
+   "12 ÷ 2 × 5 × 4 ÷ 2 × 4",
+   "6 × 5 × 4 ÷ 2 × 4",
+   "30 × 4 ÷ 2 × 4",
+   "120 ÷ 2 × 4",
+   "60 × 4",
+   "240"
+  ],
+  "probed_misconception": "add_before_div",
+  "statement_correct": true,
+  "which_target": null,
+  "student_name": "Ruby",
+  "belief_statement": "Ruby believes addition should be done before division."
+ },
+ {
+  "id": "A037",
+  "pair_id": "P018",
+  "category": "A",
+  "error_position": 3,
+  "expression": "8 + 4 ÷ 2 × 5 × 4 ÷ 2 × 4",
+  "n_ops": 6,
+  "misconceptions": [
+   "add_before_div"
+  ],
+  "num_misconceptions": 1,
+  "trace": [
+   "8 + 4 ÷ 2 × 5 × 4 ÷ 2 × 4",
+   "8 + 4 ÷ 2 × 20 ÷ 2 × 4",
+   "8 + 4 ÷ 2 × 10 × 4",
+   "12 ÷ 2 × 10 × 4",
+   "6 × 10 × 4",
+   "60 × 4",
+   "240"
+  ],
+  "probed_misconception": "add_before_div",
+  "statement_correct": true,
+  "which_target": null,
+  "student_name": "Jonah",
+  "belief_statement": "Jonah believes addition should be done before division."
+ },
+ {
+  "id": "A038",
+  "pair_id": "P019",
+  "category": "A",
+  "error_position": 1,
+  "expression": "4 × (6 + 4 ÷ 2) + 11 + 2 + 2",
+  "n_ops": 6,
+  "misconceptions": [
+   "add_before_div"
+  ],
+  "num_misconceptions": 1,
+  "trace": [
+   "4 × (6 + 4 ÷ 2) + 11 + 2 + 2",
+   "4 × (10 ÷ 2) + 11 + 2 + 2",
+   "4 × (10 ÷ 2) + 13 + 2",
+   "4 × (10 ÷ 2) + 15",
+   "4 × 5 + 15",
+   "20 + 15",
+   "35"
+  ],
+  "probed_misconception": "add_before_div",
+  "statement_correct": true,
+  "which_target": null,
+  "student_name": "Isla",
+  "belief_statement": "Isla believes addition should be done before division."
+ },
+ {
+  "id": "A039",
+  "pair_id": "P019",
+  "category": "A",
+  "error_position": 3,
+  "expression": "4 × (6 + 4 ÷ 2) + 11 + 2 + 2",
+  "n_ops": 6,
+  "misconceptions": [
+   "add_before_div"
+  ],
+  "num_misconceptions": 1,
+  "trace": [
+   "4 × (6 + 4 ÷ 2) + 11 + 2 + 2",
+   "4 × (6 + 4 ÷ 2) + 13 + 2",
+   "4 × (6 + 4 ÷ 2) + 15",
+   "4 × (10 ÷ 2) + 15",
+   "4 × 5 + 15",
+   "20 + 15",
+   "35"
+  ],
+  "probed_misconception": "add_before_div",
+  "statement_correct": true,
+  "which_target": null,
+  "student_name": "Felix",
+  "belief_statement": "Felix believes addition should be done before division."
+ },
+ {
+  "id": "A040",
+  "pair_id": "P020",
+  "category": "A",
+  "error_position": 1,
+  "expression": "(2 + 5) + 8 × 6 - 4 + 11 × 4",
+  "n_ops": 6,
+  "misconceptions": [
+   "sub_before_mul"
+  ],
+  "num_misconceptions": 1,
+  "trace": [
+   "(2 + 5) + 8 × 6 - 4 + 11 × 4",
+   "(2 + 5) + 8 × 2 + 11 × 4",
+   "(2 + 5) + 16 + 11 × 4",
+   "(2 + 5) + 16 + 44",
+   "(2 + 5) + 60",
+   "7 + 60",
+   "67"
+  ],
+  "probed_misconception": "sub_before_mul",
+  "statement_correct": true,
+  "which_target": null,
+  "student_name": "Nora",
+  "belief_statement": "Nora believes subtraction should be done before multiplication."
+ },
+ {
+  "id": "A041",
+  "pair_id": "P020",
+  "category": "A",
+  "error_position": 3,
+  "expression": "(2 + 5) + 8 × 6 - 4 + 11 × 4",
+  "n_ops": 6,
+  "misconceptions": [
+   "sub_before_mul"
+  ],
+  "num_misconceptions": 1,
+  "trace": [
+   "(2 + 5) + 8 × 6 - 4 + 11 × 4",
+   "(2 + 5) + 8 × 6 - 4 + 44",
+   "7 + 8 × 6 - 4 + 44",
+   "7 + 8 × 2 + 44",
+   "7 + 16 + 44",
+   "23 + 44",
+   "67"
+  ],
+  "probed_misconception": "sub_before_mul",
+  "statement_correct": true,
+  "which_target": null,
+  "student_name": "Dylan",
+  "belief_statement": "Dylan believes subtraction should be done before multiplication."
+ },
+ {
+  "id": "A042",
+  "pair_id": "P021",
+  "category": "A",
+  "error_position": 1,
+  "expression": "10 ÷ 2 + 5 - 2 × 3 + 6 + 1",
+  "n_ops": 6,
+  "misconceptions": [
+   "sub_before_mul"
+  ],
+  "num_misconceptions": 1,
+  "trace": [
+   "10 ÷ 2 + 5 - 2 × 3 + 6 + 1",
+   "10 ÷ 2 + 3 × 3 + 6 + 1",
+   "5 + 3 × 3 + 6 + 1",
+   "5 + 9 + 6 + 1",
+   "14 + 6 + 1",
+   "20 + 1",
+   "21"
+  ],
+  "probed_misconception": "sub_before_mul",
+  "statement_correct": true,
+  "which_target": null,
+  "student_name": "Priya",
+  "belief_statement": "Priya believes subtraction should be done before multiplication."
+ },
+ {
+  "id": "A043",
+  "pair_id": "P021",
+  "category": "A",
+  "error_position": 3,
+  "expression": "10 ÷ 2 + 5 - 2 × 3 + 6 + 1",
+  "n_ops": 6,
+  "misconceptions": [
+   "sub_before_mul"
+  ],
+  "num_misconceptions": 1,
+  "trace": [
+   "10 ÷ 2 + 5 - 2 × 3 + 6 + 1",
+   "5 + 5 - 2 × 3 + 6 + 1",
+   "10 - 2 × 3 + 6 + 1",
+   "8 × 3 + 6 + 1",
+   "24 + 6 + 1",
+   "30 + 1",
+   "31"
+  ],
+  "probed_misconception": "sub_before_mul",
+  "statement_correct": true,
+  "which_target": null,
+  "student_name": "Marcus",
+  "belief_statement": "Marcus believes subtraction should be done before multiplication."
+ },
+ {
+  "id": "A044",
+  "pair_id": "P022",
+  "category": "A",
+  "error_position": 1,
+  "expression": "10 + 1 × 5 + 8 - 5 × 3 + 7",
+  "n_ops": 6,
+  "misconceptions": [
+   "sub_before_mul"
+  ],
+  "num_misconceptions": 1,
+  "trace": [
+   "10 + 1 × 5 + 8 - 5 × 3 + 7",
+   "10 + 1 × 5 + 3 × 3 + 7",
+   "10 + 5 + 3 × 3 + 7",
+   "15 + 3 × 3 + 7",
+   "15 + 9 + 7",
+   "24 + 7",
+   "31"
+  ],
+  "probed_misconception": "sub_before_mul",
+  "statement_correct": true,
+  "which_target": null,
+  "student_name": "Elena",
+  "belief_statement": "Elena believes subtraction should be done before multiplication."
+ },
+ {
+  "id": "A045",
+  "pair_id": "P022",
+  "category": "A",
+  "error_position": 3,
+  "expression": "10 + 1 × 5 + 8 - 5 × 3 + 7",
+  "n_ops": 6,
+  "misconceptions": [
+   "sub_before_mul"
+  ],
+  "num_misconceptions": 1,
+  "trace": [
+   "10 + 1 × 5 + 8 - 5 × 3 + 7",
+   "10 + 5 + 8 - 5 × 3 + 7",
+   "15 + 8 - 5 × 3 + 7",
+   "15 + 3 × 3 + 7",
+   "15 + 9 + 7",
+   "24 + 7",
+   "31"
+  ],
+  "probed_misconception": "sub_before_mul",
+  "statement_correct": true,
+  "which_target": null,
+  "student_name": "Theo",
+  "belief_statement": "Theo believes subtraction should be done before multiplication."
+ },
+ {
+  "id": "A046",
+  "pair_id": "P023",
+  "category": "A",
+  "error_position": 1,
+  "expression": "3 + 8 + 2 × 3 × 2 × 3 - 1",
+  "n_ops": 6,
+  "misconceptions": [
+   "sub_before_mul"
+  ],
+  "num_misconceptions": 1,
+  "trace": [
+   "3 + 8 + 2 × 3 × 2 × 3 - 1",
+   "3 + 8 + 2 × 3 × 2 × 2",
+   "11 + 2 × 3 × 2 × 2",
+   "11 + 6 × 2 × 2",
+   "11 + 12 × 2",
+   "11 + 24",
+   "35"
+  ],
+  "probed_misconception": "sub_before_mul",
+  "statement_correct": true,
+  "which_target": null,
+  "student_name": "Jasmine",
+  "belief_statement": "Jasmine believes subtraction should be done before multiplication."
+ },
+ {
+  "id": "A047",
+  "pair_id": "P023",
+  "category": "A",
+  "error_position": 3,
+  "expression": "3 + 8 + 2 × 3 × 2 × 3 - 1",
+  "n_ops": 6,
+  "misconceptions": [
+   "sub_before_mul"
+  ],
+  "num_misconceptions": 1,
+  "trace": [
+   "3 + 8 + 2 × 3 × 2 × 3 - 1",
+   "11 + 2 × 3 × 2 × 3 - 1",
+   "11 + 6 × 2 × 3 - 1",
+   "11 + 6 × 2 × 2",
+   "11 + 12 × 2",
+   "11 + 24",
+   "35"
+  ],
+  "probed_misconception": "sub_before_mul",
+  "statement_correct": true,
+  "which_target": null,
+  "student_name": "Omar",
+  "belief_statement": "Omar believes subtraction should be done before multiplication."
+ },
+ {
+  "id": "A048",
+  "pair_id": "P024",
+  "category": "A",
+  "error_position": 1,
+  "expression": "11 + 12 - 10 × 4 ÷ 2 × 3 × 6",
+  "n_ops": 6,
+  "misconceptions": [
+   "sub_before_mul"
+  ],
+  "num_misconceptions": 1,
+  "trace": [
+   "11 + 12 - 10 × 4 ÷ 2 × 3 × 6",
+   "11 + 2 × 4 ÷ 2 × 3 × 6",
+   "11 + 8 ÷ 2 × 3 × 6",
+   "11 + 4 × 3 × 6",
+   "11 + 12 × 6",
+   "11 + 72",
+   "83"
+  ],
+  "probed_misconception": "sub_before_mul",
+  "statement_correct": true,
+  "which_target": null,
+  "student_name": "Noah",
+  "belief_statement": "Noah believes subtraction should be done before multiplication."
+ },
+ {
+  "id": "A049",
+  "pair_id": "P024",
+  "category": "A",
+  "error_position": 3,
+  "expression": "11 + 12 - 10 × 4 ÷ 2 × 3 × 6",
+  "n_ops": 6,
+  "misconceptions": [
+   "sub_before_mul"
+  ],
+  "num_misconceptions": 1,
+  "trace": [
+   "11 + 12 - 10 × 4 ÷ 2 × 3 × 6",
+   "23 - 10 × 4 ÷ 2 × 3 × 6",
+   "23 - 10 × 2 × 3 × 6",
+   "13 × 2 × 3 × 6",
+   "26 × 3 × 6",
+   "78 × 6",
+   "468"
+  ],
+  "probed_misconception": "sub_before_mul",
+  "statement_correct": true,
+  "which_target": null,
+  "student_name": "Maya",
+  "belief_statement": "Maya believes subtraction should be done before multiplication."
+ },
+ {
+  "id": "A050",
+  "pair_id": "P025",
+  "category": "A",
+  "error_position": 1,
+  "expression": "6 ÷ 2 × 3 + 6 - 4 × 4 ÷ 2",
+  "n_ops": 6,
+  "misconceptions": [
+   "sub_before_mul"
+  ],
+  "num_misconceptions": 1,
+  "trace": [
+   "6 ÷ 2 × 3 + 6 - 4 × 4 ÷ 2",
+   "6 ÷ 2 × 3 + 2 × 4 ÷ 2",
+   "3 × 3 + 2 × 4 ÷ 2",
+   "9 + 2 × 4 ÷ 2",
+   "9 + 8 ÷ 2",
+   "9 + 4",
+   "13"
+  ],
+  "probed_misconception": "sub_before_mul",
+  "statement_correct": true,
+  "which_target": null,
+  "student_name": "Liam",
+  "belief_statement": "Liam believes subtraction should be done before multiplication."
+ },
+ {
+  "id": "A051",
+  "pair_id": "P025",
+  "category": "A",
+  "error_position": 3,
+  "expression": "6 ÷ 2 × 3 + 6 - 4 × 4 ÷ 2",
+  "n_ops": 6,
+  "misconceptions": [
+   "sub_before_mul"
+  ],
+  "num_misconceptions": 1,
+  "trace": [
+   "6 ÷ 2 × 3 + 6 - 4 × 4 ÷ 2",
+   "3 × 3 + 6 - 4 × 4 ÷ 2",
+   "9 + 6 - 4 × 4 ÷ 2",
+   "9 + 2 × 4 ÷ 2",
+   "9 + 8 ÷ 2",
+   "9 + 4",
+   "13"
+  ],
+  "probed_misconception": "sub_before_mul",
+  "statement_correct": true,
+  "which_target": null,
+  "student_name": "Ava",
+  "belief_statement": "Ava believes subtraction should be done before multiplication."
+ },
+ {
+  "id": "A052",
+  "pair_id": "P026",
+  "category": "A",
+  "error_position": 1,
+  "expression": "8 - 1 + 7 - 1 × 4 ÷ (2 - 1)",
+  "n_ops": 6,
+  "misconceptions": [
+   "sub_before_mul"
+  ],
+  "num_misconceptions": 1,
+  "trace": [
+   "8 - 1 + 7 - 1 × 4 ÷ (2 - 1)",
+   "8 - 1 + 6 × 4 ÷ (2 - 1)",
+   "7 + 6 × 4 ÷ (2 - 1)",
+   "7 + 24 ÷ (2 - 1)",
+   "7 + 24 ÷ 1",
+   "7 + 24",
+   "31"
+  ],
+  "probed_misconception": "sub_before_mul",
+  "statement_correct": true,
+  "which_target": null,
+  "student_name": "Ethan",
+  "belief_statement": "Ethan believes subtraction should be done before multiplication."
+ },
+ {
+  "id": "A053",
+  "pair_id": "P026",
+  "category": "A",
+  "error_position": 3,
+  "expression": "8 - 1 + 7 - 1 × 4 ÷ (2 - 1)",
+  "n_ops": 6,
+  "misconceptions": [
+   "sub_before_mul"
+  ],
+  "num_misconceptions": 1,
+  "trace": [
+   "8 - 1 + 7 - 1 × 4 ÷ (2 - 1)",
+   "7 + 7 - 1 × 4 ÷ (2 - 1)",
+   "14 - 1 × 4 ÷ (2 - 1)",
+   "13 × 4 ÷ (2 - 1)",
+   "52 ÷ (2 - 1)",
+   "52 ÷ 1",
+   "52"
+  ],
+  "probed_misconception": "sub_before_mul",
+  "statement_correct": true,
+  "which_target": null,
+  "student_name": "Zoe",
+  "belief_statement": "Zoe believes subtraction should be done before multiplication."
+ },
+ {
+  "id": "A054",
+  "pair_id": "P027",
+  "category": "A",
+  "error_position": 1,
+  "expression": "9 × 6 ÷ 2 + 5 × 2 × 6 - 3",
+  "n_ops": 6,
+  "misconceptions": [
+   "sub_before_mul"
+  ],
+  "num_misconceptions": 1,
+  "trace": [
+   "9 × 6 ÷ 2 + 5 × 2 × 6 - 3",
+   "9 × 6 ÷ 2 + 5 × 2 × 3",
+   "54 ÷ 2 + 5 × 2 × 3",
+   "27 + 5 × 2 × 3",
+   "27 + 10 × 3",
+   "27 + 30",
+   "57"
+  ],
+  "probed_misconception": "sub_before_mul",
+  "statement_correct": true,
+  "which_target": null,
+  "student_name": "Mia",
+  "belief_statement": "Mia believes subtraction should be done before multiplication."
+ },
+ {
+  "id": "A055",
+  "pair_id": "P027",
+  "category": "A",
+  "error_position": 3,
+  "expression": "9 × 6 ÷ 2 + 5 × 2 × 6 - 3",
+  "n_ops": 6,
+  "misconceptions": [
+   "sub_before_mul"
+  ],
+  "num_misconceptions": 1,
+  "trace": [
+   "9 × 6 ÷ 2 + 5 × 2 × 6 - 3",
+   "54 ÷ 2 + 5 × 2 × 6 - 3",
+   "27 + 5 × 2 × 6 - 3",
+   "27 + 5 × 2 × 3",
+   "27 + 10 × 3",
+   "27 + 30",
+   "57"
+  ],
+  "probed_misconception": "sub_before_mul",
+  "statement_correct": true,
+  "which_target": null,
+  "student_name": "Lucas",
+  "belief_statement": "Lucas believes subtraction should be done before multiplication."
+ },
+ {
+  "id": "A056",
+  "pair_id": "P028",
+  "category": "A",
+  "error_position": 1,
+  "expression": "2 + 3 × 5 + 11 + (6 × 4 - 3)",
+  "n_ops": 6,
+  "misconceptions": [
+   "sub_before_mul"
+  ],
+  "num_misconceptions": 1,
+  "trace": [
+   "2 + 3 × 5 + 11 + (6 × 4 - 3)",
+   "2 + 3 × 5 + 11 + (6 × 1)",
+   "2 + 15 + 11 + (6 × 1)",
+   "17 + 11 + (6 × 1)",
+   "28 + (6 × 1)",
+   "28 + 6",
+   "34"
+  ],
+  "probed_misconception": "sub_before_mul",
+  "statement_correct": true,
+  "which_target": null,
+  "student_name": "Emma",
+  "belief_statement": "Emma believes subtraction should be done before multiplication."
+ },
+ {
+  "id": "A057",
+  "pair_id": "P028",
+  "category": "A",
+  "error_position": 3,
+  "expression": "2 + 3 × 5 + 11 + (6 × 4 - 3)",
+  "n_ops": 6,
+  "misconceptions": [
+   "sub_before_mul"
+  ],
+  "num_misconceptions": 1,
+  "trace": [
+   "2 + 3 × 5 + 11 + (6 × 4 - 3)",
+   "2 + 15 + 11 + (6 × 4 - 3)",
+   "17 + 11 + (6 × 4 - 3)",
+   "17 + 11 + (6 × 1)",
+   "28 + (6 × 1)",
+   "28 + 6",
+   "34"
+  ],
+  "probed_misconception": "sub_before_mul",
+  "statement_correct": true,
+  "which_target": null,
+  "student_name": "Owen",
+  "belief_statement": "Owen believes subtraction should be done before multiplication."
+ },
+ {
+  "id": "A058",
+  "pair_id": "P029",
+  "category": "A",
+  "error_position": 1,
+  "expression": "10 + 8 × 4 ÷ 2 + 12 - 7 × 6",
+  "n_ops": 6,
+  "misconceptions": [
+   "sub_before_mul"
+  ],
+  "num_misconceptions": 1,
+  "trace": [
+   "10 + 8 × 4 ÷ 2 + 12 - 7 × 6",
+   "10 + 8 × 4 ÷ 2 + 5 × 6",
+   "10 + 32 ÷ 2 + 5 × 6",
+   "10 + 16 + 5 × 6",
+   "26 + 5 × 6",
+   "26 + 30",
+   "56"
+  ],
+  "probed_misconception": "sub_before_mul",
+  "statement_correct": true,
+  "which_target": null,
+  "student_name": "Sofia",
+  "belief_statement": "Sofia believes subtraction should be done before multiplication."
+ },
+ {
+  "id": "A059",
+  "pair_id": "P029",
+  "category": "A",
+  "error_position": 3,
+  "expression": "10 + 8 × 4 ÷ 2 + 12 - 7 × 6",
+  "n_ops": 6,
+  "misconceptions": [
+   "sub_before_mul"
+  ],
+  "num_misconceptions": 1,
+  "trace": [
+   "10 + 8 × 4 ÷ 2 + 12 - 7 × 6",
+   "10 + 32 ÷ 2 + 12 - 7 × 6",
+   "10 + 16 + 12 - 7 × 6",
+   "10 + 16 + 5 × 6",
+   "26 + 5 × 6",
+   "26 + 30",
+   "56"
+  ],
+  "probed_misconception": "sub_before_mul",
+  "statement_correct": true,
+  "which_target": null,
+  "student_name": "Caleb",
+  "belief_statement": "Caleb believes subtraction should be done before multiplication."
+ },
+ {
+  "id": "A060",
+  "pair_id": "P030",
+  "category": "A",
+  "error_position": 1,
+  "expression": "10 + (10 ÷ 5 + 5) + 6 ÷ 3 - 1",
+  "n_ops": 6,
+  "misconceptions": [
+   "sub_before_div"
+  ],
+  "num_misconceptions": 1,
+  "trace": [
+   "10 + (10 ÷ 5 + 5) + 6 ÷ 3 - 1",
+   "10 + (10 ÷ 5 + 5) + 6 ÷ 2",
+   "10 + (10 ÷ 5 + 5) + 3",
+   "10 + (2 + 5) + 3",
+   "10 + 7 + 3",
+   "17 + 3",
+   "20"
+  ],
+  "probed_misconception": "sub_before_div",
+  "statement_correct": true,
+  "which_target": null,
+  "student_name": "Ruby",
+  "belief_statement": "Ruby believes subtraction should be done before division."
+ },
+ {
+  "id": "A061",
+  "pair_id": "P030",
+  "category": "A",
+  "error_position": 3,
+  "expression": "10 + (10 ÷ 5 + 5) + 6 ÷ 3 - 1",
+  "n_ops": 6,
+  "misconceptions": [
+   "sub_before_div"
+  ],
+  "num_misconceptions": 1,
+  "trace": [
+   "10 + (10 ÷ 5 + 5) + 6 ÷ 3 - 1",
+   "10 + (2 + 5) + 6 ÷ 3 - 1",
+   "10 + 7 + 6 ÷ 3 - 1",
+   "10 + 7 + 6 ÷ 2",
+   "17 + 6 ÷ 2",
+   "17 + 3",
+   "20"
+  ],
+  "probed_misconception": "sub_before_div",
+  "statement_correct": true,
+  "which_target": null,
+  "student_name": "Jonah",
+  "belief_statement": "Jonah believes subtraction should be done before division."
+ },
+ {
+  "id": "A062",
+  "pair_id": "P031",
+  "category": "A",
+  "error_position": 1,
+  "expression": "6 × 4 + 12 ÷ 6 ÷ 3 - 2 + 2",
+  "n_ops": 6,
+  "misconceptions": [
+   "sub_before_div"
+  ],
+  "num_misconceptions": 1,
+  "trace": [
+   "6 × 4 + 12 ÷ 6 ÷ 3 - 2 + 2",
+   "6 × 4 + 12 ÷ 6 ÷ 1 + 2",
+   "24 + 12 ÷ 6 ÷ 1 + 2",
+   "24 + 2 ÷ 1 + 2",
+   "24 + 2 + 2",
+   "26 + 2",
+   "28"
+  ],
+  "probed_misconception": "sub_before_div",
+  "statement_correct": true,
+  "which_target": null,
+  "student_name": "Isla",
+  "belief_statement": "Isla believes subtraction should be done before division."
+ },
+ {
+  "id": "A063",
+  "pair_id": "P031",
+  "category": "A",
+  "error_position": 3,
+  "expression": "6 × 4 + 12 ÷ 6 ÷ 3 - 2 + 2",
+  "n_ops": 6,
+  "misconceptions": [
+   "sub_before_div"
+  ],
+  "num_misconceptions": 1,
+  "trace": [
+   "6 × 4 + 12 ÷ 6 ÷ 3 - 2 + 2",
+   "24 + 12 ÷ 6 ÷ 3 - 2 + 2",
+   "24 + 2 ÷ 3 - 2 + 2",
+   "24 + 2 ÷ 1 + 2",
+   "24 + 2 + 2",
+   "26 + 2",
+   "28"
+  ],
+  "probed_misconception": "sub_before_div",
+  "statement_correct": true,
+  "which_target": null,
+  "student_name": "Felix",
+  "belief_statement": "Felix believes subtraction should be done before division."
+ },
+ {
+  "id": "A064",
+  "pair_id": "P032",
+  "category": "A",
+  "error_position": 1,
+  "expression": "5 - 1 + 6 × 3 + (9 - 6 ÷ 3)",
+  "n_ops": 6,
+  "misconceptions": [
+   "sub_before_div"
+  ],
+  "num_misconceptions": 1,
+  "trace": [
+   "5 - 1 + 6 × 3 + (9 - 6 ÷ 3)",
+   "5 - 1 + 6 × 3 + (3 ÷ 3)",
+   "4 + 6 × 3 + (3 ÷ 3)",
+   "4 + 18 + (3 ÷ 3)",
+   "22 + (3 ÷ 3)",
+   "22 + 1",
+   "23"
+  ],
+  "probed_misconception": "sub_before_div",
+  "statement_correct": true,
+  "which_target": null,
+  "student_name": "Nora",
+  "belief_statement": "Nora believes subtraction should be done before division."
+ },
+ {
+  "id": "A065",
+  "pair_id": "P032",
+  "category": "A",
+  "error_position": 3,
+  "expression": "5 - 1 + 6 × 3 + (9 - 6 ÷ 3)",
+  "n_ops": 6,
+  "misconceptions": [
+   "sub_before_div"
+  ],
+  "num_misconceptions": 1,
+  "trace": [
+   "5 - 1 + 6 × 3 + (9 - 6 ÷ 3)",
+   "4 + 6 × 3 + (9 - 6 ÷ 3)",
+   "4 + 18 + (9 - 6 ÷ 3)",
+   "4 + 18 + (3 ÷ 3)",
+   "22 + (3 ÷ 3)",
+   "22 + 1",
+   "23"
+  ],
+  "probed_misconception": "sub_before_div",
+  "statement_correct": true,
+  "which_target": null,
+  "student_name": "Dylan",
+  "belief_statement": "Dylan believes subtraction should be done before division."
+ },
+ {
+  "id": "A066",
+  "pair_id": "P033",
+  "category": "A",
+  "error_position": 1,
+  "expression": "10 ÷ 5 - 4 + 7 - 2 + 2 × 5",
+  "n_ops": 6,
+  "misconceptions": [
+   "sub_before_div"
+  ],
+  "num_misconceptions": 1,
+  "trace": [
+   "10 ÷ 5 - 4 + 7 - 2 + 2 × 5",
+   "10 ÷ 1 + 7 - 2 + 2 × 5",
+   "10 + 7 - 2 + 2 × 5",
+   "17 - 2 + 2 × 5",
+   "15 + 2 × 5",
+   "15 + 10",
+   "25"
+  ],
+  "probed_misconception": "sub_before_div",
+  "statement_correct": true,
+  "which_target": null,
+  "student_name": "Priya",
+  "belief_statement": "Priya believes subtraction should be done before division."
+ },
+ {
+  "id": "A067",
+  "pair_id": "P033",
+  "category": "A",
+  "error_position": 3,
+  "expression": "10 ÷ 5 - 4 + 7 - 2 + 2 × 5",
+  "n_ops": 6,
+  "misconceptions": [
+   "sub_before_div"
+  ],
+  "num_misconceptions": 1,
+  "trace": [
+   "10 ÷ 5 - 4 + 7 - 2 + 2 × 5",
+   "10 ÷ 5 - 4 + 5 + 2 × 5",
+   "10 ÷ 5 - 4 + 5 + 10",
+   "10 ÷ 1 + 5 + 10",
+   "10 + 5 + 10",
+   "15 + 10",
+   "25"
+  ],
+  "probed_misconception": "sub_before_div",
+  "statement_correct": true,
+  "which_target": null,
+  "student_name": "Marcus",
+  "belief_statement": "Marcus believes subtraction should be done before division."
+ },
+ {
+  "id": "A068",
+  "pair_id": "P034",
+  "category": "A",
+  "error_position": 1,
+  "expression": "12 ÷ 6 - 2 + 5 × 3 - 1 × 4",
+  "n_ops": 6,
+  "misconceptions": [
+   "sub_before_div"
+  ],
+  "num_misconceptions": 1,
+  "trace": [
+   "12 ÷ 6 - 2 + 5 × 3 - 1 × 4",
+   "12 ÷ 4 + 5 × 3 - 1 × 4",
+   "3 + 5 × 3 - 1 × 4",
+   "3 + 15 - 1 × 4",
+   "18 - 1 × 4",
+   "18 - 4",
+   "14"
+  ],
+  "probed_misconception": "sub_before_div",
+  "statement_correct": true,
+  "which_target": null,
+  "student_name": "Elena",
+  "belief_statement": "Elena believes subtraction should be done before division."
+ },
+ {
+  "id": "A069",
+  "pair_id": "P034",
+  "category": "A",
+  "error_position": 3,
+  "expression": "12 ÷ 6 - 2 + 5 × 3 - 1 × 4",
+  "n_ops": 6,
+  "misconceptions": [
+   "sub_before_div"
+  ],
+  "num_misconceptions": 1,
+  "trace": [
+   "12 ÷ 6 - 2 + 5 × 3 - 1 × 4",
+   "12 ÷ 6 - 2 + 15 - 1 × 4",
+   "12 ÷ 6 - 2 + 15 - 4",
+   "12 ÷ 4 + 15 - 4",
+   "3 + 15 - 4",
+   "18 - 4",
+   "14"
+  ],
+  "probed_misconception": "sub_before_div",
+  "statement_correct": true,
+  "which_target": null,
+  "student_name": "Theo",
+  "belief_statement": "Theo believes subtraction should be done before division."
+ },
+ {
+  "id": "A070",
+  "pair_id": "P035",
+  "category": "A",
+  "error_position": 1,
+  "expression": "6 + 7 + 8 ÷ 4 + 12 - 8 ÷ 4",
+  "n_ops": 6,
+  "misconceptions": [
+   "sub_before_div"
+  ],
+  "num_misconceptions": 1,
+  "trace": [
+   "6 + 7 + 8 ÷ 4 + 12 - 8 ÷ 4",
+   "6 + 7 + 8 ÷ 4 + 4 ÷ 4",
+   "13 + 8 ÷ 4 + 4 ÷ 4",
+   "13 + 2 + 4 ÷ 4",
+   "15 + 4 ÷ 4",
+   "15 + 1",
+   "16"
+  ],
+  "probed_misconception": "sub_before_div",
+  "statement_correct": true,
+  "which_target": null,
+  "student_name": "Jasmine",
+  "belief_statement": "Jasmine believes subtraction should be done before division."
+ },
+ {
+  "id": "A071",
+  "pair_id": "P035",
+  "category": "A",
+  "error_position": 3,
+  "expression": "6 + 7 + 8 ÷ 4 + 12 - 8 ÷ 4",
+  "n_ops": 6,
+  "misconceptions": [
+   "sub_before_div"
+  ],
+  "num_misconceptions": 1,
+  "trace": [
+   "6 + 7 + 8 ÷ 4 + 12 - 8 ÷ 4",
+   "13 + 8 ÷ 4 + 12 - 8 ÷ 4",
+   "13 + 2 + 12 - 8 ÷ 4",
+   "13 + 2 + 4 ÷ 4",
+   "15 + 4 ÷ 4",
+   "15 + 1",
+   "16"
+  ],
+  "probed_misconception": "sub_before_div",
+  "statement_correct": true,
+  "which_target": null,
+  "student_name": "Omar",
+  "belief_statement": "Omar believes subtraction should be done before division."
+ },
+ {
+  "id": "A072",
+  "pair_id": "P036",
+  "category": "A",
+  "error_position": 1,
+  "expression": "9 ÷ 3 - 2 + 4 × 6 ÷ 3 × 4",
+  "n_ops": 6,
+  "misconceptions": [
+   "sub_before_div"
+  ],
+  "num_misconceptions": 1,
+  "trace": [
+   "9 ÷ 3 - 2 + 4 × 6 ÷ 3 × 4",
+   "9 ÷ 1 + 4 × 6 ÷ 3 × 4",
+   "9 + 4 × 6 ÷ 3 × 4",
+   "9 + 24 ÷ 3 × 4",
+   "9 + 8 × 4",
+   "9 + 32",
+   "41"
+  ],
+  "probed_misconception": "sub_before_div",
+  "statement_correct": true,
+  "which_target": null,
+  "student_name": "Noah",
+  "belief_statement": "Noah believes subtraction should be done before division."
+ },
+ {
+  "id": "A073",
+  "pair_id": "P036",
+  "category": "A",
+  "error_position": 3,
+  "expression": "9 ÷ 3 - 2 + 4 × 6 ÷ 3 × 4",
+  "n_ops": 6,
+  "misconceptions": [
+   "sub_before_div"
+  ],
+  "num_misconceptions": 1,
+  "trace": [
+   "9 ÷ 3 - 2 + 4 × 6 ÷ 3 × 4",
+   "9 ÷ 3 - 2 + 24 ÷ 3 × 4",
+   "9 ÷ 3 - 2 + 8 × 4",
+   "9 ÷ 1 + 8 × 4",
+   "9 + 8 × 4",
+   "9 + 32",
+   "41"
+  ],
+  "probed_misconception": "sub_before_div",
+  "statement_correct": true,
+  "which_target": null,
+  "student_name": "Maya",
+  "belief_statement": "Maya believes subtraction should be done before division."
+ },
+ {
+  "id": "A074",
+  "pair_id": "P037",
+  "category": "A",
+  "error_position": 1,
+  "expression": "4 + 8 ÷ 2 × 2 + (4 ÷ 2 - 1)",
+  "n_ops": 6,
+  "misconceptions": [
+   "sub_before_div"
+  ],
+  "num_misconceptions": 1,
+  "trace": [
+   "4 + 8 ÷ 2 × 2 + (4 ÷ 2 - 1)",
+   "4 + 8 ÷ 2 × 2 + (4 ÷ 1)",
+   "4 + 4 × 2 + (4 ÷ 1)",
+   "4 + 8 + (4 ÷ 1)",
+   "12 + (4 ÷ 1)",
+   "12 + 4",
+   "16"
+  ],
+  "probed_misconception": "sub_before_div",
+  "statement_correct": true,
+  "which_target": null,
+  "student_name": "Liam",
+  "belief_statement": "Liam believes subtraction should be done before division."
+ },
+ {
+  "id": "A075",
+  "pair_id": "P037",
+  "category": "A",
+  "error_position": 3,
+  "expression": "4 + 8 ÷ 2 × 2 + (4 ÷ 2 - 1)",
+  "n_ops": 6,
+  "misconceptions": [
+   "sub_before_div"
+  ],
+  "num_misconceptions": 1,
+  "trace": [
+   "4 + 8 ÷ 2 × 2 + (4 ÷ 2 - 1)",
+   "4 + 4 × 2 + (4 ÷ 2 - 1)",
+   "4 + 8 + (4 ÷ 2 - 1)",
+   "4 + 8 + (4 ÷ 1)",
+   "12 + (4 ÷ 1)",
+   "12 + 4",
+   "16"
+  ],
+  "probed_misconception": "sub_before_div",
+  "statement_correct": true,
+  "which_target": null,
+  "student_name": "Ava",
+  "belief_statement": "Ava believes subtraction should be done before division."
+ },
+ {
+  "id": "A076",
+  "pair_id": "P038",
+  "category": "A",
+  "error_position": 1,
+  "expression": "10 ÷ 5 - 4 + (5 × 5) × 3 - 1",
+  "n_ops": 6,
+  "misconceptions": [
+   "sub_before_div"
+  ],
+  "num_misconceptions": 1,
+  "trace": [
+   "10 ÷ 5 - 4 + (5 × 5) × 3 - 1",
+   "10 ÷ 1 + (5 × 5) × 3 - 1",
+   "10 + (5 × 5) × 3 - 1",
+   "10 + 25 × 3 - 1",
+   "10 + 75 - 1",
+   "85 - 1",
+   "84"
+  ],
+  "probed_misconception": "sub_before_div",
+  "statement_correct": true,
+  "which_target": null,
+  "student_name": "Ethan",
+  "belief_statement": "Ethan believes subtraction should be done before division."
+ },
+ {
+  "id": "A077",
+  "pair_id": "P038",
+  "category": "A",
+  "error_position": 3,
+  "expression": "10 ÷ 5 - 4 + (5 × 5) × 3 - 1",
+  "n_ops": 6,
+  "misconceptions": [
+   "sub_before_div"
+  ],
+  "num_misconceptions": 1,
+  "trace": [
+   "10 ÷ 5 - 4 + (5 × 5) × 3 - 1",
+   "10 ÷ 5 - 4 + 25 × 3 - 1",
+   "10 ÷ 5 - 4 + 75 - 1",
+   "10 ÷ 1 + 75 - 1",
+   "10 + 75 - 1",
+   "85 - 1",
+   "84"
+  ],
+  "probed_misconception": "sub_before_div",
+  "statement_correct": true,
+  "which_target": null,
+  "student_name": "Zoe",
+  "belief_statement": "Zoe believes subtraction should be done before division."
+ },
+ {
+  "id": "A078",
+  "pair_id": "P039",
+  "category": "A",
+  "error_position": 1,
+  "expression": "8 × 4 × 6 ÷ 3 - 2 + 2 × 4",
+  "n_ops": 6,
+  "misconceptions": [
+   "sub_before_div"
+  ],
+  "num_misconceptions": 1,
+  "trace": [
+   "8 × 4 × 6 ÷ 3 - 2 + 2 × 4",
+   "8 × 4 × 6 ÷ 1 + 2 × 4",
+   "32 × 6 ÷ 1 + 2 × 4",
+   "192 ÷ 1 + 2 × 4",
+   "192 + 2 × 4",
+   "192 + 8",
+   "200"
+  ],
+  "probed_misconception": "sub_before_div",
+  "statement_correct": true,
+  "which_target": null,
+  "student_name": "Mia",
+  "belief_statement": "Mia believes subtraction should be done before division."
+ },
+ {
+  "id": "A079",
+  "pair_id": "P039",
+  "category": "A",
+  "error_position": 3,
+  "expression": "8 × 4 × 6 ÷ 3 - 2 + 2 × 4",
+  "n_ops": 6,
+  "misconceptions": [
+   "sub_before_div"
+  ],
+  "num_misconceptions": 1,
+  "trace": [
+   "8 × 4 × 6 ÷ 3 - 2 + 2 × 4",
+   "32 × 6 ÷ 3 - 2 + 2 × 4",
+   "192 ÷ 3 - 2 + 2 × 4",
+   "192 ÷ 1 + 2 × 4",
+   "192 + 2 × 4",
+   "192 + 8",
+   "200"
+  ],
+  "probed_misconception": "sub_before_div",
+  "statement_correct": true,
+  "which_target": null,
+  "student_name": "Lucas",
+  "belief_statement": "Lucas believes subtraction should be done before division."
+ },
+ {
+  "id": "A080",
+  "pair_id": "P040",
+  "category": "A",
+  "error_position": 1,
+  "expression": "8 × 4 × 5 × 4 ÷ 2 × 2 + 1",
+  "n_ops": 6,
+  "misconceptions": [
+   "same_priority_rtl"
+  ],
+  "num_misconceptions": 1,
+  "trace": [
+   "8 × 4 × 5 × 4 ÷ 2 × 2 + 1",
+   "8 × 4 × 5 × 4 ÷ 4 + 1",
+   "32 × 5 × 4 ÷ 4 + 1",
+   "160 × 4 ÷ 4 + 1",
+   "640 ÷ 4 + 1",
+   "160 + 1",
+   "161"
+  ],
+  "probed_misconception": "same_priority_rtl",
+  "statement_correct": true,
+  "which_target": null,
+  "student_name": "Emma",
+  "belief_statement": "Emma believes operations of the same priority should be worked right to left."
+ },
+ {
+  "id": "A081",
+  "pair_id": "P040",
+  "category": "A",
+  "error_position": 3,
+  "expression": "8 × 4 × 5 × 4 ÷ 2 × 2 + 1",
+  "n_ops": 6,
+  "misconceptions": [
+   "same_priority_rtl"
+  ],
+  "num_misconceptions": 1,
+  "trace": [
+   "8 × 4 × 5 × 4 ÷ 2 × 2 + 1",
+   "32 × 5 × 4 ÷ 2 × 2 + 1",
+   "160 × 4 ÷ 2 × 2 + 1",
+   "160 × 4 ÷ 4 + 1",
+   "640 ÷ 4 + 1",
+   "160 + 1",
+   "161"
+  ],
+  "probed_misconception": "same_priority_rtl",
+  "statement_correct": true,
+  "which_target": null,
+  "student_name": "Owen",
+  "belief_statement": "Owen believes operations of the same priority should be worked right to left."
+ },
+ {
+  "id": "A082",
+  "pair_id": "P041",
+  "category": "A",
+  "error_position": 1,
+  "expression": "2 × 6 × 2 × 4 ÷ 2 - 1 + 2",
+  "n_ops": 6,
+  "misconceptions": [
+   "same_priority_rtl"
+  ],
+  "num_misconceptions": 1,
+  "trace": [
+   "2 × 6 × 2 × 4 ÷ 2 - 1 + 2",
+   "2 × 6 × 2 × 4 ÷ 2 - 3",
+   "12 × 2 × 4 ÷ 2 - 3",
+   "24 × 4 ÷ 2 - 3",
+   "96 ÷ 2 - 3",
+   "48 - 3",
+   "45"
+  ],
+  "probed_misconception": "same_priority_rtl",
+  "statement_correct": true,
+  "which_target": null,
+  "student_name": "Sofia",
+  "belief_statement": "Sofia believes operations of the same priority should be worked right to left."
+ },
+ {
+  "id": "A083",
+  "pair_id": "P041",
+  "category": "A",
+  "error_position": 3,
+  "expression": "2 × 6 × 2 × 4 ÷ 2 - 1 + 2",
+  "n_ops": 6,
+  "misconceptions": [
+   "same_priority_rtl"
+  ],
+  "num_misconceptions": 1,
+  "trace": [
+   "2 × 6 × 2 × 4 ÷ 2 - 1 + 2",
+   "12 × 2 × 4 ÷ 2 - 1 + 2",
+   "24 × 4 ÷ 2 - 1 + 2",
+   "24 × 4 ÷ 2 - 3",
+   "96 ÷ 2 - 3",
+   "48 - 3",
+   "45"
+  ],
+  "probed_misconception": "same_priority_rtl",
+  "statement_correct": true,
+  "which_target": null,
+  "student_name": "Caleb",
+  "belief_statement": "Caleb believes operations of the same priority should be worked right to left."
+ },
+ {
+  "id": "A084",
+  "pair_id": "P042",
+  "category": "A",
+  "error_position": 1,
+  "expression": "6 × (6 - 4 ÷ 2) × 4 ÷ 2 × 2",
+  "n_ops": 6,
+  "misconceptions": [
+   "same_priority_rtl"
+  ],
+  "num_misconceptions": 1,
+  "trace": [
+   "6 × (6 - 4 ÷ 2) × 4 ÷ 2 × 2",
+   "6 × (6 - 4 ÷ 2) × 4 ÷ 4",
+   "6 × (6 - 4 ÷ 2) × 1",
+   "6 × (6 - 2) × 1",
+   "6 × 4 × 1",
+   "24 × 1",
+   "24"
+  ],
+  "probed_misconception": "same_priority_rtl",
+  "statement_correct": true,
+  "which_target": null,
+  "student_name": "Ruby",
+  "belief_statement": "Ruby believes operations of the same priority should be worked right to left."
+ },
+ {
+  "id": "A085",
+  "pair_id": "P042",
+  "category": "A",
+  "error_position": 3,
+  "expression": "6 × (6 - 4 ÷ 2) × 4 ÷ 2 × 2",
+  "n_ops": 6,
+  "misconceptions": [
+   "same_priority_rtl"
+  ],
+  "num_misconceptions": 1,
+  "trace": [
+   "6 × (6 - 4 ÷ 2) × 4 ÷ 2 × 2",
+   "6 × (6 - 2) × 4 ÷ 2 × 2",
+   "6 × 4 × 4 ÷ 2 × 2",
+   "6 × 4 × 4 ÷ 4",
+   "24 × 4 ÷ 4",
+   "96 ÷ 4",
+   "24"
+  ],
+  "probed_misconception": "same_priority_rtl",
+  "statement_correct": true,
+  "which_target": null,
+  "student_name": "Jonah",
+  "belief_statement": "Jonah believes operations of the same priority should be worked right to left."
+ },
+ {
+  "id": "A086",
+  "pair_id": "P043",
+  "category": "A",
+  "error_position": 1,
+  "expression": "5 + 11 + 11 - 10 + 11 - (9 ÷ 3)",
+  "n_ops": 6,
+  "misconceptions": [
+   "same_priority_rtl"
+  ],
+  "num_misconceptions": 1,
+  "trace": [
+   "5 + 11 + 11 - 10 + 11 - (9 ÷ 3)",
+   "5 + 11 + 11 - 21 - (9 ÷ 3)",
+   "16 + 11 - 21 - (9 ÷ 3)",
+   "27 - 21 - (9 ÷ 3)",
+   "6 - (9 ÷ 3)",
+   "6 - 3",
+   "3"
+  ],
+  "probed_misconception": "same_priority_rtl",
+  "statement_correct": true,
+  "which_target": null,
+  "student_name": "Isla",
+  "belief_statement": "Isla believes operations of the same priority should be worked right to left."
+ },
+ {
+  "id": "A087",
+  "pair_id": "P043",
+  "category": "A",
+  "error_position": 3,
+  "expression": "5 + 11 + 11 - 10 + 11 - (9 ÷ 3)",
+  "n_ops": 6,
+  "misconceptions": [
+   "same_priority_rtl"
+  ],
+  "num_misconceptions": 1,
+  "trace": [
+   "5 + 11 + 11 - 10 + 11 - (9 ÷ 3)",
+   "16 + 11 - 10 + 11 - (9 ÷ 3)",
+   "27 - 10 + 11 - (9 ÷ 3)",
+   "27 - 21 - (9 ÷ 3)",
+   "6 - (9 ÷ 3)",
+   "6 - 3",
+   "3"
+  ],
+  "probed_misconception": "same_priority_rtl",
+  "statement_correct": true,
+  "which_target": null,
+  "student_name": "Felix",
+  "belief_statement": "Felix believes operations of the same priority should be worked right to left."
+ },
+ {
+  "id": "A088",
+  "pair_id": "P044",
+  "category": "A",
+  "error_position": 1,
+  "expression": "6 ÷ 3 × (4 + 10) + 8 ÷ 4 ÷ 2",
+  "n_ops": 6,
+  "misconceptions": [
+   "same_priority_rtl"
+  ],
+  "num_misconceptions": 1,
+  "trace": [
+   "6 ÷ 3 × (4 + 10) + 8 ÷ 4 ÷ 2",
+   "6 ÷ 3 × (4 + 10) + 8 ÷ 2",
+   "2 × (4 + 10) + 8 ÷ 2",
+   "2 × (4 + 10) + 4",
+   "2 × 14 + 4",
+   "28 + 4",
+   "32"
+  ],
+  "probed_misconception": "same_priority_rtl",
+  "statement_correct": true,
+  "which_target": null,
+  "student_name": "Nora",
+  "belief_statement": "Nora believes operations of the same priority should be worked right to left."
+ },
+ {
+  "id": "A089",
+  "pair_id": "P044",
+  "category": "A",
+  "error_position": 3,
+  "expression": "6 ÷ 3 × (4 + 10) + 8 ÷ 4 ÷ 2",
+  "n_ops": 6,
+  "misconceptions": [
+   "same_priority_rtl"
+  ],
+  "num_misconceptions": 1,
+  "trace": [
+   "6 ÷ 3 × (4 + 10) + 8 ÷ 4 ÷ 2",
+   "2 × (4 + 10) + 8 ÷ 4 ÷ 2",
+   "2 × 14 + 8 ÷ 4 ÷ 2",
+   "2 × 14 + 8 ÷ 2",
+   "28 + 8 ÷ 2",
+   "28 + 4",
+   "32"
+  ],
+  "probed_misconception": "same_priority_rtl",
+  "statement_correct": true,
+  "which_target": null,
+  "student_name": "Dylan",
+  "belief_statement": "Dylan believes operations of the same priority should be worked right to left."
+ },
+ {
+  "id": "A090",
+  "pair_id": "P045",
+  "category": "A",
+  "error_position": 1,
+  "expression": "12 ÷ 6 ÷ 2 + (8 ÷ 4) × 5 + 7",
+  "n_ops": 6,
+  "misconceptions": [
+   "same_priority_rtl"
+  ],
+  "num_misconceptions": 1,
+  "trace": [
+   "12 ÷ 6 ÷ 2 + (8 ÷ 4) × 5 + 7",
+   "12 ÷ 3 + (8 ÷ 4) × 5 + 7",
+   "4 + (8 ÷ 4) × 5 + 7",
+   "4 + 2 × 5 + 7",
+   "4 + 10 + 7",
+   "14 + 7",
+   "21"
+  ],
+  "probed_misconception": "same_priority_rtl",
+  "statement_correct": true,
+  "which_target": null,
+  "student_name": "Priya",
+  "belief_statement": "Priya believes operations of the same priority should be worked right to left."
+ },
+ {
+  "id": "A091",
+  "pair_id": "P045",
+  "category": "A",
+  "error_position": 3,
+  "expression": "12 ÷ 6 ÷ 2 + (8 ÷ 4) × 5 + 7",
+  "n_ops": 6,
+  "misconceptions": [
+   "same_priority_rtl"
+  ],
+  "num_misconceptions": 1,
+  "trace": [
+   "12 ÷ 6 ÷ 2 + (8 ÷ 4) × 5 + 7",
+   "12 ÷ 6 ÷ 2 + 2 × 5 + 7",
+   "12 ÷ 6 ÷ 2 + 10 + 7",
+   "12 ÷ 3 + 10 + 7",
+   "4 + 10 + 7",
+   "14 + 7",
+   "21"
+  ],
+  "probed_misconception": "same_priority_rtl",
+  "statement_correct": true,
+  "which_target": null,
+  "student_name": "Marcus",
+  "belief_statement": "Marcus believes operations of the same priority should be worked right to left."
+ },
+ {
+  "id": "A092",
+  "pair_id": "P046",
+  "category": "A",
+  "error_position": 1,
+  "expression": "3 × 2 × 6 ÷ 3 + 8 - 1 + 12",
+  "n_ops": 6,
+  "misconceptions": [
+   "same_priority_rtl"
+  ],
+  "num_misconceptions": 1,
+  "trace": [
+   "3 × 2 × 6 ÷ 3 + 8 - 1 + 12",
+   "3 × 2 × 6 ÷ 3 + 8 - 13",
+   "6 × 6 ÷ 3 + 8 - 13",
+   "36 ÷ 3 + 8 - 13",
+   "12 + 8 - 13",
+   "20 - 13",
+   "7"
+  ],
+  "probed_misconception": "same_priority_rtl",
+  "statement_correct": true,
+  "which_target": null,
+  "student_name": "Elena",
+  "belief_statement": "Elena believes operations of the same priority should be worked right to left."
+ },
+ {
+  "id": "A093",
+  "pair_id": "P046",
+  "category": "A",
+  "error_position": 3,
+  "expression": "3 × 2 × 6 ÷ 3 + 8 - 1 + 12",
+  "n_ops": 6,
+  "misconceptions": [
+   "same_priority_rtl"
+  ],
+  "num_misconceptions": 1,
+  "trace": [
+   "3 × 2 × 6 ÷ 3 + 8 - 1 + 12",
+   "6 × 6 ÷ 3 + 8 - 1 + 12",
+   "36 ÷ 3 + 8 - 1 + 12",
+   "36 ÷ 3 + 8 - 13",
+   "12 + 8 - 13",
+   "20 - 13",
+   "7"
+  ],
+  "probed_misconception": "same_priority_rtl",
+  "statement_correct": true,
+  "which_target": null,
+  "student_name": "Theo",
+  "belief_statement": "Theo believes operations of the same priority should be worked right to left."
+ },
+ {
+  "id": "A094",
+  "pair_id": "P047",
+  "category": "A",
+  "error_position": 1,
+  "expression": "6 + (4 × 2) × 6 × 4 - 2 + 11",
+  "n_ops": 6,
+  "misconceptions": [
+   "same_priority_rtl"
+  ],
+  "num_misconceptions": 1,
+  "trace": [
+   "6 + (4 × 2) × 6 × 4 - 2 + 11",
+   "6 + (4 × 2) × 6 × 4 - 13",
+   "6 + (4 × 2) × 24 - 13",
+   "6 + 8 × 24 - 13",
+   "6 + 192 - 13",
+   "198 - 13",
+   "185"
+  ],
+  "probed_misconception": "same_priority_rtl",
+  "statement_correct": true,
+  "which_target": null,
+  "student_name": "Jasmine",
+  "belief_statement": "Jasmine believes operations of the same priority should be worked right to left."
+ },
+ {
+  "id": "A095",
+  "pair_id": "P047",
+  "category": "A",
+  "error_position": 3,
+  "expression": "6 + (4 × 2) × 6 × 4 - 2 + 11",
+  "n_ops": 6,
+  "misconceptions": [
+   "same_priority_rtl"
+  ],
+  "num_misconceptions": 1,
+  "trace": [
+   "6 + (4 × 2) × 6 × 4 - 2 + 11",
+   "6 + (4 × 2) × 24 - 2 + 11",
+   "6 + 8 × 24 - 2 + 11",
+   "6 + 8 × 24 - 13",
+   "6 + 192 - 13",
+   "198 - 13",
+   "185"
+  ],
+  "probed_misconception": "same_priority_rtl",
+  "statement_correct": true,
+  "which_target": null,
+  "student_name": "Omar",
+  "belief_statement": "Omar believes operations of the same priority should be worked right to left."
+ },
+ {
+  "id": "A096",
+  "pair_id": "P048",
+  "category": "A",
+  "error_position": 1,
+  "expression": "6 × (6 ÷ 2 - 1) + 10 - 8 + 9",
+  "n_ops": 6,
+  "misconceptions": [
+   "same_priority_rtl"
+  ],
+  "num_misconceptions": 1,
+  "trace": [
+   "6 × (6 ÷ 2 - 1) + 10 - 8 + 9",
+   "6 × (6 ÷ 2 - 1) + 10 - 17",
+   "6 × (3 - 1) + 10 - 17",
+   "6 × 2 + 10 - 17",
+   "12 + 10 - 17",
+   "22 - 17",
+   "5"
+  ],
+  "probed_misconception": "same_priority_rtl",
+  "statement_correct": true,
+  "which_target": null,
+  "student_name": "Noah",
+  "belief_statement": "Noah believes operations of the same priority should be worked right to left."
+ },
+ {
+  "id": "A097",
+  "pair_id": "P048",
+  "category": "A",
+  "error_position": 3,
+  "expression": "6 × (6 ÷ 2 - 1) + 10 - 8 + 9",
+  "n_ops": 6,
+  "misconceptions": [
+   "same_priority_rtl"
+  ],
+  "num_misconceptions": 1,
+  "trace": [
+   "6 × (6 ÷ 2 - 1) + 10 - 8 + 9",
+   "6 × (3 - 1) + 10 - 8 + 9",
+   "6 × 2 + 10 - 8 + 9",
+   "6 × 2 + 10 - 17",
+   "12 + 10 - 17",
+   "22 - 17",
+   "5"
+  ],
+  "probed_misconception": "same_priority_rtl",
+  "statement_correct": true,
+  "which_target": null,
+  "student_name": "Maya",
+  "belief_statement": "Maya believes operations of the same priority should be worked right to left."
+ },
+ {
+  "id": "A098",
+  "pair_id": "P049",
+  "category": "A",
+  "error_position": 1,
+  "expression": "8 + 12 + 2 × 5 × 6 - 2 - 1",
+  "n_ops": 6,
+  "misconceptions": [
+   "same_priority_rtl"
+  ],
+  "num_misconceptions": 1,
+  "trace": [
+   "8 + 12 + 2 × 5 × 6 - 2 - 1",
+   "8 + 12 + 2 × 5 × 6 - 1",
+   "20 + 2 × 5 × 6 - 1",
+   "20 + 10 × 6 - 1",
+   "20 + 60 - 1",
+   "80 - 1",
+   "79"
+  ],
+  "probed_misconception": "same_priority_rtl",
+  "statement_correct": true,
+  "which_target": null,
+  "student_name": "Liam",
+  "belief_statement": "Liam believes operations of the same priority should be worked right to left."
+ },
+ {
+  "id": "A099",
+  "pair_id": "P049",
+  "category": "A",
+  "error_position": 3,
+  "expression": "8 + 12 + 2 × 5 × 6 - 2 - 1",
+  "n_ops": 6,
+  "misconceptions": [
+   "same_priority_rtl"
+  ],
+  "num_misconceptions": 1,
+  "trace": [
+   "8 + 12 + 2 × 5 × 6 - 2 - 1",
+   "20 + 2 × 5 × 6 - 2 - 1",
+   "20 + 10 × 6 - 2 - 1",
+   "20 + 10 × 6 - 1",
+   "20 + 60 - 1",
+   "80 - 1",
+   "79"
+  ],
+  "probed_misconception": "same_priority_rtl",
+  "statement_correct": true,
+  "which_target": null,
+  "student_name": "Ava",
+  "belief_statement": "Ava believes operations of the same priority should be worked right to left."
+ },
+ {
+  "id": "A100",
+  "pair_id": "P050",
+  "category": "A",
+  "error_position": 1,
+  "expression": "4 + 8 ÷ (4 - 1) + 9 × 4 × 5",
+  "n_ops": 6,
+  "misconceptions": [
+   "outside_bracket_first"
+  ],
+  "num_misconceptions": 1,
+  "trace": [
+   "4 + 8 ÷ (4 - 1) + 9 × 4 × 5",
+   "12 ÷ (4 - 1) + 9 × 4 × 5",
+   "12 ÷ (4 - 1) + 36 × 5",
+   "12 ÷ (4 - 1) + 180",
+   "12 ÷ 3 + 180",
+   "4 + 180",
+   "184"
+  ],
+  "probed_misconception": "outside_bracket_first",
+  "statement_correct": true,
+  "which_target": null,
+  "student_name": "Ethan",
+  "belief_statement": "Ethan believes you should calculate outside the brackets before what's inside them."
+ },
+ {
+  "id": "A101",
+  "pair_id": "P050",
+  "category": "A",
+  "error_position": 3,
+  "expression": "4 + 8 ÷ (4 - 1) + 9 × 4 × 5",
+  "n_ops": 6,
+  "misconceptions": [
+   "outside_bracket_first"
+  ],
+  "num_misconceptions": 1,
+  "trace": [
+   "4 + 8 ÷ (4 - 1) + 9 × 4 × 5",
+   "4 + 8 ÷ (4 - 1) + 36 × 5",
+   "4 + 8 ÷ (4 - 1) + 180",
+   "12 ÷ (4 - 1) + 180",
+   "12 ÷ 3 + 180",
+   "4 + 180",
+   "184"
+  ],
+  "probed_misconception": "outside_bracket_first",
+  "statement_correct": true,
+  "which_target": null,
+  "student_name": "Zoe",
+  "belief_statement": "Zoe believes you should calculate outside the brackets before what's inside them."
+ },
+ {
+  "id": "A102",
+  "pair_id": "P051",
+  "category": "A",
+  "error_position": 1,
+  "expression": "11 - 8 ÷ (2 - 1) × 3 × 4 ÷ 2",
+  "n_ops": 6,
+  "misconceptions": [
+   "outside_bracket_first"
+  ],
+  "num_misconceptions": 1,
+  "trace": [
+   "11 - 8 ÷ (2 - 1) × 3 × 4 ÷ 2",
+   "3 ÷ (2 - 1) × 3 × 4 ÷ 2",
+   "3 ÷ (2 - 1) × 12 ÷ 2",
+   "3 ÷ (2 - 1) × 6",
+   "3 ÷ 1 × 6",
+   "3 × 6",
+   "18"
+  ],
+  "probed_misconception": "outside_bracket_first",
+  "statement_correct": true,
+  "which_target": null,
+  "student_name": "Mia",
+  "belief_statement": "Mia believes you should calculate outside the brackets before what's inside them."
+ },
+ {
+  "id": "A103",
+  "pair_id": "P051",
+  "category": "A",
+  "error_position": 3,
+  "expression": "11 - 8 ÷ (2 - 1) × 3 × 4 ÷ 2",
+  "n_ops": 6,
+  "misconceptions": [
+   "outside_bracket_first"
+  ],
+  "num_misconceptions": 1,
+  "trace": [
+   "11 - 8 ÷ (2 - 1) × 3 × 4 ÷ 2",
+   "11 - 8 ÷ (2 - 1) × 12 ÷ 2",
+   "11 - 8 ÷ (2 - 1) × 6",
+   "3 ÷ (2 - 1) × 6",
+   "3 ÷ 1 × 6",
+   "3 × 6",
+   "18"
+  ],
+  "probed_misconception": "outside_bracket_first",
+  "statement_correct": true,
+  "which_target": null,
+  "student_name": "Lucas",
+  "belief_statement": "Lucas believes you should calculate outside the brackets before what's inside them."
+ },
+ {
+  "id": "A104",
+  "pair_id": "P052",
+  "category": "A",
+  "error_position": 1,
+  "expression": "8 ÷ 2 × 4 + (3 × 5) × 6 + 3",
+  "n_ops": 6,
+  "misconceptions": [
+   "outside_bracket_first"
+  ],
+  "num_misconceptions": 1,
+  "trace": [
+   "8 ÷ 2 × 4 + (3 × 5) × 6 + 3",
+   "8 ÷ 2 × 4 + (3 × 5) × 9",
+   "4 × 4 + (3 × 5) × 9",
+   "16 + (3 × 5) × 9",
+   "16 + 15 × 9",
+   "16 + 135",
+   "151"
+  ],
+  "probed_misconception": "outside_bracket_first",
+  "statement_correct": true,
+  "which_target": null,
+  "student_name": "Emma",
+  "belief_statement": "Emma believes you should calculate outside the brackets before what's inside them."
+ },
+ {
+  "id": "A105",
+  "pair_id": "P052",
+  "category": "A",
+  "error_position": 3,
+  "expression": "8 ÷ 2 × 4 + (3 × 5) × 6 + 3",
+  "n_ops": 6,
+  "misconceptions": [
+   "outside_bracket_first"
+  ],
+  "num_misconceptions": 1,
+  "trace": [
+   "8 ÷ 2 × 4 + (3 × 5) × 6 + 3",
+   "4 × 4 + (3 × 5) × 6 + 3",
+   "16 + (3 × 5) × 6 + 3",
+   "16 + (3 × 5) × 9",
+   "16 + 15 × 9",
+   "16 + 135",
+   "151"
+  ],
+  "probed_misconception": "outside_bracket_first",
+  "statement_correct": true,
+  "which_target": null,
+  "student_name": "Owen",
+  "belief_statement": "Owen believes you should calculate outside the brackets before what's inside them."
+ },
+ {
+  "id": "A106",
+  "pair_id": "P053",
+  "category": "A",
+  "error_position": 1,
+  "expression": "6 + 5 - 4 - (3 + 12) ÷ 4 - 1",
+  "n_ops": 6,
+  "misconceptions": [
+   "outside_bracket_first"
+  ],
+  "num_misconceptions": 1,
+  "trace": [
+   "6 + 5 - 4 - (3 + 12) ÷ 4 - 1",
+   "6 + 5 - 4 - (3 + 12) ÷ 3",
+   "11 - 4 - (3 + 12) ÷ 3",
+   "7 - (3 + 12) ÷ 3",
+   "7 - 15 ÷ 3",
+   "7 - 5",
+   "2"
+  ],
+  "probed_misconception": "outside_bracket_first",
+  "statement_correct": true,
+  "which_target": null,
+  "student_name": "Sofia",
+  "belief_statement": "Sofia believes you should calculate outside the brackets before what's inside them."
+ },
+ {
+  "id": "A107",
+  "pair_id": "P053",
+  "category": "A",
+  "error_position": 3,
+  "expression": "6 + 5 - 4 - (3 + 12) ÷ 4 - 1",
+  "n_ops": 6,
+  "misconceptions": [
+   "outside_bracket_first"
+  ],
+  "num_misconceptions": 1,
+  "trace": [
+   "6 + 5 - 4 - (3 + 12) ÷ 4 - 1",
+   "11 - 4 - (3 + 12) ÷ 4 - 1",
+   "7 - (3 + 12) ÷ 4 - 1",
+   "7 - (3 + 12) ÷ 3",
+   "7 - 15 ÷ 3",
+   "7 - 5",
+   "2"
+  ],
+  "probed_misconception": "outside_bracket_first",
+  "statement_correct": true,
+  "which_target": null,
+  "student_name": "Caleb",
+  "belief_statement": "Caleb believes you should calculate outside the brackets before what's inside them."
+ },
+ {
+  "id": "A108",
+  "pair_id": "P054",
+  "category": "A",
+  "error_position": 1,
+  "expression": "7 + 8 × (5 - 1) + 4 × 2 - 1",
+  "n_ops": 6,
+  "misconceptions": [
+   "outside_bracket_first"
+  ],
+  "num_misconceptions": 1,
+  "trace": [
+   "7 + 8 × (5 - 1) + 4 × 2 - 1",
+   "15 × (5 - 1) + 4 × 2 - 1",
+   "15 × (5 - 1) + 8 - 1",
+   "15 × (5 - 1) + 7",
+   "15 × 4 + 7",
+   "60 + 7",
+   "67"
+  ],
+  "probed_misconception": "outside_bracket_first",
+  "statement_correct": true,
+  "which_target": null,
+  "student_name": "Ruby",
+  "belief_statement": "Ruby believes you should calculate outside the brackets before what's inside them."
+ },
+ {
+  "id": "A109",
+  "pair_id": "P054",
+  "category": "A",
+  "error_position": 3,
+  "expression": "7 + 8 × (5 - 1) + 4 × 2 - 1",
+  "n_ops": 6,
+  "misconceptions": [
+   "outside_bracket_first"
+  ],
+  "num_misconceptions": 1,
+  "trace": [
+   "7 + 8 × (5 - 1) + 4 × 2 - 1",
+   "7 + 8 × (5 - 1) + 8 - 1",
+   "7 + 8 × (5 - 1) + 7",
+   "15 × (5 - 1) + 7",
+   "15 × 4 + 7",
+   "60 + 7",
+   "67"
+  ],
+  "probed_misconception": "outside_bracket_first",
+  "statement_correct": true,
+  "which_target": null,
+  "student_name": "Jonah",
+  "belief_statement": "Jonah believes you should calculate outside the brackets before what's inside them."
+ },
+ {
+  "id": "A110",
+  "pair_id": "P055",
+  "category": "A",
+  "error_position": 1,
+  "expression": "11 - 5 + 5 + (11 - 4) ÷ 2 - 1",
+  "n_ops": 6,
+  "misconceptions": [
+   "outside_bracket_first"
+  ],
+  "num_misconceptions": 1,
+  "trace": [
+   "11 - 5 + 5 + (11 - 4) ÷ 2 - 1",
+   "11 - 5 + 5 + (11 - 4) ÷ 1",
+   "6 + 5 + (11 - 4) ÷ 1",
+   "11 + (11 - 4) ÷ 1",
+   "11 + 7 ÷ 1",
+   "11 + 7",
+   "18"
+  ],
+  "probed_misconception": "outside_bracket_first",
+  "statement_correct": true,
+  "which_target": null,
+  "student_name": "Isla",
+  "belief_statement": "Isla believes you should calculate outside the brackets before what's inside them."
+ },
+ {
+  "id": "A111",
+  "pair_id": "P055",
+  "category": "A",
+  "error_position": 3,
+  "expression": "11 - 5 + 5 + (11 - 4) ÷ 2 - 1",
+  "n_ops": 6,
+  "misconceptions": [
+   "outside_bracket_first"
+  ],
+  "num_misconceptions": 1,
+  "trace": [
+   "11 - 5 + 5 + (11 - 4) ÷ 2 - 1",
+   "6 + 5 + (11 - 4) ÷ 2 - 1",
+   "11 + (11 - 4) ÷ 2 - 1",
+   "11 + (11 - 4) ÷ 1",
+   "11 + 7 ÷ 1",
+   "11 + 7",
+   "18"
+  ],
+  "probed_misconception": "outside_bracket_first",
+  "statement_correct": true,
+  "which_target": null,
+  "student_name": "Felix",
+  "belief_statement": "Felix believes you should calculate outside the brackets before what's inside them."
+ },
+ {
+  "id": "A112",
+  "pair_id": "P056",
+  "category": "A",
+  "error_position": 1,
+  "expression": "4 + 9 × (3 × 3) × 2 × 4 ÷ 2",
+  "n_ops": 6,
+  "misconceptions": [
+   "outside_bracket_first"
+  ],
+  "num_misconceptions": 1,
+  "trace": [
+   "4 + 9 × (3 × 3) × 2 × 4 ÷ 2",
+   "13 × (3 × 3) × 2 × 4 ÷ 2",
+   "13 × (3 × 3) × 8 ÷ 2",
+   "13 × (3 × 3) × 4",
+   "13 × 9 × 4",
+   "117 × 4",
+   "468"
+  ],
+  "probed_misconception": "outside_bracket_first",
+  "statement_correct": true,
+  "which_target": null,
+  "student_name": "Nora",
+  "belief_statement": "Nora believes you should calculate outside the brackets before what's inside them."
+ },
+ {
+  "id": "A113",
+  "pair_id": "P056",
+  "category": "A",
+  "error_position": 3,
+  "expression": "4 + 9 × (3 × 3) × 2 × 4 ÷ 2",
+  "n_ops": 6,
+  "misconceptions": [
+   "outside_bracket_first"
+  ],
+  "num_misconceptions": 1,
+  "trace": [
+   "4 + 9 × (3 × 3) × 2 × 4 ÷ 2",
+   "4 + 9 × (3 × 3) × 8 ÷ 2",
+   "4 + 9 × (3 × 3) × 4",
+   "13 × (3 × 3) × 4",
+   "13 × 9 × 4",
+   "117 × 4",
+   "468"
+  ],
+  "probed_misconception": "outside_bracket_first",
+  "statement_correct": true,
+  "which_target": null,
+  "student_name": "Dylan",
+  "belief_statement": "Dylan believes you should calculate outside the brackets before what's inside them."
+ },
+ {
+  "id": "A114",
+  "pair_id": "P057",
+  "category": "A",
+  "error_position": 1,
+  "expression": "4 ÷ 2 + 8 + (9 - 7) × 6 - 3",
+  "n_ops": 6,
+  "misconceptions": [
+   "outside_bracket_first"
+  ],
+  "num_misconceptions": 1,
+  "trace": [
+   "4 ÷ 2 + 8 + (9 - 7) × 6 - 3",
+   "4 ÷ 2 + 8 + (9 - 7) × 3",
+   "2 + 8 + (9 - 7) × 3",
+   "10 + (9 - 7) × 3",
+   "10 + 2 × 3",
+   "10 + 6",
+   "16"
+  ],
+  "probed_misconception": "outside_bracket_first",
+  "statement_correct": true,
+  "which_target": null,
+  "student_name": "Priya",
+  "belief_statement": "Priya believes you should calculate outside the brackets before what's inside them."
+ },
+ {
+  "id": "A115",
+  "pair_id": "P057",
+  "category": "A",
+  "error_position": 3,
+  "expression": "4 ÷ 2 + 8 + (9 - 7) × 6 - 3",
+  "n_ops": 6,
+  "misconceptions": [
+   "outside_bracket_first"
+  ],
+  "num_misconceptions": 1,
+  "trace": [
+   "4 ÷ 2 + 8 + (9 - 7) × 6 - 3",
+   "2 + 8 + (9 - 7) × 6 - 3",
+   "10 + (9 - 7) × 6 - 3",
+   "10 + (9 - 7) × 3",
+   "10 + 2 × 3",
+   "10 + 6",
+   "16"
+  ],
+  "probed_misconception": "outside_bracket_first",
+  "statement_correct": true,
+  "which_target": null,
+  "student_name": "Marcus",
+  "belief_statement": "Marcus believes you should calculate outside the brackets before what's inside them."
+ },
+ {
+  "id": "A116",
+  "pair_id": "P058",
+  "category": "A",
+  "error_position": 1,
+  "expression": "5 - 4 × (2 + 11) + 6 × 5 × 6",
+  "n_ops": 6,
+  "misconceptions": [
+   "outside_bracket_first"
+  ],
+  "num_misconceptions": 1,
+  "trace": [
+   "5 - 4 × (2 + 11) + 6 × 5 × 6",
+   "1 × (2 + 11) + 6 × 5 × 6",
+   "1 × (2 + 11) + 30 × 6",
+   "1 × (2 + 11) + 180",
+   "1 × 13 + 180",
+   "13 + 180",
+   "193"
+  ],
+  "probed_misconception": "outside_bracket_first",
+  "statement_correct": true,
+  "which_target": null,
+  "student_name": "Elena",
+  "belief_statement": "Elena believes you should calculate outside the brackets before what's inside them."
+ },
+ {
+  "id": "A117",
+  "pair_id": "P058",
+  "category": "A",
+  "error_position": 3,
+  "expression": "5 - 4 × (2 + 11) + 6 × 5 × 6",
+  "n_ops": 6,
+  "misconceptions": [
+   "outside_bracket_first"
+  ],
+  "num_misconceptions": 1,
+  "trace": [
+   "5 - 4 × (2 + 11) + 6 × 5 × 6",
+   "5 - 4 × (2 + 11) + 30 × 6",
+   "5 - 4 × (2 + 11) + 180",
+   "1 × (2 + 11) + 180",
+   "1 × 13 + 180",
+   "13 + 180",
+   "193"
+  ],
+  "probed_misconception": "outside_bracket_first",
+  "statement_correct": true,
+  "which_target": null,
+  "student_name": "Theo",
+  "belief_statement": "Theo believes you should calculate outside the brackets before what's inside them."
+ },
+ {
+  "id": "A118",
+  "pair_id": "P059",
+  "category": "A",
+  "error_position": 1,
+  "expression": "5 + 4 × (6 + 5) + 11 × 4 - 2",
+  "n_ops": 6,
+  "misconceptions": [
+   "outside_bracket_first"
+  ],
+  "num_misconceptions": 1,
+  "trace": [
+   "5 + 4 × (6 + 5) + 11 × 4 - 2",
+   "9 × (6 + 5) + 11 × 4 - 2",
+   "9 × (6 + 5) + 44 - 2",
+   "9 × (6 + 5) + 42",
+   "9 × 11 + 42",
+   "99 + 42",
+   "141"
+  ],
+  "probed_misconception": "outside_bracket_first",
+  "statement_correct": true,
+  "which_target": null,
+  "student_name": "Jasmine",
+  "belief_statement": "Jasmine believes you should calculate outside the brackets before what's inside them."
+ },
+ {
+  "id": "A119",
+  "pair_id": "P059",
+  "category": "A",
+  "error_position": 3,
+  "expression": "5 + 4 × (6 + 5) + 11 × 4 - 2",
+  "n_ops": 6,
+  "misconceptions": [
+   "outside_bracket_first"
+  ],
+  "num_misconceptions": 1,
+  "trace": [
+   "5 + 4 × (6 + 5) + 11 × 4 - 2",
+   "5 + 4 × (6 + 5) + 44 - 2",
+   "5 + 4 × (6 + 5) + 42",
+   "9 × (6 + 5) + 42",
+   "9 × 11 + 42",
+   "99 + 42",
+   "141"
+  ],
+  "probed_misconception": "outside_bracket_first",
+  "statement_correct": true,
+  "which_target": null,
+  "student_name": "Omar",
+  "belief_statement": "Omar believes you should calculate outside the brackets before what's inside them."
+ },
+ {
+  "id": "B120",
+  "pair_id": "P060",
+  "category": "B",
+  "error_position": 1,
+  "expression": "9 ÷ 3 × 5 - 3 × 2 × 4 ÷ 2",
+  "n_ops": 6,
+  "misconceptions": [
+   "sub_before_mul"
+  ],
+  "num_misconceptions": 1,
+  "trace": [
+   "9 ÷ 3 × 5 - 3 × 2 × 4 ÷ 2",
+   "9 ÷ 3 × 2 × 2 × 4 ÷ 2",
+   "3 × 2 × 2 × 4 ÷ 2",
+   "6 × 2 × 4 ÷ 2",
+   "12 × 4 ÷ 2",
+   "48 ÷ 2",
+   "24"
+  ],
+  "probed_misconception": "add_before_mul",
+  "statement_correct": false,
+  "which_target": null,
+  "student_name": "Noah",
+  "belief_statement": "Noah believes addition should be done before multiplication.",
+  "foil_status": "unsupported",
+  "io_foil_marginal": 0.2
+ },
+ {
+  "id": "B121",
+  "pair_id": "P060",
+  "category": "B",
+  "error_position": 3,
+  "expression": "9 ÷ 3 × 5 - 3 × 2 × 4 ÷ 2",
+  "n_ops": 6,
+  "misconceptions": [
+   "sub_before_mul"
+  ],
+  "num_misconceptions": 1,
+  "trace": [
+   "9 ÷ 3 × 5 - 3 × 2 × 4 ÷ 2",
+   "3 × 5 - 3 × 2 × 4 ÷ 2",
+   "3 × 5 - 3 × 8 ÷ 2",
+   "3 × 2 × 8 ÷ 2",
+   "6 × 8 ÷ 2",
+   "48 ÷ 2",
+   "24"
+  ],
+  "probed_misconception": "add_before_mul",
+  "statement_correct": false,
+  "which_target": null,
+  "student_name": "Maya",
+  "belief_statement": "Maya believes addition should be done before multiplication.",
+  "foil_status": "unsupported",
+  "io_foil_marginal": 0.2
+ },
+ {
+  "id": "B122",
+  "pair_id": "P061",
+  "category": "B",
+  "error_position": 1,
+  "expression": "4 - 1 × 4 × 4 ÷ 2 × (3 - 1)",
+  "n_ops": 6,
+  "misconceptions": [
+   "sub_before_mul"
+  ],
+  "num_misconceptions": 1,
+  "trace": [
+   "4 - 1 × 4 × 4 ÷ 2 × (3 - 1)",
+   "3 × 4 × 4 ÷ 2 × (3 - 1)",
+   "12 × 4 ÷ 2 × (3 - 1)",
+   "48 ÷ 2 × (3 - 1)",
+   "24 × (3 - 1)",
+   "24 × 2",
+   "48"
+  ],
+  "probed_misconception": "add_before_mul",
+  "statement_correct": false,
+  "which_target": null,
+  "student_name": "Liam",
+  "belief_statement": "Liam believes addition should be done before multiplication.",
+  "foil_status": "refuted",
+  "io_foil_marginal": 0.0968
+ },
+ {
+  "id": "B123",
+  "pair_id": "P061",
+  "category": "B",
+  "error_position": 3,
+  "expression": "4 - 1 × 4 × 4 ÷ 2 × (3 - 1)",
+  "n_ops": 6,
+  "misconceptions": [
+   "sub_before_mul"
+  ],
+  "num_misconceptions": 1,
+  "trace": [
+   "4 - 1 × 4 × 4 ÷ 2 × (3 - 1)",
+   "4 - 1 × 16 ÷ 2 × (3 - 1)",
+   "4 - 1 × 8 × (3 - 1)",
+   "3 × 8 × (3 - 1)",
+   "24 × (3 - 1)",
+   "24 × 2",
+   "48"
+  ],
+  "probed_misconception": "add_before_mul",
+  "statement_correct": false,
+  "which_target": null,
+  "student_name": "Ava",
+  "belief_statement": "Ava believes addition should be done before multiplication.",
+  "foil_status": "refuted",
+  "io_foil_marginal": 0.0769
+ },
+ {
+  "id": "B124",
+  "pair_id": "P062",
+  "category": "B",
+  "error_position": 1,
+  "expression": "7 + 12 - 9 ÷ 3 + 8 × 6 - 5",
+  "n_ops": 6,
+  "misconceptions": [
+   "sub_before_div"
+  ],
+  "num_misconceptions": 1,
+  "trace": [
+   "7 + 12 - 9 ÷ 3 + 8 × 6 - 5",
+   "7 + 3 ÷ 3 + 8 × 6 - 5",
+   "7 + 1 + 8 × 6 - 5",
+   "8 + 8 × 6 - 5",
+   "8 + 48 - 5",
+   "56 - 5",
+   "51"
+  ],
+  "probed_misconception": "add_before_mul",
+  "statement_correct": false,
+  "which_target": null,
+  "student_name": "Ethan",
+  "belief_statement": "Ethan believes addition should be done before multiplication.",
+  "foil_status": "refuted",
+  "io_foil_marginal": 0.0
+ },
+ {
+  "id": "B125",
+  "pair_id": "P062",
+  "category": "B",
+  "error_position": 3,
+  "expression": "7 + 12 - 9 ÷ 3 + 8 × 6 - 5",
+  "n_ops": 6,
+  "misconceptions": [
+   "sub_before_div"
+  ],
+  "num_misconceptions": 1,
+  "trace": [
+   "7 + 12 - 9 ÷ 3 + 8 × 6 - 5",
+   "7 + 12 - 9 ÷ 3 + 48 - 5",
+   "7 + 12 - 9 ÷ 3 + 43",
+   "7 + 3 ÷ 3 + 43",
+   "7 + 1 + 43",
+   "8 + 43",
+   "51"
+  ],
+  "probed_misconception": "add_before_mul",
+  "statement_correct": false,
+  "which_target": null,
+  "student_name": "Zoe",
+  "belief_statement": "Zoe believes addition should be done before multiplication.",
+  "foil_status": "refuted",
+  "io_foil_marginal": 0.0
+ },
+ {
+  "id": "B126",
+  "pair_id": "P063",
+  "category": "B",
+  "error_position": 1,
+  "expression": "9 ÷ 3 + 10 × 5 × 6 ÷ 2 - 1",
+  "n_ops": 6,
+  "misconceptions": [
+   "sub_before_div"
+  ],
+  "num_misconceptions": 1,
+  "trace": [
+   "9 ÷ 3 + 10 × 5 × 6 ÷ 2 - 1",
+   "9 ÷ 3 + 10 × 5 × 6 ÷ 1",
+   "3 + 10 × 5 × 6 ÷ 1",
+   "3 + 50 × 6 ÷ 1",
+   "3 + 300 ÷ 1",
+   "3 + 300",
+   "303"
+  ],
+  "probed_misconception": "add_before_mul",
+  "statement_correct": false,
+  "which_target": null,
+  "student_name": "Mia",
+  "belief_statement": "Mia believes addition should be done before multiplication.",
+  "foil_status": "refuted",
+  "io_foil_marginal": 0.0
+ },
+ {
+  "id": "B127",
+  "pair_id": "P063",
+  "category": "B",
+  "error_position": 3,
+  "expression": "9 ÷ 3 + 10 × 5 × 6 ÷ 2 - 1",
+  "n_ops": 6,
+  "misconceptions": [
+   "sub_before_div"
+  ],
+  "num_misconceptions": 1,
+  "trace": [
+   "9 ÷ 3 + 10 × 5 × 6 ÷ 2 - 1",
+   "3 + 10 × 5 × 6 ÷ 2 - 1",
+   "3 + 50 × 6 ÷ 2 - 1",
+   "3 + 50 × 6 ÷ 1",
+   "3 + 300 ÷ 1",
+   "3 + 300",
+   "303"
+  ],
+  "probed_misconception": "add_before_mul",
+  "statement_correct": false,
+  "which_target": null,
+  "student_name": "Lucas",
+  "belief_statement": "Lucas believes addition should be done before multiplication.",
+  "foil_status": "refuted",
+  "io_foil_marginal": 0.0
+ },
+ {
+  "id": "B128",
+  "pair_id": "P064",
+  "category": "B",
+  "error_position": 1,
+  "expression": "6 ÷ 2 + 8 + 2 × 4 ÷ 2 × 4",
+  "n_ops": 6,
+  "misconceptions": [
+   "same_priority_rtl"
+  ],
+  "num_misconceptions": 1,
+  "trace": [
+   "6 ÷ 2 + 8 + 2 × 4 ÷ 2 × 4",
+   "6 ÷ 2 + 8 + 2 × 4 ÷ 8",
+   "3 + 8 + 2 × 4 ÷ 8",
+   "11 + 2 × 4 ÷ 8",
+   "11 + 8 ÷ 8",
+   "11 + 1",
+   "12"
+  ],
+  "probed_misconception": "add_before_mul",
+  "statement_correct": false,
+  "which_target": null,
+  "student_name": "Emma",
+  "belief_statement": "Emma believes addition should be done before multiplication.",
+  "foil_status": "refuted",
+  "io_foil_marginal": 0.0
+ },
+ {
+  "id": "B129",
+  "pair_id": "P064",
+  "category": "B",
+  "error_position": 3,
+  "expression": "6 ÷ 2 + 8 + 2 × 4 ÷ 2 × 4",
+  "n_ops": 6,
+  "misconceptions": [
+   "same_priority_rtl"
+  ],
+  "num_misconceptions": 1,
+  "trace": [
+   "6 ÷ 2 + 8 + 2 × 4 ÷ 2 × 4",
+   "3 + 8 + 2 × 4 ÷ 2 × 4",
+   "11 + 2 × 4 ÷ 2 × 4",
+   "11 + 2 × 4 ÷ 8",
+   "11 + 8 ÷ 8",
+   "11 + 1",
+   "12"
+  ],
+  "probed_misconception": "add_before_mul",
+  "statement_correct": false,
+  "which_target": null,
+  "student_name": "Owen",
+  "belief_statement": "Owen believes addition should be done before multiplication.",
+  "foil_status": "refuted",
+  "io_foil_marginal": 0.0
+ },
+ {
+  "id": "B130",
+  "pair_id": "P065",
+  "category": "B",
+  "error_position": 1,
+  "expression": "5 + (1 × 4 + 9) + 9 - 8 - 7",
+  "n_ops": 6,
+  "misconceptions": [
+   "same_priority_rtl"
+  ],
+  "num_misconceptions": 1,
+  "trace": [
+   "5 + (1 × 4 + 9) + 9 - 8 - 7",
+   "5 + (1 × 4 + 9) + 9 - 1",
+   "5 + (1 × 4 + 9) + 8",
+   "5 + (4 + 9) + 8",
+   "5 + 13 + 8",
+   "18 + 8",
+   "26"
+  ],
+  "probed_misconception": "add_before_mul",
+  "statement_correct": false,
+  "which_target": null,
+  "student_name": "Sofia",
+  "belief_statement": "Sofia believes addition should be done before multiplication.",
+  "foil_status": "refuted",
+  "io_foil_marginal": 0.0
+ },
+ {
+  "id": "B131",
+  "pair_id": "P065",
+  "category": "B",
+  "error_position": 3,
+  "expression": "5 + (1 × 4 + 9) + 9 - 8 - 7",
+  "n_ops": 6,
+  "misconceptions": [
+   "same_priority_rtl"
+  ],
+  "num_misconceptions": 1,
+  "trace": [
+   "5 + (1 × 4 + 9) + 9 - 8 - 7",
+   "5 + (4 + 9) + 9 - 8 - 7",
+   "5 + 13 + 9 - 8 - 7",
+   "5 + 13 + 9 - 1",
+   "18 + 9 - 1",
+   "27 - 1",
+   "26"
+  ],
+  "probed_misconception": "add_before_mul",
+  "statement_correct": false,
+  "which_target": null,
+  "student_name": "Caleb",
+  "belief_statement": "Caleb believes addition should be done before multiplication.",
+  "foil_status": "refuted",
+  "io_foil_marginal": 0.0
+ },
+ {
+  "id": "B132",
+  "pair_id": "P066",
+  "category": "B",
+  "error_position": 1,
+  "expression": "4 - 2 × (2 + 4) + 10 ÷ 2 × 5",
+  "n_ops": 6,
+  "misconceptions": [
+   "outside_bracket_first"
+  ],
+  "num_misconceptions": 1,
+  "trace": [
+   "4 - 2 × (2 + 4) + 10 ÷ 2 × 5",
+   "2 × (2 + 4) + 10 ÷ 2 × 5",
+   "2 × (2 + 4) + 5 × 5",
+   "2 × (2 + 4) + 25",
+   "2 × 6 + 25",
+   "12 + 25",
+   "37"
+  ],
+  "probed_misconception": "add_before_mul",
+  "statement_correct": false,
+  "which_target": null,
+  "student_name": "Ruby",
+  "belief_statement": "Ruby believes addition should be done before multiplication.",
+  "foil_status": "refuted",
+  "io_foil_marginal": 0.0
+ },
+ {
+  "id": "B133",
+  "pair_id": "P066",
+  "category": "B",
+  "error_position": 3,
+  "expression": "4 - 2 × (2 + 4) + 10 ÷ 2 × 5",
+  "n_ops": 6,
+  "misconceptions": [
+   "outside_bracket_first"
+  ],
+  "num_misconceptions": 1,
+  "trace": [
+   "4 - 2 × (2 + 4) + 10 ÷ 2 × 5",
+   "4 - 2 × (2 + 4) + 5 × 5",
+   "4 - 2 × (2 + 4) + 25",
+   "2 × (2 + 4) + 25",
+   "2 × 6 + 25",
+   "12 + 25",
+   "37"
+  ],
+  "probed_misconception": "add_before_mul",
+  "statement_correct": false,
+  "which_target": null,
+  "student_name": "Jonah",
+  "belief_statement": "Jonah believes addition should be done before multiplication.",
+  "foil_status": "refuted",
+  "io_foil_marginal": 0.0
+ },
+ {
+  "id": "B134",
+  "pair_id": "P067",
+  "category": "B",
+  "error_position": 1,
+  "expression": "1 × 4 ÷ 2 × (4 + 8) ÷ 2 + 10",
+  "n_ops": 6,
+  "misconceptions": [
+   "outside_bracket_first"
+  ],
+  "num_misconceptions": 1,
+  "trace": [
+   "1 × 4 ÷ 2 × (4 + 8) ÷ 2 + 10",
+   "1 × 4 ÷ 2 × (4 + 8) ÷ 12",
+   "4 ÷ 2 × (4 + 8) ÷ 12",
+   "2 × (4 + 8) ÷ 12",
+   "2 × 12 ÷ 12",
+   "24 ÷ 12",
+   "2"
+  ],
+  "probed_misconception": "add_before_mul",
+  "statement_correct": false,
+  "which_target": null,
+  "student_name": "Isla",
+  "belief_statement": "Isla believes addition should be done before multiplication.",
+  "foil_status": "unsupported",
+  "io_foil_marginal": 0.1667
+ },
+ {
+  "id": "B135",
+  "pair_id": "P067",
+  "category": "B",
+  "error_position": 3,
+  "expression": "1 × 4 ÷ 2 × (4 + 8) ÷ 2 + 10",
+  "n_ops": 6,
+  "misconceptions": [
+   "outside_bracket_first"
+  ],
+  "num_misconceptions": 1,
+  "trace": [
+   "1 × 4 ÷ 2 × (4 + 8) ÷ 2 + 10",
+   "4 ÷ 2 × (4 + 8) ÷ 2 + 10",
+   "2 × (4 + 8) ÷ 2 + 10",
+   "2 × (4 + 8) ÷ 12",
+   "2 × 12 ÷ 12",
+   "24 ÷ 12",
+   "2"
+  ],
+  "probed_misconception": "add_before_mul",
+  "statement_correct": false,
+  "which_target": null,
+  "student_name": "Felix",
+  "belief_statement": "Felix believes addition should be done before multiplication.",
+  "foil_status": "unsupported",
+  "io_foil_marginal": 0.1667
+ },
+ {
+  "id": "B136",
+  "pair_id": "P068",
+  "category": "B",
+  "error_position": 1,
+  "expression": "3 + 7 × 4 ÷ 2 + (7 - 2) - 1",
+  "n_ops": 6,
+  "misconceptions": [
+   "add_before_mul"
+  ],
+  "num_misconceptions": 1,
+  "trace": [
+   "3 + 7 × 4 ÷ 2 + (7 - 2) - 1",
+   "10 × 4 ÷ 2 + (7 - 2) - 1",
+   "40 ÷ 2 + (7 - 2) - 1",
+   "20 + (7 - 2) - 1",
+   "20 + 5 - 1",
+   "25 - 1",
+   "24"
+  ],
+  "probed_misconception": "add_before_div",
+  "statement_correct": false,
+  "which_target": null,
+  "student_name": "Nora",
+  "belief_statement": "Nora believes addition should be done before division.",
+  "foil_status": "refuted",
+  "io_foil_marginal": 0.1053
+ },
+ {
+  "id": "B137",
+  "pair_id": "P068",
+  "category": "B",
+  "error_position": 3,
+  "expression": "3 + 7 × 4 ÷ 2 + (7 - 2) - 1",
+  "n_ops": 6,
+  "misconceptions": [
+   "add_before_mul"
+  ],
+  "num_misconceptions": 1,
+  "trace": [
+   "3 + 7 × 4 ÷ 2 + (7 - 2) - 1",
+   "3 + 7 × 4 ÷ 2 + 5 - 1",
+   "3 + 7 × 4 ÷ 2 + 4",
+   "10 × 4 ÷ 2 + 4",
+   "40 ÷ 2 + 4",
+   "20 + 4",
+   "24"
+  ],
+  "probed_misconception": "add_before_div",
+  "statement_correct": false,
+  "which_target": null,
+  "student_name": "Dylan",
+  "belief_statement": "Dylan believes addition should be done before division.",
+  "foil_status": "refuted",
+  "io_foil_marginal": 0.0
+ },
+ {
+  "id": "B138",
+  "pair_id": "P069",
+  "category": "B",
+  "error_position": 1,
+  "expression": "12 + 8 × 4 ÷ 2 - 1 + 7 + 10",
+  "n_ops": 6,
+  "misconceptions": [
+   "add_before_mul"
+  ],
+  "num_misconceptions": 1,
+  "trace": [
+   "12 + 8 × 4 ÷ 2 - 1 + 7 + 10",
+   "20 × 4 ÷ 2 - 1 + 7 + 10",
+   "80 ÷ 2 - 1 + 7 + 10",
+   "40 - 1 + 7 + 10",
+   "39 + 7 + 10",
+   "46 + 10",
+   "56"
+  ],
+  "probed_misconception": "add_before_div",
+  "statement_correct": false,
+  "which_target": null,
+  "student_name": "Priya",
+  "belief_statement": "Priya believes addition should be done before division.",
+  "foil_status": "unsupported",
+  "io_foil_marginal": 0.25
+ },
+ {
+  "id": "B139",
+  "pair_id": "P069",
+  "category": "B",
+  "error_position": 3,
+  "expression": "12 + 8 × 4 ÷ 2 - 1 + 7 + 10",
+  "n_ops": 6,
+  "misconceptions": [
+   "add_before_mul"
+  ],
+  "num_misconceptions": 1,
+  "trace": [
+   "12 + 8 × 4 ÷ 2 - 1 + 7 + 10",
+   "12 + 8 × 2 - 1 + 7 + 10",
+   "12 + 8 × 2 - 1 + 17",
+   "20 × 2 - 1 + 17",
+   "40 - 1 + 17",
+   "39 + 17",
+   "56"
+  ],
+  "probed_misconception": "add_before_div",
+  "statement_correct": false,
+  "which_target": null,
+  "student_name": "Marcus",
+  "belief_statement": "Marcus believes addition should be done before division.",
+  "foil_status": "unsupported",
+  "io_foil_marginal": 0.3333
+ },
+ {
+  "id": "B140",
+  "pair_id": "P070",
+  "category": "B",
+  "error_position": 1,
+  "expression": "7 - 6 + 9 × 4 × 2 - 1 + 6",
+  "n_ops": 6,
+  "misconceptions": [
+   "sub_before_mul"
+  ],
+  "num_misconceptions": 1,
+  "trace": [
+   "7 - 6 + 9 × 4 × 2 - 1 + 6",
+   "7 - 6 + 9 × 4 × 1 + 6",
+   "1 + 9 × 4 × 1 + 6",
+   "1 + 36 × 1 + 6",
+   "1 + 36 + 6",
+   "37 + 6",
+   "43"
+  ],
+  "probed_misconception": "add_before_div",
+  "statement_correct": false,
+  "which_target": null,
+  "student_name": "Elena",
+  "belief_statement": "Elena believes addition should be done before division.",
+  "foil_status": "unsupported",
+  "io_foil_marginal": 0.25
+ },
+ {
+  "id": "B141",
+  "pair_id": "P070",
+  "category": "B",
+  "error_position": 3,
+  "expression": "7 - 6 + 9 × 4 × 2 - 1 + 6",
+  "n_ops": 6,
+  "misconceptions": [
+   "sub_before_mul"
+  ],
+  "num_misconceptions": 1,
+  "trace": [
+   "7 - 6 + 9 × 4 × 2 - 1 + 6",
+   "1 + 9 × 4 × 2 - 1 + 6",
+   "1 + 36 × 2 - 1 + 6",
+   "1 + 36 × 1 + 6",
+   "1 + 36 + 6",
+   "37 + 6",
+   "43"
+  ],
+  "probed_misconception": "add_before_div",
+  "statement_correct": false,
+  "which_target": null,
+  "student_name": "Theo",
+  "belief_statement": "Theo believes addition should be done before division.",
+  "foil_status": "unsupported",
+  "io_foil_marginal": 0.25
+ },
+ {
+  "id": "B142",
+  "pair_id": "P071",
+  "category": "B",
+  "error_position": 1,
+  "expression": "12 + 8 ÷ 2 × 2 + 11 × 6 - 1",
+  "n_ops": 6,
+  "misconceptions": [
+   "sub_before_mul"
+  ],
+  "num_misconceptions": 1,
+  "trace": [
+   "12 + 8 ÷ 2 × 2 + 11 × 6 - 1",
+   "12 + 8 ÷ 2 × 2 + 11 × 5",
+   "12 + 4 × 2 + 11 × 5",
+   "12 + 8 + 11 × 5",
+   "20 + 11 × 5",
+   "20 + 55",
+   "75"
+  ],
+  "probed_misconception": "add_before_div",
+  "statement_correct": false,
+  "which_target": null,
+  "student_name": "Jasmine",
+  "belief_statement": "Jasmine believes addition should be done before division.",
+  "foil_status": "refuted",
+  "io_foil_marginal": 0.0
+ },
+ {
+  "id": "B143",
+  "pair_id": "P071",
+  "category": "B",
+  "error_position": 3,
+  "expression": "12 + 8 ÷ 2 × 2 + 11 × 6 - 1",
+  "n_ops": 6,
+  "misconceptions": [
+   "sub_before_mul"
+  ],
+  "num_misconceptions": 1,
+  "trace": [
+   "12 + 8 ÷ 2 × 2 + 11 × 6 - 1",
+   "12 + 4 × 2 + 11 × 6 - 1",
+   "12 + 8 + 11 × 6 - 1",
+   "12 + 8 + 11 × 5",
+   "20 + 11 × 5",
+   "20 + 55",
+   "75"
+  ],
+  "probed_misconception": "add_before_div",
+  "statement_correct": false,
+  "which_target": null,
+  "student_name": "Omar",
+  "belief_statement": "Omar believes addition should be done before division.",
+  "foil_status": "refuted",
+  "io_foil_marginal": 0.0
+ },
+ {
+  "id": "B144",
+  "pair_id": "P072",
+  "category": "B",
+  "error_position": 1,
+  "expression": "(12 ÷ 4 - 3) + 11 × 6 + 1 × 4",
+  "n_ops": 6,
+  "misconceptions": [
+   "sub_before_div"
+  ],
+  "num_misconceptions": 1,
+  "trace": [
+   "(12 ÷ 4 - 3) + 11 × 6 + 1 × 4",
+   "(12 ÷ 1) + 11 × 6 + 1 × 4",
+   "(12 ÷ 1) + 66 + 1 × 4",
+   "(12 ÷ 1) + 66 + 4",
+   "(12 ÷ 1) + 70",
+   "12 + 70",
+   "82"
+  ],
+  "probed_misconception": "add_before_div",
+  "statement_correct": false,
+  "which_target": null,
+  "student_name": "Noah",
+  "belief_statement": "Noah believes addition should be done before division.",
+  "foil_status": "unsupported",
+  "io_foil_marginal": 0.25
+ },
+ {
+  "id": "B145",
+  "pair_id": "P072",
+  "category": "B",
+  "error_position": 3,
+  "expression": "(12 ÷ 4 - 3) + 11 × 6 + 1 × 4",
+  "n_ops": 6,
+  "misconceptions": [
+   "sub_before_div"
+  ],
+  "num_misconceptions": 1,
+  "trace": [
+   "(12 ÷ 4 - 3) + 11 × 6 + 1 × 4",
+   "(12 ÷ 4 - 3) + 66 + 1 × 4",
+   "(12 ÷ 4 - 3) + 66 + 4",
+   "(12 ÷ 1) + 66 + 4",
+   "(12 ÷ 1) + 70",
+   "12 + 70",
+   "82"
+  ],
+  "probed_misconception": "add_before_div",
+  "statement_correct": false,
+  "which_target": null,
+  "student_name": "Maya",
+  "belief_statement": "Maya believes addition should be done before division.",
+  "foil_status": "unsupported",
+  "io_foil_marginal": 0.25
+ },
+ {
+  "id": "B146",
+  "pair_id": "P073",
+  "category": "B",
+  "error_position": 1,
+  "expression": "4 - 2 + 7 × 4 × (4 ÷ 2 - 1)",
+  "n_ops": 6,
+  "misconceptions": [
+   "sub_before_div"
+  ],
+  "num_misconceptions": 1,
+  "trace": [
+   "4 - 2 + 7 × 4 × (4 ÷ 2 - 1)",
+   "4 - 2 + 7 × 4 × (4 ÷ 1)",
+   "2 + 7 × 4 × (4 ÷ 1)",
+   "2 + 28 × (4 ÷ 1)",
+   "2 + 28 × 4",
+   "2 + 112",
+   "114"
+  ],
+  "probed_misconception": "add_before_div",
+  "statement_correct": false,
+  "which_target": null,
+  "student_name": "Liam",
+  "belief_statement": "Liam believes addition should be done before division.",
+  "foil_status": "unsupported",
+  "io_foil_marginal": 0.3333
+ },
+ {
+  "id": "B147",
+  "pair_id": "P073",
+  "category": "B",
+  "error_position": 3,
+  "expression": "4 - 2 + 7 × 4 × (4 ÷ 2 - 1)",
+  "n_ops": 6,
+  "misconceptions": [
+   "sub_before_div"
+  ],
+  "num_misconceptions": 1,
+  "trace": [
+   "4 - 2 + 7 × 4 × (4 ÷ 2 - 1)",
+   "2 + 7 × 4 × (4 ÷ 2 - 1)",
+   "2 + 28 × (4 ÷ 2 - 1)",
+   "2 + 28 × (4 ÷ 1)",
+   "2 + 28 × 4",
+   "2 + 112",
+   "114"
+  ],
+  "probed_misconception": "add_before_div",
+  "statement_correct": false,
+  "which_target": null,
+  "student_name": "Ava",
+  "belief_statement": "Ava believes addition should be done before division.",
+  "foil_status": "unsupported",
+  "io_foil_marginal": 0.3333
+ },
+ {
+  "id": "B148",
+  "pair_id": "P074",
+  "category": "B",
+  "error_position": 1,
+  "expression": "4 + (3 × 2 × 4) × 2 - 1 + 2",
+  "n_ops": 6,
+  "misconceptions": [
+   "same_priority_rtl"
+  ],
+  "num_misconceptions": 1,
+  "trace": [
+   "4 + (3 × 2 × 4) × 2 - 1 + 2",
+   "4 + (3 × 2 × 4) × 2 - 3",
+   "4 + (6 × 4) × 2 - 3",
+   "4 + 24 × 2 - 3",
+   "4 + 48 - 3",
+   "52 - 3",
+   "49"
+  ],
+  "probed_misconception": "add_before_div",
+  "statement_correct": false,
+  "which_target": null,
+  "student_name": "Ethan",
+  "belief_statement": "Ethan believes addition should be done before division.",
+  "foil_status": "unsupported",
+  "io_foil_marginal": 0.3333
+ },
+ {
+  "id": "B149",
+  "pair_id": "P074",
+  "category": "B",
+  "error_position": 3,
+  "expression": "4 + (3 × 2 × 4) × 2 - 1 + 2",
+  "n_ops": 6,
+  "misconceptions": [
+   "same_priority_rtl"
+  ],
+  "num_misconceptions": 1,
+  "trace": [
+   "4 + (3 × 2 × 4) × 2 - 1 + 2",
+   "4 + (6 × 4) × 2 - 1 + 2",
+   "4 + 24 × 2 - 1 + 2",
+   "4 + 24 × 2 - 3",
+   "4 + 48 - 3",
+   "52 - 3",
+   "49"
+  ],
+  "probed_misconception": "add_before_div",
+  "statement_correct": false,
+  "which_target": null,
+  "student_name": "Zoe",
+  "belief_statement": "Zoe believes addition should be done before division.",
+  "foil_status": "unsupported",
+  "io_foil_marginal": 0.3333
+ },
+ {
+  "id": "B150",
+  "pair_id": "P075",
+  "category": "B",
+  "error_position": 1,
+  "expression": "1 + 12 ÷ 2 × 3 + 8 × (3 + 5)",
+  "n_ops": 6,
+  "misconceptions": [
+   "same_priority_rtl"
+  ],
+  "num_misconceptions": 1,
+  "trace": [
+   "1 + 12 ÷ 2 × 3 + 8 × (3 + 5)",
+   "1 + 12 ÷ 6 + 8 × (3 + 5)",
+   "1 + 2 + 8 × (3 + 5)",
+   "3 + 8 × (3 + 5)",
+   "3 + 8 × 8",
+   "3 + 64",
+   "67"
+  ],
+  "probed_misconception": "add_before_div",
+  "statement_correct": false,
+  "which_target": null,
+  "student_name": "Mia",
+  "belief_statement": "Mia believes addition should be done before division.",
+  "foil_status": "refuted",
+  "io_foil_marginal": 0.0
+ },
+ {
+  "id": "B151",
+  "pair_id": "P075",
+  "category": "B",
+  "error_position": 3,
+  "expression": "1 + 12 ÷ 2 × 3 + 8 × (3 + 5)",
+  "n_ops": 6,
+  "misconceptions": [
+   "same_priority_rtl"
+  ],
+  "num_misconceptions": 1,
+  "trace": [
+   "1 + 12 ÷ 2 × 3 + 8 × (3 + 5)",
+   "1 + 12 ÷ 2 × 3 + 8 × 8",
+   "1 + 12 ÷ 2 × 3 + 64",
+   "1 + 12 ÷ 6 + 64",
+   "1 + 2 + 64",
+   "3 + 64",
+   "67"
+  ],
+  "probed_misconception": "add_before_div",
+  "statement_correct": false,
+  "which_target": null,
+  "student_name": "Lucas",
+  "belief_statement": "Lucas believes addition should be done before division.",
+  "foil_status": "refuted",
+  "io_foil_marginal": 0.0
+ },
+ {
+  "id": "B152",
+  "pair_id": "P076",
+  "category": "B",
+  "error_position": 1,
+  "expression": "2 - 1 + 3 + (8 + 12) ÷ 6 - 4",
+  "n_ops": 6,
+  "misconceptions": [
+   "outside_bracket_first"
+  ],
+  "num_misconceptions": 1,
+  "trace": [
+   "2 - 1 + 3 + (8 + 12) ÷ 6 - 4",
+   "2 - 1 + 3 + (8 + 12) ÷ 2",
+   "1 + 3 + (8 + 12) ÷ 2",
+   "4 + (8 + 12) ÷ 2",
+   "4 + 20 ÷ 2",
+   "4 + 10",
+   "14"
+  ],
+  "probed_misconception": "add_before_div",
+  "statement_correct": false,
+  "which_target": null,
+  "student_name": "Emma",
+  "belief_statement": "Emma believes addition should be done before division.",
+  "foil_status": "refuted",
+  "io_foil_marginal": 0.0
+ },
+ {
+  "id": "B153",
+  "pair_id": "P076",
+  "category": "B",
+  "error_position": 3,
+  "expression": "2 - 1 + 3 + (8 + 12) ÷ 6 - 4",
+  "n_ops": 6,
+  "misconceptions": [
+   "outside_bracket_first"
+  ],
+  "num_misconceptions": 1,
+  "trace": [
+   "2 - 1 + 3 + (8 + 12) ÷ 6 - 4",
+   "1 + 3 + (8 + 12) ÷ 6 - 4",
+   "4 + (8 + 12) ÷ 6 - 4",
+   "4 + (8 + 12) ÷ 2",
+   "4 + 20 ÷ 2",
+   "4 + 10",
+   "14"
+  ],
+  "probed_misconception": "add_before_div",
+  "statement_correct": false,
+  "which_target": null,
+  "student_name": "Owen",
+  "belief_statement": "Owen believes addition should be done before division.",
+  "foil_status": "refuted",
+  "io_foil_marginal": 0.0
+ },
+ {
+  "id": "B154",
+  "pair_id": "P077",
+  "category": "B",
+  "error_position": 1,
+  "expression": "11 × 4 ÷ 2 × (2 - 1) × 6 - 3",
+  "n_ops": 6,
+  "misconceptions": [
+   "outside_bracket_first"
+  ],
+  "num_misconceptions": 1,
+  "trace": [
+   "11 × 4 ÷ 2 × (2 - 1) × 6 - 3",
+   "11 × 4 ÷ 2 × (2 - 1) × 3",
+   "44 ÷ 2 × (2 - 1) × 3",
+   "22 × (2 - 1) × 3",
+   "22 × 1 × 3",
+   "22 × 3",
+   "66"
+  ],
+  "probed_misconception": "add_before_div",
+  "statement_correct": false,
+  "which_target": null,
+  "student_name": "Sofia",
+  "belief_statement": "Sofia believes addition should be done before division.",
+  "foil_status": "unsupported",
+  "io_foil_marginal": 0.1667
+ },
+ {
+  "id": "B155",
+  "pair_id": "P077",
+  "category": "B",
+  "error_position": 3,
+  "expression": "11 × 4 ÷ 2 × (2 - 1) × 6 - 3",
+  "n_ops": 6,
+  "misconceptions": [
+   "outside_bracket_first"
+  ],
+  "num_misconceptions": 1,
+  "trace": [
+   "11 × 4 ÷ 2 × (2 - 1) × 6 - 3",
+   "44 ÷ 2 × (2 - 1) × 6 - 3",
+   "22 × (2 - 1) × 6 - 3",
+   "22 × (2 - 1) × 3",
+   "22 × 1 × 3",
+   "22 × 3",
+   "66"
+  ],
+  "probed_misconception": "add_before_div",
+  "statement_correct": false,
+  "which_target": null,
+  "student_name": "Caleb",
+  "belief_statement": "Caleb believes addition should be done before division.",
+  "foil_status": "unsupported",
+  "io_foil_marginal": 0.1667
+ },
+ {
+  "id": "B156",
+  "pair_id": "P078",
+  "category": "B",
+  "error_position": 1,
+  "expression": "10 × 6 + 9 × 4 - 3 × (4 ÷ 2)",
+  "n_ops": 6,
+  "misconceptions": [
+   "add_before_mul"
+  ],
+  "num_misconceptions": 1,
+  "trace": [
+   "10 × 6 + 9 × 4 - 3 × (4 ÷ 2)",
+   "10 × 15 × 4 - 3 × (4 ÷ 2)",
+   "150 × 4 - 3 × (4 ÷ 2)",
+   "600 - 3 × (4 ÷ 2)",
+   "600 - 3 × 2",
+   "600 - 6",
+   "594"
+  ],
+  "probed_misconception": "sub_before_mul",
+  "statement_correct": false,
+  "which_target": null,
+  "student_name": "Ruby",
+  "belief_statement": "Ruby believes subtraction should be done before multiplication.",
+  "foil_status": "refuted",
+  "io_foil_marginal": 0.0
+ },
+ {
+  "id": "B157",
+  "pair_id": "P078",
+  "category": "B",
+  "error_position": 3,
+  "expression": "10 × 6 + 9 × 4 - 3 × (4 ÷ 2)",
+  "n_ops": 6,
+  "misconceptions": [
+   "add_before_mul"
+  ],
+  "num_misconceptions": 1,
+  "trace": [
+   "10 × 6 + 9 × 4 - 3 × (4 ÷ 2)",
+   "10 × 6 + 9 × 4 - 3 × 2",
+   "10 × 6 + 9 × 4 - 6",
+   "10 × 15 × 4 - 6",
+   "150 × 4 - 6",
+   "600 - 6",
+   "594"
+  ],
+  "probed_misconception": "sub_before_mul",
+  "statement_correct": false,
+  "which_target": null,
+  "student_name": "Jonah",
+  "belief_statement": "Jonah believes subtraction should be done before multiplication.",
+  "foil_status": "refuted",
+  "io_foil_marginal": 0.0
+ },
+ {
+  "id": "B158",
+  "pair_id": "P079",
+  "category": "B",
+  "error_position": 1,
+  "expression": "12 ÷ 6 ÷ 2 × (6 × 2 + 6) - 2",
+  "n_ops": 6,
+  "misconceptions": [
+   "add_before_mul"
+  ],
+  "num_misconceptions": 1,
+  "trace": [
+   "12 ÷ 6 ÷ 2 × (6 × 2 + 6) - 2",
+   "12 ÷ 6 ÷ 2 × (6 × 8) - 2",
+   "2 ÷ 2 × (6 × 8) - 2",
+   "1 × (6 × 8) - 2",
+   "1 × 48 - 2",
+   "48 - 2",
+   "46"
+  ],
+  "probed_misconception": "sub_before_mul",
+  "statement_correct": false,
+  "which_target": null,
+  "student_name": "Isla",
+  "belief_statement": "Isla believes subtraction should be done before multiplication.",
+  "foil_status": "refuted",
+  "io_foil_marginal": 0.0
+ },
+ {
+  "id": "B159",
+  "pair_id": "P079",
+  "category": "B",
+  "error_position": 3,
+  "expression": "12 ÷ 6 ÷ 2 × (6 × 2 + 6) - 2",
+  "n_ops": 6,
+  "misconceptions": [
+   "add_before_mul"
+  ],
+  "num_misconceptions": 1,
+  "trace": [
+   "12 ÷ 6 ÷ 2 × (6 × 2 + 6) - 2",
+   "2 ÷ 2 × (6 × 2 + 6) - 2",
+   "1 × (6 × 2 + 6) - 2",
+   "1 × (6 × 8) - 2",
+   "1 × 48 - 2",
+   "48 - 2",
+   "46"
+  ],
+  "probed_misconception": "sub_before_mul",
+  "statement_correct": false,
+  "which_target": null,
+  "student_name": "Felix",
+  "belief_statement": "Felix believes subtraction should be done before multiplication.",
+  "foil_status": "refuted",
+  "io_foil_marginal": 0.0
+ },
+ {
+  "id": "B160",
+  "pair_id": "P080",
+  "category": "B",
+  "error_position": 1,
+  "expression": "10 ÷ (5 - 4) - 1 × 4 ÷ 2 + 2",
+  "n_ops": 6,
+  "misconceptions": [
+   "add_before_div"
+  ],
+  "num_misconceptions": 1,
+  "trace": [
+   "10 ÷ (5 - 4) - 1 × 4 ÷ 2 + 2",
+   "10 ÷ (5 - 4) - 1 × 4 ÷ 4",
+   "10 ÷ (5 - 4) - 4 ÷ 4",
+   "10 ÷ (5 - 4) - 1",
+   "10 ÷ 1 - 1",
+   "10 - 1",
+   "9"
+  ],
+  "probed_misconception": "sub_before_div",
+  "statement_correct": false,
+  "which_target": null,
+  "student_name": "Nora",
+  "belief_statement": "Nora believes subtraction should be done before division.",
+  "foil_status": "refuted",
+  "io_foil_marginal": 0.0
+ },
+ {
+  "id": "B161",
+  "pair_id": "P080",
+  "category": "B",
+  "error_position": 3,
+  "expression": "10 ÷ (5 - 4) - 1 × 4 ÷ 2 + 2",
+  "n_ops": 6,
+  "misconceptions": [
+   "add_before_div"
+  ],
+  "num_misconceptions": 1,
+  "trace": [
+   "10 ÷ (5 - 4) - 1 × 4 ÷ 2 + 2",
+   "10 ÷ (5 - 4) - 4 ÷ 2 + 2",
+   "10 ÷ 1 - 4 ÷ 2 + 2",
+   "10 ÷ 1 - 4 ÷ 4",
+   "10 - 4 ÷ 4",
+   "10 - 1",
+   "9"
+  ],
+  "probed_misconception": "sub_before_div",
+  "statement_correct": false,
+  "which_target": null,
+  "student_name": "Dylan",
+  "belief_statement": "Dylan believes subtraction should be done before division.",
+  "foil_status": "refuted",
+  "io_foil_marginal": 0.0
+ },
+ {
+  "id": "B162",
+  "pair_id": "P081",
+  "category": "B",
+  "error_position": 1,
+  "expression": "4 × 6 ÷ 3 + 3 - 1 × 6 ÷ 3",
+  "n_ops": 6,
+  "misconceptions": [
+   "add_before_div"
+  ],
+  "num_misconceptions": 1,
+  "trace": [
+   "4 × 6 ÷ 3 + 3 - 1 × 6 ÷ 3",
+   "4 × 6 ÷ 6 - 1 × 6 ÷ 3",
+   "24 ÷ 6 - 1 × 6 ÷ 3",
+   "4 - 1 × 6 ÷ 3",
+   "4 - 6 ÷ 3",
+   "4 - 2",
+   "2"
+  ],
+  "probed_misconception": "sub_before_div",
+  "statement_correct": false,
+  "which_target": null,
+  "student_name": "Priya",
+  "belief_statement": "Priya believes subtraction should be done before division.",
+  "foil_status": "refuted",
+  "io_foil_marginal": 0.0
+ },
+ {
+  "id": "B163",
+  "pair_id": "P081",
+  "category": "B",
+  "error_position": 3,
+  "expression": "4 × 6 ÷ 3 + 3 - 1 × 6 ÷ 3",
+  "n_ops": 6,
+  "misconceptions": [
+   "add_before_div"
+  ],
+  "num_misconceptions": 1,
+  "trace": [
+   "4 × 6 ÷ 3 + 3 - 1 × 6 ÷ 3",
+   "24 ÷ 3 + 3 - 1 × 6 ÷ 3",
+   "24 ÷ 3 + 3 - 6 ÷ 3",
+   "24 ÷ 6 - 6 ÷ 3",
+   "4 - 6 ÷ 3",
+   "4 - 2",
+   "2"
+  ],
+  "probed_misconception": "sub_before_div",
+  "statement_correct": false,
+  "which_target": null,
+  "student_name": "Marcus",
+  "belief_statement": "Marcus believes subtraction should be done before division.",
+  "foil_status": "refuted",
+  "io_foil_marginal": 0.0
+ },
+ {
+  "id": "B164",
+  "pair_id": "P082",
+  "category": "B",
+  "error_position": 1,
+  "expression": "9 - 6 × 3 + 6 + 8 ÷ 2 × 6",
+  "n_ops": 6,
+  "misconceptions": [
+   "sub_before_mul"
+  ],
+  "num_misconceptions": 1,
+  "trace": [
+   "9 - 6 × 3 + 6 + 8 ÷ 2 × 6",
+   "3 × 3 + 6 + 8 ÷ 2 × 6",
+   "9 + 6 + 8 ÷ 2 × 6",
+   "15 + 8 ÷ 2 × 6",
+   "15 + 4 × 6",
+   "15 + 24",
+   "39"
+  ],
+  "probed_misconception": "sub_before_div",
+  "statement_correct": false,
+  "which_target": null,
+  "student_name": "Elena",
+  "belief_statement": "Elena believes subtraction should be done before division.",
+  "foil_status": "unsupported",
+  "io_foil_marginal": 0.3333
+ },
+ {
+  "id": "B165",
+  "pair_id": "P082",
+  "category": "B",
+  "error_position": 3,
+  "expression": "9 - 6 × 3 + 6 + 8 ÷ 2 × 6",
+  "n_ops": 6,
+  "misconceptions": [
+   "sub_before_mul"
+  ],
+  "num_misconceptions": 1,
+  "trace": [
+   "9 - 6 × 3 + 6 + 8 ÷ 2 × 6",
+   "9 - 6 × 3 + 6 + 4 × 6",
+   "9 - 6 × 3 + 6 + 24",
+   "3 × 3 + 6 + 24",
+   "9 + 6 + 24",
+   "15 + 24",
+   "39"
+  ],
+  "probed_misconception": "sub_before_div",
+  "statement_correct": false,
+  "which_target": null,
+  "student_name": "Theo",
+  "belief_statement": "Theo believes subtraction should be done before division.",
+  "foil_status": "unsupported",
+  "io_foil_marginal": 0.3333
+ },
+ {
+  "id": "B166",
+  "pair_id": "P083",
+  "category": "B",
+  "error_position": 1,
+  "expression": "7 × 6 - 1 + 6 + 5 - 4 ÷ 2",
+  "n_ops": 6,
+  "misconceptions": [
+   "sub_before_mul"
+  ],
+  "num_misconceptions": 1,
+  "trace": [
+   "7 × 6 - 1 + 6 + 5 - 4 ÷ 2",
+   "7 × 5 + 6 + 5 - 4 ÷ 2",
+   "35 + 6 + 5 - 4 ÷ 2",
+   "41 + 5 - 4 ÷ 2",
+   "46 - 4 ÷ 2",
+   "46 - 2",
+   "44"
+  ],
+  "probed_misconception": "sub_before_div",
+  "statement_correct": false,
+  "which_target": null,
+  "student_name": "Jasmine",
+  "belief_statement": "Jasmine believes subtraction should be done before division.",
+  "foil_status": "refuted",
+  "io_foil_marginal": 0.0
+ },
+ {
+  "id": "B167",
+  "pair_id": "P083",
+  "category": "B",
+  "error_position": 3,
+  "expression": "7 × 6 - 1 + 6 + 5 - 4 ÷ 2",
+  "n_ops": 6,
+  "misconceptions": [
+   "sub_before_mul"
+  ],
+  "num_misconceptions": 1,
+  "trace": [
+   "7 × 6 - 1 + 6 + 5 - 4 ÷ 2",
+   "7 × 6 - 1 + 11 - 4 ÷ 2",
+   "7 × 6 - 1 + 11 - 2",
+   "7 × 5 + 11 - 2",
+   "35 + 11 - 2",
+   "46 - 2",
+   "44"
+  ],
+  "probed_misconception": "sub_before_div",
+  "statement_correct": false,
+  "which_target": null,
+  "student_name": "Omar",
+  "belief_statement": "Omar believes subtraction should be done before division.",
+  "foil_status": "refuted",
+  "io_foil_marginal": 0.0
+ },
+ {
+  "id": "B168",
+  "pair_id": "P084",
+  "category": "B",
+  "error_position": 1,
+  "expression": "5 + 12 ÷ 4 ÷ 2 - 1 + 9 ÷ 3",
+  "n_ops": 6,
+  "misconceptions": [
+   "sub_before_div"
+  ],
+  "num_misconceptions": 1,
+  "trace": [
+   "5 + 12 ÷ 4 ÷ 2 - 1 + 9 ÷ 3",
+   "5 + 12 ÷ 4 ÷ 1 + 9 ÷ 3",
+   "5 + 3 ÷ 1 + 9 ÷ 3",
+   "5 + 3 + 9 ÷ 3",
+   "8 + 9 ÷ 3",
+   "8 + 3",
+   "11"
+  ],
+  "probed_misconception": "sub_before_mul",
+  "statement_correct": false,
+  "which_target": null,
+  "student_name": "Noah",
+  "belief_statement": "Noah believes subtraction should be done before multiplication.",
+  "foil_status": "unsupported",
+  "io_foil_marginal": 0.25
+ },
+ {
+  "id": "B169",
+  "pair_id": "P084",
+  "category": "B",
+  "error_position": 3,
+  "expression": "5 + 12 ÷ 4 ÷ 2 - 1 + 9 ÷ 3",
+  "n_ops": 6,
+  "misconceptions": [
+   "sub_before_div"
+  ],
+  "num_misconceptions": 1,
+  "trace": [
+   "5 + 12 ÷ 4 ÷ 2 - 1 + 9 ÷ 3",
+   "5 + 3 ÷ 2 - 1 + 9 ÷ 3",
+   "5 + 3 ÷ 2 - 1 + 3",
+   "5 + 3 ÷ 1 + 3",
+   "5 + 3 + 3",
+   "8 + 3",
+   "11"
+  ],
+  "probed_misconception": "sub_before_mul",
+  "statement_correct": false,
+  "which_target": null,
+  "student_name": "Maya",
+  "belief_statement": "Maya believes subtraction should be done before multiplication.",
+  "foil_status": "unsupported",
+  "io_foil_marginal": 0.25
+ },
+ {
+  "id": "B170",
+  "pair_id": "P085",
+  "category": "B",
+  "error_position": 1,
+  "expression": "7 + 8 + 8 × 2 × 4 ÷ 2 - 1",
+  "n_ops": 6,
+  "misconceptions": [
+   "sub_before_div"
+  ],
+  "num_misconceptions": 1,
+  "trace": [
+   "7 + 8 + 8 × 2 × 4 ÷ 2 - 1",
+   "7 + 8 + 8 × 2 × 4 ÷ 1",
+   "15 + 8 × 2 × 4 ÷ 1",
+   "15 + 16 × 4 ÷ 1",
+   "15 + 64 ÷ 1",
+   "15 + 64",
+   "79"
+  ],
+  "probed_misconception": "sub_before_mul",
+  "statement_correct": false,
+  "which_target": null,
+  "student_name": "Liam",
+  "belief_statement": "Liam believes subtraction should be done before multiplication.",
+  "foil_status": "unsupported",
+  "io_foil_marginal": 0.25
+ },
+ {
+  "id": "B171",
+  "pair_id": "P085",
+  "category": "B",
+  "error_position": 3,
+  "expression": "7 + 8 + 8 × 2 × 4 ÷ 2 - 1",
+  "n_ops": 6,
+  "misconceptions": [
+   "sub_before_div"
+  ],
+  "num_misconceptions": 1,
+  "trace": [
+   "7 + 8 + 8 × 2 × 4 ÷ 2 - 1",
+   "15 + 8 × 2 × 4 ÷ 2 - 1",
+   "15 + 16 × 4 ÷ 2 - 1",
+   "15 + 16 × 4 ÷ 1",
+   "15 + 64 ÷ 1",
+   "15 + 64",
+   "79"
+  ],
+  "probed_misconception": "sub_before_mul",
+  "statement_correct": false,
+  "which_target": null,
+  "student_name": "Ava",
+  "belief_statement": "Ava believes subtraction should be done before multiplication.",
+  "foil_status": "unsupported",
+  "io_foil_marginal": 0.25
+ },
+ {
+  "id": "B172",
+  "pair_id": "P086",
+  "category": "B",
+  "error_position": 1,
+  "expression": "(5 + 12 ÷ 4) × 6 ÷ 2 - 1 + 1",
+  "n_ops": 6,
+  "misconceptions": [
+   "same_priority_rtl"
+  ],
+  "num_misconceptions": 1,
+  "trace": [
+   "(5 + 12 ÷ 4) × 6 ÷ 2 - 1 + 1",
+   "(5 + 12 ÷ 4) × 6 ÷ 2 - 2",
+   "(5 + 12 ÷ 4) × 3 - 2",
+   "(5 + 3) × 3 - 2",
+   "8 × 3 - 2",
+   "24 - 2",
+   "22"
+  ],
+  "probed_misconception": "sub_before_mul",
+  "statement_correct": false,
+  "which_target": null,
+  "student_name": "Ethan",
+  "belief_statement": "Ethan believes subtraction should be done before multiplication.",
+  "foil_status": "refuted",
+  "io_foil_marginal": 0.0
+ },
+ {
+  "id": "B173",
+  "pair_id": "P086",
+  "category": "B",
+  "error_position": 3,
+  "expression": "(5 + 12 ÷ 4) × 6 ÷ 2 - 1 + 1",
+  "n_ops": 6,
+  "misconceptions": [
+   "same_priority_rtl"
+  ],
+  "num_misconceptions": 1,
+  "trace": [
+   "(5 + 12 ÷ 4) × 6 ÷ 2 - 1 + 1",
+   "(5 + 12 ÷ 4) × 3 - 1 + 1",
+   "(5 + 3) × 3 - 1 + 1",
+   "(5 + 3) × 3 - 2",
+   "8 × 3 - 2",
+   "24 - 2",
+   "22"
+  ],
+  "probed_misconception": "sub_before_mul",
+  "statement_correct": false,
+  "which_target": null,
+  "student_name": "Zoe",
+  "belief_statement": "Zoe believes subtraction should be done before multiplication.",
+  "foil_status": "refuted",
+  "io_foil_marginal": 0.0
+ },
+ {
+  "id": "B174",
+  "pair_id": "P087",
+  "category": "B",
+  "error_position": 1,
+  "expression": "8 ÷ 4 + (10 × 4) × 3 - 1 + 4",
+  "n_ops": 6,
+  "misconceptions": [
+   "same_priority_rtl"
+  ],
+  "num_misconceptions": 1,
+  "trace": [
+   "8 ÷ 4 + (10 × 4) × 3 - 1 + 4",
+   "8 ÷ 4 + (10 × 4) × 3 - 5",
+   "2 + (10 × 4) × 3 - 5",
+   "2 + 40 × 3 - 5",
+   "2 + 120 - 5",
+   "122 - 5",
+   "117"
+  ],
+  "probed_misconception": "sub_before_mul",
+  "statement_correct": false,
+  "which_target": null,
+  "student_name": "Mia",
+  "belief_statement": "Mia believes subtraction should be done before multiplication.",
+  "foil_status": "refuted",
+  "io_foil_marginal": 0.0
+ },
+ {
+  "id": "B175",
+  "pair_id": "P087",
+  "category": "B",
+  "error_position": 3,
+  "expression": "8 ÷ 4 + (10 × 4) × 3 - 1 + 4",
+  "n_ops": 6,
+  "misconceptions": [
+   "same_priority_rtl"
+  ],
+  "num_misconceptions": 1,
+  "trace": [
+   "8 ÷ 4 + (10 × 4) × 3 - 1 + 4",
+   "2 + (10 × 4) × 3 - 1 + 4",
+   "2 + 40 × 3 - 1 + 4",
+   "2 + 40 × 3 - 5",
+   "2 + 120 - 5",
+   "122 - 5",
+   "117"
+  ],
+  "probed_misconception": "sub_before_mul",
+  "statement_correct": false,
+  "which_target": null,
+  "student_name": "Lucas",
+  "belief_statement": "Lucas believes subtraction should be done before multiplication.",
+  "foil_status": "refuted",
+  "io_foil_marginal": 0.0
+ },
+ {
+  "id": "B176",
+  "pair_id": "P088",
+  "category": "B",
+  "error_position": 1,
+  "expression": "9 × 5 × 4 ÷ (2 + 1) × 2 + 10",
+  "n_ops": 6,
+  "misconceptions": [
+   "outside_bracket_first"
+  ],
+  "num_misconceptions": 1,
+  "trace": [
+   "9 × 5 × 4 ÷ (2 + 1) × 2 + 10",
+   "9 × 5 × 4 ÷ (2 + 1) × 12",
+   "45 × 4 ÷ (2 + 1) × 12",
+   "180 ÷ (2 + 1) × 12",
+   "180 ÷ 3 × 12",
+   "60 × 12",
+   "720"
+  ],
+  "probed_misconception": "sub_before_mul",
+  "statement_correct": false,
+  "which_target": null,
+  "student_name": "Emma",
+  "belief_statement": "Emma believes subtraction should be done before multiplication.",
+  "foil_status": "unsupported",
+  "io_foil_marginal": 0.2
+ },
+ {
+  "id": "B177",
+  "pair_id": "P088",
+  "category": "B",
+  "error_position": 3,
+  "expression": "9 × 5 × 4 ÷ (2 + 1) × 2 + 10",
+  "n_ops": 6,
+  "misconceptions": [
+   "outside_bracket_first"
+  ],
+  "num_misconceptions": 1,
+  "trace": [
+   "9 × 5 × 4 ÷ (2 + 1) × 2 + 10",
+   "45 × 4 ÷ (2 + 1) × 2 + 10",
+   "180 ÷ (2 + 1) × 2 + 10",
+   "180 ÷ (2 + 1) × 12",
+   "180 ÷ 3 × 12",
+   "60 × 12",
+   "720"
+  ],
+  "probed_misconception": "sub_before_mul",
+  "statement_correct": false,
+  "which_target": null,
+  "student_name": "Owen",
+  "belief_statement": "Owen believes subtraction should be done before multiplication.",
+  "foil_status": "unsupported",
+  "io_foil_marginal": 0.2
+ },
+ {
+  "id": "B178",
+  "pair_id": "P089",
+  "category": "B",
+  "error_position": 1,
+  "expression": "7 × 3 × 3 + (9 + 8) ÷ 2 - 1",
+  "n_ops": 6,
+  "misconceptions": [
+   "outside_bracket_first"
+  ],
+  "num_misconceptions": 1,
+  "trace": [
+   "7 × 3 × 3 + (9 + 8) ÷ 2 - 1",
+   "7 × 3 × 3 + (9 + 8) ÷ 1",
+   "21 × 3 + (9 + 8) ÷ 1",
+   "63 + (9 + 8) ÷ 1",
+   "63 + 17 ÷ 1",
+   "63 + 17",
+   "80"
+  ],
+  "probed_misconception": "sub_before_mul",
+  "statement_correct": false,
+  "which_target": null,
+  "student_name": "Sofia",
+  "belief_statement": "Sofia believes subtraction should be done before multiplication.",
+  "foil_status": "unsupported",
+  "io_foil_marginal": 0.2
+ },
+ {
+  "id": "B179",
+  "pair_id": "P089",
+  "category": "B",
+  "error_position": 3,
+  "expression": "7 × 3 × 3 + (9 + 8) ÷ 2 - 1",
+  "n_ops": 6,
+  "misconceptions": [
+   "outside_bracket_first"
+  ],
+  "num_misconceptions": 1,
+  "trace": [
+   "7 × 3 × 3 + (9 + 8) ÷ 2 - 1",
+   "21 × 3 + (9 + 8) ÷ 2 - 1",
+   "63 + (9 + 8) ÷ 2 - 1",
+   "63 + (9 + 8) ÷ 1",
+   "63 + 17 ÷ 1",
+   "63 + 17",
+   "80"
+  ],
+  "probed_misconception": "sub_before_mul",
+  "statement_correct": false,
+  "which_target": null,
+  "student_name": "Caleb",
+  "belief_statement": "Caleb believes subtraction should be done before multiplication.",
+  "foil_status": "unsupported",
+  "io_foil_marginal": 0.2
+ },
+ {
+  "id": "B180",
+  "pair_id": "P090",
+  "category": "B",
+  "error_position": 1,
+  "expression": "6 ÷ 3 × 2 + 3 - 1 + 8 - 1",
+  "n_ops": 6,
+  "misconceptions": [
+   "add_before_mul"
+  ],
+  "num_misconceptions": 1,
+  "trace": [
+   "6 ÷ 3 × 2 + 3 - 1 + 8 - 1",
+   "6 ÷ 3 × 5 - 1 + 8 - 1",
+   "2 × 5 - 1 + 8 - 1",
+   "10 - 1 + 8 - 1",
+   "9 + 8 - 1",
+   "17 - 1",
+   "16"
+  ],
+  "probed_misconception": "sub_before_div",
+  "statement_correct": false,
+  "which_target": null,
+  "student_name": "Ruby",
+  "belief_statement": "Ruby believes subtraction should be done before division.",
+  "foil_status": "unsupported",
+  "io_foil_marginal": 0.25
+ },
+ {
+  "id": "B181",
+  "pair_id": "P090",
+  "category": "B",
+  "error_position": 3,
+  "expression": "6 ÷ 3 × 2 + 3 - 1 + 8 - 1",
+  "n_ops": 6,
+  "misconceptions": [
+   "add_before_mul"
+  ],
+  "num_misconceptions": 1,
+  "trace": [
+   "6 ÷ 3 × 2 + 3 - 1 + 8 - 1",
+   "2 × 2 + 3 - 1 + 8 - 1",
+   "2 × 2 + 3 - 1 + 7",
+   "2 × 5 - 1 + 7",
+   "10 - 1 + 7",
+   "9 + 7",
+   "16"
+  ],
+  "probed_misconception": "sub_before_div",
+  "statement_correct": false,
+  "which_target": null,
+  "student_name": "Jonah",
+  "belief_statement": "Jonah believes subtraction should be done before division.",
+  "foil_status": "unsupported",
+  "io_foil_marginal": 0.25
+ },
+ {
+  "id": "B182",
+  "pair_id": "P091",
+  "category": "B",
+  "error_position": 1,
+  "expression": "5 × 4 - 3 - 2 - 1 × 6 + 4",
+  "n_ops": 6,
+  "misconceptions": [
+   "add_before_mul"
+  ],
+  "num_misconceptions": 1,
+  "trace": [
+   "5 × 4 - 3 - 2 - 1 × 6 + 4",
+   "5 × 4 - 3 - 2 - 1 × 10",
+   "20 - 3 - 2 - 1 × 10",
+   "17 - 2 - 1 × 10",
+   "15 - 1 × 10",
+   "15 - 10",
+   "5"
+  ],
+  "probed_misconception": "sub_before_div",
+  "statement_correct": false,
+  "which_target": null,
+  "student_name": "Isla",
+  "belief_statement": "Isla believes subtraction should be done before division.",
+  "foil_status": "unsupported",
+  "io_foil_marginal": 0.25
+ },
+ {
+  "id": "B183",
+  "pair_id": "P091",
+  "category": "B",
+  "error_position": 3,
+  "expression": "5 × 4 - 3 - 2 - 1 × 6 + 4",
+  "n_ops": 6,
+  "misconceptions": [
+   "add_before_mul"
+  ],
+  "num_misconceptions": 1,
+  "trace": [
+   "5 × 4 - 3 - 2 - 1 × 6 + 4",
+   "20 - 3 - 2 - 1 × 6 + 4",
+   "17 - 2 - 1 × 6 + 4",
+   "17 - 2 - 1 × 10",
+   "15 - 1 × 10",
+   "15 - 10",
+   "5"
+  ],
+  "probed_misconception": "sub_before_div",
+  "statement_correct": false,
+  "which_target": null,
+  "student_name": "Felix",
+  "belief_statement": "Felix believes subtraction should be done before division.",
+  "foil_status": "unsupported",
+  "io_foil_marginal": 0.25
+ },
+ {
+  "id": "B184",
+  "pair_id": "P092",
+  "category": "B",
+  "error_position": 1,
+  "expression": "2 × 2 - 1 + 10 - 3 + 8 - 5",
+  "n_ops": 6,
+  "misconceptions": [
+   "sub_before_mul"
+  ],
+  "num_misconceptions": 1,
+  "trace": [
+   "2 × 2 - 1 + 10 - 3 + 8 - 5",
+   "2 × 1 + 10 - 3 + 8 - 5",
+   "2 + 10 - 3 + 8 - 5",
+   "12 - 3 + 8 - 5",
+   "9 + 8 - 5",
+   "17 - 5",
+   "12"
+  ],
+  "probed_misconception": "same_priority_rtl",
+  "statement_correct": false,
+  "which_target": null,
+  "student_name": "Nora",
+  "belief_statement": "Nora believes operations of the same priority should be worked right to left.",
+  "foil_status": "refuted",
+  "io_foil_marginal": 0.0
+ },
+ {
+  "id": "B185",
+  "pair_id": "P092",
+  "category": "B",
+  "error_position": 3,
+  "expression": "2 × 2 - 1 + 10 - 3 + 8 - 5",
+  "n_ops": 6,
+  "misconceptions": [
+   "sub_before_mul"
+  ],
+  "num_misconceptions": 1,
+  "trace": [
+   "2 × 2 - 1 + 10 - 3 + 8 - 5",
+   "2 × 2 - 1 + 7 + 8 - 5",
+   "2 × 2 - 1 + 15 - 5",
+   "2 × 1 + 15 - 5",
+   "2 + 15 - 5",
+   "17 - 5",
+   "12"
+  ],
+  "probed_misconception": "same_priority_rtl",
+  "statement_correct": false,
+  "which_target": null,
+  "student_name": "Dylan",
+  "belief_statement": "Dylan believes operations of the same priority should be worked right to left.",
+  "foil_status": "refuted",
+  "io_foil_marginal": 0.0
+ },
+ {
+  "id": "B186",
+  "pair_id": "P093",
+  "category": "B",
+  "error_position": 1,
+  "expression": "10 ÷ (5 × 3 - 1) × 6 × 3 × 3",
+  "n_ops": 6,
+  "misconceptions": [
+   "sub_before_mul"
+  ],
+  "num_misconceptions": 1,
+  "trace": [
+   "10 ÷ (5 × 3 - 1) × 6 × 3 × 3",
+   "10 ÷ (5 × 2) × 6 × 3 × 3",
+   "10 ÷ (5 × 2) × 18 × 3",
+   "10 ÷ (5 × 2) × 54",
+   "10 ÷ 10 × 54",
+   "1 × 54",
+   "54"
+  ],
+  "probed_misconception": "same_priority_rtl",
+  "statement_correct": false,
+  "which_target": null,
+  "student_name": "Priya",
+  "belief_statement": "Priya believes operations of the same priority should be worked right to left.",
+  "foil_status": "refuted",
+  "io_foil_marginal": 0.0
+ },
+ {
+  "id": "B187",
+  "pair_id": "P093",
+  "category": "B",
+  "error_position": 3,
+  "expression": "10 ÷ (5 × 3 - 1) × 6 × 3 × 3",
+  "n_ops": 6,
+  "misconceptions": [
+   "sub_before_mul"
+  ],
+  "num_misconceptions": 1,
+  "trace": [
+   "10 ÷ (5 × 3 - 1) × 6 × 3 × 3",
+   "10 ÷ (5 × 3 - 1) × 18 × 3",
+   "10 ÷ (5 × 3 - 1) × 54",
+   "10 ÷ (5 × 2) × 54",
+   "10 ÷ 10 × 54",
+   "1 × 54",
+   "54"
+  ],
+  "probed_misconception": "same_priority_rtl",
+  "statement_correct": false,
+  "which_target": null,
+  "student_name": "Marcus",
+  "belief_statement": "Marcus believes operations of the same priority should be worked right to left.",
+  "foil_status": "refuted",
+  "io_foil_marginal": 0.0
+ },
+ {
+  "id": "B188",
+  "pair_id": "P094",
+  "category": "B",
+  "error_position": 1,
+  "expression": "10 + 11 - 9 + 8 ÷ 2 - 1 + 1",
+  "n_ops": 6,
+  "misconceptions": [
+   "sub_before_div"
+  ],
+  "num_misconceptions": 1,
+  "trace": [
+   "10 + 11 - 9 + 8 ÷ 2 - 1 + 1",
+   "10 + 11 - 9 + 8 ÷ 1 + 1",
+   "21 - 9 + 8 ÷ 1 + 1",
+   "12 + 8 ÷ 1 + 1",
+   "12 + 8 + 1",
+   "20 + 1",
+   "21"
+  ],
+  "probed_misconception": "same_priority_rtl",
+  "statement_correct": false,
+  "which_target": null,
+  "student_name": "Elena",
+  "belief_statement": "Elena believes operations of the same priority should be worked right to left.",
+  "foil_status": "refuted",
+  "io_foil_marginal": 0.0
+ },
+ {
+  "id": "B189",
+  "pair_id": "P094",
+  "category": "B",
+  "error_position": 3,
+  "expression": "10 + 11 - 9 + 8 ÷ 2 - 1 + 1",
+  "n_ops": 6,
+  "misconceptions": [
+   "sub_before_div"
+  ],
+  "num_misconceptions": 1,
+  "trace": [
+   "10 + 11 - 9 + 8 ÷ 2 - 1 + 1",
+   "21 - 9 + 8 ÷ 2 - 1 + 1",
+   "12 + 8 ÷ 2 - 1 + 1",
+   "12 + 8 ÷ 1 + 1",
+   "12 + 8 + 1",
+   "20 + 1",
+   "21"
+  ],
+  "probed_misconception": "same_priority_rtl",
+  "statement_correct": false,
+  "which_target": null,
+  "student_name": "Theo",
+  "belief_statement": "Theo believes operations of the same priority should be worked right to left.",
+  "foil_status": "refuted",
+  "io_foil_marginal": 0.0
+ },
+ {
+  "id": "B190",
+  "pair_id": "P095",
+  "category": "B",
+  "error_position": 1,
+  "expression": "6 ÷ 3 - 2 + 8 ÷ 2 + 12 ÷ 6",
+  "n_ops": 6,
+  "misconceptions": [
+   "sub_before_div"
+  ],
+  "num_misconceptions": 1,
+  "trace": [
+   "6 ÷ 3 - 2 + 8 ÷ 2 + 12 ÷ 6",
+   "6 ÷ 1 + 8 ÷ 2 + 12 ÷ 6",
+   "6 + 8 ÷ 2 + 12 ÷ 6",
+   "6 + 4 + 12 ÷ 6",
+   "10 + 12 ÷ 6",
+   "10 + 2",
+   "12"
+  ],
+  "probed_misconception": "same_priority_rtl",
+  "statement_correct": false,
+  "which_target": null,
+  "student_name": "Jasmine",
+  "belief_statement": "Jasmine believes operations of the same priority should be worked right to left.",
+  "foil_status": "refuted",
+  "io_foil_marginal": 0.0
+ },
+ {
+  "id": "B191",
+  "pair_id": "P095",
+  "category": "B",
+  "error_position": 3,
+  "expression": "6 ÷ 3 - 2 + 8 ÷ 2 + 12 ÷ 6",
+  "n_ops": 6,
+  "misconceptions": [
+   "sub_before_div"
+  ],
+  "num_misconceptions": 1,
+  "trace": [
+   "6 ÷ 3 - 2 + 8 ÷ 2 + 12 ÷ 6",
+   "6 ÷ 3 - 2 + 4 + 12 ÷ 6",
+   "6 ÷ 3 - 2 + 4 + 2",
+   "6 ÷ 1 + 4 + 2",
+   "6 + 4 + 2",
+   "10 + 2",
+   "12"
+  ],
+  "probed_misconception": "same_priority_rtl",
+  "statement_correct": false,
+  "which_target": null,
+  "student_name": "Omar",
+  "belief_statement": "Omar believes operations of the same priority should be worked right to left.",
+  "foil_status": "refuted",
+  "io_foil_marginal": 0.0
+ },
+ {
+  "id": "B192",
+  "pair_id": "P096",
+  "category": "B",
+  "error_position": 1,
+  "expression": "7 + 9 ÷ 3 + (10 + 8) × 4 + 9",
+  "n_ops": 6,
+  "misconceptions": [
+   "outside_bracket_first"
+  ],
+  "num_misconceptions": 1,
+  "trace": [
+   "7 + 9 ÷ 3 + (10 + 8) × 4 + 9",
+   "7 + 9 ÷ 3 + (10 + 8) × 13",
+   "7 + 3 + (10 + 8) × 13",
+   "10 + (10 + 8) × 13",
+   "10 + 18 × 13",
+   "10 + 234",
+   "244"
+  ],
+  "probed_misconception": "sub_before_div",
+  "statement_correct": false,
+  "which_target": null,
+  "student_name": "Noah",
+  "belief_statement": "Noah believes subtraction should be done before division.",
+  "foil_status": "unsupported",
+  "io_foil_marginal": 0.25
+ },
+ {
+  "id": "B193",
+  "pair_id": "P096",
+  "category": "B",
+  "error_position": 3,
+  "expression": "7 + 9 ÷ 3 + (10 + 8) × 4 + 9",
+  "n_ops": 6,
+  "misconceptions": [
+   "outside_bracket_first"
+  ],
+  "num_misconceptions": 1,
+  "trace": [
+   "7 + 9 ÷ 3 + (10 + 8) × 4 + 9",
+   "7 + 3 + (10 + 8) × 4 + 9",
+   "10 + (10 + 8) × 4 + 9",
+   "10 + (10 + 8) × 13",
+   "10 + 18 × 13",
+   "10 + 234",
+   "244"
+  ],
+  "probed_misconception": "sub_before_div",
+  "statement_correct": false,
+  "which_target": null,
+  "student_name": "Maya",
+  "belief_statement": "Maya believes subtraction should be done before division.",
+  "foil_status": "unsupported",
+  "io_foil_marginal": 0.25
+ },
+ {
+  "id": "B194",
+  "pair_id": "P097",
+  "category": "B",
+  "error_position": 1,
+  "expression": "12 ÷ 2 × 5 × (5 + 11) × 4 - 2",
+  "n_ops": 6,
+  "misconceptions": [
+   "outside_bracket_first"
+  ],
+  "num_misconceptions": 1,
+  "trace": [
+   "12 ÷ 2 × 5 × (5 + 11) × 4 - 2",
+   "12 ÷ 2 × 5 × (5 + 11) × 2",
+   "6 × 5 × (5 + 11) × 2",
+   "30 × (5 + 11) × 2",
+   "30 × 16 × 2",
+   "480 × 2",
+   "960"
+  ],
+  "probed_misconception": "sub_before_div",
+  "statement_correct": false,
+  "which_target": null,
+  "student_name": "Liam",
+  "belief_statement": "Liam believes subtraction should be done before division.",
+  "foil_status": "unsupported",
+  "io_foil_marginal": 0.2
+ },
+ {
+  "id": "B195",
+  "pair_id": "P097",
+  "category": "B",
+  "error_position": 3,
+  "expression": "12 ÷ 2 × 5 × (5 + 11) × 4 - 2",
+  "n_ops": 6,
+  "misconceptions": [
+   "outside_bracket_first"
+  ],
+  "num_misconceptions": 1,
+  "trace": [
+   "12 ÷ 2 × 5 × (5 + 11) × 4 - 2",
+   "6 × 5 × (5 + 11) × 4 - 2",
+   "30 × (5 + 11) × 4 - 2",
+   "30 × (5 + 11) × 2",
+   "30 × 16 × 2",
+   "480 × 2",
+   "960"
+  ],
+  "probed_misconception": "sub_before_div",
+  "statement_correct": false,
+  "which_target": null,
+  "student_name": "Ava",
+  "belief_statement": "Ava believes subtraction should be done before division.",
+  "foil_status": "unsupported",
+  "io_foil_marginal": 0.2
+ },
+ {
+  "id": "B196",
+  "pair_id": "P098",
+  "category": "B",
+  "error_position": 1,
+  "expression": "12 ÷ 3 + 3 - 1 + 7 × 2 - 1",
+  "n_ops": 6,
+  "misconceptions": [
+   "add_before_div"
+  ],
+  "num_misconceptions": 1,
+  "trace": [
+   "12 ÷ 3 + 3 - 1 + 7 × 2 - 1",
+   "12 ÷ 6 - 1 + 7 × 2 - 1",
+   "2 - 1 + 7 × 2 - 1",
+   "1 + 7 × 2 - 1",
+   "1 + 14 - 1",
+   "15 - 1",
+   "14"
+  ],
+  "probed_misconception": "add_before_mul",
+  "statement_correct": false,
+  "which_target": null,
+  "student_name": "Ethan",
+  "belief_statement": "Ethan believes addition should be done before multiplication.",
+  "foil_status": "refuted",
+  "io_foil_marginal": 0.0
+ },
+ {
+  "id": "B197",
+  "pair_id": "P098",
+  "category": "B",
+  "error_position": 3,
+  "expression": "12 ÷ 3 + 3 - 1 + 7 × 2 - 1",
+  "n_ops": 6,
+  "misconceptions": [
+   "add_before_div"
+  ],
+  "num_misconceptions": 1,
+  "trace": [
+   "12 ÷ 3 + 3 - 1 + 7 × 2 - 1",
+   "12 ÷ 3 + 3 - 1 + 14 - 1",
+   "12 ÷ 3 + 3 - 1 + 13",
+   "12 ÷ 6 - 1 + 13",
+   "2 - 1 + 13",
+   "1 + 13",
+   "14"
+  ],
+  "probed_misconception": "add_before_mul",
+  "statement_correct": false,
+  "which_target": null,
+  "student_name": "Zoe",
+  "belief_statement": "Zoe believes addition should be done before multiplication.",
+  "foil_status": "refuted",
+  "io_foil_marginal": 0.0
+ },
+ {
+  "id": "B198",
+  "pair_id": "P099",
+  "category": "B",
+  "error_position": 1,
+  "expression": "12 - 6 + 6 - 4 ÷ 2 + 2 - 1",
+  "n_ops": 6,
+  "misconceptions": [
+   "add_before_div"
+  ],
+  "num_misconceptions": 1,
+  "trace": [
+   "12 - 6 + 6 - 4 ÷ 2 + 2 - 1",
+   "12 - 6 + 6 - 4 ÷ 4 - 1",
+   "6 + 6 - 4 ÷ 4 - 1",
+   "12 - 4 ÷ 4 - 1",
+   "12 - 1 - 1",
+   "11 - 1",
+   "10"
+  ],
+  "probed_misconception": "add_before_mul",
+  "statement_correct": false,
+  "which_target": null,
+  "student_name": "Mia",
+  "belief_statement": "Mia believes addition should be done before multiplication.",
+  "foil_status": "unsupported",
+  "io_foil_marginal": 0.25
+ },
+ {
+  "id": "B199",
+  "pair_id": "P099",
+  "category": "B",
+  "error_position": 3,
+  "expression": "12 - 6 + 6 - 4 ÷ 2 + 2 - 1",
+  "n_ops": 6,
+  "misconceptions": [
+   "add_before_div"
+  ],
+  "num_misconceptions": 1,
+  "trace": [
+   "12 - 6 + 6 - 4 ÷ 2 + 2 - 1",
+   "6 + 6 - 4 ÷ 2 + 2 - 1",
+   "12 - 4 ÷ 2 + 2 - 1",
+   "12 - 4 ÷ 4 - 1",
+   "12 - 1 - 1",
+   "11 - 1",
+   "10"
+  ],
+  "probed_misconception": "add_before_mul",
+  "statement_correct": false,
+  "which_target": null,
+  "student_name": "Lucas",
+  "belief_statement": "Lucas believes addition should be done before multiplication.",
+  "foil_status": "unsupported",
+  "io_foil_marginal": 0.25
+ },
+ {
+  "id": "B200",
+  "pair_id": "P100",
+  "category": "B",
+  "error_position": 1,
+  "expression": "6 × 2 + 12 - 6 ÷ 2 × 4 × 3",
+  "n_ops": 6,
+  "misconceptions": [
+   "sub_before_div"
+  ],
+  "num_misconceptions": 1,
+  "trace": [
+   "6 × 2 + 12 - 6 ÷ 2 × 4 × 3",
+   "6 × 2 + 6 ÷ 2 × 4 × 3",
+   "12 + 6 ÷ 2 × 4 × 3",
+   "12 + 3 × 4 × 3",
+   "12 + 12 × 3",
+   "12 + 36",
+   "48"
+  ],
+  "probed_misconception": "outside_bracket_first",
+  "statement_correct": false,
+  "which_target": null,
+  "student_name": "Emma",
+  "belief_statement": "Emma believes you should calculate outside the brackets before what's inside them.",
+  "foil_status": "unsupported",
+  "io_foil_marginal": 0.3333
+ },
+ {
+  "id": "B201",
+  "pair_id": "P100",
+  "category": "B",
+  "error_position": 3,
+  "expression": "6 × 2 + 12 - 6 ÷ 2 × 4 × 3",
+  "n_ops": 6,
+  "misconceptions": [
+   "sub_before_div"
+  ],
+  "num_misconceptions": 1,
+  "trace": [
+   "6 × 2 + 12 - 6 ÷ 2 × 4 × 3",
+   "12 + 12 - 6 ÷ 2 × 4 × 3",
+   "24 - 6 ÷ 2 × 4 × 3",
+   "18 ÷ 2 × 4 × 3",
+   "9 × 4 × 3",
+   "36 × 3",
+   "108"
+  ],
+  "probed_misconception": "outside_bracket_first",
+  "statement_correct": false,
+  "which_target": null,
+  "student_name": "Owen",
+  "belief_statement": "Owen believes you should calculate outside the brackets before what's inside them.",
+  "foil_status": "unsupported",
+  "io_foil_marginal": 0.25
+ },
+ {
+  "id": "B202",
+  "pair_id": "P101",
+  "category": "B",
+  "error_position": 1,
+  "expression": "8 ÷ 2 + 9 - 2 + 4 ÷ 2 - 1",
+  "n_ops": 6,
+  "misconceptions": [
+   "sub_before_div"
+  ],
+  "num_misconceptions": 1,
+  "trace": [
+   "8 ÷ 2 + 9 - 2 + 4 ÷ 2 - 1",
+   "8 ÷ 2 + 9 - 2 + 4 ÷ 1",
+   "4 + 9 - 2 + 4 ÷ 1",
+   "13 - 2 + 4 ÷ 1",
+   "11 + 4 ÷ 1",
+   "11 + 4",
+   "15"
+  ],
+  "probed_misconception": "outside_bracket_first",
+  "statement_correct": false,
+  "which_target": null,
+  "student_name": "Sofia",
+  "belief_statement": "Sofia believes you should calculate outside the brackets before what's inside them.",
+  "foil_status": "unsupported",
+  "io_foil_marginal": 0.25
+ },
+ {
+  "id": "B203",
+  "pair_id": "P101",
+  "category": "B",
+  "error_position": 3,
+  "expression": "8 ÷ 2 + 9 - 2 + 4 ÷ 2 - 1",
+  "n_ops": 6,
+  "misconceptions": [
+   "sub_before_div"
+  ],
+  "num_misconceptions": 1,
+  "trace": [
+   "8 ÷ 2 + 9 - 2 + 4 ÷ 2 - 1",
+   "4 + 9 - 2 + 4 ÷ 2 - 1",
+   "13 - 2 + 4 ÷ 2 - 1",
+   "13 - 2 + 4 ÷ 1",
+   "11 + 4 ÷ 1",
+   "11 + 4",
+   "15"
+  ],
+  "probed_misconception": "outside_bracket_first",
+  "statement_correct": false,
+  "which_target": null,
+  "student_name": "Caleb",
+  "belief_statement": "Caleb believes you should calculate outside the brackets before what's inside them.",
+  "foil_status": "unsupported",
+  "io_foil_marginal": 0.25
+ },
+ {
+  "id": "B204",
+  "pair_id": "P102",
+  "category": "B",
+  "error_position": 1,
+  "expression": "(7 × 3 + 6) × 6 + 4 - 2 - 1",
+  "n_ops": 6,
+  "misconceptions": [
+   "same_priority_rtl"
+  ],
+  "num_misconceptions": 1,
+  "trace": [
+   "(7 × 3 + 6) × 6 + 4 - 2 - 1",
+   "(7 × 3 + 6) × 6 + 4 - 1",
+   "(7 × 3 + 6) × 6 + 3",
+   "(21 + 6) × 6 + 3",
+   "27 × 6 + 3",
+   "162 + 3",
+   "165"
+  ],
+  "probed_misconception": "sub_before_div",
+  "statement_correct": false,
+  "which_target": null,
+  "student_name": "Ruby",
+  "belief_statement": "Ruby believes subtraction should be done before division.",
+  "foil_status": "unsupported",
+  "io_foil_marginal": 0.25
+ },
+ {
+  "id": "B205",
+  "pair_id": "P102",
+  "category": "B",
+  "error_position": 3,
+  "expression": "(7 × 3 + 6) × 6 + 4 - 2 - 1",
+  "n_ops": 6,
+  "misconceptions": [
+   "same_priority_rtl"
+  ],
+  "num_misconceptions": 1,
+  "trace": [
+   "(7 × 3 + 6) × 6 + 4 - 2 - 1",
+   "(21 + 6) × 6 + 4 - 2 - 1",
+   "27 × 6 + 4 - 2 - 1",
+   "27 × 6 + 4 - 1",
+   "162 + 4 - 1",
+   "166 - 1",
+   "165"
+  ],
+  "probed_misconception": "sub_before_div",
+  "statement_correct": false,
+  "which_target": null,
+  "student_name": "Jonah",
+  "belief_statement": "Jonah believes subtraction should be done before division.",
+  "foil_status": "unsupported",
+  "io_foil_marginal": 0.25
+ },
+ {
+  "id": "B206",
+  "pair_id": "P103",
+  "category": "B",
+  "error_position": 1,
+  "expression": "1 + 5 × 2 × 4 ÷ 2 × 4 - 2",
+  "n_ops": 6,
+  "misconceptions": [
+   "same_priority_rtl"
+  ],
+  "num_misconceptions": 1,
+  "trace": [
+   "1 + 5 × 2 × 4 ÷ 2 × 4 - 2",
+   "1 + 5 × 2 × 4 ÷ 8 - 2",
+   "1 + 10 × 4 ÷ 8 - 2",
+   "1 + 40 ÷ 8 - 2",
+   "1 + 5 - 2",
+   "6 - 2",
+   "4"
+  ],
+  "probed_misconception": "sub_before_div",
+  "statement_correct": false,
+  "which_target": null,
+  "student_name": "Isla",
+  "belief_statement": "Isla believes subtraction should be done before division.",
+  "foil_status": "refuted",
+  "io_foil_marginal": 0.0
+ },
+ {
+  "id": "B207",
+  "pair_id": "P103",
+  "category": "B",
+  "error_position": 3,
+  "expression": "1 + 5 × 2 × 4 ÷ 2 × 4 - 2",
+  "n_ops": 6,
+  "misconceptions": [
+   "same_priority_rtl"
+  ],
+  "num_misconceptions": 1,
+  "trace": [
+   "1 + 5 × 2 × 4 ÷ 2 × 4 - 2",
+   "1 + 10 × 4 ÷ 2 × 4 - 2",
+   "1 + 40 ÷ 2 × 4 - 2",
+   "1 + 40 ÷ 8 - 2",
+   "1 + 5 - 2",
+   "6 - 2",
+   "4"
+  ],
+  "probed_misconception": "sub_before_div",
+  "statement_correct": false,
+  "which_target": null,
+  "student_name": "Felix",
+  "belief_statement": "Felix believes subtraction should be done before division.",
+  "foil_status": "refuted",
+  "io_foil_marginal": 0.0
+ },
+ {
+  "id": "B208",
+  "pair_id": "P104",
+  "category": "B",
+  "error_position": 1,
+  "expression": "1 + 9 - 8 + (8 ÷ 2) × 3 + 11",
+  "n_ops": 6,
+  "misconceptions": [
+   "outside_bracket_first"
+  ],
+  "num_misconceptions": 1,
+  "trace": [
+   "1 + 9 - 8 + (8 ÷ 2) × 3 + 11",
+   "1 + 9 - 8 + (8 ÷ 2) × 14",
+   "10 - 8 + (8 ÷ 2) × 14",
+   "2 + (8 ÷ 2) × 14",
+   "2 + 4 × 14",
+   "2 + 56",
+   "58"
+  ],
+  "probed_misconception": "same_priority_rtl",
+  "statement_correct": false,
+  "which_target": null,
+  "student_name": "Nora",
+  "belief_statement": "Nora believes operations of the same priority should be worked right to left.",
+  "foil_status": "unsupported",
+  "io_foil_marginal": 0.2
+ },
+ {
+  "id": "B209",
+  "pair_id": "P104",
+  "category": "B",
+  "error_position": 3,
+  "expression": "1 + 9 - 8 + (8 ÷ 2) × 3 + 11",
+  "n_ops": 6,
+  "misconceptions": [
+   "outside_bracket_first"
+  ],
+  "num_misconceptions": 1,
+  "trace": [
+   "1 + 9 - 8 + (8 ÷ 2) × 3 + 11",
+   "10 - 8 + (8 ÷ 2) × 3 + 11",
+   "2 + (8 ÷ 2) × 3 + 11",
+   "2 + (8 ÷ 2) × 14",
+   "2 + 4 × 14",
+   "2 + 56",
+   "58"
+  ],
+  "probed_misconception": "same_priority_rtl",
+  "statement_correct": false,
+  "which_target": null,
+  "student_name": "Dylan",
+  "belief_statement": "Dylan believes operations of the same priority should be worked right to left.",
+  "foil_status": "unsupported",
+  "io_foil_marginal": 0.2
+ },
+ {
+  "id": "B210",
+  "pair_id": "P105",
+  "category": "B",
+  "error_position": 1,
+  "expression": "5 + 7 - 5 - (4 - 2) × 3 - 1",
+  "n_ops": 6,
+  "misconceptions": [
+   "outside_bracket_first"
+  ],
+  "num_misconceptions": 1,
+  "trace": [
+   "5 + 7 - 5 - (4 - 2) × 3 - 1",
+   "5 + 7 - 5 - (4 - 2) × 2",
+   "12 - 5 - (4 - 2) × 2",
+   "7 - (4 - 2) × 2",
+   "7 - 2 × 2",
+   "7 - 4",
+   "3"
+  ],
+  "probed_misconception": "same_priority_rtl",
+  "statement_correct": false,
+  "which_target": null,
+  "student_name": "Priya",
+  "belief_statement": "Priya believes operations of the same priority should be worked right to left.",
+  "foil_status": "unsupported",
+  "io_foil_marginal": 0.2
+ },
+ {
+  "id": "B211",
+  "pair_id": "P105",
+  "category": "B",
+  "error_position": 3,
+  "expression": "5 + 7 - 5 - (4 - 2) × 3 - 1",
+  "n_ops": 6,
+  "misconceptions": [
+   "outside_bracket_first"
+  ],
+  "num_misconceptions": 1,
+  "trace": [
+   "5 + 7 - 5 - (4 - 2) × 3 - 1",
+   "12 - 5 - (4 - 2) × 3 - 1",
+   "7 - (4 - 2) × 3 - 1",
+   "7 - (4 - 2) × 2",
+   "7 - 2 × 2",
+   "7 - 4",
+   "3"
+  ],
+  "probed_misconception": "same_priority_rtl",
+  "statement_correct": false,
+  "which_target": null,
+  "student_name": "Marcus",
+  "belief_statement": "Marcus believes operations of the same priority should be worked right to left.",
+  "foil_status": "unsupported",
+  "io_foil_marginal": 0.2
+ },
+ {
+  "id": "B212",
+  "pair_id": "P106",
+  "category": "B",
+  "error_position": 1,
+  "expression": "6 ÷ 2 × 6 + 5 × 2 - 1 × 3",
+  "n_ops": 6,
+  "misconceptions": [
+   "add_before_mul"
+  ],
+  "num_misconceptions": 1,
+  "trace": [
+   "6 ÷ 2 × 6 + 5 × 2 - 1 × 3",
+   "6 ÷ 2 × 11 × 2 - 1 × 3",
+   "3 × 11 × 2 - 1 × 3",
+   "33 × 2 - 1 × 3",
+   "66 - 1 × 3",
+   "66 - 3",
+   "63"
+  ],
+  "probed_misconception": "same_priority_rtl",
+  "statement_correct": false,
+  "which_target": null,
+  "student_name": "Elena",
+  "belief_statement": "Elena believes operations of the same priority should be worked right to left.",
+  "foil_status": "refuted",
+  "io_foil_marginal": 0.0
+ },
+ {
+  "id": "B213",
+  "pair_id": "P106",
+  "category": "B",
+  "error_position": 3,
+  "expression": "6 ÷ 2 × 6 + 5 × 2 - 1 × 3",
+  "n_ops": 6,
+  "misconceptions": [
+   "add_before_mul"
+  ],
+  "num_misconceptions": 1,
+  "trace": [
+   "6 ÷ 2 × 6 + 5 × 2 - 1 × 3",
+   "3 × 6 + 5 × 2 - 1 × 3",
+   "3 × 6 + 5 × 2 - 3",
+   "3 × 11 × 2 - 3",
+   "33 × 2 - 3",
+   "66 - 3",
+   "63"
+  ],
+  "probed_misconception": "same_priority_rtl",
+  "statement_correct": false,
+  "which_target": null,
+  "student_name": "Theo",
+  "belief_statement": "Theo believes operations of the same priority should be worked right to left.",
+  "foil_status": "refuted",
+  "io_foil_marginal": 0.0
+ },
+ {
+  "id": "B214",
+  "pair_id": "P107",
+  "category": "B",
+  "error_position": 1,
+  "expression": "1 + (2 + 4 × 5) + 9 ÷ 3 × 4",
+  "n_ops": 6,
+  "misconceptions": [
+   "add_before_mul"
+  ],
+  "num_misconceptions": 1,
+  "trace": [
+   "1 + (2 + 4 × 5) + 9 ÷ 3 × 4",
+   "1 + (6 × 5) + 9 ÷ 3 × 4",
+   "1 + (6 × 5) + 3 × 4",
+   "1 + (6 × 5) + 12",
+   "1 + 30 + 12",
+   "31 + 12",
+   "43"
+  ],
+  "probed_misconception": "same_priority_rtl",
+  "statement_correct": false,
+  "which_target": null,
+  "student_name": "Jasmine",
+  "belief_statement": "Jasmine believes operations of the same priority should be worked right to left.",
+  "foil_status": "refuted",
+  "io_foil_marginal": 0.0
+ },
+ {
+  "id": "B215",
+  "pair_id": "P107",
+  "category": "B",
+  "error_position": 3,
+  "expression": "1 + (2 + 4 × 5) + 9 ÷ 3 × 4",
+  "n_ops": 6,
+  "misconceptions": [
+   "add_before_mul"
+  ],
+  "num_misconceptions": 1,
+  "trace": [
+   "1 + (2 + 4 × 5) + 9 ÷ 3 × 4",
+   "1 + (2 + 4 × 5) + 3 × 4",
+   "1 + (2 + 4 × 5) + 12",
+   "1 + (6 × 5) + 12",
+   "1 + 30 + 12",
+   "31 + 12",
+   "43"
+  ],
+  "probed_misconception": "same_priority_rtl",
+  "statement_correct": false,
+  "which_target": null,
+  "student_name": "Omar",
+  "belief_statement": "Omar believes operations of the same priority should be worked right to left.",
+  "foil_status": "refuted",
+  "io_foil_marginal": 0.0
+ },
+ {
+  "id": "B216",
+  "pair_id": "P108",
+  "category": "B",
+  "error_position": 1,
+  "expression": "10 + 4 ÷ 2 - 1 + (6 - 1 × 2)",
+  "n_ops": 6,
+  "misconceptions": [
+   "add_before_div"
+  ],
+  "num_misconceptions": 1,
+  "trace": [
+   "10 + 4 ÷ 2 - 1 + (6 - 1 × 2)",
+   "14 ÷ 2 - 1 + (6 - 1 × 2)",
+   "7 - 1 + (6 - 1 × 2)",
+   "6 + (6 - 1 × 2)",
+   "6 + (6 - 2)",
+   "6 + 4",
+   "10"
+  ],
+  "probed_misconception": "sub_before_mul",
+  "statement_correct": false,
+  "which_target": null,
+  "student_name": "Noah",
+  "belief_statement": "Noah believes subtraction should be done before multiplication.",
+  "foil_status": "refuted",
+  "io_foil_marginal": 0.0
+ },
+ {
+  "id": "B217",
+  "pair_id": "P108",
+  "category": "B",
+  "error_position": 3,
+  "expression": "10 + 4 ÷ 2 - 1 + (6 - 1 × 2)",
+  "n_ops": 6,
+  "misconceptions": [
+   "add_before_div"
+  ],
+  "num_misconceptions": 1,
+  "trace": [
+   "10 + 4 ÷ 2 - 1 + (6 - 1 × 2)",
+   "10 + 4 ÷ 2 - 1 + (6 - 2)",
+   "10 + 4 ÷ 2 - 1 + 4",
+   "14 ÷ 2 - 1 + 4",
+   "7 - 1 + 4",
+   "6 + 4",
+   "10"
+  ],
+  "probed_misconception": "sub_before_mul",
+  "statement_correct": false,
+  "which_target": null,
+  "student_name": "Maya",
+  "belief_statement": "Maya believes subtraction should be done before multiplication.",
+  "foil_status": "refuted",
+  "io_foil_marginal": 0.0
+ },
+ {
+  "id": "B218",
+  "pair_id": "P109",
+  "category": "B",
+  "error_position": 1,
+  "expression": "11 × 3 × 2 × 2 × 6 ÷ 3 + 1",
+  "n_ops": 6,
+  "misconceptions": [
+   "add_before_div"
+  ],
+  "num_misconceptions": 1,
+  "trace": [
+   "11 × 3 × 2 × 2 × 6 ÷ 3 + 1",
+   "11 × 3 × 2 × 2 × 6 ÷ 4",
+   "33 × 2 × 2 × 6 ÷ 4",
+   "66 × 2 × 6 ÷ 4",
+   "132 × 6 ÷ 4",
+   "792 ÷ 4",
+   "198"
+  ],
+  "probed_misconception": "sub_before_mul",
+  "statement_correct": false,
+  "which_target": null,
+  "student_name": "Liam",
+  "belief_statement": "Liam believes subtraction should be done before multiplication.",
+  "foil_status": "unsupported",
+  "io_foil_marginal": 0.1667
+ },
+ {
+  "id": "B219",
+  "pair_id": "P109",
+  "category": "B",
+  "error_position": 3,
+  "expression": "11 × 3 × 2 × 2 × 6 ÷ 3 + 1",
+  "n_ops": 6,
+  "misconceptions": [
+   "add_before_div"
+  ],
+  "num_misconceptions": 1,
+  "trace": [
+   "11 × 3 × 2 × 2 × 6 ÷ 3 + 1",
+   "33 × 2 × 2 × 6 ÷ 3 + 1",
+   "66 × 2 × 6 ÷ 3 + 1",
+   "66 × 2 × 6 ÷ 4",
+   "132 × 6 ÷ 4",
+   "792 ÷ 4",
+   "198"
+  ],
+  "probed_misconception": "sub_before_mul",
+  "statement_correct": false,
+  "which_target": null,
+  "student_name": "Ava",
+  "belief_statement": "Ava believes subtraction should be done before multiplication.",
+  "foil_status": "unsupported",
+  "io_foil_marginal": 0.1667
+ },
+ {
+  "id": "B220",
+  "pair_id": "P110",
+  "category": "B",
+  "error_position": 1,
+  "expression": "3 + 4 + 6 ÷ 2 × 3 + 9 - 6",
+  "n_ops": 6,
+  "misconceptions": [
+   "same_priority_rtl"
+  ],
+  "num_misconceptions": 1,
+  "trace": [
+   "3 + 4 + 6 ÷ 2 × 3 + 9 - 6",
+   "3 + 4 + 6 ÷ 6 + 9 - 6",
+   "7 + 6 ÷ 6 + 9 - 6",
+   "7 + 1 + 9 - 6",
+   "8 + 9 - 6",
+   "17 - 6",
+   "11"
+  ],
+  "probed_misconception": "outside_bracket_first",
+  "statement_correct": false,
+  "which_target": null,
+  "student_name": "Ethan",
+  "belief_statement": "Ethan believes you should calculate outside the brackets before what's inside them.",
+  "foil_status": "unsupported",
+  "io_foil_marginal": 0.25
+ },
+ {
+  "id": "B221",
+  "pair_id": "P110",
+  "category": "B",
+  "error_position": 3,
+  "expression": "3 + 4 + 6 ÷ 2 × 3 + 9 - 6",
+  "n_ops": 6,
+  "misconceptions": [
+   "same_priority_rtl"
+  ],
+  "num_misconceptions": 1,
+  "trace": [
+   "3 + 4 + 6 ÷ 2 × 3 + 9 - 6",
+   "7 + 6 ÷ 2 × 3 + 9 - 6",
+   "7 + 6 ÷ 2 × 3 + 3",
+   "7 + 6 ÷ 6 + 3",
+   "7 + 1 + 3",
+   "8 + 3",
+   "11"
+  ],
+  "probed_misconception": "outside_bracket_first",
+  "statement_correct": false,
+  "which_target": null,
+  "student_name": "Zoe",
+  "belief_statement": "Zoe believes you should calculate outside the brackets before what's inside them.",
+  "foil_status": "unsupported",
+  "io_foil_marginal": 0.25
+ },
+ {
+  "id": "B222",
+  "pair_id": "P111",
+  "category": "B",
+  "error_position": 1,
+  "expression": "4 + 3 × 6 + 7 × 5 - 1 + 1",
+  "n_ops": 6,
+  "misconceptions": [
+   "same_priority_rtl"
+  ],
+  "num_misconceptions": 1,
+  "trace": [
+   "4 + 3 × 6 + 7 × 5 - 1 + 1",
+   "4 + 3 × 6 + 7 × 5 - 2",
+   "4 + 18 + 7 × 5 - 2",
+   "22 + 7 × 5 - 2",
+   "22 + 35 - 2",
+   "57 - 2",
+   "55"
+  ],
+  "probed_misconception": "outside_bracket_first",
+  "statement_correct": false,
+  "which_target": null,
+  "student_name": "Mia",
+  "belief_statement": "Mia believes you should calculate outside the brackets before what's inside them.",
+  "foil_status": "unsupported",
+  "io_foil_marginal": 0.25
+ },
+ {
+  "id": "B223",
+  "pair_id": "P111",
+  "category": "B",
+  "error_position": 3,
+  "expression": "4 + 3 × 6 + 7 × 5 - 1 + 1",
+  "n_ops": 6,
+  "misconceptions": [
+   "same_priority_rtl"
+  ],
+  "num_misconceptions": 1,
+  "trace": [
+   "4 + 3 × 6 + 7 × 5 - 1 + 1",
+   "4 + 18 + 7 × 5 - 1 + 1",
+   "22 + 7 × 5 - 1 + 1",
+   "22 + 7 × 5 - 2",
+   "22 + 35 - 2",
+   "57 - 2",
+   "55"
+  ],
+  "probed_misconception": "outside_bracket_first",
+  "statement_correct": false,
+  "which_target": null,
+  "student_name": "Lucas",
+  "belief_statement": "Lucas believes you should calculate outside the brackets before what's inside them.",
+  "foil_status": "unsupported",
+  "io_foil_marginal": 0.25
+ },
+ {
+  "id": "B224",
+  "pair_id": "P112",
+  "category": "B",
+  "error_position": 1,
+  "expression": "6 + 12 ÷ 6 ÷ 3 × (6 × 6 ÷ 3)",
+  "n_ops": 6,
+  "misconceptions": [
+   "add_before_div"
+  ],
+  "num_misconceptions": 1,
+  "trace": [
+   "6 + 12 ÷ 6 ÷ 3 × (6 × 6 ÷ 3)",
+   "18 ÷ 6 ÷ 3 × (6 × 6 ÷ 3)",
+   "3 ÷ 3 × (6 × 6 ÷ 3)",
+   "1 × (6 × 6 ÷ 3)",
+   "1 × (36 ÷ 3)",
+   "1 × 12",
+   "12"
+  ],
+  "probed_misconception": "same_priority_rtl",
+  "statement_correct": false,
+  "which_target": null,
+  "student_name": "Emma",
+  "belief_statement": "Emma believes operations of the same priority should be worked right to left.",
+  "foil_status": "refuted",
+  "io_foil_marginal": 0.0
+ },
+ {
+  "id": "B225",
+  "pair_id": "P112",
+  "category": "B",
+  "error_position": 3,
+  "expression": "6 + 12 ÷ 6 ÷ 3 × (6 × 6 ÷ 3)",
+  "n_ops": 6,
+  "misconceptions": [
+   "add_before_div"
+  ],
+  "num_misconceptions": 1,
+  "trace": [
+   "6 + 12 ÷ 6 ÷ 3 × (6 × 6 ÷ 3)",
+   "6 + 12 ÷ 6 ÷ 3 × (36 ÷ 3)",
+   "6 + 12 ÷ 6 ÷ 3 × 12",
+   "18 ÷ 6 ÷ 3 × 12",
+   "3 ÷ 3 × 12",
+   "1 × 12",
+   "12"
+  ],
+  "probed_misconception": "same_priority_rtl",
+  "statement_correct": false,
+  "which_target": null,
+  "student_name": "Owen",
+  "belief_statement": "Owen believes operations of the same priority should be worked right to left.",
+  "foil_status": "refuted",
+  "io_foil_marginal": 0.0
+ },
+ {
+  "id": "B226",
+  "pair_id": "P113",
+  "category": "B",
+  "error_position": 1,
+  "expression": "9 ÷ 3 × 4 × 4 ÷ 2 + 4 - 3",
+  "n_ops": 6,
+  "misconceptions": [
+   "add_before_div"
+  ],
+  "num_misconceptions": 1,
+  "trace": [
+   "9 ÷ 3 × 4 × 4 ÷ 2 + 4 - 3",
+   "9 ÷ 3 × 4 × 4 ÷ 6 - 3",
+   "3 × 4 × 4 ÷ 6 - 3",
+   "12 × 4 ÷ 6 - 3",
+   "48 ÷ 6 - 3",
+   "8 - 3",
+   "5"
+  ],
+  "probed_misconception": "same_priority_rtl",
+  "statement_correct": false,
+  "which_target": null,
+  "student_name": "Sofia",
+  "belief_statement": "Sofia believes operations of the same priority should be worked right to left.",
+  "foil_status": "refuted",
+  "io_foil_marginal": 0.0
+ },
+ {
+  "id": "B227",
+  "pair_id": "P113",
+  "category": "B",
+  "error_position": 3,
+  "expression": "9 ÷ 3 × 4 × 4 ÷ 2 + 4 - 3",
+  "n_ops": 6,
+  "misconceptions": [
+   "add_before_div"
+  ],
+  "num_misconceptions": 1,
+  "trace": [
+   "9 ÷ 3 × 4 × 4 ÷ 2 + 4 - 3",
+   "3 × 4 × 4 ÷ 2 + 4 - 3",
+   "12 × 4 ÷ 2 + 4 - 3",
+   "12 × 4 ÷ 6 - 3",
+   "48 ÷ 6 - 3",
+   "8 - 3",
+   "5"
+  ],
+  "probed_misconception": "same_priority_rtl",
+  "statement_correct": false,
+  "which_target": null,
+  "student_name": "Caleb",
+  "belief_statement": "Caleb believes operations of the same priority should be worked right to left.",
+  "foil_status": "refuted",
+  "io_foil_marginal": 0.0
+ },
+ {
+  "id": "B228",
+  "pair_id": "P114",
+  "category": "B",
+  "error_position": 1,
+  "expression": "(12 - 4) × 6 + 4 × 2 - 1 + 2",
+  "n_ops": 6,
+  "misconceptions": [
+   "sub_before_mul"
+  ],
+  "num_misconceptions": 1,
+  "trace": [
+   "(12 - 4) × 6 + 4 × 2 - 1 + 2",
+   "(12 - 4) × 6 + 4 × 1 + 2",
+   "(12 - 4) × 6 + 4 + 2",
+   "(12 - 4) × 6 + 6",
+   "8 × 6 + 6",
+   "48 + 6",
+   "54"
+  ],
+  "probed_misconception": "outside_bracket_first",
+  "statement_correct": false,
+  "which_target": null,
+  "student_name": "Ruby",
+  "belief_statement": "Ruby believes you should calculate outside the brackets before what's inside them.",
+  "foil_status": "refuted",
+  "io_foil_marginal": 0.0
+ },
+ {
+  "id": "B229",
+  "pair_id": "P114",
+  "category": "B",
+  "error_position": 3,
+  "expression": "(12 - 4) × 6 + 4 × 2 - 1 + 2",
+  "n_ops": 6,
+  "misconceptions": [
+   "sub_before_mul"
+  ],
+  "num_misconceptions": 1,
+  "trace": [
+   "(12 - 4) × 6 + 4 × 2 - 1 + 2",
+   "8 × 6 + 4 × 2 - 1 + 2",
+   "48 + 4 × 2 - 1 + 2",
+   "48 + 4 × 1 + 2",
+   "48 + 4 + 2",
+   "52 + 2",
+   "54"
+  ],
+  "probed_misconception": "outside_bracket_first",
+  "statement_correct": false,
+  "which_target": null,
+  "student_name": "Jonah",
+  "belief_statement": "Jonah believes you should calculate outside the brackets before what's inside them.",
+  "foil_status": "refuted",
+  "io_foil_marginal": 0.0
+ },
+ {
+  "id": "B230",
+  "pair_id": "P115",
+  "category": "B",
+  "error_position": 1,
+  "expression": "1 + 6 - 3 + 11 + 3 × 2 - 1",
+  "n_ops": 6,
+  "misconceptions": [
+   "sub_before_mul"
+  ],
+  "num_misconceptions": 1,
+  "trace": [
+   "1 + 6 - 3 + 11 + 3 × 2 - 1",
+   "1 + 6 - 3 + 11 + 3 × 1",
+   "7 - 3 + 11 + 3 × 1",
+   "4 + 11 + 3 × 1",
+   "15 + 3 × 1",
+   "15 + 3",
+   "18"
+  ],
+  "probed_misconception": "outside_bracket_first",
+  "statement_correct": false,
+  "which_target": null,
+  "student_name": "Isla",
+  "belief_statement": "Isla believes you should calculate outside the brackets before what's inside them.",
+  "foil_status": "unsupported",
+  "io_foil_marginal": 0.25
+ },
+ {
+  "id": "B231",
+  "pair_id": "P115",
+  "category": "B",
+  "error_position": 3,
+  "expression": "1 + 6 - 3 + 11 + 3 × 2 - 1",
+  "n_ops": 6,
+  "misconceptions": [
+   "sub_before_mul"
+  ],
+  "num_misconceptions": 1,
+  "trace": [
+   "1 + 6 - 3 + 11 + 3 × 2 - 1",
+   "7 - 3 + 11 + 3 × 2 - 1",
+   "4 + 11 + 3 × 2 - 1",
+   "4 + 11 + 3 × 1",
+   "15 + 3 × 1",
+   "15 + 3",
+   "18"
+  ],
+  "probed_misconception": "outside_bracket_first",
+  "statement_correct": false,
+  "which_target": null,
+  "student_name": "Felix",
+  "belief_statement": "Felix believes you should calculate outside the brackets before what's inside them.",
+  "foil_status": "unsupported",
+  "io_foil_marginal": 0.25
+ },
+ {
+  "id": "B232",
+  "pair_id": "P116",
+  "category": "B",
+  "error_position": 1,
+  "expression": "10 + 8 ÷ 2 × 3 + 5 - 4 ÷ 2",
+  "n_ops": 6,
+  "misconceptions": [
+   "add_before_div"
+  ],
+  "num_misconceptions": 1,
+  "trace": [
+   "10 + 8 ÷ 2 × 3 + 5 - 4 ÷ 2",
+   "18 ÷ 2 × 3 + 5 - 4 ÷ 2",
+   "9 × 3 + 5 - 4 ÷ 2",
+   "27 + 5 - 4 ÷ 2",
+   "32 - 4 ÷ 2",
+   "32 - 2",
+   "30"
+  ],
+  "probed_misconception": "outside_bracket_first",
+  "statement_correct": false,
+  "which_target": null,
+  "student_name": "Nora",
+  "belief_statement": "Nora believes you should calculate outside the brackets before what's inside them.",
+  "foil_status": "unsupported",
+  "io_foil_marginal": 0.3333
+ },
+ {
+  "id": "B233",
+  "pair_id": "P116",
+  "category": "B",
+  "error_position": 3,
+  "expression": "10 + 8 ÷ 2 × 3 + 5 - 4 ÷ 2",
+  "n_ops": 6,
+  "misconceptions": [
+   "add_before_div"
+  ],
+  "num_misconceptions": 1,
+  "trace": [
+   "10 + 8 ÷ 2 × 3 + 5 - 4 ÷ 2",
+   "10 + 8 ÷ 2 × 3 + 5 - 2",
+   "10 + 8 ÷ 2 × 3 + 3",
+   "18 ÷ 2 × 3 + 3",
+   "9 × 3 + 3",
+   "27 + 3",
+   "30"
+  ],
+  "probed_misconception": "outside_bracket_first",
+  "statement_correct": false,
+  "which_target": null,
+  "student_name": "Dylan",
+  "belief_statement": "Dylan believes you should calculate outside the brackets before what's inside them.",
+  "foil_status": "unsupported",
+  "io_foil_marginal": 0.3333
+ },
+ {
+  "id": "B234",
+  "pair_id": "P117",
+  "category": "B",
+  "error_position": 1,
+  "expression": "10 + 6 ÷ 2 - 1 × 6 ÷ 3 - 2",
+  "n_ops": 6,
+  "misconceptions": [
+   "add_before_div"
+  ],
+  "num_misconceptions": 1,
+  "trace": [
+   "10 + 6 ÷ 2 - 1 × 6 ÷ 3 - 2",
+   "16 ÷ 2 - 1 × 6 ÷ 3 - 2",
+   "8 - 1 × 6 ÷ 3 - 2",
+   "8 - 6 ÷ 3 - 2",
+   "8 - 2 - 2",
+   "6 - 2",
+   "4"
+  ],
+  "probed_misconception": "outside_bracket_first",
+  "statement_correct": false,
+  "which_target": null,
+  "student_name": "Priya",
+  "belief_statement": "Priya believes you should calculate outside the brackets before what's inside them.",
+  "foil_status": "unsupported",
+  "io_foil_marginal": 0.3333
+ },
+ {
+  "id": "B235",
+  "pair_id": "P117",
+  "category": "B",
+  "error_position": 3,
+  "expression": "10 + 6 ÷ 2 - 1 × 6 ÷ 3 - 2",
+  "n_ops": 6,
+  "misconceptions": [
+   "add_before_div"
+  ],
+  "num_misconceptions": 1,
+  "trace": [
+   "10 + 6 ÷ 2 - 1 × 6 ÷ 3 - 2",
+   "10 + 6 ÷ 2 - 6 ÷ 3 - 2",
+   "10 + 6 ÷ 2 - 2 - 2",
+   "16 ÷ 2 - 2 - 2",
+   "8 - 2 - 2",
+   "6 - 2",
+   "4"
+  ],
+  "probed_misconception": "outside_bracket_first",
+  "statement_correct": false,
+  "which_target": null,
+  "student_name": "Marcus",
+  "belief_statement": "Marcus believes you should calculate outside the brackets before what's inside them.",
+  "foil_status": "unsupported",
+  "io_foil_marginal": 0.3333
+ },
+ {
+  "id": "B236",
+  "pair_id": "P118",
+  "category": "B",
+  "error_position": 1,
+  "expression": "5 + 7 × 4 × 4 × 3 - 2 + 7",
+  "n_ops": 6,
+  "misconceptions": [
+   "add_before_mul"
+  ],
+  "num_misconceptions": 1,
+  "trace": [
+   "5 + 7 × 4 × 4 × 3 - 2 + 7",
+   "12 × 4 × 4 × 3 - 2 + 7",
+   "48 × 4 × 3 - 2 + 7",
+   "192 × 3 - 2 + 7",
+   "576 - 2 + 7",
+   "574 + 7",
+   "581"
+  ],
+  "probed_misconception": "outside_bracket_first",
+  "statement_correct": false,
+  "which_target": null,
+  "student_name": "Elena",
+  "belief_statement": "Elena believes you should calculate outside the brackets before what's inside them.",
+  "foil_status": "unsupported",
+  "io_foil_marginal": 0.25
+ },
+ {
+  "id": "B237",
+  "pair_id": "P118",
+  "category": "B",
+  "error_position": 3,
+  "expression": "5 + 7 × 4 × 4 × 3 - 2 + 7",
+  "n_ops": 6,
+  "misconceptions": [
+   "add_before_mul"
+  ],
+  "num_misconceptions": 1,
+  "trace": [
+   "5 + 7 × 4 × 4 × 3 - 2 + 7",
+   "5 + 7 × 16 × 3 - 2 + 7",
+   "5 + 7 × 48 - 2 + 7",
+   "12 × 48 - 2 + 7",
+   "576 - 2 + 7",
+   "574 + 7",
+   "581"
+  ],
+  "probed_misconception": "outside_bracket_first",
+  "statement_correct": false,
+  "which_target": null,
+  "student_name": "Theo",
+  "belief_statement": "Theo believes you should calculate outside the brackets before what's inside them.",
+  "foil_status": "unsupported",
+  "io_foil_marginal": 0.25
+ },
+ {
+  "id": "B238",
+  "pair_id": "P119",
+  "category": "B",
+  "error_position": 1,
+  "expression": "6 ÷ 2 × 5 + 1 × 6 × 6 ÷ 2",
+  "n_ops": 6,
+  "misconceptions": [
+   "add_before_mul"
+  ],
+  "num_misconceptions": 1,
+  "trace": [
+   "6 ÷ 2 × 5 + 1 × 6 × 6 ÷ 2",
+   "6 ÷ 2 × 6 × 6 × 6 ÷ 2",
+   "3 × 6 × 6 × 6 ÷ 2",
+   "18 × 6 × 6 ÷ 2",
+   "108 × 6 ÷ 2",
+   "648 ÷ 2",
+   "324"
+  ],
+  "probed_misconception": "outside_bracket_first",
+  "statement_correct": false,
+  "which_target": null,
+  "student_name": "Jasmine",
+  "belief_statement": "Jasmine believes you should calculate outside the brackets before what's inside them.",
+  "foil_status": "unsupported",
+  "io_foil_marginal": 0.2
+ },
+ {
+  "id": "B239",
+  "pair_id": "P119",
+  "category": "B",
+  "error_position": 3,
+  "expression": "6 ÷ 2 × 5 + 1 × 6 × 6 ÷ 2",
+  "n_ops": 6,
+  "misconceptions": [
+   "add_before_mul"
+  ],
+  "num_misconceptions": 1,
+  "trace": [
+   "6 ÷ 2 × 5 + 1 × 6 × 6 ÷ 2",
+   "3 × 5 + 1 × 6 × 6 ÷ 2",
+   "3 × 5 + 1 × 36 ÷ 2",
+   "3 × 6 × 36 ÷ 2",
+   "18 × 36 ÷ 2",
+   "648 ÷ 2",
+   "324"
+  ],
+  "probed_misconception": "outside_bracket_first",
+  "statement_correct": false,
+  "which_target": null,
+  "student_name": "Omar",
+  "belief_statement": "Omar believes you should calculate outside the brackets before what's inside them.",
+  "foil_status": "unsupported",
+  "io_foil_marginal": 0.2
+ }
+]
