@@ -1,4 +1,4 @@
-# BODMAS pilot (branch `pilot-v4`) — Handoff
+# BODMAS pilot (branch `pilot-v5-hidden`) — Handoff
 
 A complete, from-scratch orientation for a model picking this up cold. Read this instead of the
 conversation history.
@@ -323,6 +323,78 @@ npm run dev                           # local
 git push origin pilot-v4              # deploys to THIS BRANCH's staging URL only
 npm run getdata ; npm run getrecruitment   # pull participant + recruitment data
 ```
+
+---
+
+## 6b. HIDDEN STEPS: the idea, the math, and a MEASURED PROBLEM (2026-09-09)
+
+This branch was cut from `pilot-v4` to test traces with steps hidden from the reader.
+
+### The math (confirmed against the code, correct)
+The implemented likelihood is one factor per step:
+`P(s1..sT | L, s0) = prod_t pi_L(s_{t+1} | s_t)` (`inference.py: trace_log_likelihood`).
+Hiding state `s_k` collapses the two factors touching it into a marginal over every value the
+hidden state could have taken:
+```
+P(observed | L, s0) = [prod_{t != k-1, k} pi_L(s_{t+1}|s_t)] * sum_{s_k} pi_L(s_k|s_{k-1}) pi_L(s_{k+1}|s_k)
+```
+Implemented in **`base-task/hidden.py`**: `two_step_prob` / `hidden_log_likelihood` /
+`hidden_posterior` for one hidden line, plus `gap_prob` / `multi_hidden_log_likelihood` /
+`multi_hidden_posterior` (forward DP over gaps) for ANY set of hidden lines. The single-hide and
+general paths agree exactly.
+
+### ⚠️ MEASURED: hiding steps removes essentially NO information from the ideal observer
+All on the 240-item pilot-v4 pool, category A, epsilon 0, 22 hypotheses:
+
+| what is shown | mean P(present rule) | items below 1.000 |
+|---|---|---|
+| everything | 1.000 | 0 of 120 |
+| hide s2 or s4 (the proposed manipulation) | 1.000 | 0 of 120 |
+| hide the single most damaging line (s3) | 0.983 | 5 of 120 |
+| hide the error's OWN output line | 0.983 | 5 of 120 |
+| hide the error line AND the final answer | 0.983 | 5 of 120 |
+| hide ALL FIVE intermediate lines | 0.943 | 14 of 120 |
+
+Sweeping every hideable line over the whole pool, hiding s2 or s4 changed the marginal on **7 of
+480** item-by-hide combinations.
+
+**Why.** A gap is still pinned by its endpoints. Seeing `s_{k-1} -> s_{k+1}` as a two-step jump
+tells the observer that the intermediate must have been the illegal move, because no expert path
+connects them. The evidence is in the jump, not in the missing line. The information is also
+doubly redundant: the work alone identifies the rule (1.000 with the answer removed) and the answer
+alone nearly does (0.943 from expression + answer only), so removing either route leaves the other.
+
+The only thing that genuinely degrades the observer is **not yet having seen the error**: shown just
+the first step, error-at-step-1 items score 1.000 but error-at-step-3 items collapse to **0.297**.
+
+### What this means for the design
+The manipulation is **normatively free**. That is a legitimate and even attractive framing for the
+human arm (humans cannot marginalise over paths, so any effect is pure processing cost, exactly like
+the position factor), but it means **the Bayes arm is a flat line on this factor too**. Combined
+with the position null, the ideal observer would contribute no gradient at all to a three-way
+comparison. Decide deliberately whether that is acceptable before building the pool.
+
+If observer-side variance is wanted, hiding steps is the wrong lever. It would need genuine
+ambiguity, for example traces that several profiles could have produced identically.
+
+### The balance question (asked, not yet decided)
+Wanted: misconception x error position x statement named x step hidden, fully crossed.
+**The pilot-v4 pool is already balanced on the first three, so the product is automatically
+balanced. No rebuild is needed.** Options:
+- **480 items**: take all 240 pilot-v4 items and make BOTH hidden versions of each.
+  A = present(6) x position(2) x hidden(2) = 24 cells x 10; B = present(6) x named(5) x position(2)
+  x hidden(2) = 120 cells x 2. Hidden step becomes a within-expression manipulation.
+- **240 items**: assign ONE hidden version per existing item, balanced. A cells 5 each, B cells 1
+  each. Keeps the current size but B cells get thin.
+- Adding a **no-hide control level** (3 levels) gives 360 or 720 by the same arithmetic. Without it
+  the effect of hiding can only be measured against the separate pilot-v4 study.
+⚠️ Sampling constraint: with both hidden versions in the pool an expression backs 4 items
+(2 positions x 2 hidden), so the form sampler must draw at most one per expression.
+
+⚠️ Note the proposed absolute positions interact with error position: hiding s2 is adjacent to a
+step-3 error but not a step-1 error, so "hide s2 or s4" is not the same manipulation at both error
+positions. A relative definition (hide the error's own line vs a line far from it) crosses cleanly.
+Moot while the observer is insensitive either way, but it matters for the human-side story.
 
 ---
 
