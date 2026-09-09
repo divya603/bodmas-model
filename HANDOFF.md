@@ -311,6 +311,7 @@ normal.
 cd base-task && python3 pool.py       # build -> stimulus_pool.json (240 items, seed 2026)
 cd base-task && python3 verify.py     # independent checks; RUN AFTER ANY REBUILD, exits nonzero on failure
 cd base-task && python3 bayes.py      # ideal observer -> bayes_per_item.json (expect 240/240)
+cd base-task && python3 bayes_hidden.py   # hidden-step conditions -> bayes_per_item_hidden.json (960 rows)
 cd base-task && python3 find_pairs.py 12    # per-misconception matched-pair yields
 
 # Figures (from repo root)
@@ -391,6 +392,30 @@ That is dead weight in the stimulus, independent of anything to do with hiding.
 
 The only thing that genuinely degrades the observer is **not yet having seen the error**: shown just
 the first step, error-at-step-1 items score 1.000 but error-at-step-3 items collapse to **0.297**.
+
+### Per-item marginals for the hidden conditions: `bayes_hidden.py`
+**`base-task/bayes_hidden.py`** -> **`base-task/bayes_per_item_hidden.json`**. One row per
+(item x condition), 240 x 4 = 960 rows, carrying `probed_marginal`, `delta_vs_full`,
+`observer_agrees`, `observer_correct`, `hidden_line` and `n_lines_shown`.
+
+Conditions: `none` (the pilot-v4 baseline), `s2`, `s4`, and `error_line` (hide the line PRODUCED by
+the error: s1 when the error is at step 1, s3 when at step 3).
+
+| condition | accuracy | category A marginal | category B marginal |
+|---|---|---|---|
+| none | 240/240 | 1.000 flat | mean 0.130 |
+| s2 | 240/240 | 1.000 flat | mean 0.130 |
+| s4 | 240/240 | 1.000 flat | mean 0.130 |
+| error_line | 240/240 | mean 0.983, min **0.556** | mean 0.129 |
+
+The observer stays 240/240 correct in every condition, so no amount of hiding flips a judgement.
+
+⚠️ **Every item that hiding moves at all is at error position 3, and 10 of the 11 are
+`outside_bracket_first`.** All five category-A movers are outside() at position 3, dropping from
+1.000 to 0.556 to 0.706; the eleventh is a single `sub_before_div` B item. So the manipulation does
+not produce a general effect, it produces a bracket-rule effect, which is the same asymmetry that
+shows up everywhere else in this project: outside() is the only rule that REMOVES options, so it is
+the only one whose evidence a single hidden line can meaningfully disturb.
 
 ### What this means for the design
 The manipulation is **normatively free**. That is a legitimate and even attractive framing for the
