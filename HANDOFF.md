@@ -26,6 +26,13 @@ refutation design** — see §2):
 The end goal is a **three-way comparison**: are the misconceptions/conditions that are hard for
 people the same ones hard for the LLM and, in principle, for the ideal observer?
 
+> **⚠️ A REDESIGN IS IN PROGRESS, see §7b.** As of 2026-09-08 the user has decided to narrow the
+> design: **1 misconception per trace only** (categories C and D are dropped), 6 operators, and a
+> NEW manipulated factor, **the position of the error (step 1 vs step 3)**. The v3 pool is BUILT
+> and verified on branch `pool-v3` but is NOT deployed and NOT yet wired into the frontend, so
+> everything described in §0-§6 below is still the CURRENT live design. Read §7b before touching
+> the pool, the form sampler, or any figure.
+
 **The task (one trial):** a participant/model sees a **math expression**, a **student's
 step-by-step work** (which contains 1 or 2 misconceptions), and a **belief statement** claiming
 the student holds a particular misconception. They rate, on a **6-point Likert scale** (1=Strongly
@@ -65,51 +72,40 @@ signal present = A/C; signal absent = B/D; `hit=P(agree|A/C)`, `FA=P(agree|B/D)`
 
 ```
 base-task/        The BODMAS model (Python): pool generation, trace sim, Bayesian inference, Streamlit app
+                  v3 redesign (branch `pool-v3` only, see §7b): generator_v3.py, find_pairs_v3.py,
+                  pool_v3.py -> stimulus_pool_v3.json, verify_v3.py, bayes_v3.py -> bayes_per_item_v3.json
 src/              The Smile/Vue human experiment (deployed live). User code in src/user/
 analysis_human/   Human-data analysis scripts + plots (UNCOMMITTED)
 analysis-Bayesian/ Ideal-observer analysis figures (plot_bayes_2misc_heatmap.py; imports base-task/)
-Results_combined/ FINAL results doc: results.tex + figs/ (subfolder RENAMED from plots/ on
-                  2026-07-15 so tex references figs/<exact-name> and the folder uploads to
-                  Overleaf as-is). Results-only, no story; being written STEP BY STEP with the
-                  user — so far §1 Bayesian 1-misc (dist_A right-shifted mass, outside()
-                  weakest; dist_B three rows + sharp left shift on refuted items, 12/60
-                  refutable, absence-of-support point) and §2 LLM 1-misc (thinking ≈ softened
-                  ideal observer incl. left shift on refuted; the two direct regimes near-binary
-                  and claim-driven in OPPOSITE directions — haiku-direct endorses add/sub &
-                  rejects RTL/outside, gpt-4o the reverse; generated sub<÷ item: 2 vs 5 vs 6),
-                  and §3 human 1-misc (dist_A at chance / add<× below; dist_B two cells over
-                  0.5 = the two failure modes, refuted-row FA drop; closes with
-                  human_signal_detection.png — d' spread −1.64..+2.77, two below-chance
-                  participants, and the "considering practice trials with feedback before the
-                  confirmatory run" note). figs/ now also holds human_signal_detection.png
-                  (user copied). Figures pinned with [H] (user wants strict source order);
-                  user added soul highlights — preserve them when editing.
-                  §4 (2-misc) has a SHARED heatmap explainer up front (C = 6×6 named×partner
-                  square, D = 6×15 foil×pair rectangle, green/red diverging, value+n per cell
-                  — written once for all three observers) + §4.1 Bayesian (at ε=0 panel (a) is
-                  uniformly 1.00 in every cell, was 0.76–1.00 with outside() weakest; panel (b)
-                  all red ≤0.16, was ≤0.26, flat →
-                  confusions elsewhere are observer properties) + §4.2 LLM heatmap (thinking:
-                  green (a)/red (b) except add<× foil row lighting up on add<÷-containing
-                  pairs = family confusion; direct: wall of 1s both panels = right on foils
-                  for the wrong reason; gpt-4o: RTL/outside() rows green in BOTH panels =
-                  claim-driven) + §4.3 human heatmap (noisy-cells caveat; (a) subtraction
-                  rows under-endorsed + sub<×/outside() partners mask targets; (b) outside()
-                  foil ROW red but outside()-containing pair COLUMNS carry the top false
-                  alarms — trace-side confusions, mirror image of gpt-4o's claim-side; shared
-                  add-family leak with haiku-thinking; ideal observer flat ⇒ observer
-                  properties). **results.tex: ALL PLANNED SECTIONS WRITTEN** (§1 bayes 1misc,
-                  §2 LLM 1misc, §3 human 1misc + SDT/practice-trials note, §4 heatmaps ×3).
-                  COMPLETE 3x3 figure set as of 2026-07-15: {human,bayes,llm} x {2misc_heatmap,
-                  1misc_dist_A, 1misc_dist_B} (9 figures). NOTE: copies are snapshots — re-copy
-                  after regenerating any source figure. bayes/llm figures re-copied on the 480
-                  pool 2026-07-17. HUMAN figures now split by cohort (2026-07-20): the pilot
-                  (no-practice, 240 pool) plots renamed `human_*_without_practice.png`; the
-                  practice cohort (480 pool) plots added as `human_*_with_practice.png` (copied
-                  from human_buffer/, currently n=21). results.tex references the
-                  `_without_practice` set; the `_with_practice` figures are staged in figs/ but
-                  not yet cited (prose written step-by-step with the user).
-                  human_signal_detection.png is still the single pilot version (unchanged).
+Results_combined/ FINAL results doc: results.tex + figs/ (tex references figs/<exact-name>,
+                  folder uploads to Overleaf as-is). Results-only, no story. **FULLY
+                  RECONCILED 2026-07-28** to the current state of all three arms: §1 Bayes
+                  1-misc rewritten for the v2/ε=0 logical oracle (A all exactly 1.000; B
+                  refuted exactly 0.000 for ALL six foils incl. outside(), unsupported band
+                  0.17–0.29 mean 0.21); §2 LLM rewritten for the terra regime set (thinking
+                  meanA 5.63; terra 5.36, evidence-shaped bracket weakness, NOT claim-driven,
+                  outside-named foil agree 15%; haiku-direct claim-driven rejection of true
+                  RTL/outside; NEW headline: NO regime drops FA on refuted vs unsupported —
+                  0.19/0.19, 0.21/0.18, 0.11/0.03 — while humans DO); §3 humans = pooled
+                  5-practice cohorts n=40 (A P(agree) .62–.82 overall .73; B no cell over
+                  0.5, FA refuted .25 vs unsup .45; SDT d' 0.96 crit −0.09, span −0.67..2.35
+                  median 1.18, 35/40 above chance, best d' 2.35 beats both direct regimes but
+                  NOT thinking's 2.83); §4.1 bayes 2misc (panel (a) all exactly 1.00, (b)
+                  ≤0.29, D-refuted exactly 0); §4.2 (thinking green/red, add-family
+                  concentration GONE on v2; terra one notch softer with human-shaped residuals
+                  = weak outside() targets + RTL foils on half their pairs (10/20); direct =
+                  wall of 1s both panels); §4.3 humans n=40 (all 90 cells occupied median 5;
+                  C mean 4.22 ≈ A 4.25, the n=21 C-dip did not persist; D acc .64); §5
+                  heatmaps (bayes diag exactly 1.00/off-diag ~0.10 flat; terra pale outside()
+                  diagonal cell; human diag means 3.85–4.53, off-diag fully occupied 4–10
+                  per cell median 9, mostly red); §6 comparison (humans n=40; human profile
+                  flattest: no group below 0.46 or above 0.77 graded, LLMs span the full
+                  axis). Figures: human set renamed `human_*_5practice.png` (old
+                  *_with_practice REMOVED); observer_scatter_{graded,binary}.png replaced by
+                  the pooled n=40 + terra versions; bayes/llm figures are the v2 set.
+                  Figures pinned with [H]; user's soul highlights preserved in style (green =
+                  key finding, yellow = caveat/contrast) with contents updated to true claims.
+                  NOTE: copies are snapshots — re-copy after regenerating any source figure.
 llm_exp/          The LLM task-analog experiment (Python, OpenRouter)
 llm_exp_buffer/   Reference copy of the teammate's numberlink LLM experiment (delete when done; UNCOMMITTED)
 prereg_buffer/    Reference copy of the teammate's numberlink PRE-REGISTRATION (tex + figs)
@@ -645,19 +641,28 @@ items, the last 9 the rebalanced pool (verified per-session: their C trials matc
 
 ## 6. Component 5 — Pre-registration (`PreReg/`)
 
-`PreReg/prereg.tex` + `PreReg/figs/` (3 PNGs copied from `analysis_human/plots/`). Mirrors the
-teammate's numberlink prereg (`prereg_buffer/prereg.tex`): same styling, `\decflag` markers, and
-an honesty-disclosure box (transparent/informed prereg; pilot N=24 reported in full, hypotheses
-locked before a confirmatory cohort). Structure: study info → background (bug/repair-theory
-framing, ideal observer as ceiling) → methods (learner model, pool + category tables, worked
-example item A044, sampling, procedure, measures incl. SDT defs + bonus formula) → pilot results
-built figure-by-figure (accuracy overview → by-misconception → SDT/ROC with individual spread) →
-**candidate hypotheses (H1 A-vs-B recognition deficit, H2 C-vs-A partial-explanation rating with
-the human/LLM reversal, H3 difficulty ordering vs ideal observer, H4 early/late position in C)**
-→ analysis-plan skeleton → decisions box (exclusion rule, N/power, registry, authorship).
-**Everything contentious is decision-flagged, nothing locked.** User compiles on **Overleaf**
-(copy folder as-is; figures referenced as `figs/<exact-name>`; NO local TeX, don't install one).
-Writing style: **no em dashes** (user: "screams AI").
+`PreReg/prereg.tex` + `PreReg/figs/` (7 PNGs, the n=40 human set). **REWRITTEN 2026-08-07** on
+the pooled 5-practice cohort; see the 2026-08-07 entry in §7 for the full change list, the new
+hypothesis set, and the power numbers. Mirrors the teammate's numberlink prereg
+(`prereg_buffer/prereg.tex`): same styling, `\decflag` markers, and an honesty-disclosure box
+(transparent/informed prereg; pilot N=40 reported in full, hypotheses locked before a
+confirmatory cohort).
+**Scope: HUMAN DATA ONLY, FINAL WAVE ONLY** (user's call). No LLM results anywhere; no wave
+history; the ideal observer appears only as a methods device (defines foil refutation status +
+establishes the task is logically decidable). ⚠️ The v1/v2 pool mixing in the
+`outside_bracket_first` cells is deliberately NOT mentioned in the prereg (user instruction);
+it lives in §7 here and in `analysis_human/cohorts.py`.
+Structure: study info → background (bug/repair-theory framing, ideal observer as logical
+oracle) → methods (learner model, pool + category tables, **refuted vs unsupported foils**,
+worked example items A044 + refuted-foil B071, sampling incl. the 6+6 refutation balance,
+procedure incl. the 5-trial practice block, measures) → pilot results figure-by-figure
+(accuracy overview → by-misconception → category-A recognition → foils + refutation contrast →
+SDT/ROC → confusion heatmaps) → **locked hypotheses H1 refutation (primary) / H2 recognition /
+H3 C-vs-A equivalence / H4 position**, plus a considered-and-dropped note for the old
+IO-difficulty hypothesis → analysis plan (mixed models per hypothesis, Holm within family) →
+exclusions → power table → decisions box.
+User compiles on **Overleaf** (copy folder as-is; figures referenced as `figs/<exact-name>`;
+NO local TeX, don't install one). Writing style: **no em dashes** (user: "screams AI").
 
 ---
 
@@ -764,6 +769,339 @@ STILL PENDING after cutover: rebuild dashboard/bayes_per_item.json + dashboard o
 Bayes data is still v1); regenerate the pilot-2-facing scatters only if ever needed (v1,
 low priority now); prereg + results.tex/report.tex reconciliation onto v2 numbers.
 
+**DONE (2026-08-10, corrected a wrong claim about the blue RTL/outside() cell):**
+- ⚠️ **results.tex previously claimed "no bracket ever appears in the trace" for the one blue
+  cell (RTL present, outside_bracket_first named). This was WRONG and has been corrected.**
+  Checked all 4 pool items behind that cell (B028, B058, B110, B111) directly against the
+  model (`_next_dags`, same technique as the D073 check earlier): **every one contains a
+  bracket.** They split 2/2: B028 forces the same move at every step (claim never testable);
+  B058 happens to resolve outside-first, consistent with but not proof of the claim; **B110
+  and B111 are actively refuted** — at the first step a legal outside-only move existed
+  (e.g. `4+10` in B110, not touching the bracket) and the student went INTO the bracket
+  instead, which directly contradicts what an outside()-preference learner would do. Fixed
+  paragraph in results.tex §sec:human-1misc-heatmap. Caveat added: can't check whether
+  refutation matters WITHIN this cell yet, since B110/B111 each drew only 1 rating in the
+  current cohort (n too thin per item, only cell-pooled n=13 is meaningful right now).
+
+**DONE (2026-08-10, NEW 1-misc dots figure + "wrong-side majority" marker, both dot heatmaps):**
+- **User request, walking figures one at a time**: the 1-misc present×named heatmap
+  (`human_1misc_heatmap_combined_5practice.png`) never had a dots/raw-trial version, unlike
+  the 2-misc heatmaps. Built one: **new script `analysis_human/plot_1misc_heatmap_dots.py`**,
+  same visual language as `plot_2misc_heatmap_dots.py` (dot strip per cell, amber = split).
+  Reuses `IDS/SHORT/CMAP/NORM/DARK_AT` from `plot_human_1misc_heatmap.py` and
+  `STRIP_HALF/DOT_DY/.../is_split/rating_x` from `plot_2misc_heatmap_dots.py`; own
+  `build_value_grid()` (present×named -> [ratings], combining refuted+unsupported).
+- **Result: 34 of 36 cells (incl. all 6 diagonal) contain both agree AND disagree responses**,
+  15 substantially split — worse bimodality than either 2-misc panel. This DIRECTLY
+  contradicts/corrects a claim already sitting in HANDOFF and results.tex ("errors are spread
+  thinly... mercifully boring") — see below, now fixed in results.tex.
+- **New second marker, user-designed: "wrong-side majority."** User's ask: box cells where a
+  clear majority (they suggested 2/3) landed on the WRONG side of that cell's ground-truth
+  correct answer — a different question from "split" (is the mean untrustworthy) — this one
+  asks "did most people share a genuine, replicated misconception." Added
+  `is_wrong_majority(vals, correct_is_agree)` + `WRONG_EDGE` (blue, `#1959c9`) to
+  **`plot_2misc_heatmap_dots.py`** (shared module both dots scripts import from), same
+  min-n=3 bar as split, threshold >=2/3 on the wrong side. Validated 2/3 isn't a formal
+  significance bar (checked: ~10-19% false-positive rate under pure 50/50 chance at n=10-15
+  via binomial) but is a reasonable descriptive "clear lean" flag, which is what was asked
+  for. Split and wrong-majority are mutually exclusive by construction (2/3 majority implies
+  <=1/3 minority). `draw()` in both scripts now takes/derives `correct_is_agree` per cell
+  (1misc: `i==j`; 2misc: constant per panel, True for C, False for D) and draws blue OR amber,
+  never both.
+- **1-misc result: only 1 of 30 off-diagonal cells is a genuine wrong-majority** —
+  `same_priority_rtl` present, `outside_bracket_first` named, 9/13 agree. This SHARPENS and
+  partly retracts what was said earlier in this same session about "the RTL/outside()
+  cluster": all 5 cells crossing 3.5 do involve RTL/outside(, confirmed still true), but 4 of
+  the 5 are near-50/50 splits (6-7 vs 5-9), not shared leans; only the one cell above is a
+  real, replicated false belief. **results.tex §sec:human-1misc-heatmap rewritten** to state
+  this precisely instead of the old "spread thinly / mercifully boring" line, and the new
+  dots figure added right after (`fig:human1hdots`).
+- **2-misc result: 0 of 30 category-C cells are wrong-majority (humans never confidently
+  reject a true partial explanation), 7 of 60 category-D cells are.** Of those 7, **3 involve
+  the add_before_mul/sub_before_mul pair in either direction** (named sub<× with add<×
+  present x2, named add<× with sub<× present x1) — this is INDEPENDENT, cell-level
+  confirmation of the tentative "×-family" pattern from the earlier `family_followup.py`
+  exploratory pass (which found add<× named+sub<× present FA .51/37, sub<× named+add<×
+  present FA .48/29, but called it underpowered at n=59). 2 more involve
+  `outside_bracket_first` present + false `add_before_div` endorsement. Remaining 2 are
+  isolated RTL foils, no shared present-side pattern. **results.tex's existing 2-misc-dots
+  paragraph extended** with this (new paragraph after the amber-split paragraph, before the
+  figure).
+- **Figures copied**: refreshed `human_2misc_heatmap_dots_5practice.png` (now has blue boxes)
+  into `PreReg/figs/`, `Results_combined/figs/`, `analysis_human_practice_2/`; NEW
+  `human_1misc_heatmap_dots_5practice.png` added to `Results_combined/figs/` and
+  `analysis_human_practice_2/` **per explicit user request** ("move the figure into results
+  combined") — **NOT added to PreReg** (user didn't ask for that one there; only asked
+  results_combined). Ask before adding it to PreReg too if that comes up.
+- ⚠️ **NOT YET COMMITTED**: `analysis_human/plot_1misc_heatmap_dots.py` (new),
+  `analysis_human/plot_2misc_heatmap_dots.py` (blue-marker addition), `results.tex`, all
+  figure copies. All local only.
+
+**DONE (2026-08-10, EVERYTHING REGENERATED AGAIN AT n=62 + SDT plot de-IDed):**
+- **Data pulled again.** `data/real-all-main-data.json` now 107 complete prolific sessions.
+  `practice5` cohort grew 59 -> **62** (v1 stays 20, v2 grew 39 -> 42, so **3 new v2
+  completions**, not the 1 the user expected — flagged and confirmed with the user before
+  regenerating, see AskUserQuestion in-session; proceeded at the real n=62).
+- ⚠️ **`cohort_count.py`'s per-bucket printout is misleading**: its strict "match==0" rule for
+  labeling a session 'v1' almost never fires for the 5-practice v1 wave (those sessions
+  incidentally match 1-5 v2-pool items by coincidence), so v1 sessions show up as
+  `MIXED(1-5/24)` buckets instead of a clean 'v1' line. The AUTHORITATIVE v1/v2 split is
+  prereg_stats.py's rule: match==24/24 -> v2, anything else -> v1. Don't eyeball
+  cohort_count.py's raw buckets for the v1 count again; sum the MIXED buckets or just run
+  prereg_stats.py.
+- **`analysis_human/plot_human_sdt.py` panel (a) no longer labels rows with participant
+  seedIDs** (user request — "don't have participant IDs on the side, just say participants").
+  Changed `set_yticklabels([s['seed'] ...])` to `set_yticks([])` +
+  `set_ylabel("participants (sorted by d')")`. Applies to all cohorts, not just practice5.
+- **All 13 human figures + both observer scatters regenerated at n=62**, copied into
+  `PreReg/figs/` and `Results_combined/figs/` exactly as the n=59 round. **Both `prereg.tex`
+  and `results.tex` fully updated to n=62** (27 + 20 checked replacements respectively,
+  including the power table and sample-size decision prose).
+- **n=62 headline numbers:** overall acc .677; A .739 B .653 C .712 D .602 (D still weakest).
+  SDT pooled hit .726 FA .372 **d' 0.93 crit -0.14**; per-participant d' -0.67..2.77 median
+  1.14, **52/62 above 0**. Refutation FA **.288 vs .457**, within-participant dz **0.47**
+  (up slightly from 0.45), right direction 41/62.
+  **A vs C mean rating is now EXACTLY EQUAL: 4.26 vs 4.26** (dz -0.00) — the gap has been
+  monotonically converging to zero across every sample size: +0.02 (N=40) -> -0.06 (N=59) ->
+  -0.00 (N=62). This strengthens the H3 equivalence framing considerably; said so explicitly
+  in both docs.
+  **Bimodality got worse again:** ALL 30/30 category-C cells now contain both agree and
+  disagree responses (was 29/30); D substantially-split cells 28 -> 31 of 60.
+  H2 weak/strong flipped slightly: weakest still add<× (.65) then RTL (.69); strongest still
+  add<÷ (.82). H4 position dz shrank 0.20 -> 0.17 (.74 vs .68).
+- **Power table revised** (dz 0.47 for H1 now needs only **N=50**, down from 54 — the
+  "N=60 is break-even" framing from the n=59 round no longer applies and was removed).
+  H4 dz dropped to 0.17, so its N requirement grew to 366/562. **New candidates: 120 / 200 /
+  600** (was 60(not-rec)/120/200/400). At N=120, 5 of 6 H2 misconceptions are now powered
+  under Holm (only add<× needs 174); at N=200 all six H2 cells are covered; N~600 needed to
+  additionally cover H4.
+- Scripts: same `update_prereg_62.py`/`update_results_62.py` pattern as the n=59 round
+  (scratchpad, not committed).
+- ⚠️ **NOT YET COMMITTED**: `analysis_human/plot_human_sdt.py` (the de-ID change),
+  `PreReg/prereg.tex` + `PreReg/figs/*`, `Results_combined/results.tex` +
+  `Results_combined/figs/*`, `analysis_human_practice_2/*`. All figure/doc regen is local
+  only; nothing pushed (none of it affects the live deploy anyway — only `src/` does).
+
+**DONE (2026-08-10, practice set redesigned + DEPLOYED, commit d73ddb6):**
+- **User caught a real design gap**: P1-P5 were structurally A / B / C(first) / C(first) /
+  C(second) — THREE category-C items (two of them redundant, both "first") and **zero
+  category D**. Fixed per the user's exact spec: P1/P2/P3 untouched; **P4 = the old P5
+  content** (sub_before_mul + same_priority_rtl present, probed same_priority_rtl, SECOND);
+  **P5 = a new category D item** (add_before_mul + sub_before_div present, probed
+  sub_before_mul — absent, a foil, disagree correct).
+- `base-task/make_human_practice_items.py`: added `_find_flat_foil(pair, foil,
+  required_ops, seedrange, want_refuted=True)`, a sibling of `_find_flat_pair` for the
+  D case — searches for a trace where `pair` fires cleanly and PREFERS (with a fallback)
+  a foil whose ideal-observer marginal is < 0.15, i.e. actively refuted rather than merely
+  unsupported, matching P2's quality and echoing H1 (the refutation contrast is now the
+  prereg's primary hypothesis). Found one on the first pass: `sub_before_mul` marginal
+  0.000 on `2 × 10 + 12 - 5 ÷ 3`. **Verified the actual mechanism** (didn't just trust the
+  marginal): at state `2 × 22 - 5 ÷ 3` a learner with sub_before_mul had `22 - 5` (subtract)
+  available right next to `2 × 22` (multiply) and the multiply was taken instead — genuine
+  contradiction, not dilution. Feedback text names this specifically.
+  Design constraint worth remembering: removing the old P4 would have dropped
+  `add_before_mul`/`sub_before_div` from ever appearing as PRESENT in any practice trace, so
+  the new D item's pair was deliberately chosen to be exactly those two, preserving the
+  "all six misconceptions appear as present somewhere" invariant. Named/probed coverage
+  becomes 5 of 6 (only `sub_before_div` never named now, was `sub_before_mul` before) — a
+  straight swap, not a regression, and unavoidable with only 5 items naming 6 rules.
+  P3's `outside_bracket_first`-fires-first structure was left alone (not touched, matches
+  user's "1,2,3 as is").
+- Frontend needed ZERO changes: `isProbedStep` in PracticeView.vue already only bolds a step
+  when its misconception equals `probed_misconception`, so a D item (where probed is absent
+  from both present misconceptions) naturally renders with no bold marker.
+  Verified: no duplicate expressions/names across P1-P5, no leak into the pool, `npm run
+  build` clean, new content confirmed present in the built JS bundle by grep.
+- **Committed (`d73ddb6`) and pushed with the user's explicit go-ahead** ("push, ill look at
+  it in the deployed link"). Deploy workflow watched end-to-end, all steps green including
+  rsync. Only `base-task/make_human_practice_items.py` +
+  `src/user/data/practice_items.json` were committed — the large pile of other uncommitted
+  session work (prereg, results.tex, analysis figures) was deliberately left out of this
+  push, scope-matched to what was asked.
+
+**DONE (2026-08-07 evening, EVERYTHING REGENERATED AT n=59):**
+- **Data pulled.** `data/real-all-main-data.json` now has **104 complete prolific sessions**:
+  24 (0 practice, v1) + 21 (3 practice, v1) + 20 (5 practice, v1) + **39 (5 practice, v2)**.
+  The `practice5` cohort is **n=59** (19 of the user's 20 new people completed).
+- **All 13 figures regenerated** at `--cohort practice5` into `analysis_human_practice_2/`,
+  then copied to `PreReg/figs/` (clean names) and `Results_combined/figs/` (`_5practice`
+  names). Includes both observer scatters (remember `--scoring binary` is a SEPARATE run;
+  the default only writes the graded one).
+- **`PreReg/prereg.tex` fully updated to n=59** (27 checked replacements + power table +
+  sample-size prose). **`Results_combined/results.tex` human sections also updated** (18
+  replacements) because the figure copies would otherwise have contradicted its prose.
+- **n=59 headline numbers:** overall acc .678; **A .729 B .667 C .715 D .602**; alone .698
+  paired .658; mean ratings A 4.23 C 4.28 B 2.86 D 3.05. SDT pooled hit .722 FA .366
+  **d' 0.93 crit -0.12**; per-participant d' -0.67..**2.77** median 1.11, **50/59 above 0**,
+  10 at >=2, best 92% acc. **Refutation FA .282 vs .449** (B .28/.38, D .28/.51),
+  within-participant .167 SD .368 **dz 0.45**, right direction 39/59.
+  Cat-A P(agree) .64-.81 (weakest add<× .64 then **RTL .68**; strongest add<÷ .81).
+  Cat-B FA max .47 (outside() by-present). C position .746 vs .684 dz 0.20.
+  2-misc: 90/90 cells, median 7 trials. 1-misc diagonal 3.90-4.49; off-diagonal 30 cells
+  n 10-15, only **5 above 3.5**.
+- **What MOVED vs n=40, and matters:**
+  (1) **outside() is no longer a weak category-A cell** (.65 -> .71); **RTL is now the second
+  weakest** (.75 -> .68). Any prose naming the weak A claims must say add<× and RTL.
+  (2) **D accuracy fell .637 -> .602**, now clearly the weakest category.
+  (3) **H1 effect shrank, dz 0.51 -> 0.45**, so required N rose 43 -> **54**. Since the pilot
+  is itself 59, a confirmatory N=60 is now BREAK-EVEN. The prereg's recommended candidates
+  were changed to **120 / 200 / 400** and it says explicitly that 60 is not recommended.
+  (4) H3's A-vs-C gap CHANGED SIGN (+0.02 -> -0.06, C now nominally above A). Still ~zero, so
+  the equivalence framing is if anything better justified; the prereg notes the sign flip.
+  (5) rho(median RT, d') .06 -> .26, so the "time on task is unrelated to performance" line
+  was softened to "only weakly related".
+  (6) Bimodality got WORSE with more data: substantially-split D cells 16 -> **28** of 60,
+  and 52/60 D cells now contain both agree and disagree responses.
+- ⚠️ **Power numbers to reuse:** H1 dz 0.45 -> N=54 (a=.05). H2 per-misconception (a=.05 /
+  a=.00625): add<÷ .81 -> 23/37, sub<÷ .78 -> 30/46, sub<× .75 -> 38/60, outside() .71 ->
+  56/87, RTL .68 -> 77/120, add<× .64 -> 130/201. H4 dz 0.20 -> 265/407.
+- **Family-confusion re-run at n=59 (see the entry below): conclusion UNCHANGED.** Leading
+  sibling .287 vs neither .353 (still backwards). Target sibling .387. The ×-only pattern
+  firmed up: add<× named with sub<× present **.51 (19/37)**, sub<× named with add<× present
+  **.48 (14/29)**, vs ~.35 baseline; the ÷ counterparts stay flat (.32, .31). Still 2 cells,
+  still not reportable, but now worth a pre-specified relation-level test if pursued.
+- Scratchpad scripts that did the work (not committed): `prereg_stats.py`,
+  `family_confusion.py`, `family_followup.py`, `update_prereg.py`, `update_results.py`,
+  `gen_examples_tex.py`, `pick_examples.py`, `cohort_count.py`.
+
+**DONE (2026-08-07, FAMILY-CONFUSION ANALYSIS — a NEGATIVE result, plus 2 retired findings):**
+- **User hypothesis tested and NOT supported.** The idea: category-D green cells reflect
+  operator-family confusion, e.g. sub<× present makes people endorse a sub<÷ claim (share the
+  LEADING operator). Tested by holding the named foil FIXED and varying what is present, which
+  is the only comparison that controls for each foil's own baseline endorsement rate.
+  **All four operator foils go the OPPOSITE way:** leading-sibling present vs neither ->
+  add<× .35/.33, add<÷ .33/.39, sub<× .25/.33, sub<÷ .19/.30; pooled **.26 vs .34**. Having the
+  leading sibling in the trace REDUCES false alarms.
+- **Cause of the apparent effect: a refutation confound.** Leading-sibling trials are 58%
+  refuted vs ~45% for the others, and refuted foils draw far fewer FAs (.25 vs .45). Splitting
+  on status the family relations wash out (unsupported half: leading .42 / target .42 /
+  neither .45).
+- **What IS there (weak, 2 cells only):** the TARGET-operator family (both rules attack the
+  same operator) is elevated for MULTIPLICATION only: add<× named with sub<× present **.52**
+  (13/25) and sub<× named with add<× present **.44** (8/18), vs ~.33 baseline. The division
+  counterparts show nothing (.25, .29). Pooled target vs neither is only .36 vs .34, so this
+  rests entirely on two small cells. Do not report as a finding yet.
+- ⚠️ **TWO PREVIOUSLY RECORDED FINDINGS RETIRED** (both small-n artifacts, do not repeat them):
+  (1) "false add<× endorsed when add<÷ present" (§5 candidate finding 2) does NOT replicate at
+  n=40: .35 against a .33 baseline. (2) An apparent RTL<->outside() confusion (FA .59 in a
+  B-only first pass) evaporates when the foil is held fixed: named RTL with outside() present
+  .42 vs .44 absent; named outside() with RTL present .39 vs .34 absent.
+- **Bimodality CONFIRMED and quantified at n=40:** 27 of 30 occupied C cells and 41 of 60 D
+  cells contain BOTH agree and disagree responses; 11 C and 16 D cells are *substantially*
+  split (n>=3 and >=1/3 of trials on the minority side). The user's own example cell
+  (pair sub<×+add<×, sub<÷ named, mean 4.00) is literally [2,5,5].
+- Scripts (scratchpad, not committed): `family_confusion.py`, `family_followup.py`.
+- **If pursuing this**: test at the RELATION level pooled over foils, not cell by cell. At
+  n=55 the target-sibling group reaches ~105 trials, roughly 80% power for a .19 difference.
+  Cell-level will still be n~5 even at n=60.
+
+**DONE (2026-08-07, prereg round 2 — figures + examples):**
+- **`analysis_human/plot_2misc_heatmap_dots.py` now marks split cells** with an amber outline
+  (new `is_split()`: n>=3 and minority side >=1/3). Criterion chosen because "both sides of
+  3.5" would have outlined 27/30 and 41/60 cells, too many to be informative. Footer text and
+  a stdout summary added. Regenerated and refreshed in all three places
+  (analysis_human_practice_2/, Results_combined/figs/, PreReg/figs/).
+- **Prereg: new subsection "The cell means are hiding two-sided splits"** (§sec:pilot-bimodal)
+  embedding the dots figure, with the 27/30 + 41/60 counts, three worked split cells, and the
+  methodological consequence (no confirmatory analysis uses a cell mean as its unit).
+- **Prereg: the 2-item example box replaced by a FOUR-CATEGORY box** (A039 / B061 / C025 /
+  D073), each with erroneous steps highlighted in amber and, for C, the probed step marked
+  bold, exactly like the practice trials. Highlighting is model-derived, not hand-marked:
+  generated by `scratchpad/gen_examples_tex.py` reusing `_error_steps` from
+  `make_human_practice_items.py`, so traces match the pool byte-for-byte. New preamble macro
+  `\hlstep` + color `stephl`. ⚠️ Only 2 of 120 D items have exactly one cleanly attributable
+  error per misconception (D073 and D102), so the D slot has almost no alternatives.
+- ~~data file stale~~ RESOLVED the same day: the user pulled, and everything was regenerated
+  at n=59. See the 2026-08-07-evening entry above.
+
+**DONE (2026-08-07, PREREG REWRITTEN ON THE n=40 HUMAN ARM):**
+- **`PreReg/prereg.tex` rewritten end to end.** Scope decision (user): the prereg reports
+  **human data only** and **only the final wave**, i.e. the pooled 5-practice cohort n=40.
+  No LLM results, no wave history, no earlier cohorts. The Bayesian ideal observer STAYS in
+  as a methods device only (it defines refuted vs unsupported foil status, and establishes
+  the task is logically decidable: exactly 1.0 present, exactly 0 refuted, ~0.2 unsupported).
+- ⚠️ **USER INSTRUCTION: the prereg must NOT say that the outside_bracket_first cells mix v1
+  and v2 pool semantics.** That caveat is internal to this repo only. It is recorded here and
+  in `analysis_human/cohorts.py`; keep it out of the prereg and any external document.
+- **Figures**: `PreReg/figs/` now holds the 7-figure n=40 human set (old N=24 ones replaced):
+  accuracy_group_category, accuracy_by_misconception (both regenerated at --cohort practice5),
+  human_signal_detection, human_1misc_dist_A, human_1misc_dist_B, human_1misc_heatmap,
+  human_2misc_heatmap (copied from Results_combined/figs, `_5practice` suffix dropped).
+  All 7 \includegraphics refs verified to resolve; labels/refs/braces/math checked.
+- **Hypotheses REPLACED.** The old H1-H4 were built on the N=24 no-practice pilot and three of
+  them no longer hold at n=40: H1 (A worse than B) REVERSED (A .73 > B .66), H2 (C rated above
+  A) GONE (4.22 vs 4.25, dz 0.02), H3 (difficulty tracks the ideal observer) DEAD (no IO
+  gradient left at eps=0/v2). New locked set:
+  **H1 primary/directional = refutation contrast** (FA .25 refuted vs .45 unsupported;
+  within-participant diff .20, SD .39, **dz 0.51**, right direction in 29/40);
+  H2 = category-A P(agree) above chance per misconception (.73 overall, .62-.82);
+  H3 = C rating equivalent to A (TOST, SESOI flagged);
+  H4 = C early vs late (.73 vs .67, dz 0.20, secondary).
+  The old IO-difficulty hypothesis is explicitly documented as considered-and-dropped.
+- **Multiplicity structure**: H1 is the SINGLE primary test (alpha .05, uncorrected); H2/H3/H4
+  are one secondary family of EIGHT tests (H2 contributes 6, one per misconception),
+  Holm-corrected, worst case alpha .00625. Fixing this removed an inconsistency in the first
+  draft, which said "family of four" in one place and "across the six" in another.
+- **Power computed from the pilot** (90%, two-sided = conservative for the directional ones):
+  H1 dz 0.51 -> **N=43**; H2 per-misconception at .05/.00625: 22/34 (sub<÷ P=.82), 38/60
+  (RTL .75), 113/174 (outside() .65), 179/275 (add<× .62); H4 dz 0.20 -> 265/407.
+  N candidates offered: 60 (H1 + strongest H2 cells), 120, ~300 (H1 + all of H2, not H4).
+- **Exclusion gate checked against the data:** the candidate below-chance rule (<=7/24,
+  one-sided p=.032) excludes **0 of 40** (weakest participant 9/24 = .38), so it is a safety
+  net not a filter. Trial RT: min 3.7s, median 18.2s, 4.8% over 60s, 1.5% over 120s, max 554s
+  (120s candidate cutoff).
+- **Still \decflag in the prereg (user must decide before submitting):** confirmatory N +
+  stopping rule, H3 equivalence bounds, performance gate, RT cutoff, registration scope,
+  registry/timeline, authorship.
+- Stats source of truth for all of the above: recomputed from `data/real-all-main-data.json`
+  at `--cohort practice5`, not copied from results.tex.
+
+**DONE (2026-08-07, cohort bookkeeping):**
+- **User decision: human figures stay POOLED at n=40** (both 5-practice waves together), not
+  split by pool version. Confirmed against the data: 85 complete Prolific sessions total =
+  24 (0 practice, v1) + 21 (3 practice, v1) + 20 (5 practice, v1) + 20 (5 practice, v2).
+- `analysis_human/cohorts.py` docstring corrected: `practice5` was described as "pilot 2 only"
+  but it filters on practice count alone, so it returns all 40. Added the v1/v2 discriminator
+  (content-match 24 trials against base-task/stimulus_pool.json: v2 = 24/24, v1 <= 5).
+- ⚠️ Consequence to keep reporting internally: pooled `outside_bracket_first` cells mix v1
+  permission traces with v2 preference traces (category-A accuracy .55 v1 vs .75 v2).
+  Everything else pools cleanly (d' 0.88 v1 / 1.04 v2, FA refuted .26/.24 vs unsup .48/.42).
+
+**DONE (2026-07-28, results.tex fully reconciled):**
+- **results.tex rewritten end to end** on the current data (see the Results_combined entry in
+  §1 for the section-by-section content): v2/ε=0 Bayes oracle numbers, terra regime set,
+  pooled 5-practice humans n=40 with a two-wave/pool-revision sentence in §3's intro, updated
+  captions, all figure references pointed at the `_5practice` set. Old `_with_practice`
+  figures deleted from figs/. Two claims the rewrite RETIRED because the data no longer
+  supports them: (1) "outside() evidence is systematically weakest" (v2 made brackets exactly
+  decidable), (2) "best human beats every LLM regime" (best d' 2.35 < thinking's 2.83).
+  Two NEW headline claims added: humans are the only non-ideal observer with a refuted vs
+  unsupported FA drop (.25 vs .45; all three LLM regimes flat), and the human accuracy
+  profile is the flattest across groups while LLMs are spiky.
+  ⚠️ report/report.tex (LLM report) is still on gpt-4o/487 prose — NOT yet reconciled.
+
+**DONE (2026-07-28, v2 batch collected + POOLED 5-practice analysis):**
+- **20 new participants on the v2 pool** (first post-cutover batch; every session content-matched
+  100% against v2 — zero mixed). Also: pilot-2's straggler finished, so the v1 5-practice cohort
+  is now 20 (that 20th person is NOT yet bonused; will surface in make_bonus_list together with
+  the 20 new people).
+- **All 13 figures in `analysis_human_practice_2/` regenerated as the POOLED 5-practice cohort
+  (n=40, v1 pilot-2 + v2 batch), same filenames** (user's call: one 5-practice picture; the
+  `_pilot2` suffix is historical). Cross-pool joins made safe first: 1misc heatmap/distributions
+  now use trial-embedded foil_status (pool join only as fallback); plot_observer_scatter.py
+  groups human trials by embedded (probed, category, statement_correct) via new
+  `group_scores_direct` (no id join, fixes the 82 misgrouped v1 trials);
+  `dashboard/bayes_per_item.json` REBUILT on v2 (Bayes axis + dashboard data now v2; dashboard
+  index.html itself still needs assemble/build rerun).
+- **Pooled results (n=40):** A .73 B .66 C .70 D .64; individual d' mean 1.10, median 1.18,
+  range −0.67..2.35, 35/40 above 0. **Cohort split (v1 n=20 / v2 n=20):** A .72/.74, B .64/.68,
+  C .69/.71, D .62/.66, d' 0.88/1.04, crit −0.11/−0.08, FA refuted .26/.24 vs unsupported
+  .48/.42 — the practice effect fully replicates on the new pool. The one big cohort
+  difference is exactly where v2 changed semantics: **outside()/A accuracy .55 (v1) → .75
+  (v2)** (forced outside-first traces make the misconception visibly diagnostic), while
+  outside()-named FA barely moved (.38/.33). Keep reporting bracket cells per-cohort; pooled
+  bracket cells mix v1 permission traces with v2 preference traces.
+
 **DONE (2026-07-28, pilot 2 collected + analyzed):**
 - **19 new Prolific participants on the 5-practice-trial flow** (user launched ~20, one never
   finished; data pulled by the user). Cohort fingerprint: number of recorded practice items
@@ -797,8 +1135,13 @@ low priority now); prereg + results.tex/report.tex reconciliation onto v2 number
   P3/P4/P5 agree). If there is a practice v3, balance the keys (e.g. add a D-style disagree
   trial). Refutation contrast (H5 direction) present in both practice cohorts and larger in
   pilot 2 (.26 vs .50).
-- **Pilot-2 bonuses NOT yet paid** (run scripts/make_bonus_list.py when ready; ledger guards
-  the earlier cohorts).
+- **Bonuses PAID + LEDGERED 2026-07-28 for BOTH practice cohorts** (user paid on Prolific,
+  `--mark-paid` recorded): Jul-17 3-practice cohort 21 people $13.50 (had never been paid,
+  surfaced by the ledger) + pilot-2 19 people $13.33; $26.83 total, 40 ledger rows dated
+  2026-07-28 (ledger now 64 entries incl. the 24 pilot people from 07-14). Plain
+  make_bonus_list.py re-run emits zero unpaid. Recruitment pull tip: the interactive prompts
+  can be skipped with `node scripts/get_recruitment_data.mjs --type real --branch_name main
+  --filename data/private/real-main-recruitment.json`.
 
 **DONE (2026-07-27, pushed/deployed 2026-07-28):**
 - **Practice set grown 3 → 5 trials** (user request: humans still weak, want more familiarization).
@@ -890,20 +1233,22 @@ low priority now); prereg + results.tex/report.tex reconciliation onto v2 number
   outside_bracket_first"; L435 "green diagonal (weakest for outside_bracket_first)". All five rest
   on a graded present-side marginal that no longer exists. Decide the reframing first (logical
   oracle vs keep ε>0 as a secondary robustness analysis), then edit.
-- **Restate prereg H3.** The ideal-observer difficulty ordering is unchanged in rank but nearly
-  flat at ε=0 (0.78 → 0.85 across six rules, all 1.000 on single-misconception items), so H3 as
-  written tests a gradient that is now mostly stimulus design. Same for the "humans invert the
-  ideal observer" finding in §5.
+- ~~**Restate prereg H3.**~~ DONE 2026-08-07: the IO-difficulty hypothesis was dropped from the
+  prereg entirely (documented there as considered-and-not-registered) because at ε=0 on v2 the
+  observer is exactly 1.000 on every present item, so there is no gradient to correlate against.
+  The "humans invert the ideal observer" finding in §5 is retired for the same reason.
 - **Regenerate human figures + results.tex prose** once confirmatory human data arrives on the
   480 pool (the refuted contrast is now a real within-subject factor: 6 refuted + 6 unsupported
   foils per participant).
-- **Finalize the prereg decisions** (with the user, discussion-first): hypothesis set +
-  directions — the refutation contrast is now a natural H5 (FA lower on refuted than
-  unsupported foils; within-subject 6v6 per participant, pilot hint 0.29 vs 0.39), but see the
-  outside()-unfalsifiability caveat in §2 before fixing H5's wording: its "refuted" items are
-  diluted, not contradicted —
-  participant exclusion rule (candidate: below-chance binomial gate ≤7/24, plus
-  no-gate sensitivity), confirmatory N/power analysis, registry + timeline.
+- **Finalize the 7 remaining prereg `\decflag` decisions** (the hypothesis set, power analysis
+  and exclusion gate are now DONE and written up; see the 2026-08-07 entry). Still open and
+  needing the user: **confirmatory N + stopping rule** (candidates 60 / 120 / ~300, power table
+  in the tex), **H3 equivalence bounds** (candidate dz ±0.3), **confirm the below-chance gate**
+  (≤7/24; excludes 0 of the current 40), **trial RT upper cutoff** (candidate 120s),
+  **registration scope** (keep LLM/Bayes in a companion doc), **registry + timeline**,
+  **authorship**. Note the outside()-unfalsifiability caveat in §2 applies to v1 ONLY; under v2
+  refuted foils hit exactly 0 for all six rules, so the H1 refutation wording is safe as
+  written.
 - **Run the confirmatory cohort** after locking; C-positional questions especially need n.
 - **Three-way comparison** (human × Bayesian × LLM per misconception/category) — the headline.
   All three arms now have data; the framing questions (pooled vs median vs distribution for
@@ -918,9 +1263,212 @@ low priority now); prereg + results.tex/report.tex reconciliation onto v2 number
 
 ---
 
+## 7b. THE v3 "POSITION" POOL: decided AND built 2026-09-08 (branch `pool-v3`, not deployed)
+
+User decision: narrow the design. The current 4-category / 2-misconception pool is replaced by a
+**1-misconception-only design with the position of the error as a new manipulated factor**.
+STATUS: the pool is BUILT and VERIFIED on branch `pool-v3` (worktree `../bodmas-pool-v3`), and
+the ideal observer has been run over all of it. It is NOT deployed, NOT propagated to the other
+two `stimulus_pool.json` copies, and the form sampler cannot sample it yet. This section records
+the decisions, the feasibility evidence and the build so none of it has to be re-derived.
+
+### The new design
+- **6 misconceptions**, unchanged.
+- **1 misconception per trace.** Categories **C and D are dropped entirely**; no 2-misconception
+  trials exist any more. Only A (statement names the true misconception -> agree) and B (foil -> disagree).
+- **New factor: error position.** The misconception fires at **step 1** or **step 3**.
+- **Uniform 6 operators** (so every trace is exactly 6 steps). Chosen over 5 because
+  `outside_bracket_first` cannot easily be placed late (see below).
+- **Matched expressions**: the SAME expression supplies both the step-1 and the step-3 version,
+  so position is manipulated with expression structure held constant. Consequence: **position must
+  be between-participants** for a given expression; a participant must never see the same
+  expression twice.
+- **Refutation (`foil_status` refuted/unsupported) is retained** in B; it is the headline
+  three-way result and must survive the redesign.
+- **Ideal observer keeps all 22 hypotheses** (expert + 6 singletons + 15 pairs). The user first
+  chose 7, then reversed to 22 on 2026-09-08 after finding 7 below. Note the framing that made
+  this clear: the 22 are the OBSERVER'S HYPOTHESES, not stimulus types. Every v3 stimulus still
+  contains exactly one misconception and no pair hypothesis is ever true of any item; the pair
+  hypotheses exist so the observer can represent "the student might ALSO hold rule f", which is
+  the only way "this work gives no evidence against that belief" (= unsupported) can differ from
+  "the student had a chance to show that belief and demonstrably didn't" (= refuted).
+  Consequence: the task is NOT 6-way identification, participants are NOT told there is exactly
+  one misconception, and **the deferred `src/user/` instruction-text edit is dropped**; it was
+  only ever needed to justify the 7-profile space.
+
+Design grid: A = 6 misconceptions x 2 positions = 12 cells; B = 6 probed x 2 positions x
+2 foil_status = 24 cells; 36 cells total (~432 items at 12/cell).
+
+### Feasibility, measured 2026-09-08 (scripts were throwaway; numbers reproduced from
+### generator.py + traces.py at n_ops=6, readable + wrong-final-answer required)
+Matched pairs where the trace's ONLY expert-illegal move is at step 1 / step 3, per 2000
+random expressions: add_before_mul 65, sub_before_mul 112, sub_before_div 46,
+same_priority_rtl 45, add_before_div 30, **outside_bracket_first 13** (~1,850 expressions per
+12 pairs; ~10s of compute). All six are buildable.
+
+### Findings the build must respect
+1. **Step 5+ is unreachable and step 6 is forced.** With n ops every finished trace has exactly
+   n steps, and the final step has no choice left. Usable positions at 6 ops are 1-4.
+2. **`outside_bracket_first` resists late placement, for a semantic reason.** v2 defines it as a
+   *preference* (finish everything outside a bracket before entering it), so violating it is
+   structurally an early act. Step-3 yield per 600 expressions: 15 at 5 ops, 45 at 6 ops, 72 at
+   7 ops. This is what forced the move to 6 ops.
+3. **A misconception often fires more than once.** "Position" is only well defined if the trace
+   has **exactly one** expert-illegal move, so that must be an explicit generation constraint,
+   not an afterthought.
+4. **Do not measure "was this step an error?" with expert trace-edge membership.** Once the
+   learner diverges, every later expression is off the expert's trace tree, so edge membership
+   marks all subsequent steps as errors. The correct test is whether each move is expert-legal
+   *from its own start expression*: `dag_to_str(d) for d in _next_dags(build_dag(prev), [])`.
+5. **Arithmetic quality degrades sharply at 6 ops** and the current post-hoc filters do not catch
+   it. `_is_clean` rejects only 3+ decimal places. Observed leaks: negative intermediates
+   (`-6.75 + (8 x 12) x 2`), negative final answers (36% of candidates at 5 ops), negative
+   operands (`5 / 2 + -2 + 7`, 25%), displayed `5 / 0` (2%), runaway magnitudes
+   (`11 + 10 x 5 x 7 x 9 - 5 + 12` -> 3144), and degenerate repeated digits
+   (`3 + 3 x 3 x 3 x 9 x 9 - 9`, where `9-9=0` annihilates the product).
+   **Fix by constraining `generator.py`** (exact-dividing divisors, every intermediate a positive
+   integer in a bounded range, no long repeated-digit runs), not by filtering afterwards.
+6. **Position is NOT meaningfully entangled with refutation, MEASURED 2026-09-08, concern
+   retired.** The worry was that a step-3 item's two leading expert-consistent steps would refute
+   more foils. Over 360 foil observations: step-1 mean foil marginal 0.154 with 45% refuted,
+   step-3 mean 0.148 with 42% refuted. User decided not to control for it, and the data says
+   there is nothing to control for.
+
+7. **⚠️ A 7-profile observer destroys the refutation manipulation AND the Bayes arm.
+   MEASURED 2026-09-08.** Over the same 360 foil observations, the 7-profile posterior gave a
+   foil marginal of **exactly 0.000 in all 360 cases**, no gradient, so `foil_status` cannot be
+   assigned at all. Cause: a foil rule can only carry posterior mass via a profile containing it,
+   and with singletons only, the (foil,) profile is eliminated outright by any trace it cannot
+   generate. The 22-profile space on the SAME items behaves like the current pool: 43% refuted
+   (<0.15), 54% unsupported (0.15-0.35), 2% >0.35, min 0.000 max 0.706 mean 0.151 (v2 for
+   comparison: refuted 0.000, unsupported band 0.17-0.29 mean 0.21). An independent structural
+   check (is the shown trace still legal for a learner who ALSO holds the foil?) splits
+   38% contradicted / 62% never-contradicted, agreeing with the marginal bands.
+   Decisive consequence: under 7 profiles the ideal observer scores every A item at exactly
+   1.000 and every B item at exactly 0.000, so the Bayes arm becomes a CONSTANT and the
+   three-way comparison has nothing left to compare. Under 22 profiles its only informative
+   variance is the refutation gradient, which is the headline finding.
+   **Recommendation: keep 22 profiles.**
+
+### Built so far on branch `pool-v3` (worktree `../bodmas-pool-v3`), 2026-09-08, UNCOMMITTED
+- **`base-task/generator_v3.py`**, constrained generator. NEW FILE; `generator.py` is untouched
+  so every existing analysis script keeps working. Draws numbers constructively left-to-right
+  with one step of operator lookahead (an earlier repair-pass version was wrong: ordering
+  `a - b` re-broke the pair to its left and divisor forcing undid both). Guarantees at the
+  literal level, verified 0 violations in 5000 draws: subtraction operands ordered, division
+  exact with a PROPER divisor (no `÷ 1`, no `n ÷ n`), × operands <= 6, no run of more than 2
+  equal numbers. Also holds `validate_trace()` (non-negative integers only, nothing over 999,
+  no zero anywhere, zero is banned because `× 0` collapses the expression and `÷ 0` sits in the
+  work as an operation the student visibly never performs) and `error_steps()` (the correct
+  expert-legality test from finding 4).
+  Literal constraints are necessary but NOT sufficient: `5 - 3 × 6` is fine as literals and goes
+  negative once evaluated, and evaluation order is the learner's choice, so `validate_trace()` on
+  the displayed trace is the real gate.
+- **`base-task/find_pairs_v3.py`**, the matched-pair sampler (`find_matched_pairs`,
+  `pairs_for_expression`). Run directly for per-misconception yields.
+- Measured yields for 12 matched pairs each (seed 2026): sub_before_mul 20.3% hit rate (59
+  draws), add_before_mul 8.4% (143), same_priority_rtl 5.5% (218), sub_before_div 5.0% (242),
+  outside_bracket_first 1.1% (1,122), add_before_div 0.9% (1,295). All fast.
+- Diagnosticity verified: at epsilon=0, every generated item gives the TRUE rule marginal 1.000
+  with every rival at exactly 0.000, at both positions, under either hypothesis space.
+
+### Pool BUILT 2026-09-08 on branch `pool-v3` (worktree `../bodmas-pool-v3`), UNCOMMITTED
+- **`base-task/pool_v3.py`** -> writes `base-task/stimulus_pool_v3.json`. Seed 2026.
+  **432 items / 216 matched pairs / 216 distinct expressions**, every one of the 36 cells at
+  exactly 12 items: A = 6 rules x 2 positions (144 items), B = 6 probed rules x 2 statuses x
+  2 positions (288 items). Every trace is 6 steps with exactly ONE expert-illegal move.
+  An expression is used by exactly one matched pair (2 items), so no participant can meet the
+  same expression twice; that is also why position is between-participants for a given expression.
+  A foil is only used when its status is identical at BOTH positions (measured: 93% of foils
+  are, so the constraint is nearly free), which keeps a matched pair matched on refutation too.
+  Foil marginals came out min 0.000 / max 0.333 / mean 0.126. Numbers shown span 1..960, no
+  negatives, no decimals, no zero.
+  New item fields vs v2: **`error_position`** (1 or 3) and **`pair_id`** (links the two
+  positions of one expression). `category` is now only A or B. `which_target` is retained as
+  null for schema compatibility. `foil_status` / `io_foil_marginal` are unchanged in meaning.
+- **`base-task/verify_v3.py`**, independent verifier, run it after ANY regeneration
+  (`python3 verify_v3.py`, exits non-zero on failure). It re-derives everything from the model
+  rather than trusting the builder: re-generates the trace from the expression, re-tests every
+  step for expert legality, re-runs the 22-hypothesis observer, and re-checks statement wiring,
+  pair matching, expression uniqueness and cell balance. Currently ALL CHECKS PASSED.
+- Foil cells are spread across generating rules (never the foil itself), but unevenly: e.g. the
+  `sub_before_mul` foil cell draws 18 items from `sub_before_div` traces and only 2 from
+  `same_priority_rtl`. Not a confound for the position contrast (which is within-expression) but
+  worth evening out if the true-rule identity ever matters to an analysis.
+- ⚠️ Pre-existing, NOT a v3 regression: `outside_bracket_first` items read on the surface like
+  another rule. `4 + 8 / (4 - 1) -> 12 / (4 - 1)` is formally outside() because the model treats
+  "operand is a bracket" as a separate pattern table (3/4) from atom-atom (table 2), so
+  add_before_div does NOT license it and the observer separates them cleanly. A human reader may
+  not. This is the same outside() weakness already documented for the LLM arm.
+
+### Ideal observer RUN on the full v3 pool, 2026-09-08
+- **`base-task/bayes_v3.py`** -> writes **`base-task/bayes_per_item_v3.json`** (the v3
+  replacement for `analysis-Bayesian/b_item_marginals.json`). One row per item: probed marginal,
+  binary judgment, correctness, MAP hypothesis.
+- **Accuracy 432/432 = 100%** at epsilon=0, as expected of a logical oracle.
+  A items: probed marginal exactly 1.000 in all 144, at BOTH positions, for all six rules.
+  B items: P(agree) 0.000, marginal min 0.000 / mean 0.126 / max 0.333.
+- **Refutation separates cleanly and position does not disturb it:**
+  refuted pos1 mean 0.012 (max 0.143), refuted pos3 mean 0.001 (max 0.077);
+  unsupported pos1 mean 0.246 (min 0.167), unsupported pos3 mean 0.245 (min 0.167).
+  Refuted max 0.143 < unsupported min 0.167, so the 0.15 threshold sits in an empty gap and no
+  item is near the boundary.
+- ⚠️ **The refutation effect is entirely in the GRADED marginal, not the binary judgment.**
+  P(agree) is 0.000 for refuted AND unsupported, so a binary-collapsed Bayes arm shows no
+  refutation effect at all. Any figure comparing refutation across the three observers must use
+  the graded measure on the Bayes side.
+- ⚠️ **Do not use `map_profile` as the observer's response; use `probed_marginal`.** On 58/432
+  items (13%) the MAP names TWO rules for a one-misconception item, and the partner is
+  `outside_bracket_first` in all 58 (all of which contain a bracket). Cause: under v2, outside()
+  is the only rule that REMOVES options (it blocks bracket recursion while outside work remains),
+  so on a trace that never enters its bracket early, "also holds outside()" makes the observed
+  path more likely and the pair strictly outscores the true singleton (e.g. A000: 0.474 vs
+  0.105; none of the 58 are ties). Affects no item's correctness and no marginal.
+- Minor, in band: outside() as an *unsupported* foil sits a little high (mean 0.281, min 0.250)
+  next to e.g. add_before_mul (0.225, min 0.167), for the same reason.
+
+### Downstream work this triggers (nothing done yet)
+- Every 2-misconception figure dies: `analysis_human/plot_2misc_heatmap.py`,
+  `plot_2misc_heatmap_dots.py`, `llm_exp/make_llm_2misc_heatmap.py`,
+  `make_llm_2misc_heatmap_dots.py`, `analysis-Bayesian/plot_bayes_2misc_heatmap.py`, and
+  `Results_combined/results.tex` sections 4.1-4.3.
+- New figures needed: position effect per observer, and position x refutation.
+- Form sampling goes from a 2-factor to a 3-factor rotation (rule x position x foil_status) in
+  BOTH `src/user/utils/sampleForm.js` and its Python twin; the 500/500 seed-balance verification
+  must be redone.
+- `inference.py` needs a 7-profile mode; `misconception_difficulty.json` and
+  `analysis-Bayesian/b_item_marginals.json` must be regenerated under it.
+- All existing human data is on the old design. The 2-misconception results become historical;
+  they cannot be replicated under v3.
+- The v3 pool is NOT yet propagated to the other two copies (`llm_exp/data/`, `src/user/data/`)
+  and must not be until `sampleForm.js` can sample the new grid; the frontend reads
+  `stimulus_pool.json`, so dropping v3 in as-is would break form assembly.
+- `base-task/make_human_practice_items.py` / `make_practice_examples.py` still assume the old
+  categories and must be regenerated for v3.
+
+### Repo strategy (decided 2026-09-08)
+Build on a **side branch in a git worktree**, as was done for `outside-bracket-v2`. NOT a new
+repo: the deploy secrets, Firebase wiring and Prolific links are bound to this repo, the analysis
+scripts are what have to be re-run (not discarded), and `data/real-all-main-data.json` plus
+`data/private/bonus_paid.csv` are gitignored and would be silently lost by a copy. Keeping one
+history is also the only way to tell which pool generated which figure, the exact failure that
+cost 19 participants in the v1/v2 fork.
+⚠️ **`deploy.yml` deploys on push to ANY branch** except `feat-*`, `fix-*`, `refactor-*`,
+`test-*`, `chore-*`, `style-*`, `docs-*`, `ci-*`, but to a per-branch path
+(`/<owner>/<repo>/<branch>/`) with its own codename URL. So a branch named e.g. `pool-v3` gets a
+free staging deployment and does NOT touch main's live site.
+
+---
+
 ## 8. Commands cheat-sheet
 
 ```bash
+# v3 position pool (branch `pool-v3` ONLY, see 7b)
+cd base-task && python3 find_pairs_v3.py 12         # per-misconception matched-pair yields
+cd base-task && python3 pool_v3.py                  # build -> stimulus_pool_v3.json (432 items, ~1 min)
+cd base-task && python3 verify_v3.py                # independent checks; RUN AFTER ANY REBUILD, exits nonzero on failure
+cd base-task && python3 bayes_v3.py                 # ideal observer over the pool -> bayes_per_item_v3.json
+
 # Model / pool
 cd base-task && python3 stimulus_pool.py            # ABORTS without --rebuild-240 (would clobber the extended pool)
 cd base-task && python3 regenerate_C.py             # regenerate ONLY category C (preserves A/B/D)
