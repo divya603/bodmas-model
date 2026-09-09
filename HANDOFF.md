@@ -1460,12 +1460,63 @@ same_priority_rtl 45, add_before_div 30, **outside_bracket_first 13** (~1,850 ex
 - Minor, in band: outside() as an *unsupported* foil sits a little high (mean 0.281, min 0.250)
   next to e.g. add_before_mul (0.225, min 0.167), for the same reason.
 
+### Bayes FIGURES for v3, BUILT 2026-09-09 (branch `pool-v3`)
+The v2 `analysis-Bayesian/plot_bayes_1misc_*.py` scripts all read
+`base-task/stimulus_pool.json`, so they render the v2 480-item pool and say nothing about v3.
+Ported the three 1-misconception figure scripts; the 2-misconception one is NOT ported and dies
+with categories C/D. All new files sit alongside the v2 ones (which are untouched and still
+correct for v2) and carry a `_v3` infix in both script and output names.
+- **`analysis-Bayesian/bayes_v3_common.py`** shared loader + styling. Reads
+  `base-task/bayes_per_item_v3.json` (written by `bayes_v3.py`) rather than recomputing
+  posteriors, so a figure can never disagree with the recorded Bayes arm. Exits with a pointed
+  message if that file is missing.
+- **`plot_bayes_v3_1misc_heatmap.py`** -> `bayes_v3_1misc_heatmap.png` (2 panels, refuted vs
+  unsupported, shared category-A diagonal) + `bayes_v3_1misc_heatmap_combined.png`.
+  Positions are POOLED here on purpose: splitting the 30 off-diagonal cells by status AND
+  position leaves 26 of 120 cells empty and drops the median cell to 3 items, which draws
+  sparsity rather than signal. The script prints the position contrast to stdout instead.
+  All 30 off-diagonal cells are occupied, but unevenly (2 to 18 items) because foils are spread
+  across generating rules unevenly, the imbalance already flagged in "Pool BUILT".
+- **`plot_bayes_v3_1misc_marginals.py`** -> `bayes_v3_1misc_marginals.png`. Per-item dots, four
+  columns per rule (category x position). Carries the global picture: category A is a flat line
+  of dots at exactly 1.000 and category B never rises above 0.333, so the two are separated by
+  two thirds of the axis with the decision boundary sitting in empty space.
+- **`plot_bayes_v3_1misc_distributions.py`** -> `bayes_v3_1misc_dist_A.png` and `_dist_B.png`.
+  Same row structure as v2 (A by present; B by present / by named / refuted-only), with each
+  panel split into step-1 and step-3 curves.
+- WARNING: **these are NOT KDEs, unlike the v2 distribution script, and that is deliberate.** The
+  v3 B marginals take only 11 distinct values in [0, 0.333] and category A takes exactly one, so
+  the distributions are discrete; a Gaussian KDE would invent shape between the spikes and smear
+  the point mass, which is the oversmoothing the user rejected before. Each panel plots the exact
+  observed values as stems whose height is the proportion of that group on that value. The v2 KDE
+  stays correct for v2, where the marginals were genuinely continuous.
+- WARNING: **the category-B axis is zoomed to [0, 0.4]**, so the 0.5 decision boundary is
+  off-scale and the 0.15 refuted cut is drawn instead. On a [0, 1] axis the whole distribution
+  sits in the left third and the refuted/unsupported gap, the only structure in the figure, is
+  invisible. The marginals figure keeps the full [0, 1] axis, so the global picture is not lost.
+- **What the figures show.** (1) Category A is a point mass at 1.000 in all 12 rule x position
+  cells, so `dist_A` and the heatmap diagonal carry no information beyond "the observer is a
+  logical oracle"; keep them as the reference, do not read structure into them. (2) The
+  refuted/unsupported split is clean and bimodal on every foil: a spike at 0 plus a cluster in
+  0.167 to 0.333. (3) **Position does nothing to the observer**, refuted 0.012 (pos1) vs 0.001
+  (pos3) and unsupported 0.246 vs 0.245, so the two curves overlay in every panel. That is the
+  useful null: it makes Bayes the flat reference against which any human or LLM position effect
+  reads as an observer property, not a stimulus artifact.
+- Verified while building: the stored `foil_status` and the 0.15 cut disagree on 0 of 288 B items,
+  and every named foil has exactly 24 refuted items (12 per position).
+- Still MISSING and worth building next: a dedicated **position** figure per observer, and
+  **position x refutation**. These five are the v2 set ported, not new v3-specific views.
+
 ### Downstream work this triggers (nothing done yet)
 - Every 2-misconception figure dies: `analysis_human/plot_2misc_heatmap.py`,
   `plot_2misc_heatmap_dots.py`, `llm_exp/make_llm_2misc_heatmap.py`,
   `make_llm_2misc_heatmap_dots.py`, `analysis-Bayesian/plot_bayes_2misc_heatmap.py`, and
   `Results_combined/results.tex` sections 4.1-4.3.
-- New figures needed: position effect per observer, and position x refutation.
+- ~~The three Bayes 1-misconception figure scripts~~ DONE 2026-09-09, see "Bayes FIGURES
+  for v3" above. The human and LLM 1-misc counterparts (`analysis_human/plot_human_1misc_*.py`,
+  `llm_exp/make_llm_1misc_*.py`) are still v2-only and need the same port once v3 data exists.
+- New figures needed: position effect per observer, and position x refutation. Nothing built
+  yet; the v3 Bayes set above ports the v2 views and only reports the position null in passing.
 - Form sampling goes from a 2-factor to a 3-factor rotation (rule x position x foil_status) in
   BOTH `src/user/utils/sampleForm.js` and its Python twin; the 500/500 seed-balance verification
   must be redone.
@@ -1501,6 +1552,10 @@ cd base-task && python3 find_pairs_v3.py 12         # per-misconception matched-
 cd base-task && python3 pool_v3.py                  # build -> stimulus_pool_v3.json (432 items, ~1 min)
 cd base-task && python3 verify_v3.py                # independent checks; RUN AFTER ANY REBUILD, exits nonzero on failure
 cd base-task && python3 bayes_v3.py                 # ideal observer over the pool -> bayes_per_item_v3.json
+python3 analysis-Bayesian/plot_bayes_v3_1misc_heatmap.py        # present x named, refuted vs unsupported
+python3 analysis-Bayesian/plot_bayes_v3_1misc_marginals.py      # per-item dots, category x position
+python3 analysis-Bayesian/plot_bayes_v3_1misc_distributions.py  # dist_A (point mass) + dist_B (3 rows)
+# the three plot scripts read base-task/bayes_per_item_v3.json, so re-run bayes_v3.py after a rebuild
 
 # Model / pool
 cd base-task && python3 stimulus_pool.py            # ABORTS without --rebuild-240 (would clobber the extended pool)
