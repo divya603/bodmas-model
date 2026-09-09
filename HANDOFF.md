@@ -1265,6 +1265,39 @@ low priority now); prereg + results.tex/report.tex reconciliation onto v2 number
 
 ## 7b. THE v3 "POSITION" POOL: decided AND built 2026-09-08 (branch `pool-v3`, not deployed)
 
+> ### START HERE if you are picking up the v3 work cold
+>
+> **1. You must be on branch `pool-v3`.** The v3 pool does NOT exist on `main`. Either work in
+> the existing worktree `/Users/divya/Desktop/NYU/Darpa/bodmas-pool-v3` (already checked out to
+> `pool-v3`), or `git checkout pool-v3`. If `ls base-task/stimulus_pool_v3.json` fails, you are
+> on the wrong branch and everything below will confuse you.
+>
+> **2. Confirm the state before changing anything** (about a minute, no side effects):
+> ```bash
+> cd base-task && python3 verify_v3.py     # must print ALL CHECKS PASSED and exit 0
+> cd base-task && python3 bayes_v3.py      # must print 432/432 = 100.0%
+> ```
+> If either fails, something has been regenerated inconsistently. Rebuild with
+> `python3 pool_v3.py` (seed 2026 is fixed, so it reproduces byte-identically) and re-verify.
+>
+> **3. What is DONE:** the pool is built (432 items), verified, and the ideal observer has been
+> run over all of it. Read "The new design", then "Findings the build must respect", then
+> "Pool BUILT". The findings section is the important one: it records things that cost real time
+> to discover, including one measurement error to avoid repeating (finding 4).
+>
+> **4. What is NEXT:** the form sampler. `src/user/utils/sampleForm.js` and its Python twin must
+> go from a 2-factor rotation to 3-factor (rule x position x foil_status) over 24 trials, then
+> the 500-seed balance check gets redone. Everything else is listed under "Downstream work".
+>
+> **5. What NOT to do yet:**
+> - Do NOT copy `stimulus_pool_v3.json` over `llm_exp/data/stimulus_pool.json` or
+>   `src/user/data/stimulus_pool.json`. The frontend reads that filename and the sampler cannot
+>   handle the new grid, so it would break form assembly.
+> - Do NOT push `main`. Pushing `main` deploys the LIVE experiment. Pushing `pool-v3` is fine and
+>   deploys only to its own per-branch staging URL.
+> - Do NOT assume any figure, `results.tex` number, or the prereg reflects v3. They are all v1/v2.
+
+
 User decision: narrow the design. The current 4-category / 2-misconception pool is replaced by a
 **1-misconception-only design with the position of the error as a new manipulated factor**.
 STATUS: the pool is BUILT and VERIFIED on branch `pool-v3` (worktree `../bodmas-pool-v3`), and
