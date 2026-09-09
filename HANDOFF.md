@@ -203,6 +203,36 @@ marginal.
 - **`plot_bayes_1misc_heatmap.py`** -> `bayes_1misc_heatmap.png` (2 panels split by error position)
   and `bayes_1misc_heatmap_combined.png` (positions pooled). Rows = misconception PRESENT, columns =
   misconception NAMED. Both confirmed 0 empty cells.
+- **`plot_bayes_1misc_distributions.py`** -> three figures:
+  - `bayes_1misc_dist_A.png` category A. A POINT MASS at 1.000 in every panel. Kept as the
+    reference, but it carries no information beyond "the observer is a logical oracle".
+  - `bayes_1misc_dist_B.png` category B, two rows (grouped by PRESENT, then by NAMED), positions
+    overlaid. x zoomed to [0, 0.4] since no probed foil marginal exceeds 0.333.
+  - `bayes_1misc_profile.png` **the one worth looking at.** See below.
+
+### ⚠️ The statement is NOT an input to inference
+`posterior_over_profiles()` takes ONLY the trace. The named rule enters afterwards purely as an
+index: `marginal_rule_probability(post, named)` picks one entry out of a posterior that was already
+computed. So category A vs B is not a difference in the observer's computation, only a difference in
+WHICH of the six marginals gets read off. Every trace carries all six. This is why `dist_A` is empty
+of structure and why the profile figure exists.
+
+### ⚠️ FINDING (2026-09-09): the pool systematically excludes the hardest foils
+`bayes_1misc_profile.png` plots all six marginals per trace, and it reveals what the A/B figures
+structurally cannot. Over the 1200 (trace, absent rule) combinations in the pool:
+- **36 (3.0%) give an ABSENT rule a marginal above 0.35**, and **15 (1.2%) above 0.5**, meaning the
+  trace positively FAVOURS a rule the student does not hold. Max observed **0.871** (item B224:
+  trace contains add<div, but P(outside() | trace) = 0.871).
+- **All 15 of the over-0.5 cases are `outside_bracket_first`**, and 30 of the 36 over-0.35 cases.
+  Same root cause as everything else about that rule: it is the only one that REMOVES options, so a
+  trace that never enters its bracket early looks like positive evidence FOR it.
+- `pool.py: foil_options()` drops any foil whose marginal exceeds `UNSUPPORTED_MAX` (0.35) as "not a
+  clean foil". That is a deliberate choice, but its consequence is that **no category-B item ever
+  probes a foil the trace actually supports**, so the B items are systematically the easier foils
+  and the hardest cases are invisible in every figure except the profile one.
+Decide before running participants whether that exclusion is wanted. Keeping it means the disagree
+trials never include the genuinely tempting case; removing it means some B items have no defensible
+"correct" answer, since the ideal observer itself would agree with the statement.
 
 Notes for any figure added here:
 - Category A is a **point mass** at 1.000. Do not draw its "distribution"; there is none.
@@ -265,6 +295,7 @@ cd base-task && python3 find_pairs.py 12    # per-misconception matched-pair yie
 
 # Figures (from repo root)
 python3 analysis-Bayesian/plot_bayes_1misc_heatmap.py
+python3 analysis-Bayesian/plot_bayes_1misc_distributions.py   # dist_A, dist_B, and the profile figure
 
 # Experiment
 npm run dev                           # local
@@ -285,8 +316,11 @@ npm run getdata ; npm run getrecruitment   # pull participant + recruitment data
 3. **Practice items.** The generator was deleted with the old categories. A new one is needed that
    produces A and B practice trials for this design. Keep the answer keys balanced: the old set was
    4 agree / 1 disagree, which shifted participants' criterion toward agreeing.
-4. **More figures.** Only the heatmap exists. Natural next ones: the position effect, and per-item
-   marginals.
+4. **More figures.** The heatmap, the A/B distributions and the six-marginal profile exist. A
+   position figure is NOT worth building for the Bayes arm: the observer's answer is identical at
+   both positions in 116 of 120 matched pairs (all 60 A pairs, 56 of 60 B pairs), and the 4 that
+   differ do not agree on a direction. It becomes worth plotting once a human or LLM arm exists to
+   lay against that flat reference.
 5. **No human or LLM arm exists on this branch.** If either is wanted, it starts from scratch here.
 
 ---
